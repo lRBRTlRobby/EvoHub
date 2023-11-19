@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import ResponsiveAppBar from "../Components/header";
 import Container from "@mui/material/Container";
-import ActionAreaCard from "../Components/EventCard";
+import ActionAreaCard from '../Components/eventCard';
 
 export default function UserUpcomingEvents() {
   const containerRef = useRef(null);
@@ -108,7 +108,7 @@ export default function UserUpcomingEvents() {
   return (
     <>
       <ResponsiveAppBar />
-      <img src="img/popular.jpg" alt="logo" />
+      <img src="img/upcoming.jpg" alt="logo" />
       <Container maxWidth="lg">
         <div>
           <h2

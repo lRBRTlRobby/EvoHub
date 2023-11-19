@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import ResponsiveAppBar from "../Components/header";
 import Container from "@mui/material/Container";
-import ActionAreaCard from "../Components/EventCard";
+import ActionAreaCard from '../Components/eventCard';
 
 export default function UserPopularEvents() {
   const containerRef = useRef(null);
