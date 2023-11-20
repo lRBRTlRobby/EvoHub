@@ -10,7 +10,7 @@ export default function EventCategory(){
   return(
    <>
     <ResponsiveAppBar/> 
-    <img src="banner.png" alt="logo" className="banner"/>
+    <img src="EventBanner.png" alt="logo" className="banner"/>
     <EventCatBtn/>
   
       
