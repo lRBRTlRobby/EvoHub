@@ -131,7 +131,8 @@ function ResponsiveAppBar() {
 
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex'}}}>
             {pages.map((page) => (
-              <Link 
+              <Link
+              sx={{ textDecoration: 'none' }}
               to={getPagePath(page)}
               >
               <Button

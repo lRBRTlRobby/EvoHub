@@ -4,6 +4,7 @@ import "../User/UserEventCategory.css"
 import "../Components/EventCatBtn.css"
 import AboutUs from "../Components/AboutUs"
 import Container from '@mui/material/Container';
+import PersonPics from "../Components/People"
 
 export default function PersonProfile(){
 const Developers = [

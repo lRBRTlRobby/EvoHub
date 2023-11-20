@@ -65,7 +65,7 @@ export default function UserHomePage() {
                 <div>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                         <h2 style={{ fontFamily: "'DM Sans', sans-serif" }}>Browse Event Categories</h2>
-                        <Button sx={{ padding: "0" }}><h4>View All</h4></Button>
+                        <Link to = "/UserEventCategory"><Button sx={{ padding: "0" }}><h4>View All</h4></Button></Link>
                     </div>
                     <div style={{ display: "flex", overflowX: "hidden", maxWidth: "100%" }} ref={containerRef}>
                         <div style={{ display: "flex", justifyContent: "center" }}>

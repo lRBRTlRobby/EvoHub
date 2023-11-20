@@ -32,6 +32,22 @@ export default function UserUpcomingEvents() {
 
   const events = [
     {
+      date: "Sep 04",
+      title: "CIT-U Info Session 2022",
+      image: "/img/crab.jpg",
+      description: "Doggo and puppy",
+    },
+    {
+      date: "Sep 04",
+      title: "TechXperience 2023",
+      image: "/img/info.jpg",
+      description: "Doggo and puppy",
+    },
+    {
+      date: "Sep 04",
+      title: "Summer Camp",
+      image: "/img/sess.jpg",
+      description: "Doggo and puppy",
       date: "Aug",
       title: "CIT-U’s 77th Colors Day",
       image: "/img/irish.jpg",
