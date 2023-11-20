@@ -25,6 +25,7 @@ import UserAboutUs from './User/UserAboutUs';
 import UserUpcomingEvents from './User/UserUpcomingEvents';
 import UserPopularEvents from './User/UserPopularEvents';
 import PersonProfile from './User/UserAboutUs';
+import UserEventJoinRequest from './User/UserEventJoinRequest';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -32,7 +33,7 @@ root.render(
       <BrowserRouter>
 
       <Routes>
-      <Route path="/" element={<Event />} />
+      <Route path="/" element={<UserEventJoinRequest />} />
       <Route path="/EventRegister" element={<EventRegister />} />
       <Route path="/EventUser" element={<EventUser />} />
       <Route path="/EventOrganizer" element={<EventOrganizer />} />
