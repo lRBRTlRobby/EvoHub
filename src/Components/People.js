@@ -9,9 +9,13 @@ export default function PersonPics({image,name,motto}){
 
   return(
    <>
-    <img src={image} alt="logo" className="banner"/>
+  <div style={{ textAlign:"center",margin:"50px" }}>
+    <img src={image} alt="logo" style={{ width: "200px" }} />
     <h3>{name}</h3>
-    <h4>{motto}</h4>
+    <p>{motto}</p>
+</div>
+
+
     
   
       
