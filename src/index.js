@@ -41,6 +41,7 @@ root.render(
       <Route path="/UserAboutUs" element={<UserAboutUs/>} />
       <Route path="/UserUpcomingEvents" element={<UserUpcomingEvents />} />
       <Route path="/UserPopularEvents" element={<UserPopularEvents />} />
+      <Route path="/UserEventCategory" element={<EventCategory/>} />
       </Routes>
 
 {/* <JoinedEvents /> */}
