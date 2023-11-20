@@ -3,7 +3,7 @@ import ResponsiveAppBar from './Components/header'
 import EventCatBtn from './Components/EventCatBtn'
 
 
-export default function EventCategory() {
+export default function UsedEventCategory() {
   return (
     <div style={{margin: 0, padding: 0}}>
         <ResponsiveAppBar />

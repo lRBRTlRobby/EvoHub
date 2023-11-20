@@ -115,7 +115,7 @@ export default function UserHomePage() {
             <CampusVenues />
             <div style={{ marginBottom: "5rem" }}></div>
            
-            <AboutUs />
+            {/* <AboutUs /> */}
             <div style={{ marginBottom: "5rem" }}></div>
         </div>
     )

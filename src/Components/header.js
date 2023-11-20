@@ -22,8 +22,10 @@ function getPagePath(page) {
   switch (page) {
     case 'Home':
       return '/EventUserHome';
+    case 'Event Categories':
+      return '/UserEventCategory';
     case 'Upcoming Events':
-      return '/UserUpcomingEvents';
+        return '/UserUpcomingEvents';
     case 'Joined Events':
       return '/UserJoinedEvents';
     case 'About Us':
