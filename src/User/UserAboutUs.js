@@ -11,7 +11,7 @@ export default function UserAboutUs(){
   return(
    <>
     <ResponsiveAppBar/>
-    <img src="img/aboutus_banner.png" alt="logo" className="banner"/>
+    <img src="./img/aboutus_banner.png" alt="logo" className="banner"/>
     <br/>
     <br/>
     <br/>

@@ -34,19 +34,19 @@ export default function UserPopularEvents() {
     {
       date: "Sep 04",
       title: "CIT-U Info Session 2022",
-      image: "/img/irish.jpg",
+      image: "/img/crab.jpg",
       description: "Mr. Bean squared",
     },
     {
       date: "Sep 04",
       title: "TechXperience 2023",
-      image: "/img/kaye.jpg",
+      image: "/img/info.jpg",
       description: "Doggo and puppy",
     },
     {
       date: "Sep 04",
       title: "Summer Camp",
-      image: "/img/robert.jpg",
+      image: "/img/sess.jpg",
       description: "Doggo and puppy",
     },
     {
