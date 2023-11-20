@@ -1,9 +1,9 @@
 import React from "react"
-import ResponsiveAppBar from "../../Components/header"
-import EventCatBtn from "../../Components/EventCatBtn"
-import "../EventCategory/eventCategory.css"
-import "../../Components/EventCatBtn.css"
-import AboutUs from "../../Components/AboutUs"
+import ResponsiveAppBar from "../Components/header"
+import EventCatBtn from "../Components/EventCatBtn"
+// import "../EventCategory/eventCategory.css"
+import "../Components/EventCatBtn.css"
+import AboutUs from "../Components/AboutUs"
 import Container from '@mui/material/Container';
 
 export default function UserAboutUs(){

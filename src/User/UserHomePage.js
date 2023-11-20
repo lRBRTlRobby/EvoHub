@@ -9,6 +9,7 @@ import OrganizerReq from '../Components/OrganizerReq';
 import CampusVenues from '../Components/CampusVenues';
 import AboutUs from '../Components/AboutUs';
 import Upcoming from '../Upcoming';
+import { Link } from 'react-router-dom';
 
 
 export default function UserHomePage() {
@@ -88,7 +89,7 @@ export default function UserHomePage() {
                 <div>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                         <h2 style={{ fontFamily: "'DM Sans', sans-serif" }}>Popular Events</h2>
-                        <Button sx={{ padding: "0" }}><h4>View All</h4></Button>
+                        <Link to = "/UserPopularEvents"><Button sx={{ padding: "0" }}><h4>View All</h4></Button></Link>
                     </div>
                     <div style={{ marginBottom: "5rem" }}>
                         <div style={{ display: "flex", overflowX: "hidden", maxWidth: "100%" }} ref={containerRef1}>

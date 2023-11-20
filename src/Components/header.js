@@ -13,9 +13,39 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import  './header.css';
+import { Link } from 'react-router-dom';
 
-const pages = ['Home', 'menu', 'menu','menu', 'menu','Create Events', 'Upcoming Events'];
+const pages = ['Home', 'Event Categories','Upcoming Events', 'Joined Events', 'About Us'];
 const settings = ['Profile','Logout'];
+
+function getPagePath(page) {
+  switch (page) {
+    case 'Home':
+      return '/EventUserHome';
+    case 'Upcoming Events':
+      return '/UserUpcomingEvents';
+    case 'Joined Events':
+      return '/UserJoinedEvents';
+    case 'About Us':
+      return '/UserAboutUs';
+    // Add more cases for additional pages
+    default:
+      return `/${page.replace(/\s+/g, '-')}`;
+  }
+}
+
+function getSettingPath(settings) {
+  switch (settings) {
+    case 'Profile':
+      return '/EventUserHome';
+    case 'Logout':
+      return '/';
+    // Add more cases for additional pages
+    default:
+      return `/${settings.replace(/\s+/g, '-')}`;
+  }
+}
+
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -96,19 +126,24 @@ function ResponsiveAppBar() {
             </Menu>
           </Box>
           
-      
+
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex'}}}>
             {pages.map((page) => (
+              <Link 
+              to={getPagePath(page)}
+              >
               <Button
-                key={page}
+              key={page}
                 onClick={handleCloseNavMenu}
                 // Adjust the 'left here'
-                sx={{ my: 2, color: 'black', display: 'flex',left: "0rem",fontSize:'small', flexDirection:'row-reverse'}}
+                sx={{ my: 2, color: 'black', display: 'flex', left: "0rem",fontSize:'small', flexDirection:'row-reverse'}}
               >
                 {page}
               </Button>
+              </Link>
             ))}
           </Box>
+
 
           <Box sx={{ flexGrow: 0,marginRight:'4em' }}>
             <Tooltip title="Open settings">
@@ -133,9 +168,13 @@ function ResponsiveAppBar() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
+                <Link 
+                to={getSettingPath(setting)}
+                >
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
+                </Link>
               ))}
             </Menu>
           </Box>

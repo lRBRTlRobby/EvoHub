@@ -21,6 +21,9 @@ import OrganizerReq from './Components/OrganizerReq';
 import LandingPage from './Components/LandingPage';
 import BackButton from './BackButton';
 import UserHomePage from './User/UserHomePage';
+import UserAboutUs from './User/UserAboutUs';
+import UserUpcomingEvents from './User/UserUpcomingEvents';
+import UserPopularEvents from './User/UserPopularEvents';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -34,9 +37,13 @@ root.render(
       <Route path="/EventOrganizer" element={<EventOrganizer />} />
       <Route path="/EventAdmin" element={<EventAdmin />} />
       <Route path="/EventUserHome" element={<UserHomePage/>} />
+      <Route path="/UserJoinedEvents" element={<JoinedEvents />} />
+      <Route path="/UserAboutUs" element={<UserAboutUs/>} />
+      <Route path="/UserUpcomingEvents" element={<UserUpcomingEvents />} />
+      <Route path="/UserPopularEvents" element={<UserPopularEvents />} />
       </Routes>
 
-
+{/* <JoinedEvents /> */}
 {/* <ResponsiveAppBar /> */}
 {/* <ResponsiveAppBar /> */}
 {/* <EventCategory /> */}
