@@ -49,8 +49,6 @@ const Developers = [
     <br/>
     <Container maxWidth="lg">
       <AboutUs/>
-<<<<<<< HEAD
-=======
       <div>
         {Developers.map((developer, index) => (
                     <div
@@ -70,7 +68,6 @@ const Developers = [
                   ))}
         
       </div>
->>>>>>> e58984aa8f38f9f6d27c6eba44e59b270c0e51b2
     </Container>
     
   
