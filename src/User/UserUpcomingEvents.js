@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import ResponsiveAppBar from "../Components/header";
 import Container from "@mui/material/Container";
-import ActionAreaCard from '../Components/eventCard';
+import ActionAreaCard from "../Components/eventCard";
 
 export default function UserUpcomingEvents() {
   const containerRef = useRef(null);
@@ -32,46 +32,48 @@ export default function UserUpcomingEvents() {
 
   const events = [
     {
-      date: "Sep 04",
-      title: "CIT-U Info Session 2022",
+      date: "Aug",
+      title: "CIT-U’s 77th Colors Day",
       image: "/img/irish.jpg",
-      description: "Doggo and puppy",
+      description:
+        "Celebrate our school’s traditions and spirit with fun activities.",
     },
     {
-      date: "Sep 04",
-      title: "TechXperience 2023",
+      date: "Dec",
+      title: "School Acquaintance Party",
       image: "/img/kaye.jpg",
-      description: "Doggo and puppy",
+      description: "Join us to an evening of laughter, games, and camaraderie.",
     },
     {
-      date: "Sep 04",
-      title: "Summer Camp",
+      date: "Oct",
+      title: "Saturday Playnites: Clash of Crabs",
       image: "/img/robert.jpg",
-      description: "Doggo and puppy",
+      description: "A virtual post-midterm steam-blowing gathering ",
     },
     {
-      date: "Sep 04",
-      title: "School Night",
+      date: "Sep",
+      title: "Night at the Nexus",
       image: "/img/engineering.png",
-      description: "Doggo and puppy",
+      description:
+        "Join us for an unforgettable School night and create lasting memories.",
     },
     {
-      date: "Sep 04",
-      title: "Hello World",
+      date: "Sep",
+      title: "Saturday Playnites",
       image: "/img/Joined.jpg",
-      description: "Doggo and puppy",
+      description: "Family-Friendly Weekend Entertainment and Relaxation",
     },
     {
-      date: "Sep 04",
-      title: "Goodbye World",
+      date: "Oct",
+      title: "Science Fair Showcase",
       image: "/img/ccs.png",
-      description: "Doggo and puppy",
+      description: "Unveiling Tomorrow's Innovators Today",
     },
     {
-      date: "Sep 04",
-      title: "CIT-U Info Session 2022",
+      date: "Nov",
+      title: "School Career Day 2023",
       image: "/img/doggo.jpg",
-      description: "Doggo and puppy",
+      description: "Exploring diverse career paths by inspiring students. ",
     },
     {
       date: "Sep 04",
