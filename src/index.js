@@ -24,6 +24,7 @@ import UserHomePage from './User/UserHomePage';
 import UserAboutUs from './User/UserAboutUs';
 import UserUpcomingEvents from './User/UserUpcomingEvents';
 import UserPopularEvents from './User/UserPopularEvents';
+import PersonProfile from './User/UserAboutUs';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -38,7 +39,7 @@ root.render(
       <Route path="/EventAdmin" element={<EventAdmin />} />
       <Route path="/EventUserHome" element={<UserHomePage/>} />
       <Route path="/UserJoinedEvents" element={<JoinedEvents />} />
-      <Route path="/UserAboutUs" element={<UserAboutUs/>} />
+      <Route path="/UserAboutUs" element={<PersonProfile/>} />
       <Route path="/UserUpcomingEvents" element={<UserUpcomingEvents />} />
       <Route path="/UserPopularEvents" element={<UserPopularEvents />} />
       <Route path="/UserEventCategory" element={<EventCategory/>} />

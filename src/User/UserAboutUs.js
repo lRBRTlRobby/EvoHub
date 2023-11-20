@@ -9,13 +9,13 @@ import PersonPics from "../Components/People"
 export default function PersonProfile(){
 const Developers = [
   {
-    image : "Profile-3.png",
+    image : "./img/Profile-2.png",
     name : "Robert Amaba",
     motto : "Go with the flow"
 
   },
   {
-    image : "Profile-3.png",
+    image : "/img/Profile-2.png",
     name : "Robert Amaba",
     motto : "Go with the flow"
 
@@ -48,7 +48,6 @@ const Developers = [
         
       </div>
     </Container>
-    
   
       
   </>
