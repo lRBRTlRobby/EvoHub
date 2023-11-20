@@ -1,11 +1,9 @@
 import React from "react"
 import ResponsiveAppBar from "../Components/header"
-import EventCatBtn from "../../Components/EventCatBtn"
-import "../EventCategory/UserEventCategory.css"
+import "../User/UserEventCategory.css"
 import "../Components/EventCatBtn.css"
-import AboutUs from "../../Components/AboutUs"
+import AboutUs from "../Components/AboutUs"
 import Container from '@mui/material/Container';
-import PersonPics from "../../Components/People"
 
 export default function PersonPics(){
 const Developers = [
@@ -36,8 +34,26 @@ const Developers = [
     <br/>
     <br/>
     <Container maxWidth="lg">
-      <People/>
       <AboutUs/>
+      <div>
+        {Developers.map((developer, index) => (
+                    <div
+                      key={index}
+                      style={{
+                        // flex: "0 0 25%",
+                        boxSizing: "border-box",
+                        padding: ".5rem",
+                      }}
+                    >
+                      <PersonPics
+                        image={developer.image}
+                        name={developer.name}
+                        motto={developer.motto}
+                      />
+                    </div>
+                  ))}
+        
+      </div>
     </Container>
     
   
