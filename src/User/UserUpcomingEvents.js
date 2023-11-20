@@ -32,7 +32,6 @@ export default function UserUpcomingEvents() {
 
   const events = [
     {
-<<<<<<< HEAD
       date: "Sep 04",
       title: "CIT-U Info Session 2022",
       image: "/img/crab.jpg",
@@ -49,7 +48,6 @@ export default function UserUpcomingEvents() {
       title: "Summer Camp",
       image: "/img/sess.jpg",
       description: "Doggo and puppy",
-=======
       date: "Aug",
       title: "CIT-U’s 77th Colors Day",
       image: "/img/irish.jpg",
@@ -67,7 +65,6 @@ export default function UserUpcomingEvents() {
       title: "Saturday Playnites: Clash of Crabs",
       image: "/img/robert.jpg",
       description: "A virtual post-midterm steam-blowing gathering ",
->>>>>>> e58984aa8f38f9f6d27c6eba44e59b270c0e51b2
     },
     {
       date: "Sep",

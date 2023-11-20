@@ -4,8 +4,9 @@ import "../User/UserEventCategory.css"
 import "../Components/EventCatBtn.css"
 import AboutUs from "../Components/AboutUs"
 import Container from '@mui/material/Container';
+import PersonPics from "../Components/People"
 
-export default function PersonPics(){
+export default function PersonProfile(){
 const Developers = [
   {
     image : "Profile-3.png",
@@ -36,16 +37,14 @@ const Developers = [
     <Container maxWidth="lg">
       <AboutUs/>
       <div>
-         {/* {Developers.map((developer, index) => (
-                    <div>
+         {Developers.map((developer, index) => (
                       <PersonPics
-                        
+                      key={index}
                         image={developer.image}
                         name={developer.name}
                         motto={developer.motto}
                       />
-                    </div>
-                  ))}  */}
+                  ))} 
         
       </div>
     </Container>
