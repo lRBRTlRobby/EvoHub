@@ -13,7 +13,7 @@ import ResponsiveAppBar from './Components/header';
 import EventOrganizer from './Login/OrganizerLogin';
 import EventAdmin from './Login/AdminLogin';
 import ActionAreaCard from './Components/eventCard';
-import EventCategory from './EventCategory';
+import EventCategory from './User/UserEventCategory';
 import Upcoming from './Upcoming';
 import Popular from './Popular';
 import JoinedEvents from './User/UserJoinedEvents';

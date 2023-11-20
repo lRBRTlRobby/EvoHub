@@ -1,8 +1,8 @@
 import React from "react"
-import ResponsiveAppBar from "../../Components/header"
-import EventCatBtn from "../../Components/EventCatBtn"
-import "../EventCategory/UserEventCategory.css"
-import "../../Components/EventCatBtn.css"
+import ResponsiveAppBar from "../Components/header"
+import EventCatBtn from "../Components/EventCatBtn"
+// import "../EventCategory/UserEventCategory.css"
+import "../Components/EventCatBtn.css"
 import Container from '@mui/material/Container';
 
 export default function EventCategory(){
@@ -10,7 +10,7 @@ export default function EventCategory(){
   return(
    <>
     <ResponsiveAppBar/> 
-    <img src="EventBanner.png" alt="logo" className="banner"/>
+    <img src="./img/EventBanner.png" alt="logo" className="banner"/>
     <EventCatBtn/>
   
       
