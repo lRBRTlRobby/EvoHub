@@ -37,14 +37,15 @@ const Developers = [
     <Container maxWidth="lg">
       <AboutUs/>
       <div>
-         {Developers.map((developer, index) => (
+         {/* {Developers.map((developer, index) => (
+                    <div>
                       <PersonPics
-                      key={index}
-                        image={developer.image}
-                        name={developer.name}
-                        motto={developer.motto}
+                          image={developer.image}
+                          name={developer.name}
+                          motto={developer.motto}
                       />
-                  ))} 
+                    </div>
+                  ))}  */}
         
       </div>
     </Container>
