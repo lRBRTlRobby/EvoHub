@@ -34,7 +34,7 @@ root.render(
       <BrowserRouter>
 
       <Routes>
-      <Route path="/" element={<UserEventJoinRequest />} />
+      <Route path="/" element={<Event />} />
       <Route path="/EventRegister" element={<EventRegister />} />
       <Route path="/EventUser" element={<EventUser />} />
       <Route path="/EventOrganizer" element={<EventOrganizer />} />
