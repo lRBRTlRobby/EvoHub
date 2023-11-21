@@ -45,7 +45,6 @@ const Developers = [
       <br/>
       <br/>
       <h2 style={{display:"flex", justifyContent:"center"}}>Developers</h2>
-      <h2  style={{display:"flex", justifyContent:"center"}}>Developers</h2>
       <div style={{display:"flex", justifyContent:"center"}}>
           {Developers.map((developer, index) => (
                     <div>
