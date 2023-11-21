@@ -25,6 +25,8 @@ import UserAboutUs from './User/UserAboutUs';
 import UserUpcomingEvents from './User/UserUpcomingEvents';
 import UserPopularEvents from './User/UserPopularEvents';
 import PersonProfile from './User/UserAboutUs';
+import UserEventJoinRequest from './User/UserEventJoinRequest';
+import Footer from './Components/footer';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -43,8 +45,10 @@ root.render(
       <Route path="/UserUpcomingEvents" element={<UserUpcomingEvents />} />
       <Route path="/UserPopularEvents" element={<UserPopularEvents />} />
       <Route path="/UserEventCategory" element={<EventCategory/>} />
+      <Route path="/UserEventJoinRequest" element={<UserEventJoinRequest />} />
       </Routes>
 
+{/* <Footer /> */}
 {/* <JoinedEvents /> */}
 {/* <ResponsiveAppBar /> */}
 {/* <ResponsiveAppBar /> */}

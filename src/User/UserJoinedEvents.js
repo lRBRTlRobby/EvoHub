@@ -3,6 +3,7 @@ import ResponsiveAppBar from '../Components/header'
 import Container from '@mui/material/Container';
 import { Button, TextField } from '@mui/material';
 import ActionAreaCard from '../Components/eventCard';
+import Footer from '../Components/footer';
 
 export default function JoinedEvents() {
     const containerRef = useRef(null);
@@ -114,6 +115,7 @@ export default function JoinedEvents() {
                 </div>
 
             </Container>
+            <Footer />
         </div>
     )
 }
