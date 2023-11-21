@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import ResponsiveAppBar from "../Components/header";
 import Container from "@mui/material/Container";
 import ActionAreaCard from "../Components/eventCard";
+import Footer from "../Components/footer";
 
 export default function UserUpcomingEvents() {
   const containerRef = useRef(null);
@@ -166,6 +167,7 @@ export default function UserUpcomingEvents() {
           </div>
         </div>
       </Container>
+      <Footer />
     </>
   );
 }

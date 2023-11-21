@@ -10,6 +10,8 @@ import CampusVenues from '../Components/CampusVenues';
 import AboutUs from '../Components/AboutUs';
 import Upcoming from '../Upcoming';
 import { Link } from 'react-router-dom';
+import Footer from '../Components/footer';
+import PersonProfile from './UserAboutUs';
 
 
 export default function UserHomePage() {
@@ -116,7 +118,9 @@ export default function UserHomePage() {
             <div style={{ marginBottom: "5rem" }}></div>
            
             {/* <AboutUs /> */}
+            <PersonProfile />
             <div style={{ marginBottom: "5rem" }}></div>
+            <Footer />
         </div>
     )
 }
