@@ -125,7 +125,7 @@ export default function UserPopularEvents() {
   return (
     <>
       <ResponsiveAppBar />
-      <img src="img/popular.jpg" alt="logo" />
+      <img src="img/popular.jpg" alt="logo"  style={{width:"100%"}} />
       <Container maxWidth="lg">
         <div>
           <h2
