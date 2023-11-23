@@ -88,7 +88,7 @@ export default function UserHomePage() {
                     <div style={{ display: "flex", overflowX: "hidden", maxWidth: "100%" }} ref={containerRef}>
                         <div style={{ display: "flex", justifyContent: "center" }}>
                             <Button><img className='catbtn' src="/img/Engineering.png" /></Button>
-                            <Button><img className='catbtn' src="/img/ccs.png" /></Button>
+                            <Link to ='/EventCategoryIdea'><Button><img className='catbtn' src="/img/ccs.png" /></Button></Link>
                             <Button><img className='catbtn' src="/img/arts.png" /></Button>
                             <Button><img className='catbtn' src="/img/account.png" /></Button>
                             <Button><img className='catbtn' src="/img/nursing.png" /></Button>
