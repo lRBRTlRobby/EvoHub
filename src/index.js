@@ -29,6 +29,7 @@ import UserEventJoinRequest from './User/UserEventJoinRequest';
 import Footer from './Components/footer';
 import { UserProvider } from './Components/UserProvider';
 import UserProfile from './User/UserProfile';
+import UserProfileEdit from './User/UserProfileEdit';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -50,6 +51,7 @@ root.render(
       <Route path="/UserEventCategory" element={<EventCategory/>} />
       <Route path="/UserEventJoinRequest" element={<UserEventJoinRequest />} />
       <Route path="/UserProfile" element={<UserProfile />} />
+      <Route path="/EditUserProfile" element={<UserProfileEdit />} />
       </Routes>
       </UserProvider>
 
