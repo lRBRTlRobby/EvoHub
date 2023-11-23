@@ -14,7 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import  './header.css';
 import { Link } from 'react-router-dom';
-import { useUser } from '../Components/UserProvider';
+import { useUser } from './UserProvider';
 
 const pages = ['Home', 'Event Categories','Upcoming Events', 'Joined Events'];
 const settings = ['Profile','Logout'];
