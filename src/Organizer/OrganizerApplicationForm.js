@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import ResponsiveAppBar from "../Components/header";
 import Container from "@mui/material/Container";
-import "./OrganizerApplicationForm.css"; // Make sure to adjust the import path based on your project structure
+import axios from "axios";
+import "./OrganizerApplicationForm.css";
+import ButtonM from "../Components/ButtonM";
+import Footer from "../Components/Footer";
 
 const ApplicationForm = () => {
   const [formData, setFormData] = useState({
@@ -19,24 +22,55 @@ const ApplicationForm = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  const submitForm = async () => {
+    try {
+      // Replace the following with actual user and organizer IDs
+      const userId = "";
+      const organizerId = "";
+
+      // Make a POST request to the organizer request endpoint
+      const response = await axios.post(
+        "http://localhost:8080/ManageOrganizerRequest",
+        {
+          userId,
+          organizerId,
+          status: "pending", // You can set the initial status here
+          schoolEmailAddress: formData.email,
+          role: formData.role,
+          department: formData.department,
+          organization: formData.organizer,
+        }
+      );
+
+      // Log the server response (for demonstration purposes)
+      console.log("Successfully Submitted", response.data);
+
+      // You can perform additional actions based on the server response
+      // For example, show a success message or redirect the user
+    } catch (error) {
+      // Handle errors
+      console.error("Error submitting form:", error);
+      // You can also show an error message to the user
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // You can add your form submission logic here
-    // For example, you can send the formData to a server
-
-    // Log the form data to the console (for demonstration purposes)
-    console.log(formData);
+    // Call the function to submit the form data
+    submitForm();
   };
 
   return (
     <>
       <ResponsiveAppBar />
-      <img src="img/organizerrequest.jpg" alt="logo" />
+      <img
+        src="img/organizerrequest.jpg"
+        alt="logo"
+        style={{ width: "100%" }}
+      />
       <Container maxWidth="lg">
         <div className="centered-form">
-          <h2
-            style={{ fontFamily: "'DM Sans', sans-serif", marginTop: "5rem" }}
-          >
+          <h2 style={{ fontFamily: "'DM Sans', sans-serif" }}>
             Application Form
           </h2>
           <div className="centered-form">
@@ -45,7 +79,7 @@ const ApplicationForm = () => {
               <div className="form-group">
                 <h5
                   style={{
-                    fontFamily: "DM Sans",
+                    fontFamily: "DM Sans, sans-serif",
                     marginTop: "5rem",
                     color: "#666666",
                   }}
@@ -60,6 +94,7 @@ const ApplicationForm = () => {
                   onChange={handleChange}
                   placeholder="Enter First Name"
                   style={{
+                    fontFamily: "DM Sans, sans-serif",
                     width: "100%",
                     height: "50%",
                     borderRadius: "45px",
@@ -73,7 +108,7 @@ const ApplicationForm = () => {
               <div className="form-group">
                 <h5
                   style={{
-                    fontFamily: "DM Sans",
+                    fontFamily: "DM Sans, sans-serif",
                     marginTop: "1rem",
                     color: "#666666",
                   }}
@@ -87,6 +122,7 @@ const ApplicationForm = () => {
                   value={formData.middleName}
                   placeholder="Enter Middle Name"
                   style={{
+                    fontFamily: "DM Sans, sans-serif",
                     width: "100%",
                     height: "50%",
                     borderRadius: "45px",
@@ -100,7 +136,7 @@ const ApplicationForm = () => {
               <div className="form-group">
                 <h5
                   style={{
-                    fontFamily: "DM Sans",
+                    fontFamily: "DM Sans, sans-serif",
                     marginTop: "1rem",
                     color: "#666666",
                   }}
@@ -115,6 +151,7 @@ const ApplicationForm = () => {
                   onChange={handleChange}
                   placeholder="Enter Last Name"
                   style={{
+                    fontFamily: "DM Sans, sans-serif",
                     width: "100%",
                     height: "50%",
                     borderRadius: "45px",
@@ -128,7 +165,7 @@ const ApplicationForm = () => {
               <div className="form-group">
                 <h5
                   style={{
-                    fontFamily: "DM Sans",
+                    fontFamily: "DM Sans, sans-serif",
                     marginTop: "1rem",
                     color: "#666666",
                   }}
@@ -143,6 +180,7 @@ const ApplicationForm = () => {
                   onChange={handleChange}
                   placeholder="Enter School Email Address"
                   style={{
+                    fontFamily: "DM Sans, sans-serif",
                     width: "600px",
                     height: "45px",
                     borderRadius: "45px",
@@ -154,7 +192,15 @@ const ApplicationForm = () => {
 
               {/* Role */}
               <div className="form-group">
-                <p>Please select your role:</p>
+                <h5
+                  style={{
+                    fontFamily: "DM Sans, sans-serif",
+                    marginTop: "1rem",
+                    color: "#666666",
+                  }}
+                >
+                  Please Select Role:
+                </h5>
                 <div>
                   <input
                     type="radio"
@@ -165,7 +211,12 @@ const ApplicationForm = () => {
                     onChange={handleChange}
                     required
                   />
-                  <label htmlFor="faculty">Faculty</label>
+                  <label
+                    htmlFor="faculty"
+                    style={{ fontFamily: "DM Sans, sans-serif" }}
+                  >
+                    Faculty
+                  </label>
                 </div>
 
                 <div>
@@ -178,7 +229,12 @@ const ApplicationForm = () => {
                     onChange={handleChange}
                     required
                   />
-                  <label htmlFor="student">Student</label>
+                  <label
+                    htmlFor="student"
+                    style={{ fontFamily: "DM Sans, sans-serif" }}
+                  >
+                    Student
+                  </label>
                 </div>
 
                 <div>
@@ -191,13 +247,21 @@ const ApplicationForm = () => {
                     onChange={handleChange}
                     required
                   />
-                  <label htmlFor="staff">Staff</label>
+                  <label
+                    htmlFor="staff"
+                    style={{ fontFamily: "DM Sans, sans-serif" }}
+                  >
+                    Staff
+                  </label>
                 </div>
               </div>
 
               {/* Your Department */}
               <div className="form-group" style={{ marginTop: "2rem" }}>
-                <label htmlFor="yourdepartment" style={{ width: "100%" }}>
+                <label
+                  htmlFor="yourdepartment"
+                  style={{ width: "100%", fontFamily: "DM Sans, sans-serif" }}
+                >
                   Your Department:
                 </label>
                 <select
@@ -207,21 +271,40 @@ const ApplicationForm = () => {
                   onChange={handleChange}
                   required
                   style={{
+                    fontFamily: "DM Sans, sans-serif",
                     width: "100%",
                     height: "50px",
                     borderRadius: "10px",
                     padding: "10px",
                   }}
                 >
-                  <option value="ccs">CCS</option>
-                  <option value="cea">CEA</option>
-                  <option value="other">Other</option>
+                  <option
+                    value="ccs"
+                    style={{ fontFamily: "DM Sans, sans-serif" }}
+                  >
+                    CCS
+                  </option>
+                  <option
+                    value="cea"
+                    style={{ fontFamily: "DM Sans, sans-serif" }}
+                  >
+                    CEA
+                  </option>
+                  <option
+                    value="other"
+                    style={{ fontFamily: "DM Sans, sans-serif" }}
+                  >
+                    Other
+                  </option>
                 </select>
               </div>
 
               {/* Organizer */}
               <div className="form-group" style={{ marginTop: "2rem" }}>
-                <label htmlFor="organizer" style={{ width: "100%" }}>
+                <label
+                  htmlFor="organizer"
+                  style={{ width: "100%", fontFamily: "DM Sans, sans-serif" }}
+                >
                   Organizer:
                 </label>
                 <select
@@ -231,15 +314,31 @@ const ApplicationForm = () => {
                   onChange={handleChange}
                   required
                   style={{
+                    fontFamily: "DM Sans, sans-serif",
                     width: "100%",
                     height: "50px",
                     borderRadius: "10px",
                     padding: "10px",
                   }}
                 >
-                  <option value="gdsc">GDSC</option>
-                  <option value="ccs">CCS</option>
-                  <option value="other">Other</option>
+                  <option
+                    value="gdsc"
+                    style={{ fontFamily: "DM Sans, sans-serif" }}
+                  >
+                    GDSC
+                  </option>
+                  <option
+                    value="ccs"
+                    style={{ fontFamily: "DM Sans, sans-serif" }}
+                  >
+                    CCS
+                  </option>
+                  <option
+                    value="other"
+                    style={{ fontFamily: "DM Sans, sans-serif" }}
+                  >
+                    Other
+                  </option>
                 </select>
               </div>
 
@@ -248,24 +347,13 @@ const ApplicationForm = () => {
                 className="form-group"
                 style={{ marginTop: "2rem", textAlign: "center" }}
               >
-                <button
-                  type="submit"
-                  style={{
-                    backgroundColor: "#800000",
-                    color: "white",
-                    width: "30%",
-                    height: "100%",
-                    borderRadius: "20px",
-                    padding: "10px",
-                  }}
-                >
-                  Submit
-                </button>
+                <ButtonM onClick={submitForm}>Submit</ButtonM>
               </div>
             </form>
           </div>
         </div>
       </Container>
+      <Footer />
     </>
   );
 };
