@@ -1,9 +1,9 @@
 import React from "react";
 import ResponsiveAppBar from "../Components/header";
 import EventCatBtn from "../Components/EventCatBtn";
-//import "../EventCategory/UserEventCategory.css"
+import "../EventCategory/UserEventCategory.css";
 import "../Components/EventCatBtn.css";
-import Footer from "../Components/Footer";
+import Footer from "../Components/footer";
 import "./OrganizerApplicationForm.css";
 
 export default function OrganizerEventCategory() {

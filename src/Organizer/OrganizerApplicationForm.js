@@ -3,7 +3,7 @@ import ResponsiveAppBar from "../Components/header";
 import Container from "@mui/material/Container";
 import axios from "axios";
 import "./OrganizerApplicationForm.css";
-import ButtonM from "../Components/ButtonM";
+import ButtonM from "../Components/ButtonMaroon";
 import Footer from "../Components/footer";
 
 const ApplicationForm = () => {
