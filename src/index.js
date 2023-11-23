@@ -10,6 +10,7 @@ import EventUser from './Login/UserLogin';
 import EventUserHome from './EventUserHome';
 import EventCatBtn from './Components/EventCatBtn';
 import ResponsiveAppBar from './Components/header';
+import ResponsiveAppBarOrgan from './Components/organHeader';
 import EventOrganizer from './Login/OrganizerLogin';
 import EventAdmin from './Login/AdminLogin';
 import ActionAreaCard from './Components/eventCard';
@@ -27,6 +28,9 @@ import UserPopularEvents from './User/UserPopularEvents';
 import PersonProfile from './User/UserAboutUs';
 import UserEventJoinRequest from './User/UserEventJoinRequest';
 import Footer from './Components/footer';
+import OrganizerHomePage from './Organizer/OrganizerHomePage';
+import OrganizerJoinedEvents from './Organizer/OrganizerJoinedEvents';
+import ApplicationForm from './Organizer/OrganizerApplicationForm';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -46,6 +50,9 @@ root.render(
       <Route path="/UserPopularEvents" element={<UserPopularEvents />} />
       <Route path="/UserEventCategory" element={<EventCategory/>} />
       <Route path="/UserEventJoinRequest" element={<UserEventJoinRequest />} />
+      <Route path="/OrganizerHomePage" element={<OrganizerHomePage />} />
+      <Route path="/OrganizerJoinedEvents" element={<OrganizerJoinedEvents />} />
+      <Route path="/OrganizerAppllicationForm" element={<ApplicationForm />} />
       </Routes>
 
 {/* <Footer /> */}

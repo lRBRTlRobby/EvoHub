@@ -40,7 +40,7 @@ export default function EventOrganizer() {
                             <p className='terms' style={{ fontFamily: "'DM Sans', sans-serif" }}><input type="checkbox" />By signing in, I agree with <u>Terms and conditions.</u></p>
 
                             </div>
-                            <Link to="/EventUserHome"><Button sx={{ backgroundColor: "#800000", ":hover": { backgroundColor: "#800000" } }} variant="contained">Sign In</Button></Link>
+                            <Link to="/OrganizerHomePage"><Button sx={{ backgroundColor: "#800000", ":hover": { backgroundColor: "#800000" } }} variant="contained">Sign In</Button></Link>
                         </div>
                     </Grid>
                 </Grid>
