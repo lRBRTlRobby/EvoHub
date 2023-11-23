@@ -4,8 +4,10 @@ import './UserLogin.css'
 import { Link, useNavigate } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import axios from 'axios';
+import { useUser } from '../Components/UserProvider';
 
 export default function EventUser() {
+    const { login } = useUser(); 
     const navigate = useNavigate();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -25,6 +27,7 @@ export default function EventUser() {
     
           if (user) {
             // Login successful
+            login(user);
             setIsLoggedIn(true);
             console.log('User logged in:', user);
           } else {

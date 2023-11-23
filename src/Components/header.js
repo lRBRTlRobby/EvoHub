@@ -14,6 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import  './header.css';
 import { Link } from 'react-router-dom';
+import { useUser } from '../Components/UserProvider';
 
 const pages = ['Home', 'Event Categories','Upcoming Events', 'Joined Events'];
 const settings = ['Profile','Logout'];
@@ -37,7 +38,7 @@ function getPagePath(page) {
 function getSettingPath(settings) {
   switch (settings) {
     case 'Profile':
-      return '/EventUserHome';
+      return '/UserProfile';
     case 'Logout':
       return '/';
     // Add more cases for additional pages
@@ -48,6 +49,7 @@ function getSettingPath(settings) {
 
 
 function ResponsiveAppBar() {
+  const { user } = useUser();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -149,7 +151,7 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 0,marginRight:'4em' }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar  alt="Remy Sharp" src="/static/images/avatar/2.jpg"   />
+                <Avatar  alt={user.fname} src="/static/images/avatar/2.jpg"   />
               </IconButton>
             </Tooltip>
             <Menu

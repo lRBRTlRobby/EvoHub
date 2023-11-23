@@ -27,12 +27,15 @@ import UserPopularEvents from './User/UserPopularEvents';
 import PersonProfile from './User/UserAboutUs';
 import UserEventJoinRequest from './User/UserEventJoinRequest';
 import Footer from './Components/footer';
+import { UserProvider } from './Components/UserProvider';
+import UserProfile from './User/UserProfile';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 <React.StrictMode>
       <BrowserRouter>
 
+      <UserProvider>
       <Routes>
       <Route path="/" element={<Event />} />
       <Route path="/EventRegister" element={<EventRegister />} />
@@ -46,7 +49,9 @@ root.render(
       <Route path="/UserPopularEvents" element={<UserPopularEvents />} />
       <Route path="/UserEventCategory" element={<EventCategory/>} />
       <Route path="/UserEventJoinRequest" element={<UserEventJoinRequest />} />
+      <Route path="/UserProfile" element={<UserProfile />} />
       </Routes>
+      </UserProvider>
 
 {/* <Footer /> */}
 {/* <JoinedEvents /> */}
