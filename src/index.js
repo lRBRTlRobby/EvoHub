@@ -31,6 +31,7 @@ import Footer from './Components/footer';
 import OrganizerHomePage from './Organizer/OrganizerHomePage';
 import OrganizerJoinedEvents from './Organizer/OrganizerJoinedEvents';
 import ApplicationForm from './Organizer/OrganizerApplicationForm';
+import UserProfile from './User/UserProfile';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -53,6 +54,7 @@ root.render(
       <Route path="/OrganizerHomePage" element={<OrganizerHomePage />} />
       <Route path="/OrganizerJoinedEvents" element={<OrganizerJoinedEvents />} />
       <Route path="/OrganizerAppllicationForm" element={<ApplicationForm />} />
+      <Route path="/UserProfile" element={<UserProfile />} />
       </Routes>
 
 {/* <Footer /> */}
