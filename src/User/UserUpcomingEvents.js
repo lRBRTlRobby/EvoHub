@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import ResponsiveAppBar from "../Components/header";
 import Container from "@mui/material/Container";
 import ActionAreaCard from "../Components/eventCard";
+import Footer from "../Components/footer";
 
 export default function UserUpcomingEvents() {
   const containerRef = useRef(null);
@@ -50,20 +51,20 @@ export default function UserUpcomingEvents() {
       description: "Doggo and puppy",
       date: "Aug",
       title: "CIT-U’s 77th Colors Day",
-      image: "/img/irish.jpg",
+      image: "/img/sess.jpg",
       description:
         "Celebrate our school’s traditions and spirit with fun activities.",
     },
     {
       date: "Dec",
       title: "School Acquaintance Party",
-      image: "/img/kaye.jpg",
+      image: "/img/crab.jpg",
       description: "Join us to an evening of laughter, games, and camaraderie.",
     },
     {
       date: "Oct",
       title: "Saturday Playnites: Clash of Crabs",
-      image: "/img/robert.jpg",
+      image: "/img/info.jpg",
       description: "A virtual post-midterm steam-blowing gathering ",
     },
     {
@@ -166,6 +167,7 @@ export default function UserUpcomingEvents() {
           </div>
         </div>
       </Container>
+      <Footer />
     </>
   );
 }

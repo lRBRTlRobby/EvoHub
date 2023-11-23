@@ -34,16 +34,17 @@ const Developers = [
 ]
   return(
    <>
-    <ResponsiveAppBar/>
+    {/* <ResponsiveAppBar/>
     <img src="img/aboutus_banner.png" alt="logo" className="banner"/>
     <br/>
     <br/>
-    <br/>
+    <br/> */}
     <Container maxWidth="lg">
       <AboutUs/>
       <br/>
       <br/>
       <br/>
+      <h2 style={{display:"flex", justifyContent:"center"}}>Developers</h2>
       <div style={{display:"flex", justifyContent:"center"}}>
           {Developers.map((developer, index) => (
                     <div>
