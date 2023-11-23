@@ -14,7 +14,7 @@ export default function UserProfile() {
                 <img src="./img/userprofile.jpg" alt="logo" className="banner" style={{ position: "absolute", zIndex: -1 }} />
                 <div style={{ display: "flex", justifyContent: "center" }}>
                     <div style={{ marginTop: "8.6rem" }}>
-                        <Avatar alt="Kyle" src="/static/images/avatar/2.jpg" sx={{ width: 120, height: 120 }} />
+                        <Avatar alt="Kyle" src="/static/images/avatar/2.jpg" sx={{ width: 120, height: 120, fontSize: "3.5rem" }} />
                         <div>
 
                         </div>
