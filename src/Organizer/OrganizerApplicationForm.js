@@ -64,7 +64,7 @@ const ApplicationForm = () => {
     <>
       <ResponsiveAppBar />
       <img
-        src="img/organizerrequest.jpg"
+        src="img/EventJoinRequestHeroBanner.png"
         alt="logo"
         style={{ width: "100%" }}
       />
@@ -347,7 +347,9 @@ const ApplicationForm = () => {
                 className="form-group"
                 style={{ marginTop: "2rem", textAlign: "center" }}
               >
-                <ButtonM onClick={submitForm}>Submit</ButtonM>
+                <ButtonM onClick={submitForm} name="Submit">
+                  Submit
+                </ButtonM>
               </div>
             </form>
           </div>
