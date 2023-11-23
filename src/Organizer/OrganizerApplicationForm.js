@@ -4,7 +4,7 @@ import Container from "@mui/material/Container";
 import axios from "axios";
 import "./OrganizerApplicationForm.css";
 import ButtonM from "../Components/ButtonM";
-import Footer from "../Components/Footer";
+import Footer from "../Components/footer";
 
 const ApplicationForm = () => {
   const [formData, setFormData] = useState({
