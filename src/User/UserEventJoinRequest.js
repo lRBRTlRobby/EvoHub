@@ -10,6 +10,7 @@ import MenuItem from '@mui/material/MenuItem';
 export default function UserEventJoinRequest() {
   const [formData, setFormData] = useState({
     fullName: "",
+
     schoolEmailAddress: "",
     yearLevel: "",
     department: "",
@@ -49,6 +50,7 @@ export default function UserEventJoinRequest() {
               value={formData.fullName}
               onChange={handleChange}
             />
+        <br/>
           </FormControl>
           <FormControl fullWidth>
             <InputLabel htmlFor="schoolEmailAddress">School Email Address</InputLabel>
@@ -80,6 +82,9 @@ export default function UserEventJoinRequest() {
               <MenuItem value="4">4th Year</MenuItem>
             </Select>
           </FormControl>
+
+          <br></br>
+          <br></br>
 
           <FormControl fullWidth>
             <FormLabel>Department</FormLabel>
