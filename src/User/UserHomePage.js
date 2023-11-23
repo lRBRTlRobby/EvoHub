@@ -55,7 +55,7 @@ export default function UserHomePage() {
 
    
     const image  = [
-        "/img/doggo.jpg","/img/account.png","/img/organreq.jpg","/img/engineering.png","/img/Joined.jpg","/img/Joined.jpg"
+        "/img/Techxperience2.png","/img/doggo.jpg","/img/account.png","/img/organreq.jpg","/img/engineering.png","/img/Joined.jpg","/img/Joined.jpg"
 
     ]
 
@@ -109,16 +109,21 @@ export default function UserHomePage() {
                         <h2 style={{ fontFamily: "'DM Sans', sans-serif" }}>Popular Events</h2>
                         <Link to = "/UserPopularEvents"><Button sx={{ padding: "0" }}><h4>View All</h4></Button></Link>
                     </div>
+
+                    {/* Popular Event Cards */}
                     <div style={{ marginBottom: "5rem" }}>
                         <div style={{ display: "flex", overflowX: "hidden", maxWidth: "100%" }} ref={containerRef1}>
                             {event.map((event, index) => (
-                                <ActionAreaCard
-                                    key={index}
-                                    date={event.date}
-                                    title={event.title}
-                                    image={image[index]}
-                                    description={event.description}
-                                />
+                                
+                                <Link to="/UserEventPage">
+                                    <ActionAreaCard
+                                        key={index}
+                                        date={event.date}
+                                        title={event.title}
+                                        image={image[index]}
+                                        description={event.description}
+                                    />
+                                </Link>
                             ))}
 
                         </div>
