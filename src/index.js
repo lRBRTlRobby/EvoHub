@@ -32,6 +32,8 @@ import OrganizerHomePage from './Organizer/OrganizerHomePage';
 import OrganizerJoinedEvents from './Organizer/OrganizerJoinedEvents';
 import ApplicationForm from './Organizer/OrganizerApplicationForm';
 import UserProfile from './User/UserProfile';
+import UserEventPage from './User/UserEventPage';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -55,6 +57,8 @@ root.render(
       <Route path="/OrganizerJoinedEvents" element={<OrganizerJoinedEvents />} />
       <Route path="/OrganizerAppllicationForm" element={<ApplicationForm />} />
       <Route path="/UserProfile" element={<UserProfile />} />
+      <Route path="/UserEventPage" element={<UserEventPage />} />
+      <Route path="/UserEventJoinRequest" element={<UserEventJoinRequest />} />
       </Routes>
 
 {/* <Footer /> */}

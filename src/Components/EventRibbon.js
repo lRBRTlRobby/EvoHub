@@ -1,8 +1,9 @@
 import { Box, Button, Paper, Typography } from "@mui/material";
 import './EventRibbon.css';
+import { Link } from 'react-router-dom';
 
 
-const EventRibbon = ({ title, date, venue, joined, rsvpLink }) => {
+export default function EventRibbon  ({ title, date, venue, joined, rsvpLink ,path})  {
   return (
     <div className="event-ribbon-header">
     <div style={{textAlign:'center', alignItems:'center',fontFamily:'DM Sans, sans-serif',marginLeft:'100px',marginRight:'-100px'}}>
@@ -23,8 +24,9 @@ const EventRibbon = ({ title, date, venue, joined, rsvpLink }) => {
             <Typography variant="subtitle1" style={{fontSize:'14px'}}>
                 5 RSVP’d</Typography>
     </div>
-    <Button class="event-ribbon-rsvp-button">RSVP Now</Button>
-
+    <Link to={path}>
+        <Button class="event-ribbon-rsvp-button">RSVP Now</Button>
+    </Link>
     </div>
   );
 };
