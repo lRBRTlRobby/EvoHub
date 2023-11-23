@@ -127,7 +127,7 @@ export default function UserUpcomingEvents() {
   return (
     <>
       <ResponsiveAppBar />
-      <img src="img/upcoming.jpg" alt="logo" />
+      <img src="img/upcoming.jpg" alt="logo" style={{maxWidth:"100%"}}/>
       <Container maxWidth="lg">
         <div>
           <h2
