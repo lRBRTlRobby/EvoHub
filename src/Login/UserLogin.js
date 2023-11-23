@@ -1,48 +1,92 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Grid, TextField } from "@mui/material";
 import './UserLogin.css'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Container from '@mui/material/Container';
+import axios from 'axios';
 
 export default function EventUser() {
+    const navigate = useNavigate();
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    const handleLogIn = async () => {
+        const email = document.getElementById("email").value;
+        const pass = document.getElementById("pass").value;
+    
+        try {
+          const response = await axios.get('http://localhost:8080/User/getAllUsers', {
+            email: document.getElementById("email").value,
+            pass: document.getElementById("pass").value,
+          });
+    
+          const users = response.data;
+    
+          const user = users.find(user => user.email === email && user.pass === pass);
+    
+          if (user) {
+            // Login successful
+            setIsLoggedIn(true);
+            console.log('User logged in:', user);
+          } else {
+            console.log('Invalid email or password');
+            // Handle invalid login (show error message, etc.)
+          }
+        } catch (error) {
+          console.error('There was a problem with the login operation:', error);
+          // Handle login failure, show error message, etc.
+        }
+      };
+
+  
+
+    useEffect(() => {
+        // Check if registration is successful
+        if (isLoggedIn) {
+            // Redirect or show a success message as needed
+            navigate('/EventUserHome');
+        }
+    }, [isLoggedIn]);
     return (
         <>
             <div className="user-container">
-            <Container maxWidth="x1"> 
-                <Grid container spacing={2} style={{ margin: "0 auto" }}>
-                    <Grid item xs={12} md={6}>
-                    </Grid>
-                    <Grid item xs={12} md={6}>
-                        <div className="in-container">
-                            <img className='user' src="/img/user.png" />
-                            <Link to="/"><Button sx={{left: '52%', position: 'absolute' }} ><img className='back' src="/img/back.png"  /></Button></Link>
-                            <h1 style={{ fontFamily: "'DM Sans', sans-serif" }}>Log In as User</h1>
-                            <div>
-                            <TextField
-                                className='txt'
-                                id="outlined-password-input"
-                                label="Email Address"
-                                type="username"
-                                variant='outlined'
-                            /><br />
-                            <TextField
-                                className='txt'
-                                id="outlined-password-input"
-                                label="Password"
-                                type="password"
-                                variant='outlined'
-                            />
+                <Container maxWidth="x1">
+                    <Grid container spacing={2} style={{ margin: "0 auto" }}>
+                        <Grid item xs={12} md={6}>
+                        </Grid>
+                        <Grid item xs={12} md={6}>
+                            <div className="in-container">
+                                <img className='user' src="/img/user.png" />
+                                <Link to="/"><Button sx={{ left: '52%', position: 'absolute' }} ><img className='back' src="/img/back.png" /></Button></Link>
+                                <h1 style={{ fontFamily: "'DM Sans', sans-serif" }}>Log In as User</h1>
+                                <div>
+                                    <TextField
+                                        className='txt'
+                                        id="email"
+                                        label="Email Address"
+                                        type="email"
+                                        variant='outlined'
+                                    /><br />
+                                    <TextField
+                                        className='txt'
+                                        id="pass"
+                                        label="Password"
+                                        type="password"
+                                        variant='outlined'
+                                    />
+                                </div>
+                                <div style={{ display: "flex", padding: 0, margin: "0 auto", justifyContent: "center" }}>
+
+
+                                    <p className='terms' style={{ fontFamily: "'DM Sans', sans-serif" }}><input type="checkbox" />By signing in, I agree with <u>Terms and conditions.</u></p>
+
+                                </div>
+  
+                                <Button sx={{ backgroundColor: "#800000", ":hover": { backgroundColor: "#800000" } }} variant="contained"
+                                    onClick={handleLogIn}
+                                >Sign In</Button>
                             </div>
-                            <div style={{ display: "flex", padding: 0, margin: "0 auto", justifyContent: "center" }}>
-
-
-                            <p className='terms' style={{ fontFamily: "'DM Sans', sans-serif" }}><input type="checkbox" />By signing in, I agree with <u>Terms and conditions.</u></p>
-
-                            </div>
-                            <Link to="/EventUserHome"><Button sx={{ backgroundColor: "#800000", ":hover": { backgroundColor: "#800000" } }} variant="contained">Sign In</Button></Link>
-                        </div>
+                        </Grid>
                     </Grid>
-                </Grid>
                 </Container>
             </div>
         </>
