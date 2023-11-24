@@ -31,7 +31,6 @@ import Footer from './Components/footer';
 import OrganizerHomePage from './Organizer/OrganizerHomePage';
 import OrganizerJoinedEvents from './Organizer/OrganizerJoinedEvents';
 import ApplicationForm from './Organizer/OrganizerApplicationForm';
-import UserProfile from './User/UserProfile';
 import UserEventPage from './User/UserEventPage';
 import EventCategoryIdea from './User/UserEventCategoryIdea';
 import { UserProvider } from './Components/UserProvider';
