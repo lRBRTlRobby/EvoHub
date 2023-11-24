@@ -1,9 +1,10 @@
 import React, { useRef } from 'react'
-import ResponsiveAppBar from "../../Components/header"
+import ResponsiveAppBar from "../Components/header"
 import Container from '@mui/material/Container';
-import "../EventCategory/UserEventCategory.css"
-import ActionAreaCard from "../../Components/EventCard";
+import "./UserEventCategory"
+import ActionAreaCard from '../Components/eventCard';
 import { Button } from '@mui/material';
+import Footer from '../Components/footer';
 
 
 
@@ -99,8 +100,8 @@ export default function EventCategoryIdea() {
                     </div>
                 </div>
             </Container>
-
-
+        
+        <Footer/>
         </>
     )
 }
