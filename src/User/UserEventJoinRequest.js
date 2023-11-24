@@ -4,11 +4,13 @@ import Footer from "../Components/footer";
 import "../Components/EventCatBtn.css";
 import Container from '@mui/material/Container';
 import { Box, Button, FormControl, FormControlLabel, FormLabel, Grid, Input, InputLabel, Select, Typography } from "@mui/material";
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
 import MenuItem from '@mui/material/MenuItem';
 
 export default function UserEventJoinRequest() {
-  window.scroll(0, 0);
+  useEffect(() => {
+    window.scroll(0, 0); 
+}, []);
   const [formData, setFormData] = useState({
     fullName: "",
 
