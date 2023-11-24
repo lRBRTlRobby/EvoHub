@@ -345,7 +345,11 @@ const ApplicationForm = () => {
               {/* Submit Button */}
               <div
                 className="form-group"
-                style={{ marginTop: "2rem", textAlign: "center" }}
+                style={{
+                  marginTop: "2rem",
+                  textAlign: "center",
+                  marginLeft: "150px",
+                }}
               >
                 <ButtonM onClick={submitForm} name="Submit">
                   Submit
