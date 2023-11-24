@@ -13,6 +13,7 @@ import ButtonM from "../Components/ButtonMaroon";
 
 
 export default function UserEventPage() {
+    window.scroll(0, 0);
   
 
     return(

@@ -9,6 +9,7 @@ import Footer from '../Components/footer';
 
 
 export default function EventCategoryIdea() {
+    window.scroll(0, 0);
     const containerRef = useRef(null);
     const containerRef1 = useRef(null);
 

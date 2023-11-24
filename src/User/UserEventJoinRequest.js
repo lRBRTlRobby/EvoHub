@@ -8,6 +8,7 @@ import React, { useState } from 'react';
 import MenuItem from '@mui/material/MenuItem';
 
 export default function UserEventJoinRequest() {
+  window.scroll(0, 0);
   const [formData, setFormData] = useState({
     fullName: "",
 
