@@ -36,6 +36,7 @@ import EventCategoryIdea from './User/UserEventCategoryIdea';
 import { UserProvider } from './Components/UserProvider';
 import UserProfile from './User/UserProfile';
 import UserProfileEdit from './User/UserProfileEdit';
+import AdminEventReq from './Admin/AdminEventReq';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -43,7 +44,7 @@ root.render(
       <BrowserRouter>
 
       <UserProvider>
-      <Routes>
+      {/* <Routes>
       <Route path="/" element={<Event />} />
       <Route path="/EventRegister" element={<EventRegister />} />
       <Route path="/EventUser" element={<EventUser />} />
@@ -65,7 +66,8 @@ root.render(
       <Route path="/EventCategoryIdea" element={<EventCategoryIdea />} />
       <Route path="/UserProfile" element={<UserProfile />} />
       <Route path="/EditUserProfile" element={<UserProfileEdit />} />
-      </Routes>
+      </Routes> */}
+      <AdminEventReq />
       </UserProvider>
 
 {/* <Footer /> */}

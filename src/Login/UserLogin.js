@@ -12,7 +12,8 @@ export default function EventUser() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const handleLogIn = async () => {
-        const email = document.getElementById("email").value;
+        if(document.getElementById("email").value != "" || document.getElementById("pass").value != "") {
+            const email = document.getElementById("email").value;
         const pass = document.getElementById("pass").value;
     
         try {
@@ -31,13 +32,18 @@ export default function EventUser() {
             setIsLoggedIn(true);
             console.log('User logged in:', user);
           } else {
-            console.log('Invalid email or password');
+            alert('Invalid email or password');
             // Handle invalid login (show error message, etc.)
           }
         } catch (error) {
           console.error('There was a problem with the login operation:', error);
           // Handle login failure, show error message, etc.
         }
+        }else{
+            alert("Please enter email or password");
+            return;
+        }
+        
       };
 
   
