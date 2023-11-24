@@ -39,10 +39,11 @@ export default function AdminEventReq() {
                         {rows.map((row) => (
                                 <TableRow
                                     key={row.id}
-                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                    sx={{ '&:last-child td, &:last-child th': { border: 0 }, cursor: 'pointer' }}
                                     onClick={() => {
                                         alert('You clicked on ' + row.id);
                                     }}
+                                    
                                 >
 
                                     <TableCell component="th" scope="row" align='center'>
