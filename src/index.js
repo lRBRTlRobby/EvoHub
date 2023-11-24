@@ -10,6 +10,7 @@ import EventUser from './Login/UserLogin';
 import EventUserHome from './EventUserHome';
 import EventCatBtn from './Components/EventCatBtn';
 import ResponsiveAppBar from './Components/header';
+import ResponsiveAppBarOrgan from './Components/organHeader';
 import EventOrganizer from './Login/OrganizerLogin';
 import EventAdmin from './Login/AdminLogin';
 import ActionAreaCard from './Components/eventCard';
@@ -27,6 +28,12 @@ import UserPopularEvents from './User/UserPopularEvents';
 import PersonProfile from './User/UserAboutUs';
 import UserEventJoinRequest from './User/UserEventJoinRequest';
 import Footer from './Components/footer';
+import OrganizerHomePage from './Organizer/OrganizerHomePage';
+import OrganizerJoinedEvents from './Organizer/OrganizerJoinedEvents';
+import ApplicationForm from './Organizer/OrganizerApplicationForm';
+import UserProfile from './User/UserProfile';
+import UserEventPage from './User/UserEventPage';
+import EventCategoryIdea from './User/UserEventCategoryIdea';
 import { UserProvider } from './Components/UserProvider';
 import UserProfile from './User/UserProfile';
 import UserProfileEdit from './User/UserProfileEdit';
@@ -50,6 +57,13 @@ root.render(
       <Route path="/UserPopularEvents" element={<UserPopularEvents />} />
       <Route path="/UserEventCategory" element={<EventCategory/>} />
       <Route path="/UserEventJoinRequest" element={<UserEventJoinRequest />} />
+      <Route path="/OrganizerHomePage" element={<OrganizerHomePage />} />
+      <Route path="/OrganizerJoinedEvents" element={<OrganizerJoinedEvents />} />
+      <Route path="/OrganizerAppllicationForm" element={<ApplicationForm />} />
+      <Route path="/UserProfile" element={<UserProfile />} />
+      <Route path="/UserEventPage" element={<UserEventPage />} />
+      <Route path="/UserEventJoinRequest" element={<UserEventJoinRequest />} />
+      <Route path="/EventCategoryIdea" element={<EventCategoryIdea />} />
       <Route path="/UserProfile" element={<UserProfile />} />
       <Route path="/EditUserProfile" element={<UserProfileEdit />} />
       </Routes>

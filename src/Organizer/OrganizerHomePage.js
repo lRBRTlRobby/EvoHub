@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import ResponsiveAppBar from '../Components/header'
+import ResponsiveAppBarOrgan from '../Components/organHeader'
 import LandingPage from '../Components/LandingPage'
 import Container from '@mui/material/Container';
 import EventCatBtn from '../Components/EventCatBtn';
@@ -11,11 +11,12 @@ import AboutUs from '../Components/AboutUs';
 import Upcoming from '../Upcoming';
 import { Link } from 'react-router-dom';
 import Footer from '../Components/footer';
-import PersonProfile from './UserAboutUs';
+import PersonProfile from '../User/UserAboutUs';
 import { useState, useEffect } from "react";
 import axios from 'axios'
+import EventReq from '../Components/EventReq';
 
-export default function UserHomePage() {
+export default function OrganizerHomePage() {
     const containerRef = useRef(null);
     const containerRef1 = useRef(null);
     const [event, setEvents] = useState([]);
@@ -55,7 +56,7 @@ export default function UserHomePage() {
 
    
     const image  = [
-        "/img/Techxperience2.png","/img/doggo.jpg","/img/account.png","/img/organreq.jpg","/img/engineering.png","/img/Joined.jpg","/img/Joined.jpg"
+        "/img/doggo.jpg","/img/account.png","/img/organreq.jpg","/img/engineering.png","/img/Joined.jpg","/img/Joined.jpg"
 
     ]
 
@@ -77,7 +78,7 @@ export default function UserHomePage() {
 
     return (
         <div>
-            <ResponsiveAppBar />
+            <ResponsiveAppBarOrgan />
             <LandingPage />
             <Container maxWidth="lg" sx={{ marginBottom: "5rem" }}>
                 <div>
@@ -88,7 +89,7 @@ export default function UserHomePage() {
                     <div style={{ display: "flex", overflowX: "hidden", maxWidth: "100%" }} ref={containerRef}>
                         <div style={{ display: "flex", justifyContent: "center" }}>
                             <Button><img className='catbtn' src="/img/Engineering.png" /></Button>
-                            <Link to ='/EventCategoryIdea'><Button><img className='catbtn' src="/img/ccs.png" /></Button></Link>
+                            <Button><img className='catbtn' src="/img/ccs.png" /></Button>
                             <Button><img className='catbtn' src="/img/arts.png" /></Button>
                             <Button><img className='catbtn' src="/img/account.png" /></Button>
                             <Button><img className='catbtn' src="/img/nursing.png" /></Button>
@@ -109,21 +110,16 @@ export default function UserHomePage() {
                         <h2 style={{ fontFamily: "'DM Sans', sans-serif" }}>Popular Events</h2>
                         <Link to = "/UserPopularEvents"><Button sx={{ padding: "0" }}><h4>View All</h4></Button></Link>
                     </div>
-
-                    {/* Popular Event Cards */}
                     <div style={{ marginBottom: "5rem" }}>
                         <div style={{ display: "flex", overflowX: "hidden", maxWidth: "100%" }} ref={containerRef1}>
                             {event.map((event, index) => (
-                                
-                                <Link to="/UserEventPage">
-                                    <ActionAreaCard
-                                        key={index}
-                                        date={event.date}
-                                        title={event.title}
-                                        image={image[index]}
-                                        description={event.description}
-                                    />
-                                </Link>
+                                <ActionAreaCard
+                                    key={index}
+                                    date={event.date}
+                                    title={event.title}
+                                    image={image[index]}
+                                    description={event.description}
+                                />
                             ))}
 
                         </div>
@@ -134,7 +130,7 @@ export default function UserHomePage() {
                     </div>
                 </div>
             </Container>
-            <OrganizerReq />
+            <EventReq />
             <CampusVenues />
             <div style={{ marginBottom: "5rem" }}></div>
            

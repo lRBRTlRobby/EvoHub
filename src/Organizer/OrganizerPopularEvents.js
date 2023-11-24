@@ -1,9 +1,11 @@
 import React, { useRef } from "react";
 import ResponsiveAppBar from "../Components/header";
 import Container from "@mui/material/Container";
-import ActionAreaCard from '../Components/eventCard';
+import ActionAreaCard from "../Components/eventCard";
 import { useState, useEffect } from "react";
-import axios from 'axios'
+import ResponsiveAppBarOrgan from "../Components/organHeader";
+import Footer from "../Components/footer";
+import axios from "axios";
 
 export default function UserPopularEvents() {
   const containerRef = useRef(null);
@@ -11,12 +13,13 @@ export default function UserPopularEvents() {
   const [event, setEvents] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:8080/Event/getAllEvents')
-      .then(response => {
+    axios
+      .get("http://localhost:8080/Event/getAllEvents")
+      .then((response) => {
         setEvents(response.data);
       })
-      .catch(error => {
-        console.error('Error fetching events:', error);
+      .catch((error) => {
+        console.error("Error fetching events:", error);
       });
   }, []);
 
@@ -42,10 +45,14 @@ export default function UserPopularEvents() {
       containerRef1.current.scrollLeft += 300;
     }
   };
-  const image  = [
-    "/img/doggo.jpg","/img/account.png","/img/organreq.jpg","/img/engineering.png","/img/Joined.jpg","/img/Joined.jpg"
-
-]
+  const image = [
+    "/img/doggo.jpg",
+    "/img/account.png",
+    "/img/organreq.jpg",
+    "/img/engineering.png",
+    "/img/Joined.jpg",
+    "/img/Joined.jpg",
+  ];
 
   // const events = [
   //   {
@@ -125,7 +132,7 @@ export default function UserPopularEvents() {
   return (
     <>
       <ResponsiveAppBar />
-      <img src="img/popular.jpg" alt="logo"  style={{width:"100%"}} />
+      <img src="img/popular.jpg" alt="logo" style={{ width: "100%" }} />
       <Container maxWidth="lg">
         <div>
           <h2
@@ -165,6 +172,8 @@ export default function UserPopularEvents() {
           </div>
         </div>
       </Container>
+      <ResponsiveAppBarOrgan />
+      <Footer />
     </>
   );
 }

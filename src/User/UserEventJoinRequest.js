@@ -4,12 +4,16 @@ import Footer from "../Components/footer";
 import "../Components/EventCatBtn.css";
 import Container from '@mui/material/Container';
 import { Box, Button, FormControl, FormControlLabel, FormLabel, Grid, Input, InputLabel, Select, Typography } from "@mui/material";
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
 import MenuItem from '@mui/material/MenuItem';
 
 export default function UserEventJoinRequest() {
+  useEffect(() => {
+    window.scroll(0, 0); 
+}, []);
   const [formData, setFormData] = useState({
     fullName: "",
+
     schoolEmailAddress: "",
     yearLevel: "",
     department: "",
@@ -49,6 +53,7 @@ export default function UserEventJoinRequest() {
               value={formData.fullName}
               onChange={handleChange}
             />
+        <br/>
           </FormControl>
           <FormControl fullWidth>
             <InputLabel htmlFor="schoolEmailAddress">School Email Address</InputLabel>
@@ -80,6 +85,9 @@ export default function UserEventJoinRequest() {
               <MenuItem value="4">4th Year</MenuItem>
             </Select>
           </FormControl>
+
+          <br></br>
+          <br></br>
 
           <FormControl fullWidth>
             <FormLabel>Department</FormLabel>
