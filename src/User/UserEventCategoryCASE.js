@@ -56,11 +56,11 @@ export default function EventCategoryCCS() {
     return (
         <>
             <ResponsiveAppBar />
-            <img src="img/css_banner.png" alt="logo" className="banner" />
+            <img src="img/case_banner.png" alt="logo" className="banner" />
             <Container maxWidth="lg">
                 <div >
                     <h1 style={{ fontFamily: "'DM Sans', sans-serif" }}>College of Computer Studies</h1>
-                    <h2 style={{ fontFamily: "'DM Sans', sans-serif" ,fontSize:'30px'}}>Upcoming Events</h2>
+                    <h2 style={{ fontFamily: "'DM Sans', sans-serif",fontSize:'30px' }}>Upcoming Events</h2>
 
                 </div>
                 <div>

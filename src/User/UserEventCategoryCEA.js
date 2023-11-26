@@ -60,7 +60,7 @@ export default function EventCategoryCEA() {
             <Container maxWidth="lg">
                 <div >
                     <h1 style={{ fontFamily: "'DM Sans', sans-serif" }}>College of Engineering and Architecture</h1>
-                    <h2 style={{ fontFamily: "'DM Sans', sans-serif" }}>Upcoming Events</h2>
+                    <h2 style={{ fontFamily: "'DM Sans', sans-serif" ,fontSize:'30px'}}>Upcoming Events</h2>
 
                 </div>
                 <div>
@@ -83,7 +83,7 @@ export default function EventCategoryCEA() {
                 </div>
 
                 <div>
-                    <h2 style={{ fontFamily: "'DM Sans', sans-serif", marginTop: "5rem" }}>Past Events</h2>
+                    <h2 style={{ fontFamily: "'DM Sans', sans-serif", marginTop: "5rem",fontSize:'30px' }}>Past Events</h2>
 
                     <div style={{ marginBottom: "5rem" }}>
                         <div style={{ display: "flex", flexWrap: "wrap", overflowX: "auto" , alignItemsL:"center", justifyContent: "center"}}>

@@ -36,6 +36,10 @@ import UserEventPage from './User/UserEventPage';
 import EventCategoryCCS from './User/UserEventCategoryCCS';
 import UserProfileEdit from './User/UserProfileEdit';
 import EventCategoryCEA from './User/UserEventCategoryCEA';
+import EventCategoryCASE from './User/UserEventCategoryCASE';
+import EventCategoryCMBA from './User/UserEventCategoryCMBA';
+import EventCategoryCNAHS from './User/UserEventCategoryCNAHS';
+import EventCategoryCCJ from './User/UserEventCategoryCCJ';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -64,6 +68,10 @@ root.render(
       <Route path="/UserEventJoinRequest" element={<UserEventJoinRequest />} />
       <Route path="/EventCategoryCCS" element={<EventCategoryCCS />} />
       <Route path="/EventCategoryCEA" element={<EventCategoryCEA />} />
+      <Route path="/EventCategoryCASE" element={<EventCategoryCASE />} />
+      <Route path="/EventCategoryCMBA" element={<EventCategoryCMBA />} />
+      <Route path="/EventCategoryCNAHS" element={<EventCategoryCNAHS />} />
+      <Route path="/EventCategoryCCJ" element={<EventCategoryCCJ />} />
       </Routes>
 
 {/* <Footer /> */}

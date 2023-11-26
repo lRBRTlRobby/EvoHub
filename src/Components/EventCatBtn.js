@@ -10,14 +10,14 @@ export default function EventCatBtn() {
     <Container maxWidth="lg">
     <div className='EventCatBtn'>
         <h2 style={{fontFamily: "'DM Sans', sans-serif"}}>Event Categories</h2>
-        {/* <div className='cateventbtn' style={{display: "block", justifyContent: "center"}}> */}
+        {/* <div className='cateventbtn' style={{display: "block", j ustifyContent: "center"}}> */}
         <div className='cateventbtn' style={{display: "block", justifyContent: "center"}}>
-        <Button><img className='catbtn' src="/img/Engineering.png" /></Button>
-        <Link to="/EventCategoryIdea"><Button><img className='catbtn' src="/img/ccs.png" /></Button></Link>
-        <Button><img className='catbtn' src="/img/arts.png" /></Button>
-        <Button><img className='catbtn' src="/img/account.png" /></Button>
-        <Button><img className='catbtn' src="/img/nursing.png" /></Button>
-        <Button><img className='catbtn' src="/img/crim.png" /></Button>
+        <Link to='/EventCategoryCEA'><Button><img className='catbtn' src="/img/Engineering.png" /></Button></Link>
+        <Link to="/EventCategoryCCS"><Button><img className='catbtn' src="/img/ccs.png" /></Button></Link>
+        <Link to="/EventCategoryCASE"><Button><img className='catbtn' src="/img/arts.png" /></Button></Link>
+       <Link to ="/EventCategoryCMBA"><Button><img className='catbtn' src="/img/account.png" /></Button></Link>
+        <Link to ="/EventCategoryCNAHS"><Button><img className='catbtn' src="/img/nursing.png" /></Button></Link>
+        <Link to ="/EventCategoryCCJ"><Button><img className='catbtn' src="/img/crim.png" /></Button></Link>
         </div>
     </div>
     </Container>
