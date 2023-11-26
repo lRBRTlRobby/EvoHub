@@ -23,7 +23,7 @@ function getPagePath(page) {
     case 'Home':
       return '/OrganizerHomePage';
     case 'Event Categories':
-      return '/UserEventCategory';
+      return '/OrganizerEventCategory';
     case 'Upcoming Events':
         return '/UserUpcomingEvents';
     case 'Joined Events':

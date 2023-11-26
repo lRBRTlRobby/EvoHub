@@ -1,17 +1,16 @@
 import React from "react";
-import ResponsiveAppBar from "../Components/header";
-import EventCatBtn from "../Components/EventCatBtn";
-import "../EventCategory/UserEventCategory.css";
 import "../Components/EventCatBtn.css";
 import Footer from "../Components/footer";
 import "./OrganizerApplicationForm.css";
+import OrganEventCatBtn from "../Components/OrganEventCatBtn";
+import ResponsiveAppBarOrgan from "../Components/organHeader";
 
 export default function OrganizerEventCategory() {
   return (
     <>
-      <ResponsiveAppBar />
+      <ResponsiveAppBarOrgan />
       <img src="./img/EventBanner.png" alt="logo" className="banner" />
-      <EventCatBtn />
+      <OrganEventCatBtn />
       <Footer />
     </>
   );
