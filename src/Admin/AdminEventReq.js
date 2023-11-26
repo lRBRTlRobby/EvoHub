@@ -39,24 +39,37 @@ export default function AdminEventReq() {
             <Container maxWidth="lg">
                 <h2 style={{ fontFamily: "'DM Sans', sans-serif", marginTop: "5rem" }}>Event Request</h2>
 
-                {/* Dropdown/Select for filtering */}
-                <Select
-                    value={filterValue}
-                    onChange={(e) => { setFilterValue(e.target.value); setShowDetails(false); }}
-                    displayEmpty
-                    inputProps={{ 'aria-label': 'Without label' }}
+                <div style={{ display: "flex", justifyContent: "space-between" }}>
+                    <div>
+                        {/* Dropdown/Select for filtering */}
+                        <Select
+                            value={filterValue}
+                            onChange={(e) => { setFilterValue(e.target.value); setShowDetails(false); }}
+                            displayEmpty
+                            inputProps={{ 'aria-label': 'Without label' }}
 
-                >
-                    <MenuItem value="" >
-                        All
-                    </MenuItem>
-                    {/* Add unique carb values from your rows */}
-                    {[...new Set(rows.map((row) => row.carbs))].map((carbs) => (
-                        <MenuItem key={carbs} value={carbs}>
-                            {carbs}
-                        </MenuItem>
-                    ))}
-                </Select>
+                        >
+                            <MenuItem value="" >
+                                All
+                            </MenuItem>
+                            {/* Add unique carb values from your rows */}
+                            {[...new Set(rows.map((row) => row.carbs))].map((carbs) => (
+                                <MenuItem key={carbs} value={carbs}>
+                                    {carbs}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </div>
+                    <div>
+                        <TextField
+                            className='txt'
+                            id="fname"
+                            label="Search"
+                            type="text"
+                            variant='outlined'
+                        />
+                    </div>
+                </div>
 
                 <br /><br />
                 <TableContainer component={Paper}>
