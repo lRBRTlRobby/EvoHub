@@ -88,12 +88,12 @@ export default function OrganizerHomePage() {
                     </div>
                     <div style={{ display: "flex", overflowX: "hidden", maxWidth: "100%" }} ref={containerRef}>
                         <div style={{ display: "flex", justifyContent: "center" }}>
-                            <Button><img className='catbtn' src="/img/Engineering.png" /></Button>
-                            <Button><img className='catbtn' src="/img/ccs.png" /></Button>
-                            <Button><img className='catbtn' src="/img/arts.png" /></Button>
-                            <Button><img className='catbtn' src="/img/account.png" /></Button>
-                            <Button><img className='catbtn' src="/img/nursing.png" /></Button>
-                            <Button><img className='catbtn' src="/img/crim.png" /></Button>
+                            <Link to="/OrganizerEventCategoryCEA"><Button><img className='catbtn' src="/img/Engineering.png" /></Button></Link>
+                            <Link to="/OrganizerEventCategoryCCS"><Button><img className='catbtn' src="/img/ccs.png" /></Button></Link>
+                            <Link to="/OrganizerEventCategoryCASE"><Button><img className='catbtn' src="/img/arts.png" /></Button></Link>
+                            <Link to="/OrganizerEventCategoryCMBA"><Button><img className='catbtn' src="/img/account.png" /></Button></Link>
+                            <Link to="/OrganizerEventCategoryCNAHS"><Button><img className='catbtn' src="/img/nursing.png" /></Button></Link>
+                            <Link to="/OrganizerEventCategoryCCJ"><Button><img className='catbtn' src="/img/crim.png" /></Button></Link>
 
                         </div>
 
