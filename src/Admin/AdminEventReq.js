@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import AdminHeader from '../Components/adminHeader'
-import { Button, Container, MenuItem, Paper, Select, Table, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
+import { Button, Container, MenuItem, Paper, Select, Table, TableCell, TableContainer, TableHead, TableRow, TextField } from '@mui/material'
 import TableBody from '@mui/material/TableBody';
 import Footer from '../Components/footer';
 import AdminEventReqDetails from './AdminEventReqDetails';
@@ -10,7 +10,7 @@ export default function AdminEventReq() {
     const [showDetails, setShowDetails] = useState(false);
     const [selectedTableId, setSelectedTableId] = useState(null);
 
-    
+
 
 
     function createData(id, name, email, calories, fat, carbs, protein) {
@@ -39,24 +39,37 @@ export default function AdminEventReq() {
             <Container maxWidth="lg">
                 <h2 style={{ fontFamily: "'DM Sans', sans-serif", marginTop: "5rem" }}>Event Request</h2>
 
-                {/* Dropdown/Select for filtering */}
-                <Select
-                    value={filterValue}
-                    onChange={(e) => { setFilterValue(e.target.value); setShowDetails(false); }}
-                    displayEmpty
-                    inputProps={{ 'aria-label': 'Without label' }}
+                <div style={{ display: "flex", justifyContent: "space-between" }}>
+                    <div>
+                        {/* Dropdown/Select for filtering */}
+                        <Select
+                            value={filterValue}
+                            onChange={(e) => { setFilterValue(e.target.value); setShowDetails(false); }}
+                            displayEmpty
+                            inputProps={{ 'aria-label': 'Without label' }}
 
-                >
-                    <MenuItem value="" >
-                        All
-                    </MenuItem>
-                    {/* Add unique carb values from your rows */}
-                    {[...new Set(rows.map((row) => row.carbs))].map((carbs) => (
-                        <MenuItem key={carbs} value={carbs}>
-                            {carbs}
-                        </MenuItem>
-                    ))}
-                </Select>
+                        >
+                            <MenuItem value="" >
+                                All
+                            </MenuItem>
+                            {/* Add unique carb values from your rows */}
+                            {[...new Set(rows.map((row) => row.carbs))].map((carbs) => (
+                                <MenuItem key={carbs} value={carbs}>
+                                    {carbs}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </div>
+                    <div>
+                        <TextField
+                            className='txt'
+                            id="fname"
+                            label="Search"
+                            type="text"
+                            variant='outlined'
+                        />
+                    </div>
+                </div>
 
                 <br /><br />
                 <TableContainer component={Paper}>
@@ -94,14 +107,14 @@ export default function AdminEventReq() {
                                             >
 
                                                 <TableCell component="th" scope="row" align='center'>
-                                                <div style={{display:'flex', alignItems:'center'}}>
-                                                <Avatar  alt={row.name} src="/static/images/avatar/2.jpg"  sx={{marginRight:'1rem'}} />
-                                                    <div>
-                                                       {row.name}
-                                                    <p>{row.email}</p> 
+                                                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                                                        <Avatar alt={row.name} src="/static/images/avatar/2.jpg" sx={{ marginRight: '1rem' }} />
+                                                        <div>
+                                                            {row.name}
+                                                            <p>{row.email}</p>
+                                                        </div>
                                                     </div>
-                                                    </div>
-                                                    
+
                                                 </TableCell>
                                                 <TableCell align="center">{row.calories}</TableCell>
                                                 <TableCell align="center">{row.fat}</TableCell>
@@ -132,12 +145,12 @@ export default function AdminEventReq() {
                                             >
 
                                                 <TableCell component="th" scope="row" align='center'>
-                                                    <div style={{display:'flex', alignItems:'center'}}>
-                                                <Avatar  alt={row.name} src="/static/images/avatar/2.jpg"  sx={{marginRight:'1rem' }} />
-                                                    <div>
-                                                       {row.name}
-                                                    <p>{row.email}</p> 
-                                                    </div>
+                                                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                                                        <Avatar alt={row.name} src="/static/images/avatar/2.jpg" sx={{ marginRight: '1rem' }} />
+                                                        <div>
+                                                            {row.name}
+                                                            <p>{row.email}</p>
+                                                        </div>
                                                     </div>
                                                 </TableCell>
                                                 <TableCell align="center">{row.calories}</TableCell>
