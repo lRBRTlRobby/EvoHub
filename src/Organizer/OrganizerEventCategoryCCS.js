@@ -1,14 +1,14 @@
 import React, { useRef } from 'react'
 import ResponsiveAppBar from "../Components/header"
 import Container from '@mui/material/Container';
-import "./UserEventCategory"
 import ActionAreaCard from '../Components/eventCard';
 import { Button } from '@mui/material';
 import Footer from '../Components/footer';
+import ResponsiveAppBarOrgan from '../Components/organHeader';
 
 
 
-export default function EventCategoryCCS() {
+export default function OrganEventCategoryCCS() {
     window.scroll(0, 0);
     const containerRef = useRef(null);
     const containerRef1 = useRef(null);
@@ -55,7 +55,7 @@ export default function EventCategoryCCS() {
 
     return (
         <>
-            <ResponsiveAppBar />
+            <ResponsiveAppBarOrgan />
             <img src="img/css_banner.png" alt="logo" className="banner" />
             <Container maxWidth="lg">
                 <div >

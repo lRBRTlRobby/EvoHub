@@ -1,14 +1,14 @@
 import React, { useRef } from 'react'
 import ResponsiveAppBar from "../Components/header"
 import Container from '@mui/material/Container';
-import "./UserEventCategory"
 import ActionAreaCard from '../Components/eventCard';
 import { Button } from '@mui/material';
 import Footer from '../Components/footer';
+import ResponsiveAppBarOrgan from '../Components/organHeader';
 
 
 
-export default function EventCategoryCCS() {
+export default function OrganEventCategoryCMBA() {
     window.scroll(0, 0);
     const containerRef = useRef(null);
     const containerRef1 = useRef(null);
@@ -55,8 +55,8 @@ export default function EventCategoryCCS() {
 
     return (
         <>
-            <ResponsiveAppBar />
-            <img src="img/css_banner.png" alt="logo" className="banner" />
+            <ResponsiveAppBarOrgan />
+            <img src="img/cmba_banner.png" alt="logo" className="banner" />
             <Container maxWidth="lg">
                 <div >
                     <h1 style={{ fontFamily: "'DM Sans', sans-serif" }}>College of Computer Studies</h1>

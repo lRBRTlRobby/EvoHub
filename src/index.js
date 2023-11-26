@@ -35,6 +35,17 @@ import UserProfile from './User/UserProfile';
 import UserEventPage from './User/UserEventPage';
 import EventCategoryCCS from './User/UserEventCategoryCCS';
 import UserProfileEdit from './User/UserProfileEdit';
+import EventCategoryCEA from './User/UserEventCategoryCEA';
+import EventCategoryCASE from './User/UserEventCategoryCASE';
+import EventCategoryCMBA from './User/UserEventCategoryCMBA';
+import EventCategoryCNAHS from './User/UserEventCategoryCNAHS';
+import EventCategoryCCJ from './User/UserEventCategoryCCJ';
+import OrganEventCategoryCCJ from './Organizer/OrganizerEventCategoryCCJ';
+import OrganEventCategoryCCS from './Organizer/OrganizerEventCategoryCCS';
+import OrganEventCategoryCMBA from './Organizer/OrganizerEventCategoryCMBA';
+import OrganEventCategoryCNAHS from './Organizer/OrganizerEventCategoryCNAHS';
+import OrganEventCategoryCASE from './Organizer/OrganizerEventCategoryCASE';
+import OrganEventCategoryCEA from './Organizer/OrganizerEventCategoryCEA';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -62,6 +73,19 @@ root.render(
       <Route path="/UserEventPage" element={<UserEventPage />} />
       <Route path="/UserEventJoinRequest" element={<UserEventJoinRequest />} />
       <Route path="/EventCategoryCCS" element={<EventCategoryCCS />} />
+      <Route path="/EventCategoryCEA" element={<EventCategoryCEA />} />
+      <Route path="/EventCategoryCASE" element={<EventCategoryCASE />} />
+      <Route path="/EventCategoryCMBA" element={<EventCategoryCMBA />} />
+      <Route path="/EventCategoryCNAHS" element={<EventCategoryCNAHS />} />
+      <Route path="/EventCategoryCCJ" element={<EventCategoryCCJ />} />
+      <Route path="/OrganizerEventCategoryCASE" element={<OrganEventCategoryCASE />} />
+      <Route path="/OrganizerEventCategoryCMBA" element={<OrganEventCategoryCMBA />} />
+      <Route path="/OrganizerEventCategoryCNAHS" element={<OrganEventCategoryCNAHS />} />
+      <Route path="/OrganizerEventCategoryCCS" element={<OrganEventCategoryCCS />} />
+      <Route path="/OrganizerEventCategoryCEA" element={<OrganEventCategoryCEA />} />
+      <Route path="/OrganizerEventCategoryCCJ" element={<OrganEventCategoryCCJ />} />
+
+
       </Routes>
 
 {/* <Footer /> */}
