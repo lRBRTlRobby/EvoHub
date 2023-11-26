@@ -107,8 +107,6 @@ export default function AdminEventReq() {
                                                 <TableCell align="center">{row.fat}</TableCell>
                                                 <TableCell align="center">{row.carbs}</TableCell>
                                                 <TableCell align="center">{row.protein}</TableCell>
-                                                <TableCell align="center" sx={{ zIndex: 1 }}><Button><img src="./img/Edit.png" alt="Edit" /></Button></TableCell>
-                                                <TableCell align="center"><Button><img src="./img/Delete.png" alt="Edit" /></Button></TableCell>
                                             </TableRow>
                                         ))}
                                 </>
@@ -157,7 +155,7 @@ export default function AdminEventReq() {
                     </Table>
                 </TableContainer>
                 {showDetails && (
-                    <AdminEventReqDetails />
+                    <AdminEventReqDetails setShowDetails={setShowDetails} />
                 )}
             </Container>
             <Footer />

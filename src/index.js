@@ -45,7 +45,7 @@ root.render(
       <BrowserRouter>
 
       <UserProvider>
-      <Routes>
+      {/* <Routes>
       <Route path="/" element={<Event />} />
       <Route path="/EventRegister" element={<EventRegister />} />
       <Route path="/EventUser" element={<EventUser />} />
@@ -67,8 +67,8 @@ root.render(
       <Route path="/EventCategoryIdea" element={<EventCategoryIdea />} />
       <Route path="/UserProfile" element={<UserProfile />} />
       <Route path="/EditUserProfile" element={<UserProfileEdit />} />
-      </Routes>
-      {/* <AdminEventReq /> */}
+      </Routes> */}
+      <AdminEventReq />
       {/* <AdminEventReqDetails /> */}
       </UserProvider>
 
