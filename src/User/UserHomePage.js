@@ -14,6 +14,7 @@ import Footer from '../Components/footer';
 import PersonProfile from './UserAboutUs';
 import { useState, useEffect } from "react";
 import axios from 'axios'
+import EventCategoryCEA from './UserEventCategoryCEA';
 
 export default function UserHomePage() {
     const containerRef = useRef(null);
@@ -87,8 +88,8 @@ export default function UserHomePage() {
                     </div>
                     <div style={{ display: "flex", overflowX: "hidden", maxWidth: "100%" }} ref={containerRef}>
                         <div style={{ display: "flex", justifyContent: "center" }}>
-                            <Button><img className='catbtn' src="/img/Engineering.png" /></Button>
-                            <Link to ='/EventCategoryIdea'><Button><img className='catbtn' src="/img/ccs.png" /></Button></Link>
+                            <Link to= '/EventCategoryCEA'><Button><img className='catbtn' src="/img/Engineering.png" /></Button></Link>
+                            <Link to ='/EventCategoryCCS'><Button><img className='catbtn' src="/img/ccs.png" /></Button></Link>
                             <Button><img className='catbtn' src="/img/arts.png" /></Button>
                             <Button><img className='catbtn' src="/img/account.png" /></Button>
                             <Button><img className='catbtn' src="/img/nursing.png" /></Button>
