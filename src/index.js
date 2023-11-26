@@ -38,6 +38,7 @@ import UserProfile from './User/UserProfile';
 import UserProfileEdit from './User/UserProfileEdit';
 import AdminEventReq from './Admin/AdminEventReq';
 import AdminEventReqDetails from './Admin/AdminEventReqDetails';
+import AdminOrganReq from './Admin/AdminOrganReq';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -68,7 +69,8 @@ root.render(
       <Route path="/UserProfile" element={<UserProfile />} />
       <Route path="/EditUserProfile" element={<UserProfileEdit />} />
       </Routes> */}
-      <AdminEventReq />
+      {/* <AdminEventReq /> */}
+      <AdminOrganReq />
       {/* <AdminEventReqDetails /> */}
       </UserProvider>
 
