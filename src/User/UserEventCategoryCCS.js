@@ -8,7 +8,7 @@ import Footer from '../Components/footer';
 
 
 
-export default function EventCategoryIdea() {
+export default function EventCategoryCCS() {
     window.scroll(0, 0);
     const containerRef = useRef(null);
     const containerRef1 = useRef(null);
