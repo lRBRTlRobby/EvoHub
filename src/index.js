@@ -34,6 +34,7 @@ import ApplicationForm from './Organizer/OrganizerApplicationForm';
 import UserProfile from './User/UserProfile';
 import UserEventPage from './User/UserEventPage';
 import EventCategoryCCS from './User/UserEventCategoryCCS';
+import UserProfileEdit from './User/UserProfileEdit';
 import EventCategoryCEA from './User/UserEventCategoryCEA';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -58,6 +59,7 @@ root.render(
       <Route path="/OrganizerJoinedEvents" element={<OrganizerJoinedEvents />} />
       <Route path="/OrganizerAppllicationForm" element={<ApplicationForm />} />
       <Route path="/UserProfile" element={<UserProfile />} />
+      <Route path="/UserProfileEdit" element={<UserProfileEdit />} />
       <Route path="/UserEventPage" element={<UserEventPage />} />
       <Route path="/UserEventJoinRequest" element={<UserEventJoinRequest />} />
       <Route path="/EventCategoryCCS" element={<EventCategoryCCS />} />
