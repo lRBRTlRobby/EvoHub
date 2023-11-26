@@ -27,7 +27,7 @@ export default function UserProfile() {
                     <p style={{ fontSize: "1.2rem", marginTop: "-1.8rem" }}>CEBU CITY</p>
                 </div>
                 <div style={{ marginTop: "1rem", textAlign: "right", marginTop: "7.4rem", marginRight: "9.5rem", fontFamily: "'DM Sans', sans-serif" }}>
-                    <Link to="/EditUserProfile"> <Button sx={{ color: 'black', padding: 0, margin: 0 }}><p style={{ fontSize: ".9rem" }}><u>Edit Profile</u></p></Button></Link>
+                    <Link to="/UserProfileEdit"> <Button sx={{ color: 'black', padding: 0, margin: 0 }}><p style={{ fontSize: ".9rem" }}><u>Edit Profile</u></p></Button></Link>
                 </div>
 
             </div>
