@@ -50,7 +50,7 @@ export default function ActionAreaCard({ date, title, image, description }) {
           >
             <div style={{display: 'block'}}>
               <h5 style={{ color: "#3D37F1", margin: 0 }}>{date}</h5>
-              <h3 style={{ margin: 0 }}>04</h3>
+              {/* <h3 style={{ margin: 0 }}>04</h3> */}
             </div>
           </Typography>
           <Typography variant="body2" color="text.secondary" >
