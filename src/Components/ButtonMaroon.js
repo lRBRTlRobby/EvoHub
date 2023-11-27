@@ -7,6 +7,7 @@ export default function ButtonM({name}) {
     <Button sx={{
       backgroundColor: 'maroon', color: 'white', fontFamily: "'DM Sans', sans-serif", width: '19rem', height: '4rem', fontWeight: 'bold', fontFamily: "'DM Sans', sans-serif", fontSize: '1rem',
       display: "flex", justifyContent: "center", padding: 0, borderRadius: 50
+
   }}>{name}</Button>
     )
 }

@@ -48,6 +48,7 @@ import OrganEventCategoryCNAHS from './Organizer/OrganizerEventCategoryCNAHS';
 import OrganEventCategoryCASE from './Organizer/OrganizerEventCategoryCASE';
 import OrganEventCategoryCEA from './Organizer/OrganizerEventCategoryCEA';
 import CreateEventForm from './Organizer/OrganizerCreateEvents';
+import Attendees from './Organizer/OrganizerAttendees';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -88,6 +89,7 @@ root.render(
       <Route path="/OrganizerEventCategoryCEA" element={<OrganEventCategoryCEA />} />
       <Route path="/OrganizerEventCategoryCCJ" element={<OrganEventCategoryCCJ />} />
       <Route path="/OrganizerCreateEvents" element={<CreateEventForm />} />
+      <Route path="/AttendeesRequirements" element={<Attendees />} />
 
 
 

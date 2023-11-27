@@ -6,8 +6,11 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import ResponsiveAppBarOrgan from "../Components/organHeader";
 import ButtonM from "../Components/ButtonMaroon";
+import axios from 'axios';
+import { Button } from '@mui/material'
 
 export default function CreateEventForm() {
+  
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -22,11 +25,19 @@ export default function CreateEventForm() {
     time: "",
     duration: "",
     location: "",
-    organizer:[],
-    role:[],
-    sponsors:[]
+     organizer:"",
+     year: "",
+    department: "",
+    payment: "",
+    max: ""
+    // role:[],
+    // sponsors:[]
   });
 
+  const date = () => {
+
+
+  }
   const handleChange = (e) => {
     const { name, value } = e.target;
     const formattedDate = name === "date" ? formatDate(value) : value;
@@ -37,70 +48,39 @@ export default function CreateEventForm() {
     }));
   };
   
-  
-  
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // You can add your form submission logic here
-    // For example, you can send the formData to a server
-
-    // Log the form data to the console (for demonstration purposes)
-    console.log(formData);
-  };
-  const handleAddOrganizer = () => {
-    setFormData({
-      ...formData,
-      organizer: [...formData.organizer, ""],
-      role: [...formData.role, ""],
-    });
-  };
   
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/Event/insertEvent",
+        {
+          title: formData.eventTitle,
+          description: formData.description,
+          date: formData.date,
+          time: formData.time,
+          duration: formData.duration,
+          location: formData.location,
+          organizer: formData.organizer,
+          yearlevel: formData.year,
+          department: formData.department,
+          payment: formData.payment,
+          maxAttend: formData.max,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
   
-  
-  
-  const handleRemoveOrganizer = (index) => {
-    const updatedOrganizers = [...formData.organizer];
-    updatedOrganizers.splice(index, 1);
-    setFormData({
-      ...formData,
-      organizer: updatedOrganizers,
-    });
-  };
-  
-  const handleOrganizerChange = (e, index) => {
-    const updatedOrganizers = [...formData.organizer];
-    updatedOrganizers[index] = e.target.value;
-    setFormData({
-      ...formData,
-      organizer: updatedOrganizers,
-    });
-  };
-  const handleRoleChange = (e, index) => {
-    const updatedRoles = [...formData.role];
-    updatedRoles[index] = e.target.value;
-    setFormData({
-      ...formData,
-      role: updatedRoles,
-    });
-  };
-  
-
-  const handleAddSponsor = () => {
-    setFormData({
-      ...formData,
-      sponsors: [...formData.sponsors, { name: "" }],
-    });
-  };
-
-
-  const handleSponsorChange = (e, index) => {
-    const updatedSponsors = [...formData.sponsors];
-    updatedSponsors[index][e.target.name] = e.target.value;
-    setFormData({
-      ...formData,
-      sponsors: updatedSponsors,
-    });
+      // Log the response from the server
+      console.log(response.data);
+      alert("Success");
+    } catch (error) {
+      // Handle errors
+      console.error("Error submitting form:", error);
+    }
   };
 
   const formatDate = (dateString) => {
@@ -111,18 +91,12 @@ export default function CreateEventForm() {
     );
     return formattedDate;
   };
-  const handleRemoveSponsor = (index) => {
-    const updatedSponsors = [...formData.sponsors];
-    updatedSponsors.splice(index, 1);
-    setFormData({
-      ...formData,
-      sponsors: updatedSponsors,
-    });
-  };
+
 
 console.log(formData)
   return (
     <>
+      <></>    
       <ResponsiveAppBarOrgan/>
       <img src="img/createEventBanner.png" alt="logo"  style={{width:"100%"}} />
       <Container maxWidth="lg">
@@ -216,6 +190,7 @@ console.log(formData)
                   />
                   {formData.date && (
                     <p
+                      id="fdate"
                       style={{
                         marginTop: "0.5rem",
                         color: "#666666",
@@ -318,8 +293,6 @@ console.log(formData)
                     <option value="Grandstand">Grandstand</option>  {/* Corrected the spelling here */}
                   </select>
                 </div>
-
-
             {/* Organizer */}
               <div className="form-group" style={{ marginTop: "2rem" }}>
                 <h5
@@ -329,20 +302,15 @@ console.log(formData)
                     color: "#666666",
                   }}
                 >
-                  Add Organizer
+                  Head Organizer
                 </h5>
-                
-
-                {formData.organizer.map((organizer, index) => (
-                <div key={index} style={{ marginBottom: "1rem" }}>
-                  <div style={{ display: "flex" }}>
                     <input
                       type="text"
-                      id={`organizer-${index}`}
+                      id="organizer"
                       name="organizer"
-                      value={organizer}
-                      placeholder={`Organizer ${index + 1} Name`}
-                      onChange={(e) => handleOrganizerChange(e, index)}
+                      value={formData.organizer}
+                      placeholder="Organizer name"
+                      onChange={handleChange}
                       style={{
                         width: "30%",
                         height: "45px",
@@ -351,39 +319,10 @@ console.log(formData)
                         marginRight: "10px",
                       }}
                       required
-                    />
-                    <input
-                      type="text"
-                      placeholder={`Role ${index + 1} Name`}
-                      id={`role-${index}`}
-                      name="role"
-                      value={formData.role[index]}  // Use formData.role[index] for the role field
-                      onChange={(e) => handleRoleChange(e, index)}
-                      style={{
-                        width: "30%",
-                        height: "45px",
-                        borderRadius: "45px",
-                        padding: "0 15px",
-                        marginRight: "10px",
-                      }}
-                      required
-                    />
-                    <button
-                      type="button"
-                      onClick={() => handleRemoveOrganizer(index)}
-                      style={{
-                        backgroundColor: "#FF0000",
-                        color: "white",
-                        borderRadius: "10px",
-                        padding: "10px",
-                        cursor: "pointer",
-                      }}
-                    >
-                      Remove
-                    </button>
-                  </div>
+                    />  
                 </div>
-              ))}
+                
+              {/* 
 
             <div>
               <button
@@ -402,7 +341,7 @@ console.log(formData)
             </div>
             </div>
 
-            {/* Add Sponsors */}
+            Add Sponsors
             <div className="form-group" style={{ marginTop: "2rem" }}>
                 <h5
                   style={{
@@ -465,14 +404,143 @@ console.log(formData)
                     Add More Sponsor
                   </button>
             </div>
-            </div>
+            </div> */}
+            {/* Specify year Level*/}
+            <div className="form-group" style={{ marginTop: "2rem" }}>
+              <h5
+                    style={{
+                      fontFamily: "DM Sans",
+                      marginTop: "1rem",
+                      color: "#666666",
+                    }}
+                  >
+                    Specify year Level
+                  </h5>
+                  <select
+                    id="year"
+                    name="year"  // Make sure the name attribute is "location"
+                    value={formData.year}
+                    onChange={handleChange}
+                    required
+                    style={{
+                      width: "45%",
+                      height: "50px",
+                      borderRadius: "10px",
+                      padding: "10px",
+                    }}
+                  >
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4<">4</option>
+                    <option value="5">5</option>
+                    <option value="None">None</option>  {/* Corrected the spelling here */}
+                  </select>
+                </div>
 
-              {/* Submit Button */}
+                {/* Specify department*/}
+                <div className="form-group" style={{ marginTop: "2rem" }}>
+              <h5
+                    style={{
+                      fontFamily: "DM Sans",
+                      marginTop: "1rem",
+                      color: "#666666",
+                    }}
+                  >
+                    Specify department
+                  </h5>
+                  <select
+                    id="department"
+                    name="department"  
+                    value={formData.department}
+                    onChange={handleChange}
+                    required
+                    style={{
+                      width: "45%",
+                      height: "50px",
+                      borderRadius: "10px",
+                      padding: "10px",
+                    }}
+                  >
+                    <option value="CEA">CEA</option>
+                    <option value="CCS">CCS</option>
+                    <option value="CMBA">CMBA</option>
+                    <option value="CASE<">CASE</option>
+                    <option value="CNAHS">CNAHS</option>
+                    <option value="CCJ">CCJ</option>  {/* Corrected the spelling here */}
+                    <option value="None">None</option>  {/* Corrected the spelling here */}
+                  </select>
+                </div>
+
+                {/* Specify payment*/}
+                <div className="form-group" style={{ marginTop: "2rem" }}>
+              <h5
+                    style={{
+                      fontFamily: "DM Sans",
+                      marginTop: "1rem",
+                      color: "#666666",
+                    }}
+                  >
+                    Specify payment
+                  </h5>
+                  <select
+                    id="payment"
+                    name="payment"  // Make sure the name attribute is "location"
+                    value={formData.payment}
+                    onChange={handleChange}
+                    required
+                    style={{
+                      width: "45%",
+                      height: "50px",
+                      borderRadius: "10px",
+                      padding: "10px",
+                    }}
+                  >
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                  </select>
+                </div>
+                {/*  Maximum Attendees */}
+                <div className="form-group" style={{ flex: 1 }}>
+                  <h5
+                    style={{
+                      fontFamily: "DM Sans",
+                      marginTop: "1rem",
+                      color: "#666666",
+                    }}
+                  >
+                    Maximum Attendees
+                  </h5>
+                  <input
+                    type="number"
+                    id="max"
+                    name="max"
+                    value={formData.max}
+                    onChange={handleChange}
+                    placeholder="Number of Attendees"
+                    style={{
+                      width: "45%",
+                      height: "45px",
+                      borderRadius: "45px",
+                      padding: "0 15px",
+                    }}
+                    required
+                  />
+                </div>
+
+
+              {/* Submit  Button */}
               <div
                 className="form-group"
                 style={{ marginTop: "2rem", textAlign: "center" }}
               >
-                <ButtonM name="Next"/>
+                <Button 
+                  onClick={handleSubmit}
+                  sx={{
+                  backgroundColor: 'maroon', color: 'white', fontFamily: "'DM Sans', sans-serif", width: '19rem', height: '4rem', fontWeight: 'bold', fontFamily: "'DM Sans', sans-serif", fontSize: '1rem',
+                  display: "flex", justifyContent: "center", padding: 0, borderRadius: 50 }}>
+                    Submit
+                </Button>
               </div>
             </form>
 
@@ -483,8 +551,8 @@ console.log(formData)
           
         </Grid>
       </Box>
-
       </Container>
     </>
+    
   );
 }
