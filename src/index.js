@@ -39,6 +39,8 @@ import UserProfileEdit from './User/UserProfileEdit';
 import AdminEventReq from './Admin/AdminEventReq';
 import AdminEventReqDetails from './Admin/AdminEventReqDetails';
 import AdminOrganReq from './Admin/AdminOrganReq';
+import ImageUpload from './ImageUpload';
+import ImageDisplay from './ImageDisplay';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -46,7 +48,7 @@ root.render(
       <BrowserRouter>
 
       <UserProvider>
-      {/* <Routes>
+      <Routes>
       <Route path="/" element={<Event />} />
       <Route path="/EventRegister" element={<EventRegister />} />
       <Route path="/EventUser" element={<EventUser />} />
@@ -68,9 +70,11 @@ root.render(
       <Route path="/EventCategoryIdea" element={<EventCategoryIdea />} />
       <Route path="/UserProfile" element={<UserProfile />} />
       <Route path="/EditUserProfile" element={<UserProfileEdit />} />
-      </Routes> */}
+      </Routes>
       {/* <AdminEventReq /> */}
-      <AdminOrganReq />
+      {/* <AdminOrganReq /> */}
+      {/* <ImageUpload /> */}
+      <ImageDisplay />
       {/* <AdminEventReqDetails /> */}
       </UserProvider>
 
