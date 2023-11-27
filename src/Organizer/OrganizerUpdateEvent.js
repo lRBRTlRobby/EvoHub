@@ -9,7 +9,7 @@ import ButtonM from "../Components/ButtonMaroon";
 import axios from 'axios';
 import { Button } from '@mui/material'
 
-export default function CreateEventForm() {
+export default function UpdateEventForm() {
   
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -25,8 +25,8 @@ export default function CreateEventForm() {
     time: "",
     duration: "",
     location: "",
-    organizer:"",
-    year: "",
+     organizer:"",
+     year: "",
     department: "",
     payment: "",
     max: ""
@@ -42,10 +42,10 @@ export default function CreateEventForm() {
     const { name, value } = e.target;
     const formattedDate = name === "date" ? formatDate(value) : value;
     
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: formattedDate,
+    }));
   };
   
   const handleSubmit = async (e) => {
@@ -103,7 +103,7 @@ console.log(formData)
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
           <Grid  xs={8}>
-            <h2 style={{ fontFamily: "'DM Sans', sans-serif" ,textAlign:"left"}}>Create Event Form</h2>
+            <h2 style={{ fontFamily: "'DM Sans', sans-serif" ,textAlign:"left"}}>Update Event Form</h2>
 
             <form onSubmit={handleSubmit}>
               {/* Event Title */}
@@ -322,89 +322,6 @@ console.log(formData)
                     />  
                 </div>
                 
-              {/* 
-
-            <div>
-              <button
-                type="button"
-                onClick={handleAddOrganizer}
-                style={{
-                  backgroundColor: "#008000",
-                  color: "white",
-                  borderRadius: "10px",
-                  padding: "10px",
-                  cursor: "pointer",
-                }}
-              >
-                Add More Organizer
-              </button>
-            </div>
-            </div>
-
-            Add Sponsors
-            <div className="form-group" style={{ marginTop: "2rem" }}>
-                <h5
-                  style={{
-                    fontFamily: "DM Sans",
-                    marginTop: "1rem",
-                    color: "#666666",
-                  }}
-                >
-                  Add Sponsors
-                </h5>
-
-                {formData.sponsors.map((sponsor, index) => (
-                  <div key={index} style={{ marginBottom: "1rem" }}>
-                    <div style={{ display: "flex" }}>
-                      <input
-                        type="text"
-                        id={`sponsor-${index}`}
-                        name="name" // Changed to "name" to match the property in formData.sponsors
-                        value={sponsor.name}
-                        placeholder={`Sponsor ${index + 1} Name`}
-                        onChange={(e) => handleSponsorChange(e, index)}
-                        style={{
-                          width: "30%",
-                          height: "45px",
-                          borderRadius: "45px",
-                          padding: "0 15px",
-                          marginRight: "10px",
-                        }}
-                        required
-                      />
-
-                      <button
-                        type="button"
-                        onClick={() => handleRemoveSponsor(index)}
-                        style={{
-                          backgroundColor: "#FF0000",
-                          color: "white",
-                          borderRadius: "10px",
-                          padding: "10px",
-                          cursor: "pointer",
-                        }}
-                      >
-                        Remove
-                      </button>
-                    </div>
-                  </div>
-                ))}
-                <div>
-                  <button
-                    type="button"
-                    onClick={handleAddSponsor}
-                    style={{
-                      backgroundColor: "#008000",
-                      color: "white",
-                      borderRadius: "10px",
-                      padding: "10px",
-                      cursor: "pointer",
-                    }}
-                  >
-                    Add More Sponsor
-                  </button>
-            </div>
-            </div> */}
             {/* Specify year Level*/}
             <div className="form-group" style={{ marginTop: "2rem" }}>
               <h5
