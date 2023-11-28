@@ -34,22 +34,6 @@ export default function CreateEventForm() {
     // sponsors:[]
   });
 
-  const resetForm = () => {
-    setFormData({
-      eventTitle: "",
-      description: "",
-      date: "",
-      time: "",
-      duration: "",
-      location: "",
-      organizer: "",
-      year: "",
-      department: "",
-      payment: "",
-      max: "",
-    });
-  };
-
   const date = () => {
 
 
@@ -57,7 +41,6 @@ export default function CreateEventForm() {
 
   const [file, setFile] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
-
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
@@ -100,8 +83,6 @@ export default function CreateEventForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-
-
     try {
       const response = await axios.post(
         "http://localhost:8080/Event/insertEvent",
@@ -129,8 +110,6 @@ export default function CreateEventForm() {
       // Log the response from the server
       console.log(response.data);
       alert("Success");
-      resetForm();
-
     } catch (error) {
       // Handle errors
       console.error("Error submitting form:", error);
@@ -582,10 +561,9 @@ export default function CreateEventForm() {
                   />
                 </div>
                 <input type="file" onChange={handleFileChange} />
-                <Button onClick={async (e) => { e.preventDefault(); await handleUpload(); }} disabled={!file}>
-                
+                <button onClick={async () => { handleUpload(); }} disabled={!file}>
                   Upload Image
-                </Button>
+                </button>
 
                 {/* Submit  Button */}
                 <div
@@ -594,7 +572,6 @@ export default function CreateEventForm() {
                 >
                   <Button
                     // onClick={handleSubmit}
-                    type="button"
                     onClick={(e) => {
                       e.preventDefault(); // Add this line to prevent the default form submission
                       handleSubmit(e);
