@@ -451,10 +451,10 @@ console.log(formData)
                   >
                     <option value="College of Engineering and Architecture">CEA</option>
                     <option value="College of Computer Studies">CCS</option>
-                    <option value="College of Mngnt Bussiness Administration">CMBA</option>
-                    <option value="College of Arts and Sciences">CASE</option>
+                    <option value="College of Mngnt, Bussiness and Administration">CMBA</option>
+                    <option value="College of Nursing and Allied Health Sciences">CASE</option>
                     <option value="College of Natural Arts of Health Sciences">CNAHS</option>
-                    <option value="College of Criminology">CCJ</option>  {/* Corrected the spelling here */}
+                    <option value="College of Criminal Justice">CCJ</option>  {/* Corrected the spelling here */}
                     <option value="None">None</option>  {/* Corrected the spelling here */}
                   </select>
                 </div>
