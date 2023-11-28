@@ -10,9 +10,7 @@ const ImageUpload = () => {
     setFile(e.target.files[0]);
   };
 
-  useEffect(() => {
-    console.log('sets Users:', users);
-  }, [users]);
+
 
   const handleUpload = async () => {
     try {
@@ -84,8 +82,8 @@ const ImageUpload = () => {
     <div>
       <h2>Image Upload</h2>
       <input type="file" onChange={handleFileChange} />
-      <button onClick={async () => {  handleUpload(); await handleUser(); }} disabled={!file}>
-  Fetch User Data and Upload
+      <button onClick={async () => {  handleUpload(); }} disabled={!file}>
+  Upload Image
 </button>
       {imageUrl && (
         <div>

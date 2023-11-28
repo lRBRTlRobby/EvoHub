@@ -41,6 +41,7 @@ import AdminEventReqDetails from './Admin/AdminEventReqDetails';
 import AdminOrganReq from './Admin/AdminOrganReq';
 import ImageUpload from './ImageUpload';
 import ImageDisplay from './ImageDisplay';
+import CreateEventForm from './Organizer/OrganizerCreateEvents';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -70,6 +71,7 @@ root.render(
       <Route path="/EventCategoryIdea" element={<EventCategoryIdea />} />
       <Route path="/UserProfile" element={<UserProfile />} />
       <Route path="/EditUserProfile" element={<UserProfileEdit />} />
+      <Route path="/CreateEventReq" element={<CreateEventForm />} />
       </Routes>
       {/* <AdminEventReq /> */}
       {/* <AdminOrganReq /> */}

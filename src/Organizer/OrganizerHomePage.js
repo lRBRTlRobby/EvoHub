@@ -117,7 +117,7 @@ export default function OrganizerHomePage() {
                                     key={index}
                                     date={event.date}
                                     title={event.title}
-                                    image={image[index]}
+                                    image={"/uploads/" + event.image}
                                     description={event.description}
                                 />
                             ))}
