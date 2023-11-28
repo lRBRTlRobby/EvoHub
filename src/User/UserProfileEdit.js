@@ -80,7 +80,7 @@ export default function UserProfileEdit() {
             <Container maxWidth="lg" sx={{ marginBottom: "5rem" }}>
                 <div>
                     <div style={{ marginTop: "3rem", display: "flex", alignItems: "center" }}>
-                        <Avatar alt="Kyle" src="/static/images/avatar/2.jpg" sx={{ width: 120, height: 120 }} />
+                        <Avatar alt={user.fname} src="/static/images/avatar/2.jpg" sx={{ width: 120, height: 120 }} />
                         <p>&nbsp;</p>
                         <ButtonM name="Upload" />
                     </div>
