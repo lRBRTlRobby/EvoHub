@@ -1,8 +1,3 @@
-
-
-
-
-
 import React, { useState } from "react";
 import Container from "@mui/material/Container";
 import { styled } from '@mui/material/styles';
@@ -34,7 +29,7 @@ export default function CreateEventForm() {
     year: "",
     department: "",
     payment: "",
-    max: "",
+    max: ""
     // role:[],
     // sponsors:[]
   });
@@ -55,8 +50,14 @@ export default function CreateEventForm() {
     });
   };
 
+  const date = () => {
+
+
+  }
+
   const [file, setFile] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
+
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
@@ -84,18 +85,22 @@ export default function CreateEventForm() {
   };
 
 
+
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     const formattedDate = name === "date" ? formatDate(value) : value;
 
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: formattedDate,
-    }));
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+
 
     try {
       const response = await axios.post(
@@ -124,7 +129,8 @@ export default function CreateEventForm() {
       // Log the response from the server
       console.log(response.data);
       alert("Success");
-      
+      resetForm();
+
     } catch (error) {
       // Handle errors
       console.error("Error submitting form:", error);
@@ -480,7 +486,7 @@ export default function CreateEventForm() {
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
-                    <option value="4<">4</option>
+                    <option value="4">4</option>
                     <option value="5">5</option>
                     <option value="None">None</option>  {/* Corrected the spelling here */}
                   </select>
@@ -576,9 +582,10 @@ export default function CreateEventForm() {
                   />
                 </div>
                 <input type="file" onChange={handleFileChange} />
-                <button onClick={async () => { handleUpload(); }} disabled={!file}>
+                <Button onClick={async (e) => { e.preventDefault(); await handleUpload(); }} disabled={!file}>
+                
                   Upload Image
-                </button>
+                </Button>
 
                 {/* Submit  Button */}
                 <div
@@ -586,11 +593,12 @@ export default function CreateEventForm() {
                   style={{ marginTop: "2rem", textAlign: "center" }}
                 >
                   <Button
-                      onClick={(e) => {
-                        e.preventDefault(); // Add this line to prevent the default form submission
-                        handleSubmit(e);
-                        resetForm();
-                      }}
+                    // onClick={handleSubmit}
+                    type="button"
+                    onClick={(e) => {
+                      e.preventDefault(); // Add this line to prevent the default form submission
+                      handleSubmit(e);
+                    }}
                     sx={{
                       backgroundColor: 'maroon', color: 'white', fontFamily: "'DM Sans', sans-serif", width: '19rem', height: '4rem', fontWeight: 'bold', fontFamily: "'DM Sans', sans-serif", fontSize: '1rem',
                       display: "flex", justifyContent: "center", padding: 0, borderRadius: 50
@@ -612,4 +620,3 @@ export default function CreateEventForm() {
 
   );
 }
-

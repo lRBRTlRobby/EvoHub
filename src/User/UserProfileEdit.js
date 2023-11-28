@@ -132,12 +132,13 @@ export default function UserProfileEdit() {
                             <p><b>Department:</b></p>
                             <TextField
                                 className='txt'
-                                id="fname"
-                                placeholder='CCS'
+                                id="dept"
+                                placeholder='Department'
                                 value={formData.dept}
                                 onChange={(e) => handleTextChange('dept', e.target.value)}
                                 type="text"
                                 variant='outlined'
+                                disabled
                             />
                         </Grid>
                         <Grid item xs={6} md={6}>
@@ -145,16 +146,19 @@ export default function UserProfileEdit() {
                             <p><b>Email Address:</b></p>
                             <TextField
                                 className='txt'
-                                id="fname"
+                                id="email"
+                                placeholder= 'Email Address'
                                 value={formData.email}
                                 onChange={(e) => handleTextChange('email', e.target.value)}
                                 type="text"
                                 variant='outlined'
+                                disabled
                             />
                             <p><b>Phone:</b></p>
                             <TextField
                                 className='txt'
-                                id="fname"
+                                id="phone"
+                                placeholder= 'Phone Number'
                                 value={formData.mobNum}
                                 onChange={(e) => handleTextChange('mobNum', e.target.value)}
                                 type="text"
@@ -164,16 +168,18 @@ export default function UserProfileEdit() {
                             <TextField
                                 className='txt'
                                 id="fname"
+                                placeholder= 'january 01, 2023'
                                 value={formData.dob}
                                 onChange={(e) => handleTextChange('dob', e.target.value)}
                                 type="text"
                                 variant='outlined'
+                                disabled={ user.dob != null}
                             />
                             <p><b>City:</b></p>
                             <TextField
                                 className='txt'
                                 id="fname"
-                                label="City"
+                                placeholder= 'City'
                                 value={formData.city}
                                 onChange={(e) => handleTextChange('city', e.target.value)}
                                 type="text"
@@ -183,7 +189,7 @@ export default function UserProfileEdit() {
                             <TextField
                                 className='txt'
                                 id="fname"
-                                label="Country"
+                                placeholder= 'Country'
                                 value={formData.country}
                                 onChange={(e) => handleTextChange('country', e.target.value)}
                                 type="text"

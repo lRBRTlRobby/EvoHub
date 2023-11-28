@@ -76,7 +76,7 @@ root.render(
       {/* <AdminEventReq /> */}
       {/* <AdminOrganReq /> */}
       {/* <ImageUpload /> */}
-      <ImageDisplay />
+      {/* <ImageDisplay /> */}
       {/* <AdminEventReqDetails /> */}
       </UserProvider>
 
