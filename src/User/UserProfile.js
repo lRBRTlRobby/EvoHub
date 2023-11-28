@@ -12,7 +12,7 @@ export default function UserProfile() {
     return (
         <div>
             <ResponsiveAppBar />
-            <div>
+            <div style={user.city !== null ? {} : { marginBottom: "5rem" }}>
                 <img src="./img/userprofile.jpg" alt="logo" className="banner" style={{ position: "absolute", zIndex: -1 }} />
                 <div style={{ display: "flex", justifyContent: "center" }}>
                     <div style={{ marginTop: "8.6rem" }}>

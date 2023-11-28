@@ -73,17 +73,25 @@ export default function UserProfileEdit() {
     return (
         <div>
             <ResponsiveAppBar />
-            <div>
-                <img src="./img/userprofile.jpg" alt="logo" className="banner" />
+            <div style={{marginBottom: "18rem"}}>
+                <img src="./img/userprofile.jpg" alt="logo" className="banner"  style={{ position: "absolute", zIndex: -1 }}/>
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                    <div style={{ marginTop: "8.6rem" }}>
+                        <Avatar alt={user.fname} src="/static/images/avatar/2.jpg" sx={{ width: 120, height: 120, fontSize: "3.5rem" }} />
+                        <div>
+
+                        </div>
+
+                    </div>
+
+                </div>
             </div>
 
             <Container maxWidth="lg" sx={{ marginBottom: "5rem" }}>
                 <div>
-                    <div style={{ marginTop: "3rem", display: "flex", alignItems: "center" }}>
-                        <Avatar alt={user.fname} src="/static/images/avatar/2.jpg" sx={{ width: 120, height: 120 }} />
-                        <p>&nbsp;</p>
-                        <ButtonM name="Upload" />
-                    </div>
+                    {/* <div style={{ marginTop: "3rem", display: "flex", justifyContent: "center" }}>
+                        <Avatar alt={user.fname} src="/static/images/avatar/2.jpg" sx={{ width: 120, height: 120, fontSize: "3.5rem" }} />
+                    </div> */}
                     <Grid container spacing={2} style={{ margin: "0 auto", fontFamily: "'DM Sans', sans-serif" }}>
                         <Grid item xs={6} md={6}>
                             <p><b>First Name:</b></p>
@@ -122,8 +130,8 @@ export default function UserProfileEdit() {
                                     <p><b>Gender: </b>
                                         <select value={selectedGender} onChange={handleGenderChange} disabled={ user.gender != null}>
                                             <option value="">Select</option>
-                                            <option value="male">Male</option>
-                                            <option value="female">Female</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
                                         </select>
                                     </p>
                                 </label>
@@ -204,7 +212,7 @@ export default function UserProfileEdit() {
                         <TextField
                             className='txt'
                             id="fname"
-                            label="I like cats"
+                            placeholder='User Bio'
                             value={formData.bio}
                                 onChange={(e) => {handleTextChange('bio', e.target.value); handleInputChange(e);}}
                             type="text"
