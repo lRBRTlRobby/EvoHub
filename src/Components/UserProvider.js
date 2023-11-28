@@ -1,9 +1,16 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
+  // Check localStorage for existing user data on page load
+  const storedUser = JSON.parse(localStorage.getItem('user'));
+  const [user, setUser] = useState(storedUser || null);
+
+  useEffect(() => {
+    // Save user data to localStorage whenever it changes
+    localStorage.setItem('user', JSON.stringify(user));
+  }, [user]);
 
   const login = (userData) => {
     setUser(userData);

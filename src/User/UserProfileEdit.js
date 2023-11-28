@@ -5,22 +5,71 @@ import Avatar from '@mui/material/Avatar';
 import { Button, Grid, TextField } from '@mui/material';
 import Footer from '../Components/footer';
 import ButtonM from '../Components/ButtonMaroon';
+import { useUser } from '../Components/UserProvider';
+import axios from 'axios';
 
 export default function UserProfileEdit() {
-    const [selectedGender, setSelectedGender] = useState('');
+    const { user, login } = useUser();
+    const [selectedGender, setSelectedGender] = useState(user.gender || '');
+
+    const [lastname, setLastname] = useState('');
 
     const handleGenderChange = (event) => {
         setSelectedGender(event.target.value);
+        handleTextChange('gender', event.target.value);  // Update the formData with the new gender
+    };
+
+    const [formData, setFormData] = useState({
+        fname: user.fname || '',
+        mname: user.mname || '',
+        lname: user.lname || '',
+        dept: user.dept || '',
+        email: user.email || '',
+        pass: user.pass || '',
+        gender: user.gender || '',
+        dob: user.dob || '',
+        mobNum: user.mobNum || '',
+        city: user.city || '',
+        country: user.country || '',
+        bio: user.bio || '',
+    });
+
+    const handleTextChange = (field, value) => {
+        setFormData((prevData) => ({
+            ...prevData,
+            [field]: value,
+        }));
+    };
+
+    const handleUpdateProfile = async () => {
+        try {
+            const response = await axios.put(`http://localhost:8080/User/updateUser?userid=${user.userid}`, formData);
+
+            // Update the user data in the UserProvider
+            login(response.data);
+
+            // Optionally, handle success cases here
+            // For example, show a success message
+            alert('Profile updated successfully!');
+        } catch (error) {
+            console.error('Error updating user profile:', error);
+            // Optionally, handle error cases here
+            // For example, show an error message to the user
+        }
     };
 
     const [textFieldHeight, setTextFieldHeight] = useState('auto');
 
     const handleInputChange = (event) => {
-        const inputLines = event.target.value.split('\n').length;
-        const fixedLineHeight = 1.5; 
-        const newHeight = `${inputLines * fixedLineHeight}em`;
-        setTextFieldHeight(newHeight);
+        if (event && event.target) {
+            const inputLines = event.target.value.split('\n').length;
+            const fixedLineHeight = 1.5;
+            const newHeight = `${inputLines * fixedLineHeight}em`;
+            setTextFieldHeight(newHeight);
+        }
     };
+
+
     return (
         <div>
             <ResponsiveAppBar />
@@ -41,30 +90,37 @@ export default function UserProfileEdit() {
                             <TextField
                                 className='txt'
                                 id="fname"
-                                placeholder='Kyle'
+                                placeholder= 'First Name'
+                                value={formData.fname}
+                                onChange={(e) => handleTextChange('fname', e.target.value)}
                                 type="text"
                                 variant='outlined'
+                                disabled
                             />
                             <p><b>Middle Name:</b></p>
                             <TextField
                                 className='txt'
                                 id="fname"
-                                placeholder='Kyle'
+                                placeholder= 'Middle Name'
+                                value={formData.mname}
                                 type="text"
                                 variant='outlined'
+                                disabled
                             />
                             <p><b>Last Name:</b></p>
                             <TextField
                                 className='txt'
-                                id="fname"
-                                placeholder='Weig'
+                                id="lname"
+                                value={formData.lname}
+                                placeholder='Last Name'
                                 type="text"
                                 variant='outlined'
+                                disabled
                             />
                             <div>
                                 <label>
                                     <p><b>Gender: </b>
-                                        <select value={selectedGender} onChange={handleGenderChange}>
+                                        <select value={selectedGender} onChange={handleGenderChange} disabled={ user.gender != null}>
                                             <option value="">Select</option>
                                             <option value="male">Male</option>
                                             <option value="female">Female</option>
@@ -78,6 +134,8 @@ export default function UserProfileEdit() {
                                 className='txt'
                                 id="fname"
                                 placeholder='CCS'
+                                value={formData.dept}
+                                onChange={(e) => handleTextChange('dept', e.target.value)}
                                 type="text"
                                 variant='outlined'
                             />
@@ -88,7 +146,8 @@ export default function UserProfileEdit() {
                             <TextField
                                 className='txt'
                                 id="fname"
-                                placeholder='kyle.weig@cit.edu'
+                                value={formData.email}
+                                onChange={(e) => handleTextChange('email', e.target.value)}
                                 type="text"
                                 variant='outlined'
                             />
@@ -96,7 +155,8 @@ export default function UserProfileEdit() {
                             <TextField
                                 className='txt'
                                 id="fname"
-                                placeholder='+63 912 345 6789'
+                                value={formData.mobNum}
+                                onChange={(e) => handleTextChange('mobNum', e.target.value)}
                                 type="text"
                                 variant='outlined'
                             />
@@ -104,7 +164,8 @@ export default function UserProfileEdit() {
                             <TextField
                                 className='txt'
                                 id="fname"
-                                placeholder='July 5, 2001'
+                                value={formData.dob}
+                                onChange={(e) => handleTextChange('dob', e.target.value)}
                                 type="text"
                                 variant='outlined'
                             />
@@ -113,6 +174,8 @@ export default function UserProfileEdit() {
                                 className='txt'
                                 id="fname"
                                 label="City"
+                                value={formData.city}
+                                onChange={(e) => handleTextChange('city', e.target.value)}
                                 type="text"
                                 variant='outlined'
                             />
@@ -121,6 +184,8 @@ export default function UserProfileEdit() {
                                 className='txt'
                                 id="fname"
                                 label="Country"
+                                value={formData.country}
+                                onChange={(e) => handleTextChange('country', e.target.value)}
                                 type="text"
                                 variant='outlined'
                             />
@@ -134,23 +199,27 @@ export default function UserProfileEdit() {
                             className='txt'
                             id="fname"
                             label="I like cats"
+                            value={formData.bio}
+                                onChange={(e) => {handleTextChange('bio', e.target.value); handleInputChange(e);}}
                             type="text"
                             variant='outlined'
                             multiline
-                            onChange={handleInputChange}
                             sx={{
                                 width: "100%", maxWidth: "100%", maxHeight: "auto", padding: '1rem', display: "flex", maxHeight: "auto",
-                                   height: textFieldHeight, padding: 0, marginBottom: '1rem',
+                                height: textFieldHeight, padding: 0, marginBottom: '1rem',
                             }}
                         />
                     </div>
                 </div>
 
                 <div style={{ display: "flex", justifyContent: "center" }}>
-                    
-                    <ButtonM name="update Profile" />
+
+                    <Button sx={{
+                        backgroundColor: 'maroon', color: 'white', fontFamily: "'DM Sans', sans-serif", width: '19rem', height: '4rem', fontWeight: 'bold', fontFamily: "'DM Sans', sans-serif", fontSize: '1rem',
+                        display: "flex", justifyContent: "center", padding: 0, borderRadius: 50
+                    }} onClick={handleUpdateProfile}>Update Profile</Button>
                 </div>
-                
+
             </Container>
             <Footer />
         </div>

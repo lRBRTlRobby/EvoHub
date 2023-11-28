@@ -38,7 +38,7 @@ export default function UserProfile() {
                     <Grid container spacing={2} style={{ margin: "0 auto", fontFamily: "'DM Sans', sans-serif" }}>
                         <Grid item xs={6} md={6}>
                             <p><b>First Name:</b> {user.fname}</p>
-                            <p><b>Middle Name:</b> Kyle</p>
+                            <p><b>Middle Name:</b> {user.mname}</p>
                             <p><b>Last Name:</b> {user.lname}</p>
                             <p><b>Gender:</b> {user.gender}</p>
                             <p><b>Department:</b> {user.dept}</p>
