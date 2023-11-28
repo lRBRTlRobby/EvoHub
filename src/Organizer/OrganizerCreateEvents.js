@@ -34,6 +34,50 @@ export default function CreateEventForm() {
     // sponsors:[]
   });
 
+  const resetForm = () => {
+    setFormData({
+      eventTitle: "",
+      description: "",
+      date: "",
+      time: "",
+      duration: "",
+      location: "",
+      organizer: "",
+      year: "",
+      department: "",
+      payment: "",
+      max: "",
+    });
+  };
+
+
+  const [file, setFile] = useState(null);
+  const [imageUrl, setImageUrl] = useState(null);
+
+
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
+  const handleUpload = async () => {
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      // Replace 'http://localhost:8080' with the actual base URL of your API
+      const response = await axios.post('http://localhost:8080/Image/upload', formData);
+
+      // Assuming the response contains the image URL
+      await setImageUrl(response.data);
+      console.log('Image uploaded successfully:', response.data);
+      // Clear the file input
+      setFile(null);
+    } catch (error) {
+      alert("Uploaded Image Filename is already Taken");
+      console.error('Error uploading image:', error.message);
+    }
+  };
+
   const date = () => {
 
 
@@ -47,8 +91,6 @@ export default function CreateEventForm() {
     });
   };
   
-  
-
   
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -75,6 +117,7 @@ export default function CreateEventForm() {
           department: formData.department,
           payment: formData.payment,
           maxAttend: formData.max,
+          image: imageUrl,
         },
         {
           headers: {
@@ -514,6 +557,12 @@ console.log(formData)
                     required
                   />
                 </div>
+
+                <input type="file" onChange={handleFileChange} />
+                <Button onClick={async (e) => { e.preventDefault(); await handleUpload(); }} disabled={!file}>
+                
+                  Upload Image
+                </Button>
 
 
               {/* Submit  Button */}
