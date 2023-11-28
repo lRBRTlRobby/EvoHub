@@ -73,7 +73,8 @@ root.render(
       <Route path="/OrganizerAppllicationForm" element={<ApplicationForm />} />
       <Route path="/UserProfile" element={<UserProfile />} />
       <Route path="/UserProfileEdit" element={<UserProfileEdit />} />
-      <Route path="/UserEventPage" element={<UserEventPage />} />
+      <Route path="/UserEventPage/:eventId" element={<UserEventPage />} />
+      <Route path="/ActionAreaCard" element={<ActionAreaCard />} />
       <Route path="/UserEventJoinRequest" element={<UserEventJoinRequest />} />
       <Route path="/EventCategoryCCS" element={<EventCategoryCCS />} />
       <Route path="/EventCategoryCEA" element={<EventCategoryCEA />} />

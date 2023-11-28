@@ -116,7 +116,7 @@ export default function UserHomePage() {
                         <div style={{ display: "flex", overflowX: "hidden", maxWidth: "100%" }} ref={containerRef1}>
                             {event.map((event, index) => (
                                 
-                                <Link to="/UserEventPage">
+                                <Link to={`/UserEventPage/${event.eventid}`}>
                                     <ActionAreaCard
                                         key={index}
                                         date={event.date}
@@ -124,7 +124,8 @@ export default function UserHomePage() {
                                         image={image[index]}
                                         description={event.description}
                                     />
-                                </Link>
+                                    </Link>
+
                             ))}
 
                         </div>

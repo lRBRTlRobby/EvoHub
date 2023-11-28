@@ -6,11 +6,11 @@ import Container from '@mui/material/Container';
 import { Box, Button, FormControl, FormControlLabel, FormLabel, Grid, Input, InputLabel, Select, Typography } from "@mui/material";
 import React, { useState ,useEffect} from 'react';
 import MenuItem from '@mui/material/MenuItem';
+import axios from 'axios';
+
 
 export default function UserEventJoinRequest() {
-  useEffect(() => {
-    window.scroll(0, 0); 
-}, []);
+ 
   const [formData, setFormData] = useState({
     fullName: "",
 

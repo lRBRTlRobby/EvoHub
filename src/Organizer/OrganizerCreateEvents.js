@@ -40,24 +40,33 @@ export default function CreateEventForm() {
   }
   const handleChange = (e) => {
     const { name, value } = e.target;
-    const formattedDate = name === "date" ? formatDate(value) : value;
-    
+  
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
   };
+  
+  
+
   
   const handleSubmit = async (e) => {
     e.preventDefault();
   
     try {
+      // Convert date format to string
+      const formattedDate = new Date(formData.date).toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+      });
+  
       const response = await axios.post(
         "http://localhost:8080/Event/insertEvent",
         {
           title: formData.eventTitle,
           description: formData.description,
-          date: formData.date,
+          date: formattedDate, // Use the formatted date as a string
           time: formData.time,
           duration: formData.duration,
           location: formData.location,
@@ -82,17 +91,7 @@ export default function CreateEventForm() {
       console.error("Error submitting form:", error);
     }
   };
-
-  const formatDate = (dateString) => {
-    const options = { year: "numeric", month: "short", day: "numeric" };
-    const formattedDate = new Date(dateString).toLocaleDateString(
-      "en-US",
-      options
-    );
-    return formattedDate;
-  };
-
-
+  
 console.log(formData)
   return (
     <>
@@ -188,18 +187,6 @@ console.log(formData)
                     }}
                     required
                   />
-                  {formData.date && (
-                    <p
-                      id="fdate"
-                      style={{
-                        marginTop: "0.5rem",
-                        color: "#666666",
-                        fontFamily: "DM Sans",
-                      }}
-                    >
-                      Selected Date: {formatDate(formData.date)}
-                    </p>
-                  )}
                 </div>
 
                 {/* Time 1 */}
@@ -432,7 +419,7 @@ console.log(formData)
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
-                    <option value="4<">4</option>
+                    <option value="4">4</option>
                     <option value="5">5</option>
                     <option value="None">None</option>  {/* Corrected the spelling here */}
                   </select>
@@ -462,12 +449,12 @@ console.log(formData)
                       padding: "10px",
                     }}
                   >
-                    <option value="CEA">CEA</option>
-                    <option value="CCS">CCS</option>
-                    <option value="CMBA">CMBA</option>
-                    <option value="CASE<">CASE</option>
-                    <option value="CNAHS">CNAHS</option>
-                    <option value="CCJ">CCJ</option>  {/* Corrected the spelling here */}
+                    <option value="College of Engineering and Architecture">CEA</option>
+                    <option value="College of Computer Studies">CCS</option>
+                    <option value="College of Mngnt Bussiness Administration">CMBA</option>
+                    <option value="College of Arts and Sciences">CASE</option>
+                    <option value="College of Natural Arts of Health Sciences">CNAHS</option>
+                    <option value="College of Criminology">CCJ</option>  {/* Corrected the spelling here */}
                     <option value="None">None</option>  {/* Corrected the spelling here */}
                   </select>
                 </div>
