@@ -12,7 +12,8 @@ export default function UserProfile() {
     return (
         <div>
             <ResponsiveAppBar />
-            <div style={user.city !== null ? {} : { marginBottom: "5rem" }}>
+            <div >
+
                 <img src="./img/userprofile.jpg" alt="logo" className="banner" style={{ position: "absolute", zIndex: -1 }} />
                 <div style={{ display: "flex", justifyContent: "center" }}>
                     <div style={{ marginTop: "8.6rem" }}>
@@ -28,9 +29,10 @@ export default function UserProfile() {
                     <h2 style={{ fontSize: "2.8rem" }} >{user.fname} {user.lname}</h2>
                     <p style={{ fontSize: "1.2rem", marginTop: "-1.8rem" }}>{user.city}</p>
                 </div>
-                <div style={{ marginTop: "1rem", textAlign: "right", marginTop: "7.4rem", marginRight: "9.5rem", fontFamily: "'DM Sans', sans-serif" }}>
+                   <div style={{ textAlign: "right", marginTop: user.city === null || user.city === '' ? "11rem" : "7.4rem", marginRight: "9.5rem", fontFamily: "'DM Sans', sans-serif",  }}>
                     <Link to="/EditUserProfile"> <Button sx={{ color: 'black', padding: 0, margin: 0 }}><p style={{ fontSize: ".9rem" }}><u>Edit Profile</u></p></Button></Link>
                 </div>
+                
 
             </div>
             <Container maxWidth="lg" sx={{ marginBottom: "5rem" }}>
