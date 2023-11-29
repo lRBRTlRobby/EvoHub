@@ -50,12 +50,13 @@ import OrganEventCategoryCEA from './Organizer/OrganizerEventCategoryCEA';
 import OrganizerUpcomingEvents from './Organizer/OrganizerUpcomingEvents';
 import CreateEventForm from './Organizer/OrganizerCreateEvents';
 import Attendees from './Organizer/OrganizerAttendees';
+import { UserProvider } from './Components/UserProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 <React.StrictMode>
       <BrowserRouter>
-
+<UserProvider>
       <Routes>
       <Route path="/" element={<Event />} />
       <Route path="/EventRegister" element={<EventRegister />} />
@@ -92,12 +93,11 @@ root.render(
       <Route path="/OrganizerEventCategoryCCJ" element={<OrganEventCategoryCCJ />} />
       <Route path="/OrganizerCreateEvents" element={<CreateEventForm />} />
       <Route path="/AttendeesRequirements" element={<Attendees />} />
-      <Route path="/OrganizerUpcomingEvents" element={<OrganizerUpcomingEvents />} />
 
 
 
       </Routes>
-
+      </UserProvider>
 {/* <Footer /> */}
 {/* <JoinedEvents /> */}
 {/* <ResponsiveAppBar /> */}

@@ -19,8 +19,10 @@ import ResponsiveAppBar from "../Components/header";
 import Footer from "../Components/footer";
 import "../Components/EventCatBtn.css";
 import Container from '@mui/material/Container';
+import { useUser } from '../Components/UserProvider';
 
 export default function UserEventJoinRequest() {
+  const { user } = useUser();
   const { eventId } = useParams();
   const [formData, setFormData] = useState({
     fname: "",
@@ -41,12 +43,13 @@ export default function UserEventJoinRequest() {
 
     try {
       const response = await axios.post('http://localhost:8080/participantrequest/insertParRequest', {
-        firstname: formData.fname,
-        lastname: formData.lname,
-        email: formData.schoolEmailAddress,
+        firstname: user.fname,
+        lastname: user.lname,
+        email: user.email,
         yearlevel: formData.yearLevel,
         department: formData.department,
-        eventId: eventId
+        eventId: eventId,
+        userId: user.userid,
       });
 
       console.log('Form submitted successfully:', response.data);
@@ -54,7 +57,7 @@ export default function UserEventJoinRequest() {
       console.error('Error submitting form:', error);
     }
   };
-
+console.log("USER ID",user.userid);
   return (
     <>
       <ResponsiveAppBar />
@@ -65,40 +68,43 @@ export default function UserEventJoinRequest() {
         <br/>
         <form onSubmit={handleSubmit}>
           <Grid container spacing={2}>
-            <FormControl fullWidth>
+            <FormControl fullWidth >
               <InputLabel htmlFor="fname">First Name</InputLabel>
               <Input
                 id="fname"
                 name="fname"
                 type="text"
-                value={formData.fname}
+                value={user.fname}
                 onChange={handleChange}
+                disabled
               />
             </FormControl>
 
-            <FormControl fullWidth>
+            <FormControl fullWidth sx={{ mt: 2 }}>
               <InputLabel htmlFor="lname">Last Name</InputLabel>
               <Input
                 id="lname"
                 name="lname"
                 type="text"
-                value={formData.lname}
+                value={user.lname}
                 onChange={handleChange}
+                disabled
               />
             </FormControl>
 
-            <FormControl fullWidth>
+            <FormControl fullWidth sx={{ mt: 2 }}>
               <InputLabel htmlFor="schoolEmailAddress">School Email Address</InputLabel>
               <Input
                 id="schoolEmailAddress"
                 name="schoolEmailAddress"
                 type="email"
-                value={formData.schoolEmailAddress}
+                value={user.email}
                 onChange={handleChange}
+                disabled
               />
             </FormControl>
 
-            <FormControl fullWidth>
+            <FormControl fullWidth sx={{ mt: 2 }}>
               <FormLabel>Year Level</FormLabel>
               <Select
                 id="yearLevel"
@@ -113,7 +119,7 @@ export default function UserEventJoinRequest() {
               </Select>
             </FormControl>
 
-            <FormControl fullWidth>
+            <FormControl fullWidth sx={{ mt: 2 }}>
               <FormLabel>Department</FormLabel>
               <Select
                 id="department"
