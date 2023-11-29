@@ -45,89 +45,6 @@ export default function UserPopularEvents() {
       containerRef1.current.scrollLeft += 300;
     }
   };
-  const image = [
-    "/img/doggo.jpg",
-    "/img/account.png",
-    "/img/organreq.jpg",
-    "/img/engineering.png",
-    "/img/Joined.jpg",
-    "/img/Joined.jpg",
-  ];
-
-  // const events = [
-  //   {
-  //     date: "Sep 04",
-  //     title: "CIT-U Info Session 2022",
-  //     image: "/img/crab.jpg",
-  //     description: "Mr. Bean squared",
-  //   },
-  //   {
-  //     date: "Sep 04",
-  //     title: "TechXperience 2023",
-  //     image: "/img/info.jpg",
-  //     description: "Doggo and puppy",
-  //   },
-  //   {
-  //     date: "Sep 04",
-  //     title: "Summer Camp",
-  //     image: "/img/sess.jpg",
-  //     description: "Doggo and puppy",
-  //   },
-  //   {
-  //     date: "Sep 04",
-  //     title: "School Night",
-  //     image: "/img/engineering.png",
-  //     description: "Doggo and puppy",
-  //   },
-  //   {
-  //     date: "Sep 04",
-  //     title: "Hello World",
-  //     image: "/img/Joined.jpg",
-  //     description: "Doggo and puppy",
-  //   },
-  //   {
-  //     date: "Sep 04",
-  //     title: "Goodbye World",
-  //     image: "/img/ccs.png",
-  //     description: "Doggo and puppy",
-  //   },
-  //   {
-  //     date: "Sep 04",
-  //     title: "CIT-U Info Session 2022",
-  //     image: "/img/doggo.jpg",
-  //     description: "Doggo and puppy",
-  //   },
-  //   {
-  //     date: "Sep 04",
-  //     title: "TechXperience 2023",
-  //     image: "/img/account.png",
-  //     description: "Doggo and puppy",
-  //   },
-  //   {
-  //     date: "Sep 04",
-  //     title: "Summer Camp",
-  //     image: "/img/organreq.jpg",
-  //     description: "Doggo and puppy",
-  //   },
-  //   {
-  //     date: "Sep 04",
-  //     title: "School Night",
-  //     image: "/img/engineering.png",
-  //     description: "Doggo and puppy",
-  //   },
-  //   {
-  //     date: "Sep 04",
-  //     title: "Hello World",
-  //     image: "/img/Joined.jpg",
-  //     description: "Doggo and puppy",
-  //   },
-  //   {
-  //     date: "Sep 04",
-  //     title: "Goodbye World",
-  //     image: "/img/ccs.png",
-  //     description: "Doggo and puppy",
-  //   },
-  // ];
 
   return (
     <>
@@ -163,7 +80,7 @@ export default function UserPopularEvents() {
                   <ActionAreaCard
                     date={event.date}
                     title={event.title}
-                    image={image[index]}
+                    image={"/uploads/" + event.image}
                     description={event.description}
                   />
                 </div>

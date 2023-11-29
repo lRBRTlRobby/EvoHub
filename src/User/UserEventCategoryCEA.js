@@ -11,13 +11,14 @@ import { Link } from 'react-router-dom';
 
 
 export default function EventCategoryCEA() {
-    window.scroll(0, 0);
+
     const containerRef = useRef(null);
     const containerRef1 = useRef(null);
     const [event, setEvents] = useState([]);
     const currentDate = new Date();
 
     useEffect(() => {
+        window.scroll(0, 0);
         axios.get('http://localhost:8080/Event/getAllEvents')
           .then(response => {
             setEvents(response.data);
@@ -26,6 +27,7 @@ export default function EventCategoryCEA() {
             console.error('Error fetching events:', error);
           });
       }, []);
+
     const scrollLeft = () => {
         if (containerRef.current) {
             containerRef.current.scrollLeft -= 300;

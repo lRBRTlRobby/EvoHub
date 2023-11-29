@@ -11,12 +11,21 @@ import { Link } from 'react-router-dom';
 
 
 export default function EventCategoryCMBA() {
-    window.scroll(0, 0);
+   
     const containerRef = useRef(null);
     const containerRef1 = useRef(null);
     const [event, setEvents] = useState([]);
     const currentDate = new Date();
-
+    useEffect(() => {
+        window.scroll(0, 0);
+        axios.get('http://localhost:8080/Event/getAllEvents')
+          .then(response => {
+            setEvents(response.data);
+          })
+          .catch(error => {
+            console.error('Error fetching events:', error);
+          });
+      }, []);
     const scrollLeft = () => {
         if (containerRef.current) {
             containerRef.current.scrollLeft -= 300;
@@ -46,7 +55,7 @@ export default function EventCategoryCMBA() {
             <img src="img/cmba_banner.png" alt="logo" className="banner" />
             <Container maxWidth="lg">
                 <div >
-                    <h1 style={{ fontFamily: "'DM Sans', sans-serif" }}>College of Computer Studies</h1>
+                    <h1 style={{ fontFamily: "'DM Sans', sans-serif" }}>College of Management, Business and Administration</h1>
                     <h2 style={{ fontFamily: "'DM Sans', sans-serif" ,fontSize:'30px'}}>Upcoming Events</h2>
 
                 </div>
