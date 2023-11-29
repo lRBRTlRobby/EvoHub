@@ -25,7 +25,7 @@ function getPagePath(page) {
     case 'Event Categories':
       return '/OrganizerEventCategory';
     case 'Upcoming Events':
-        return '/UserUpcomingEvents';
+        return '/OrganizerUpcomingEvents';
     case 'Joined Events':
       return '/OrganizerJoinedEvents';
     // Add more cases for additional pages

@@ -94,6 +94,14 @@ export default function CreateEventForm() {
   
   const handleSubmit = async (e) => {
     e.preventDefault();
+    for (const key in formData) {
+      console.log(`Checking ${key}: ${formData[key]}`);
+      if (!formData[key]) {
+        alert(`Please fill in the ${key.replace(/([A-Z])/g, ' $1').toLowerCase()}`);
+        return;
+      }
+    }
+    
   
     try {
       // Convert date format to string
@@ -315,6 +323,7 @@ console.log(formData)
                       padding: "10px",
                     }}
                   >
+                    <option value="" disabled>Select location</option>
                     <option value="Gymnasium">Gymnasium</option>
                     <option value="Learning Center">Learning Center</option>
                     <option value="Auditorium">Auditorium</option>
@@ -459,12 +468,13 @@ console.log(formData)
                       padding: "10px",
                     }}
                   >
+                    <option value="" disabled>Select Year Level</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
                     <option value="5">5</option>
-                    <option value="None">None</option>  {/* Corrected the spelling here */}
+                    <option value="0">None</option>  {/* Corrected the spelling here */}
                   </select>
                 </div>
 
@@ -492,13 +502,14 @@ console.log(formData)
                       padding: "10px",
                     }}
                   >
-                    <option value="College of Engineering and Architecture">CEA</option>
-                    <option value="College of Computer Studies">CCS</option>
-                    <option value="College of Mngnt, Bussiness and Administration">CMBA</option>
-                    <option value="College of Nursing and Allied Health Sciences">CASE</option>
-                    <option value="College of Natural Arts of Health Sciences">CNAHS</option>
-                    <option value="College of Criminal Justice">CCJ</option>  {/* Corrected the spelling here */}
-                    <option value="None">None</option>  {/* Corrected the spelling here */}
+                  <option value="" disabled>Select department</option>
+                  <option value="College of Engineering and Architecture">CEA</option>
+                  <option value="College of Computer Studies">CCS</option>
+                  <option value="College of Mngnt, Bussiness and Administration">CMBA</option>
+                  <option value="College of Nursing and Allied Health Sciences">CASE</option>
+                  <option value="College of Natural Arts of Health Sciences">CNAHS</option>
+                  <option value="College of Criminal Justice">CCJ</option>
+                  <option value="None">None</option>
                   </select>
                 </div>
 
@@ -526,6 +537,7 @@ console.log(formData)
                       padding: "10px",
                     }}
                   >
+                    <option value="" disabled>Required</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
                   </select>

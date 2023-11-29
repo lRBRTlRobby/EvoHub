@@ -47,6 +47,7 @@ import OrganEventCategoryCMBA from './Organizer/OrganizerEventCategoryCMBA';
 import OrganEventCategoryCNAHS from './Organizer/OrganizerEventCategoryCNAHS';
 import OrganEventCategoryCASE from './Organizer/OrganizerEventCategoryCASE';
 import OrganEventCategoryCEA from './Organizer/OrganizerEventCategoryCEA';
+import OrganizerUpcomingEvents from './Organizer/OrganizerUpcomingEvents';
 import CreateEventForm from './Organizer/OrganizerCreateEvents';
 import Attendees from './Organizer/OrganizerAttendees';
 
@@ -91,6 +92,7 @@ root.render(
       <Route path="/OrganizerEventCategoryCCJ" element={<OrganEventCategoryCCJ />} />
       <Route path="/OrganizerCreateEvents" element={<CreateEventForm />} />
       <Route path="/AttendeesRequirements" element={<Attendees />} />
+      <Route path="/OrganizerUpcomingEvents" element={<OrganizerUpcomingEvents />} />
 
 
 
