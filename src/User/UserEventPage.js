@@ -7,7 +7,7 @@ import React, { useState, useEffect } from 'react';
 import ButtonM from "../Components/ButtonMaroon";
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-
+import { styled } from '@mui/system';
 export default function UserEventPage() {
   const [event, setEvents] = useState({});
   const { eventId } = useParams();
@@ -26,61 +26,76 @@ export default function UserEventPage() {
       });
   }, [eventId]);
 
+
   return (
     <>
       <ResponsiveAppBar />
-      <img src="/img/EventPageBanner.png" alt="logo" className="banner" />
-      <Container maxWidth="lg">
-        <h2 style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '32px', marginRight: '600px', marginLeft: '150px' }}>
-          {event.title}
-        </h2>
+    
+      <div style={{ backgroundImage: `url('/img/sheer.png')`, backgroundSize: 'cover', minHeight: '10vh' }}>
+        <Container maxWidth="lg">
+          <br/>
+          <br/>
+          <br/>
 
-        <p style={{ textAlign: 'justify', width: '810px', marginRight: '350px', marginLeft: '150px', fontSize: '20px', textDecoration: 'underline' }}>
-          {event.department}
-        </p>
-
-        <p style={{ textAlign: 'justify', width: '810px', marginRight: '350px', marginLeft: '150px', fontSize: '18px' }}>
-          {event.description}
-        </p>
-        <br></br>
-        <br></br>
-        <br></br>
-      </Container>
-      <EventRibbon path="/UserEventJoinRequest" />
-      <Container maxWidth="lg">
-        <br />
-        <div style={{ textAlign: "center" }}>
-          <h2 style={{ fontFamily: 'DM Sans, sans-serif', textAlign: 'left' }}>About this event</h2>
-          <p style={{ textAlign: 'left', fontSize: '14px' }}>
-            {event.description }
-          </p>
-
-          <br />
-          <br />
-          <h2 style={{ fontFamily: 'DM Sans, sans-serif', textAlign: 'left' }}>
-            Head Organizer
+        <img  src={"/uploads/" + event.image} alt="here" 
+          style={{ width: '100%',
+          height:"500px",
+          borderRadius: '45px', // Adjust the radius as needed
+          display: 'block',
+          margin: 'auto',
+         }} 
+        />
+          <h2 style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '32px', marginRight: '600px', marginLeft: '150px' }}>
+            {event.title}
           </h2>
 
-          <img src="/img/Organizers.png" alt="logo" style={{ marginTop: '10px', marginLeft: '100px', width: '1000px', height: '220px' }} />
-          <p style={{ textAlign: 'left', fontSize: '14px' }}>
-            {event.organizer}
+          <p style={{ textAlign: 'justify', width: '810px', marginRight: '350px', marginLeft: '150px', fontSize: '20px', textDecoration: 'underline' }}>
+            {event.department}
           </p>
 
+          <p style={{ textAlign: 'justify', width: '810px', marginRight: '350px', marginLeft: '150px', fontSize: '18px' }}>
+            {event.description}
+          </p>
           <br></br>
           <br></br>
           <br></br>
-          <br></br>
-        </div>
-        <div style={{ marginLeft: '450px' }}>
-          <ButtonM name="Contact us" />
-        </div>
+        </Container>
+      </div>
+      <EventRibbon path={`/UserEventJoinRequest/${eventId}`} />
+        <Container maxWidth="lg">
+          <br />
+          <div style={{ textAlign: "center" }}>
+            <h2 style={{ fontFamily: 'DM Sans, sans-serif', textAlign: 'left' }}>About this event</h2>
+            <p style={{ textAlign: 'left', fontSize: '14px' }}>
+              {event.description }
+            </p>
 
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-      </Container>
+            <br />
+            <br />
+            <h2 style={{ fontFamily: 'DM Sans, sans-serif', textAlign: 'left' }}>
+              Head Organizer
+            </h2>
+            
+          
+            <p style={{ textAlign: 'left', fontSize: '14px' }}>
+              {event.organizer}
+            </p>
+
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+          </div>
+          <div style={{ marginLeft: '450px' }}>
+            <ButtonM name="Contact us" />
+          </div>
+
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+        </Container>
       <Footer />
     </>
   );

@@ -54,11 +54,7 @@ export default function UserHomePage() {
         }
     };
 
-   
-    const image  = [
-        "/img/Techxperience2.png","/img/doggo.jpg","/img/account.png","/img/organreq.jpg","/img/engineering.png","/img/Joined.jpg","/img/Joined.jpg"
-
-    ]
+  
 
     // const events = [
     //     { date: "Sep 04", title: "CIT-U Info Session 2022", image: "/img/doggo.jpg", description: "Doggo and puppy" },
@@ -121,7 +117,7 @@ export default function UserHomePage() {
                                         key={index}
                                         date={event.date}
                                         title={event.title}
-                                        image={image[index]}
+                                        image={"/uploads/" + event.image}
                                         description={event.description}
                                     />
                                     </Link>

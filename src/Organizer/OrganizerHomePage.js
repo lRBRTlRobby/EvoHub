@@ -55,10 +55,6 @@ export default function OrganizerHomePage() {
     };
 
    
-    const image  = [
-        "/img/doggo.jpg","/img/account.png","/img/organreq.jpg","/img/engineering.png","/img/Joined.jpg","/img/Joined.jpg"
-
-    ]
 
     // const events = [
     //     { date: "Sep 04", title: "CIT-U Info Session 2022", image: "/img/doggo.jpg", description: "Doggo and puppy" },
@@ -113,6 +109,7 @@ export default function OrganizerHomePage() {
                     <div style={{ marginBottom: "5rem" }}>
                         <div style={{ display: "flex", overflowX: "hidden", maxWidth: "100%" }} ref={containerRef1}>
                             {event.map((event, index) => (
+                                 <Link to={`/UserEventPage/${event.eventid}`}>
                                 <ActionAreaCard
                                     key={index}
                                     date={event.date}
@@ -120,6 +117,7 @@ export default function OrganizerHomePage() {
                                     image={"/uploads/" + event.image}
                                     description={event.description}
                                 />
+                                </Link>
                             ))}
 
                         </div>

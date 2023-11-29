@@ -75,7 +75,7 @@ root.render(
       <Route path="/UserProfileEdit" element={<UserProfileEdit />} />
       <Route path="/UserEventPage/:eventId" element={<UserEventPage />} />
       <Route path="/ActionAreaCard" element={<ActionAreaCard />} />
-      <Route path="/UserEventJoinRequest" element={<UserEventJoinRequest />} />
+      <Route path="/UserEventJoinRequest/:eventId" element={<UserEventJoinRequest />} />
       <Route path="/EventCategoryCCS" element={<EventCategoryCCS />} />
       <Route path="/EventCategoryCEA" element={<EventCategoryCEA />} />
       <Route path="/EventCategoryCASE" element={<EventCategoryCASE />} />
