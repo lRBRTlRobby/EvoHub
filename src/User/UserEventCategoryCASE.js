@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 
 
 
-export default function EventCategoryCEA() {
+export default function EventCategoryCASE() {
 
     const containerRef = useRef(null);
     const containerRef1 = useRef(null);
