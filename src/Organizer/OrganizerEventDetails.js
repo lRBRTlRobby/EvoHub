@@ -1,7 +1,7 @@
 import React from 'react';
 import ResponsiveAppBar from "../Components/header";
 import Footer from "../Components/footer";
-import EventRibbon_noBtn from "../Components/EventRibbon_noBtn";
+import EventRibbon from "../Components/EventRibbon";
 import Container from '@mui/material/Container';
 import ButtonM from "../Components/ButtonMaroon";
 
@@ -20,7 +20,7 @@ export default function OrganizerEventDetails(){
             <br></br>
             <br></br>
             <div>
-                <EventRibbon_noBtn />
+                <EventRibbon />
             </div>
             <br></br>
             <br></br>
