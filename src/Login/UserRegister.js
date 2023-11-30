@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Grid, TextField } from "@mui/material";
+import { Button, Grid, TextField, FormControl, FormLabel, Select, InputLabel, } from "@mui/material";
 import './UserRegister.css'
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import Container from '@mui/material/Container';
+import MenuItem from '@mui/material/MenuItem';
 import axios from 'axios';
 
 export default function EventRegister() {
+    const [dept, setDept] = useState('Department');
     const [regis, setRegis] = useState(false);
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
+    const [isChecked, setIsChecked] = useState(false);
     const [userData, setUserData] = useState({
         fname: '',
         mname: '',
@@ -16,6 +19,18 @@ export default function EventRegister() {
         email: '',
         pass: '',
     });
+
+    const handleChangeDept = (e) => {
+        const { value } = e.target;
+        setUserData((prevUserData) => ({
+            ...prevUserData,
+            dept: value,
+        }));
+    };
+
+    const handleCheckboxChange = (e) => {
+        setIsChecked(e.target.checked);
+    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -54,19 +69,23 @@ export default function EventRegister() {
                     return;
                 }
             }
+            if (!isChecked) {
+                alert('Please agree to the Terms and Conditions.');
+                return;
+            }
             setRegis(true);
             try {
                 const response = await axios.post('http://localhost:8080/User/insertUser', {
                     fname: document.getElementById("fname").value,
                     mname: document.getElementById("mname").value,
                     lname: document.getElementById("lname").value,
-                    dept: document.getElementById("dept").value,
+                    dept: userData.dept,
                     email: document.getElementById("email").value,
                     pass: document.getElementById("pass").value,
                 });
                 console.log('Registration successful:', response.data);
                 // Redirect or show a success message as needed
-                
+
             } catch (error) {
                 console.error('Error during registration:', error);
                 // Handle registration failure, show error message, etc.
@@ -124,14 +143,36 @@ export default function EventRegister() {
                                         variant='outlined'
                                         onChange={handleChange}
                                     /><br />
-                                    <TextField
+                                    {/* <TextField
                                         className='txt'
                                         id="dept"
                                         label="Department"
                                         type="text"
                                         variant='outlined'
                                         onChange={handleChange}
-                                    /><br />
+                                    /><br /> */}
+                                        <FormControl fullWidth sx={{ textAlign: "center", width: "20rem", }}>
+                                            <InputLabel id="demo-simple-select-label" sx={{ padding: 0, margin: "0 auto", }}>Department</InputLabel>
+
+                                            <Select
+                                                id="dept"
+                                                name="department"
+                                                labelId="demo-simple-select-label"
+                                                label="Department"
+                                                value={userData.dept}
+                                                onChange={handleChangeDept}
+                                                sx={{ width: '20rem',  padding: 0, margin: "0 auto", borderRadius: 50, }}
+                                            >
+                                                <MenuItem value="CCS">College of Computer Science</MenuItem>
+                                                <MenuItem value="CEA">College of Civil Engineering</MenuItem>
+                                                <MenuItem value="CCJ">College of Criminal Justice</MenuItem>
+                                                <MenuItem value="CASE">College of Arts, Sciences and Education</MenuItem>
+                                                <MenuItem value="CEA">College of Nursing and Allied Health</MenuItem>
+                                            </Select>
+                                        </FormControl>
+
+                                    <br />
+ 
                                     <TextField
                                         className='txt'
                                         id="email"
@@ -139,6 +180,7 @@ export default function EventRegister() {
                                         type="text"
                                         variant='outlined'
                                         onChange={handleChange}
+                                        sx={{ mt: 1 }}
                                     /><br />
                                     <TextField
                                         className='txt'
@@ -152,7 +194,7 @@ export default function EventRegister() {
                                 <div style={{ display: "flex", padding: 0, margin: "0 auto", justifyContent: "center" }}>
 
 
-                                    <p className='terms' style={{ fontFamily: "'DM Sans', sans-serif" }}><input type="checkbox" />By signing up, I agree with <u>Terms and conditions.</u></p>
+                                    <p className='terms' style={{ fontFamily: "'DM Sans', sans-serif" }}><input type="checkbox" checked={isChecked} onChange={handleCheckboxChange} />By signing up, I agree with <u>Terms and conditions.</u></p>
 
 
                                 </div>
