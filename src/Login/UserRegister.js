@@ -151,9 +151,9 @@ export default function EventRegister() {
                                         variant='outlined'
                                         onChange={handleChange}
                                     /><br /> */}
-                                        <FormControl fullWidth >
-                                            {/* <FormLabel>Department</FormLabel> */}
-                                            <InputLabel id="demo-simple-select-label" sx={{ padding: 0, margin: "auto 33%", display: "flex", justifyContent: "center", textAlign: "center" }}>Department</InputLabel>
+                                        <FormControl fullWidth sx={{ textAlign: "center", width: "20rem", }}>
+                                            <InputLabel id="demo-simple-select-label" sx={{ padding: 0, margin: "0 auto", }}>Department</InputLabel>
+
                                             <Select
                                                 id="dept"
                                                 name="department"
