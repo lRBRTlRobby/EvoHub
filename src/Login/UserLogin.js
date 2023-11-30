@@ -9,13 +9,18 @@ import { useUser } from '../Components/UserProvider';
 export default function EventUser() {
     const { login } = useUser(); 
     const navigate = useNavigate();
+    const [isChecked, setIsChecked] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    const handleCheckboxChange = (e) => {
+        setIsChecked(e.target.checked);
+    };
 
     const handleLogIn = async () => {
         if(document.getElementById("email").value != "" || document.getElementById("pass").value != "") {
             const email = document.getElementById("email").value;
         const pass = document.getElementById("pass").value;
-    
+        
         try {
           const response = await axios.get('http://localhost:8080/User/getAllUsers', {
             email: document.getElementById("email").value,
@@ -28,6 +33,10 @@ export default function EventUser() {
     
           if (user) {
             // Login successful
+            if(!isChecked){
+                alert('Please agree to the Terms and Conditions.');
+                return;
+            }
             login(user);
             setIsLoggedIn(true);
             console.log('User logged in:', user);
@@ -86,7 +95,7 @@ export default function EventUser() {
                                 <div style={{ display: "flex", padding: 0, margin: "0 auto", justifyContent: "center" }}>
 
 
-                                    <p className='terms' style={{ fontFamily: "'DM Sans', sans-serif" }}><input type="checkbox" />By signing in, I agree with <u>Terms and conditions.</u></p>
+                                    <p className='terms' style={{ fontFamily: "'DM Sans', sans-serif" }}><input type="checkbox" checked={isChecked} onChange={handleCheckboxChange}/>By signing in, I agree with <u>Terms and conditions.</u></p>
 
                                 </div>
   
