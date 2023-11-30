@@ -1,18 +1,31 @@
-import React, { useRef } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import ResponsiveAppBar from "../Components/header"
 import Container from '@mui/material/Container';
 import "./UserEventCategory"
 import ActionAreaCard from '../Components/eventCard';
 import { Button } from '@mui/material';
 import Footer from '../Components/footer';
+import axios from 'axios'
+import { Link } from 'react-router-dom';
 
 
 
 export default function EventCategoryCCS() {
-    window.scroll(0, 0);
     const containerRef = useRef(null);
     const containerRef1 = useRef(null);
+    const [event, setEvents] = useState([]);
+    const currentDate = new Date();
 
+    useEffect(() => {
+        window.scroll(0, 0);
+        axios.get('http://localhost:8080/Event/getAllEvents')
+          .then(response => {
+            setEvents(response.data);
+          })
+          .catch(error => {
+            console.error('Error fetching events:', error);
+          });
+      }, []);
     const scrollLeft = () => {
         if (containerRef.current) {
             containerRef.current.scrollLeft -= 300;
@@ -36,23 +49,6 @@ export default function EventCategoryCCS() {
         }
     };
 
-    const events = [
-        { date: "Sep 04", title: "CIT-U Info Session 2022", image: "/img/irish.jpg", description: "Doggo and puppy" },
-        { date: "Sep 04", title: "TechXperience 2023", image: "/img/robert.png", description: "Doggo and puppy" },
-        { date: "Sep 04", title: "Summer Camp", image: "/img/kaye.jpg", description: "Doggo and puppy" },
-        { date: "Sep 04", title: "School Night", image: "/img/engineering.png", description: "Doggo and puppy" },
-        { date: "Sep 04", title: "Hello World", image: "/img/Joined.jpg", description: "Doggo and puppy" },
-        { date: "Sep 04", title: "Goodbye World", image: "/img/ccs.png", description: "Doggo and puppy" },
-        { date: "Sep 04", title: "CIT-U Info Session 2022", image: "/img/doggo.jpg", description: "Doggo and puppy" },
-        { date: "Sep 04", title: "TechXperience 2023", image: "/img/account.png", description: "Doggo and puppy" },
-        { date: "Sep 04", title: "Summer Camp", image: "/img/organreq.jpg", description: "Doggo and puppy" },
-        { date: "Sep 04", title: "School Night", image: "/img/engineering.png", description: "Doggo and puppy" },
-        { date: "Sep 04", title: "Hello World", image: "/img/Joined.jpg", description: "Doggo and puppy" },
-        { date: "Sep 04", title: "Goodbye World", image: "/img/ccs.png", description: "Doggo and puppy" }
-
-    ];
-
-
     return (
         <>
             <ResponsiveAppBar />
@@ -66,14 +62,27 @@ export default function EventCategoryCCS() {
                 <div>
 
                     <div style={{ display: "flex", overflowX: "hidden", maxWidth: "100%" }} ref={containerRef}>
-                        {events.map((event, index) => (
-                            <ActionAreaCard
+                    {event.map((event, index) => (
+                        <div
+                            key={index}
+                            style={{
+                            boxSizing: "border-box",
+                            padding: ".5rem",
+                            }}
+                        >
+                            {/* Conditional rendering based on event date and department */}
+                            {new Date(event.date) >= currentDate && (event.department === "CCS" || event.department === "None") && (
+                            <Link to={`/UserEventPage/${event.eventid}`}>
+                                <ActionAreaCard
                                 key={index}
                                 date={event.date}
                                 title={event.title}
-                                image={event.image}
+                                image={"/uploads/" + event.image}
                                 description={event.description}
-                            />
+                                />
+                            </Link>
+                            )}
+                        </div>
                         ))}
                     </div>
                     <div style={{ display: "flex", justifyContent: "center" }}>
@@ -87,16 +96,28 @@ export default function EventCategoryCCS() {
 
                     <div style={{ marginBottom: "5rem" }}>
                         <div style={{ display: "flex", flexWrap: "wrap", overflowX: "auto" , alignItemsL:"center", justifyContent: "center"}}>
-                            {events.map((event, index) => (
-                                <div key={index} style={{  boxSizing: "border-box" }}>
-                                    <ActionAreaCard
-                                        date={event.date}
-                                        title={event.title}
-                                        image={event.image}
-                                        description={event.description}
-                                    />
-                                </div>
-                            ))}
+                        {event.map((event, index) => (
+                        <div
+                            key={index}
+                            style={{
+                            boxSizing: "border-box",
+                            padding: ".5rem",
+                            }}
+                        >
+                            {/* Conditional rendering based on event date */}
+                            {new Date(event.date) <= currentDate && event.department === "CCS" && (
+                            <Link to={`/UserEventPage/${event.eventid}`}>
+                                <ActionAreaCard
+                                key={index}
+                                date={event.date}
+                                title={event.title}
+                                image={"/uploads/" + event.image}
+                                description={event.description}
+                                />
+                            </Link>
+                            )}
+                        </div>
+                        ))}
                         </div>
                     </div>
                 </div>

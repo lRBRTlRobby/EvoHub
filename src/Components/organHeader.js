@@ -15,7 +15,7 @@ import AdbIcon from '@mui/icons-material/Adb';
 import  './header.css';
 import { Link } from 'react-router-dom';
 
-const pages = ['Home', 'Event Categories','Upcoming Events', 'Joined Events', 'My Events', 'Create Events'];
+const pages = ['Home', 'Event Categories','Upcoming Events', 'Joined Events', 'MyEvents', 'Create Events'];
 const settings = ['Profile','Logout'];
 
 function getPagePath(page) {
@@ -29,6 +29,8 @@ function getPagePath(page) {
     case 'Joined Events':
       return '/OrganizerJoinedEvents';
     // Add more cases for additional pages
+    case 'MyEvents':
+      return '/MyEvents';
     default:
       return `/${page.replace(/\s+/g, '-')}`;
   }
