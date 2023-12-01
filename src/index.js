@@ -93,6 +93,7 @@ root.render(
       <Route path="/OrganizerEventCategoryCCS" element={<OrganEventCategoryCCS />} />
       <Route path="/OrganizerEventCategoryCEA" element={<OrganEventCategoryCEA />} />
       <Route path="/OrganizerEventCategoryCCJ" element={<OrganEventCategoryCCJ />} />
+      <Route path="/OrganizerUpcomingEvents" element={<OrganizerUpcomingEvents />} />
       <Route path="/OrganizerCreateEvents" element={<CreateEventForm />} />
       <Route path="/AttendeesRequirements" element={<Attendees />} />
       <Route path="/OrganizerEventDetails" element={<OrganizerEventDetails />} />
