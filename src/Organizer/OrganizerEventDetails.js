@@ -1,19 +1,45 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ResponsiveAppBar from "../Components/header";
 import Footer from "../Components/footer";
 import EventRibbon from "../Components/EventRibbon";
 import Container from '@mui/material/Container';
 import ButtonM from "../Components/ButtonMaroon";
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
-export default function OrganizerEventDetails(){
+export default function EventDetails(){
+    const [event, setEvents] = useState({});
+  const { eventId } = useParams();
+
+  useEffect(() => {
+    window.scroll(0, 0);
+        axios.get(`http://localhost:8080/Event/getEvent/${eventId}`)
+      .then(response => {
+        console.log(response.data)
+        setEvents(response.data);
+
+       
+      })
+      .catch(error => {
+        console.error('Error fetching events:', error);
+      });
+  }, [eventId]);
 
     return (
-        <div style={{ position: 'relative', zIndex: 1 }}>
-            <ResponsiveAppBar />
-            
-            <img src="img/EventPageBanner.png" alt="logo" className="banner" />
-            <br></br>
-            <Container maxWidth="1000px">
+        <div style={{ backgroundImage: `url('/img/sheer.png')`, backgroundSize: 'cover', minHeight: '10vh' }}>
+        <Container maxWidth="lg">
+          <br/>
+          <br/>
+          <br/>
+
+        <img  src={"/uploads/" + event.image} alt="here" 
+          style={{ width: '100%',
+          height:"500px",
+          borderRadius: '45px', // Adjust the radius as needed
+          display: 'block',
+          margin: 'auto',
+         }} 
+        />
                 <h3 style={{ fontFamily:'DM Sans, sans-serif', fontSize:'32px', marginRight:'600px', marginLeft:'150px' }}>2023 - Explore, Learn, Innovate!</h3>
                 <p style={{ textAlign:'justify', width:'810px', marginRight:'350px', marginLeft:'150px', fontSize:'20px', textDecoration: 'underline' }}>Cebu Institute of Technology</p>
             </Container>

@@ -8,8 +8,10 @@ import ResponsiveAppBarOrgan from "../Components/organHeader";
 import ButtonM from "../Components/ButtonMaroon";
 import axios from 'axios';
 import { Button } from '@mui/material'
+import { useOrganizer } from '../Components/OrganizerProvider';
 
 export default function CreateEventForm() {
+  const { organizer } = useOrganizer();
   
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -29,7 +31,8 @@ export default function CreateEventForm() {
     year: "",
     department: "",
     payment: "",
-    max: ""
+    max: "",
+
     // role:[],
     // sponsors:[]
   });
@@ -47,6 +50,8 @@ export default function CreateEventForm() {
       department: "",
       payment: "",
       max: "",
+      
+
     });
   };
 
@@ -126,6 +131,8 @@ export default function CreateEventForm() {
           payment: formData.payment,
           maxAttend: formData.max,
           image: imageUrl,
+          orgid: organizer.oid
+
         },
         {
           headers: {
@@ -142,7 +149,7 @@ export default function CreateEventForm() {
       console.error("Error submitting form:", error);
     }
   };
-  
+console.log(organizer.oid)
 console.log(formData)
   return (
     <>

@@ -6,6 +6,7 @@ import Footer from '../Components/footer';
 import axios from 'axios'
 import { Link } from 'react-router-dom';
 import ResponsiveAppBarOrgan from '../Components/organHeader';
+import { useOrganizer } from '../Components/OrganizerProvider';
 
 
 export default function MyEvents() {
@@ -13,6 +14,7 @@ export default function MyEvents() {
     const containerRef1 = useRef(null);
     const [event, setEvents] = useState([]);
     const currentDate = new Date();
+    const { organizer } = useOrganizer();
 
     useEffect(() => {
         window.scroll(0, 0);
@@ -46,7 +48,9 @@ export default function MyEvents() {
             containerRef1.current.scrollLeft += 300;
         }
     };
-
+    console.log(event)
+    console.log(organizer.oid)
+    console.log(event.orgid)
     return (
         <>
             <ResponsiveAppBarOrgan />
@@ -69,8 +73,8 @@ export default function MyEvents() {
                             }}
                         >
                             {/* Conditional rendering based on event date and department */}
-                            {new Date(event.date) >= currentDate && (event.department === "CCJ" || event.department === "None") && (
-                            <Link to={`/UserEventPage/${event.eventid}`}>
+                            {new Date(event.date) >= currentDate && ( event.orgid === organizer.oid) && (
+                            <Link to={`/EventDetails/${event.eventid}`}>
                                 <ActionAreaCard
                                 key={index}
                                 date={event.date}
@@ -103,8 +107,8 @@ export default function MyEvents() {
                             }}
                         >
                             {/* Conditional rendering based on event date */}
-                            {new Date(event.date) <= currentDate && event.department === "CCJ" && (
-                            <Link to={`/UserEventPage/${event.eventid}`}>
+                            {new Date(event.date) <= currentDate && ( event.orgid === organizer.oid) && (
+                            <Link to={`/EventDetails/${event.eventid}`}>
                                 <ActionAreaCard
                                 key={index}
                                 date={event.date}
