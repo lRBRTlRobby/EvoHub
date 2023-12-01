@@ -53,11 +53,13 @@ import Attendees from './Organizer/OrganizerAttendees';
 import { UserProvider } from './Components/UserProvider';
 import OrganizerEventDetails from './Organizer/OrganizerEventDetails';
 import MyEvents from './Organizer/OrganizerMyEvents';
+import { OrganizerProvider } from './Components/OrganizerProvider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 <React.StrictMode>
       <BrowserRouter>
+      <OrganizerProvider>
 <UserProvider>
       <Routes>
       <Route path="/" element={<Event />} />
@@ -103,6 +105,7 @@ root.render(
 
       </Routes>
       </UserProvider>
+      </OrganizerProvider>
 {/* <Footer /> */}
 {/* <JoinedEvents /> */}
 {/* <ResponsiveAppBar /> */}

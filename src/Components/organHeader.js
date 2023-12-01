@@ -14,6 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import  './header.css';
 import { Link } from 'react-router-dom';
+import { useOrganizer } from './OrganizerProvider';
 
 const pages = ['Home', 'Event Categories','Upcoming Events', 'Joined Events', 'MyEvents', 'Create Events'];
 const settings = ['Profile','Logout'];
@@ -50,6 +51,7 @@ function getSettingPath(settings) {
 
 
 function ResponsiveAppBarOrgan() {
+  const { organizer } = useOrganizer();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -151,7 +153,7 @@ function ResponsiveAppBarOrgan() {
           <Box sx={{ flexGrow: 0,marginRight:'4em' }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar  alt="Remy Sharp" src="/static/images/avatar/2.jpg"   />
+                <Avatar  alt={organizer.fname} src="/static/images/avatar/2.jpg"   />
               </IconButton>
             </Tooltip>
             <Menu
