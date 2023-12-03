@@ -55,6 +55,8 @@ import OrganizerEventDetails from './Organizer/OrganizerEventDetails';
 import MyEvents from './Organizer/OrganizerMyEvents';
 import { OrganizerProvider } from './Components/OrganizerProvider';
 import EventDetails from './Organizer/OrganizerEventDetails';
+import ManageRequests from './Components/manageMenu';
+import DeleteEvent from './Organizer/OrganizerDelete';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -102,6 +104,7 @@ root.render(
       <Route path="/OrganizerEventDetails" element={<OrganizerEventDetails />} />
       <Route path="/EventDetails/:eventId" element={<EventDetails />} />
       <Route path="/MyEvents" element={<MyEvents />} />
+      <Route path="/deleteEvent" element={<DeleteEvent />} />
 
 
 
