@@ -8,8 +8,10 @@ import ResponsiveAppBarOrgan from "../Components/organHeader";
 import ButtonM from "../Components/ButtonMaroon";
 import axios from 'axios';
 import { Button } from '@mui/material'
+import { useOrganizer } from '../Components/OrganizerProvider';
 
 export default function CreateEventForm() {
+  const { organizer } = useOrganizer();
   
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -29,10 +31,57 @@ export default function CreateEventForm() {
     year: "",
     department: "",
     payment: "",
-    max: ""
+    max: "",
+
     // role:[],
     // sponsors:[]
   });
+
+  const resetForm = () => {
+    setFormData({
+      eventTitle: "",
+      description: "",
+      date: "",
+      time: "",
+      duration: "",
+      location: "",
+      organizer: "",
+      year: "",
+      department: "",
+      payment: "",
+      max: "",
+      
+
+    });
+  };
+
+
+  const [file, setFile] = useState(null);
+  const [imageUrl, setImageUrl] = useState(null);
+
+
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
+  const handleUpload = async () => {
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      // Replace 'http://localhost:8080' with the actual base URL of your API
+      const response = await axios.post('http://localhost:8080/Image/upload', formData);
+
+      // Assuming the response contains the image URL
+      await setImageUrl(response.data);
+      console.log('Image uploaded successfully:', response.data);
+      // Clear the file input
+      setFile(null);
+    } catch (error) {
+      alert("Uploaded Image Filename is already Taken");
+      console.error('Error uploading image:', error.message);
+    }
+  };
 
   const date = () => {
 
@@ -40,24 +89,39 @@ export default function CreateEventForm() {
   }
   const handleChange = (e) => {
     const { name, value } = e.target;
-    const formattedDate = name === "date" ? formatDate(value) : value;
-    
+  
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
   };
   
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
+    for (const key in formData) {
+      console.log(`Checking ${key}: ${formData[key]}`);
+      if (!formData[key]) {
+        alert(`Please fill in the ${key.replace(/([A-Z])/g, ' $1').toLowerCase()}`);
+        return;
+      }
+    }
+    
   
     try {
+      // Convert date format to string
+      const formattedDate = new Date(formData.date).toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+      });
+  
       const response = await axios.post(
         "http://localhost:8080/Event/insertEvent",
         {
           title: formData.eventTitle,
           description: formData.description,
-          date: formData.date,
+          date: formattedDate, // Use the formatted date as a string
           time: formData.time,
           duration: formData.duration,
           location: formData.location,
@@ -66,6 +130,9 @@ export default function CreateEventForm() {
           department: formData.department,
           payment: formData.payment,
           maxAttend: formData.max,
+          image: imageUrl,
+          orgid: organizer.oid
+
         },
         {
           headers: {
@@ -82,17 +149,7 @@ export default function CreateEventForm() {
       console.error("Error submitting form:", error);
     }
   };
-
-  const formatDate = (dateString) => {
-    const options = { year: "numeric", month: "short", day: "numeric" };
-    const formattedDate = new Date(dateString).toLocaleDateString(
-      "en-US",
-      options
-    );
-    return formattedDate;
-  };
-
-
+console.log(organizer.oid)
 console.log(formData)
   return (
     <>
@@ -188,18 +245,6 @@ console.log(formData)
                     }}
                     required
                   />
-                  {formData.date && (
-                    <p
-                      id="fdate"
-                      style={{
-                        marginTop: "0.5rem",
-                        color: "#666666",
-                        fontFamily: "DM Sans",
-                      }}
-                    >
-                      Selected Date: {formatDate(formData.date)}
-                    </p>
-                  )}
                 </div>
 
                 {/* Time 1 */}
@@ -285,6 +330,7 @@ console.log(formData)
                       padding: "10px",
                     }}
                   >
+                    <option value="" disabled>Select location</option>
                     <option value="Gymnasium">Gymnasium</option>
                     <option value="Learning Center">Learning Center</option>
                     <option value="Auditorium">Auditorium</option>
@@ -429,12 +475,13 @@ console.log(formData)
                       padding: "10px",
                     }}
                   >
+                    <option value="" disabled>Select Year Level</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
-                    <option value="4<">4</option>
+                    <option value="4">4</option>
                     <option value="5">5</option>
-                    <option value="None">None</option>  {/* Corrected the spelling here */}
+                    <option value="0">None</option>  {/* Corrected the spelling here */}
                   </select>
                 </div>
 
@@ -462,13 +509,14 @@ console.log(formData)
                       padding: "10px",
                     }}
                   >
-                    <option value="CEA">CEA</option>
-                    <option value="CCS">CCS</option>
-                    <option value="CMBA">CMBA</option>
-                    <option value="CASE<">CASE</option>
-                    <option value="CNAHS">CNAHS</option>
-                    <option value="CCJ">CCJ</option>  {/* Corrected the spelling here */}
-                    <option value="None">None</option>  {/* Corrected the spelling here */}
+                  <option value="" disabled>Select department</option>
+                  <option value="College of Engineering and Architecture">CEA</option>
+                  <option value="College of Computer Studies">CCS</option>
+                  <option value="College of Mngnt, Bussiness and Administration">CMBA</option>
+                  <option value="College of Nursing and Allied Health Sciences">CASE</option>
+                  <option value="College of Natural Arts of Health Sciences">CNAHS</option>
+                  <option value="College of Criminal Justice">CCJ</option>
+                  <option value="None">None</option>
                   </select>
                 </div>
 
@@ -496,6 +544,7 @@ console.log(formData)
                       padding: "10px",
                     }}
                   >
+                    <option value="" disabled>Required</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
                   </select>
@@ -527,6 +576,12 @@ console.log(formData)
                     required
                   />
                 </div>
+
+                <input type="file" onChange={handleFileChange} />
+                <Button onClick={async (e) => { e.preventDefault(); await handleUpload(); }} disabled={!file}>
+                
+                  Upload Image
+                </Button>
 
 
               {/* Submit  Button */}

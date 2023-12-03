@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import ResponsiveAppBarOrgan from '../Components/organHeader'
 import LandingPage from '../Components/LandingPage'
 import Container from '@mui/material/Container';
@@ -12,7 +12,6 @@ import Upcoming from '../Upcoming';
 import { Link } from 'react-router-dom';
 import Footer from '../Components/footer';
 import PersonProfile from '../User/UserAboutUs';
-import { useState, useEffect } from "react";
 import axios from 'axios'
 import EventReq from '../Components/EventReq';
 
@@ -20,6 +19,7 @@ export default function OrganizerHomePage() {
     const containerRef = useRef(null);
     const containerRef1 = useRef(null);
     const [event, setEvents] = useState([]);
+    const currentDate = new Date();
 
     useEffect(() => {
         axios.get('http://localhost:8080/Event/getAllEvents')
@@ -53,28 +53,6 @@ export default function OrganizerHomePage() {
             containerRef1.current.scrollLeft += 300;
         }
     };
-
-   
-    const image  = [
-        "/img/doggo.jpg","/img/account.png","/img/organreq.jpg","/img/engineering.png","/img/Joined.jpg","/img/Joined.jpg"
-
-    ]
-
-    // const events = [
-    //     { date: "Sep 04", title: "CIT-U Info Session 2022", image: "/img/doggo.jpg", description: "Doggo and puppy" },
-    //     { date: "Sep 04", title: "TechXperience 2023", image: "/img/account.png", description: "Doggo and puppy" },
-    //     { date: "Sep 04", title: "Summer Camp", image: "/img/organreq.jpg", description: "Doggo and puppy" },
-    //     { date: "Sep 04", title: "School Night", image: "/img/engineering.png", description: "Doggo and puppy" },
-    //     { date: "Sep 04", title: "Hello World", image: "/img/Joined.jpg", description: "Doggo and puppy" },
-    //     { date: "Sep 04", title: "Goodbye World", image: "/img/ccs.png", description: "Doggo and puppy" },
-    //     { date: "Sep 04", title: "CIT-U Info Session 2022", image: "/img/doggo.jpg", description: "Doggo and puppy" },
-    //     { date: "Sep 04", title: "TechXperience 2023", image: "/img/account.png", description: "Doggo and puppy" },
-    //     { date: "Sep 04", title: "Summer Camp", image: "/img/organreq.jpg", description: "Doggo and puppy" },
-    //     { date: "Sep 04", title: "School Night", image: "/img/engineering.png", description: "Doggo and puppy" },
-    //     { date: "Sep 04", title: "Hello World", image: "/img/Joined.jpg", description: "Doggo and puppy" },
-    //     { date: "Sep 04", title: "Goodbye World", image: "/img/ccs.png", description: "Doggo and puppy" }
-
-    // ];
 
     return (
         <div>
@@ -113,14 +91,27 @@ export default function OrganizerHomePage() {
                     <div style={{ marginBottom: "5rem" }}>
                         <div style={{ display: "flex", overflowX: "hidden", maxWidth: "100%" }} ref={containerRef1}>
                             {event.map((event, index) => (
-                                <ActionAreaCard
+                                <div
                                     key={index}
-                                    date={event.date}
-                                    title={event.title}
-                                    image={image[index]}
-                                    description={event.description}
-                                />
-                            ))}
+                                    style={{
+                                    boxSizing: "border-box",
+                                    padding: ".5rem",
+                                    }}
+                                >
+                                    {/* Conditional rendering based on event date */}
+                                    {new Date(event.date) > currentDate && (
+                                    <Link to={`/UserEventPage/${event.eventid}`}>
+                                        <ActionAreaCard
+                                        key={index}
+                                        date={event.date}
+                                        title={event.title}
+                                        image={"/uploads/" + event.image}
+                                        description={event.description}
+                                        />
+                                    </Link>
+                                    )}
+                                </div>
+                                ))}
 
                         </div>
                         <div style={{ display: "flex", justifyContent: "center" }}>

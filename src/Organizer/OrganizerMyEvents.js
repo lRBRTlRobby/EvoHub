@@ -1,19 +1,20 @@
 import React, { useRef, useEffect, useState } from 'react'
-import ResponsiveAppBar from "../Components/header"
 import Container from '@mui/material/Container';
-import "./UserEventCategory"
 import ActionAreaCard from '../Components/eventCard';
 import { Button } from '@mui/material';
 import Footer from '../Components/footer';
 import axios from 'axios'
 import { Link } from 'react-router-dom';
+import ResponsiveAppBarOrgan from '../Components/organHeader';
+import { useOrganizer } from '../Components/OrganizerProvider';
 
 
-export default function EventCategoryCCJ() {
+export default function MyEvents() {
     const containerRef = useRef(null);
     const containerRef1 = useRef(null);
     const [event, setEvents] = useState([]);
     const currentDate = new Date();
+    const { organizer } = useOrganizer();
 
     useEffect(() => {
         window.scroll(0, 0);
@@ -47,14 +48,16 @@ export default function EventCategoryCCJ() {
             containerRef1.current.scrollLeft += 300;
         }
     };
-
+    console.log(event)
+    console.log(organizer.oid)
+    console.log(event.orgid)
     return (
         <>
-            <ResponsiveAppBar />
-            <img src="img/ccj_banner.png" alt="logo" className="banner" />
+            <ResponsiveAppBarOrgan />
+            <img src="/img/myevents_banner.png" alt="logo" className="banner" />
             <Container maxWidth="lg">
                 <div >
-                    <h1 style={{ fontFamily: "'DM Sans', sans-serif" }}>College of Criminal Justice</h1>
+
                     <h2 style={{ fontFamily: "'DM Sans', sans-serif",fontSize:'30px' }}>Upcoming Events</h2>
 
                 </div>
@@ -70,8 +73,8 @@ export default function EventCategoryCCJ() {
                             }}
                         >
                             {/* Conditional rendering based on event date and department */}
-                            {new Date(event.date) >= currentDate && (event.department === "CCJ" || event.department === "None") && (
-                            <Link to={`/UserEventPage/${event.eventid}`}>
+                            {new Date(event.date) >= currentDate && ( event.orgid === organizer.oid) && (
+                            <Link to={`/EventDetails/${event.eventid}`}>
                                 <ActionAreaCard
                                 key={index}
                                 date={event.date}
@@ -104,8 +107,8 @@ export default function EventCategoryCCJ() {
                             }}
                         >
                             {/* Conditional rendering based on event date */}
-                            {new Date(event.date) <= currentDate && event.department === "CCJ" && (
-                            <Link to={`/UserEventPage/${event.eventid}`}>
+                            {new Date(event.date) <= currentDate && ( event.orgid === organizer.oid) && (
+                            <Link to={`/EventDetails/${event.eventid}`}>
                                 <ActionAreaCard
                                 key={index}
                                 date={event.date}

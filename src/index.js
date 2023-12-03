@@ -47,14 +47,23 @@ import OrganEventCategoryCMBA from './Organizer/OrganizerEventCategoryCMBA';
 import OrganEventCategoryCNAHS from './Organizer/OrganizerEventCategoryCNAHS';
 import OrganEventCategoryCASE from './Organizer/OrganizerEventCategoryCASE';
 import OrganEventCategoryCEA from './Organizer/OrganizerEventCategoryCEA';
+import OrganizerUpcomingEvents from './Organizer/OrganizerUpcomingEvents';
 import CreateEventForm from './Organizer/OrganizerCreateEvents';
 import Attendees from './Organizer/OrganizerAttendees';
+import { UserProvider } from './Components/UserProvider';
+import OrganizerEventDetails from './Organizer/OrganizerEventDetails';
+import MyEvents from './Organizer/OrganizerMyEvents';
+import { OrganizerProvider } from './Components/OrganizerProvider';
+import EventDetails from './Organizer/OrganizerEventDetails';
+import ManageRequests from './Components/manageMenu';
+import DeleteEvent from './Organizer/OrganizerDelete';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 <React.StrictMode>
       <BrowserRouter>
-
+      <OrganizerProvider>
+<UserProvider>
       <Routes>
       <Route path="/" element={<Event />} />
       <Route path="/EventRegister" element={<EventRegister />} />
@@ -73,8 +82,9 @@ root.render(
       <Route path="/OrganizerAppllicationForm" element={<ApplicationForm />} />
       <Route path="/UserProfile" element={<UserProfile />} />
       <Route path="/UserProfileEdit" element={<UserProfileEdit />} />
-      <Route path="/UserEventPage" element={<UserEventPage />} />
-      <Route path="/UserEventJoinRequest" element={<UserEventJoinRequest />} />
+      <Route path="/UserEventPage/:eventId" element={<UserEventPage />} />
+      <Route path="/ActionAreaCard" element={<ActionAreaCard />} />
+      <Route path="/UserEventJoinRequest/:eventId" element={<UserEventJoinRequest />} />
       <Route path="/EventCategoryCCS" element={<EventCategoryCCS />} />
       <Route path="/EventCategoryCEA" element={<EventCategoryCEA />} />
       <Route path="/EventCategoryCASE" element={<EventCategoryCASE />} />
@@ -88,13 +98,20 @@ root.render(
       <Route path="/OrganizerEventCategoryCCS" element={<OrganEventCategoryCCS />} />
       <Route path="/OrganizerEventCategoryCEA" element={<OrganEventCategoryCEA />} />
       <Route path="/OrganizerEventCategoryCCJ" element={<OrganEventCategoryCCJ />} />
+      <Route path="/OrganizerUpcomingEvents" element={<OrganizerUpcomingEvents />} />
       <Route path="/OrganizerCreateEvents" element={<CreateEventForm />} />
       <Route path="/AttendeesRequirements" element={<Attendees />} />
+      <Route path="/OrganizerEventDetails" element={<OrganizerEventDetails />} />
+      <Route path="/EventDetails/:eventId" element={<EventDetails />} />
+      <Route path="/MyEvents" element={<MyEvents />} />
+      <Route path="/deleteEvent" element={<DeleteEvent />} />
+
 
 
 
       </Routes>
-
+      </UserProvider>
+      </OrganizerProvider>
 {/* <Footer /> */}
 {/* <JoinedEvents /> */}
 {/* <ResponsiveAppBar /> */}
