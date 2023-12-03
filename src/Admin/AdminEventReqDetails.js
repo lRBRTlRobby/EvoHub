@@ -52,7 +52,7 @@ export default function AdminEventReqDetails({ setShowDetails }) {
 
             </div>
 
-            <img src="./img/Techxperience2.png" alt="logo" className="banner" style={{ width: "80%", height: "auto", display: "flex", margin: "0 auto" }}/>
+            <img src="./img/Techxperience2.png" alt="logo" className="banner" style={{ width: "80%", height: "auto", display: "flex", margin: "0 auto" }} />
 
             <div style={{ padding: "2rem" }}>
                 <h2 style={{ fontFamily: "'DM Sans', sans-serif", marginTop: "5rem" }}>Innovation Expo 2023</h2>
@@ -63,30 +63,35 @@ export default function AdminEventReqDetails({ setShowDetails }) {
                 <p style={{ textAlign: 'justify' }}>December 05, 2023 1:00 PM to 4:00 PM</p>
                 <p style={{ textDecoration: 'underline', fontWeight: 'bold' }}>Location</p>
                 <p style={{ textAlign: 'justify' }}>Gymnasium </p>
-                <p style={{ textDecoration: 'underline', fontWeight: 'bold', marginTop: "2rem" }}>Organizers</p>
+                <p style={{ textDecoration: 'underline', fontWeight: 'bold', marginTop: "2rem" }}>Head Organizer</p>
 
                 <div style={{ display: "flex", padding: "0", margin: "0", justifyContent: "space-between" }}>
-                    {Developers.map((developer, index) => (
+                    {/* {Developers.map((developer, index) => (
                         <div style={{ textAlign: "center", margin: "50px" }}>
                             <img src={developer.image} alt="logo" style={{ width: "100px" }} />
                             <h3>{developer.name}</h3>
                             <p>{developer.role}</p>
                         </div>
-                    ))}
+                    ))} */}
+                    <div style={{ textAlign: "center", margin: "10px" }}>
+                        <img src="/img/Profile-2.png" alt="logo" style={{ width: "100px" }} />
+                        <h3>Katrina Dela Pena</h3>
+                        <p>Event Coordinator</p>
+                    </div>
 
                 </div>
 
-                <div style={{ display: "flex", justifyContent: "space-between", textAlign: "center" }}>
-                    <div>
+                <div style={{ display: "flex", textAlign: "center" }}>
+                    <div style={{ marginRight: '15px', }}>
                         <p style={{ textDecoration: 'underline', fontWeight: 'bold' }}>Required Year Level</p>
                         <p style={{ fontFamily: "'DM Sans', sans-serif" }}>None</p>
                     </div>
-                    <div>
+                    <div style={{ marginRight: '15px' }}>
                         <p style={{ textDecoration: 'underline', fontWeight: 'bold' }}>Required Department</p>
                         <p style={{ fontFamily: "'DM Sans', sans-serif" }}>CSS</p>
                     </div>
 
-                    <div>
+                    <div style={{ marginRight: '15px' }}>
                         <p style={{ textDecoration: 'underline', fontWeight: 'bold' }}>Required Payment</p>
                         <p style={{ fontFamily: "'DM Sans', sans-serif" }}>Yes</p>
                     </div>
@@ -96,8 +101,8 @@ export default function AdminEventReqDetails({ setShowDetails }) {
                         <p style={{ fontFamily: "'DM Sans', sans-serif" }}>300</p>
                     </div>
                 </div>
-                <p style={{ textDecoration: 'underline', fontWeight: 'bold' }}>Proof of Approval From SAO or Department</p>
-
+                {/* <p style={{ textDecoration: 'underline', fontWeight: 'bold' }}>Proof of Approval From SAO or Department</p> */}
+                <br />
                 <div style={{ backgroundColor: '#f5f5f5', borderRadius: '20px', marginBottom: '1rem', width: '30%', padding: '1rem' }}>
                     <p style={{ textDecoration: 'underline', fontWeight: 'bold' }}>Requestor Information:</p>
                     <p style={{ fontWeight: 'bold' }}>First Name: Jane</p>
