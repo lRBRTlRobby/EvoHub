@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Container from '@mui/material/Container';
 import ResponsiveAppBar from '../Components/header';
 import Avatar from '@mui/material/Avatar';
@@ -16,7 +16,7 @@ export default function UserProfileEdit() {
 
     const handleGenderChange = (event) => {
         setSelectedGender(event.target.value);
-        handleTextChange('gender', event.target.value);  // Update the formData with the new gender
+        handleTextChange('gender', event.target.value);
     };
 
     const [formData, setFormData] = useState({
@@ -33,28 +33,36 @@ export default function UserProfileEdit() {
         country: user.country || '',
         bio: user.bio || '',
     });
-
     const handleTextChange = (field, value) => {
-        setFormData((prevData) => ({
-            ...prevData,
-            [field]: value,
-        }));
+        if (field === 'dob') {
+            const formattedDate = new Date(value).toLocaleDateString('en-US', {
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric',
+            });
+
+            setFormData((prevData) => ({
+                ...prevData,
+                [field]: formattedDate || '',
+            }));
+        } else {
+            setFormData((prevData) => ({
+                ...prevData,
+                [field]: value,
+            }));
+        }
     };
 
     const handleUpdateProfile = async () => {
         try {
+
             const response = await axios.put(`http://localhost:8080/User/updateUser?userid=${user.userid}`, formData);
 
-            // Update the user data in the UserProvider
             login(response.data);
 
-            // Optionally, handle success cases here
-            // For example, show a success message
             alert('Profile updated successfully!');
         } catch (error) {
             console.error('Error updating user profile:', error);
-            // Optionally, handle error cases here
-            // For example, show an error message to the user
         }
     };
 
@@ -70,11 +78,12 @@ export default function UserProfileEdit() {
     };
 
 
+
     return (
         <div>
             <ResponsiveAppBar />
-            <div style={{marginBottom: "18rem"}}>
-                <img src="./img/userprofile.jpg" alt="logo" className="banner"  style={{ position: "absolute", zIndex: -1 }}/>
+            <div style={{ marginBottom: "18rem" }}>
+                <img src="./img/userprofile.jpg" alt="logo" className="banner" style={{ position: "absolute", zIndex: -1 }} />
                 <div style={{ display: "flex", justifyContent: "center" }}>
                     <div style={{ marginTop: "8.6rem" }}>
                         <Avatar alt={user.fname} src="/static/images/avatar/2.jpg" sx={{ width: 120, height: 120, fontSize: "3.5rem" }} />
@@ -104,13 +113,13 @@ export default function UserProfileEdit() {
                                 type="text"
                                 variant='outlined'
                                 disabled
-                                
+
                             />
                             <p><b>Middle Name:</b></p>
                             <TextField
                                 className='txt'
                                 id="fname"
-                                placeholder= 'Middle Name'
+                                placeholder='Middle Name'
                                 value={formData.mname}
                                 type="text"
                                 variant='outlined'
@@ -129,7 +138,7 @@ export default function UserProfileEdit() {
                             <div>
                                 <label>
                                     <p><b>Gender: </b>
-                                        <select value={selectedGender} onChange={handleGenderChange} disabled={ user.gender != null}>
+                                        <select value={selectedGender} onChange={handleGenderChange} disabled={user.gender != null}>
                                             <option value="">Select</option>
                                             <option value="Male">Male</option>
                                             <option value="Female">Female</option>
@@ -156,7 +165,7 @@ export default function UserProfileEdit() {
                             <TextField
                                 className='txt'
                                 id="email"
-                                placeholder= 'Email Address'
+                                placeholder='Email Address'
                                 value={formData.email}
                                 onChange={(e) => handleTextChange('email', e.target.value)}
                                 type="text"
@@ -172,9 +181,9 @@ export default function UserProfileEdit() {
                                 onChange={(e) => handleTextChange('mobNum', e.target.value)}
                                 type="text"
                                 variant='outlined'
-                                
+
                             />
-                            <p><b>Date of Birth:</b></p>
+                            {/* <p><b>Date of Birth:</b></p>
                             <TextField
                                 className='txt'
                                 id="fname"
@@ -183,8 +192,28 @@ export default function UserProfileEdit() {
                                 onChange={(e) => handleTextChange('dob', e.target.value)}
                                 type="text"
                                 variant='outlined'
-                                disabled={ user.dob != null}
-                            />
+                                disabled={user.dob != null}
+                            /> */}
+                            <div className="form-group" style={{ flex: 1 }}>
+                                <p><b>Date of Birth:</b></p>
+                                <input
+                                    type="date"
+                                    id="date"
+                                    name="date"
+                                    // value={formData.dob}
+                                    onChange={(e) => handleTextChange('dob', e.target.value)}
+                                    placeholder="Date"
+                                    disabled={user.dob != null}
+                                    style={{
+                                        width: "50%",
+                                        height: "45px",
+                                        borderRadius: "45px",
+                                        padding: "0 15px",
+                                        borderColor: "#e5e5e5",
+                                    }}
+                                    required
+                                />
+                            </div>
                             <p><b>City:</b></p>
                             <TextField
                                 className='txt'
@@ -216,7 +245,7 @@ export default function UserProfileEdit() {
                             id="fname"
                             placeholder='User Bio'
                             value={formData.bio}
-                                onChange={(e) => {handleTextChange('bio', e.target.value); handleInputChange(e);}}
+                            onChange={(e) => { handleTextChange('bio', e.target.value); handleInputChange(e); }}
                             type="text"
                             variant='outlined'
                             multiline
