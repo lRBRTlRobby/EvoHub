@@ -12,9 +12,11 @@ const ApplicationForm = () => {
     middleName: "",
     lastName: "",
     email: "",
+    pass: "",
     role: "",
     department: "",
-    organizer: "",
+    organization: "",
+    message: "",
   });
 
   const handleChange = (e) => {
@@ -26,10 +28,14 @@ const ApplicationForm = () => {
     // Check if required fields are filled
     if (
       formData.firstName &&
+      formData.middleName &&
       formData.lastName &&
       formData.email &&
+      formData.pass &&
+      formData.role &&
       formData.department &&
-      formData.organizer
+      formData.organization &&
+      formData.message
     ) {
       // Check email format using a simple regular expression
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -73,13 +79,15 @@ const ApplicationForm = () => {
 
       // Make a POST request to the new endpoint
       const response = await axios.post(
-        "http://localhost:8080/ApplicationForm/insertApplicationForm",
+        "http://localhost:8080/manageOrganizerRequest/insertManageOrganizerRequest",
         {
           userId,
           organizerId,
           fname: formData.firstName,
           mname: formData.middleName,
           lname: formData.lastName,
+          email: formData.email,
+          pass: formData.pass,
           srole: formData.role,
           semail: formData.email,
           department: formData.department,
