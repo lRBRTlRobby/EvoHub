@@ -54,6 +54,9 @@ import { UserProvider } from './Components/UserProvider';
 import OrganizerEventDetails from './Organizer/OrganizerEventDetails';
 import MyEvents from './Organizer/OrganizerMyEvents';
 import { OrganizerProvider } from './Components/OrganizerProvider';
+import AdminEventReq from './Admin/AdminEventReq';
+import OrganizerViewAttendees from './Organizer/OrganizerViewAttendees';
+import AdminDashboard from './Admin/AdminDashboard';
 import EventDetails from './Organizer/OrganizerEventDetails';
 import ManageRequests from './Components/manageMenu';
 import DeleteEvent from './Organizer/OrganizerDelete';
@@ -104,7 +107,6 @@ root.render(
       <Route path="/OrganizerEventDetails" element={<OrganizerEventDetails />} />
       <Route path="/EventDetails/:eventId" element={<EventDetails />} />
       <Route path="/MyEvents" element={<MyEvents />} />
-      <Route path="/deleteEvent" element={<DeleteEvent />} />
 
 
 
