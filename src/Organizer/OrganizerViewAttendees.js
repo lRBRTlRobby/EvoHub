@@ -1,51 +1,57 @@
-import React from 'react';
 import ResponsiveAppBar from "../Components/header";
 import Footer from "../Components/footer";
-import EventRibbon from "../Components/EventRibbon";
+import AttendeeTable from "../Components/AttendeeTable";
+import EventRibbon_noBtn from "../Components/EventRibbon_noBtn";
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+
+import "../Components/EventCatBtn.css";
 import Container from '@mui/material/Container';
+import { Box, Button, FormControl, FormControlLabel, FormLabel, Grid, Input, InputLabel, Select, Typography } from "@mui/material";
+import React, { useState } from 'react';
+import MenuItem from '@mui/material/MenuItem';
 import ButtonM from "../Components/ButtonMaroon";
 
-export default function OrganizerEventDetails(){
+
+export default function OrganizerViewAttendees(){
 
     return (
-        <div style={{ position: 'relative', zIndex: 1 }}>
-            <ResponsiveAppBar />
-            
-            <img src="img/EventPageBanner.png" alt="logo" className="banner" />
+        <>
+            {/* Buttons for View Attendees and ManageReq */}
+            {/* Add your button code here */}
+           
+            <div >
+            <img src="img/EventPageBanner.png" alt="logo" className="banner" style={{width:'1500px', height:'600px'}} />
             <br></br>
+            </div>
             <Container maxWidth="1000px">
-                <h3 style={{ fontFamily:'DM Sans, sans-serif', fontSize:'32px', marginRight:'600px', marginLeft:'150px' }}>2023 - Explore, Learn, Innovate!</h3>
-                <p style={{ textAlign:'justify', width:'810px', marginRight:'350px', marginLeft:'150px', fontSize:'20px', textDecoration: 'underline' }}>Cebu Institute of Technology</p>
+                <h3 style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '32px', marginRight: '600px', marginLeft: '150px' }}>2023 - Explore, Learn, Innovate!</h3>
+                <p style={{ textAlign: 'justify', width: '810px', marginRight: '350px', marginLeft: '150px', fontSize: '20px', textDecoration: 'underline' }}>Cebu Institute of Technology</p>
+                {/* New text added below Cebu Institute Technology */}
+                <p style={{ textAlign: 'justify', width: '810px', marginRight: '350px', marginLeft: '150px', fontSize: '20px' }}>
+                    TechXperience 2023 aims to inspire, educate, and connect tech enthusiasts by providing access to cutting-edge talks, hands-on workshops, and networking opportunities, both in-person and online. Explore, learn, and innovate with us!
+                </p>
             </Container>
             <br></br>
             <br></br>
             <div>
-                <EventRibbon />
+                {/* Your content */}
             </div>
             <br></br>
             <br></br>
-            <Container maxWidth="lg">
-                <div style={{ textAlign:"center" }}>
-                    <h2 style={{ fontFamily:'DM Sans, sans-serif', marginLeft:"-700px" }}>About this event</h2>
-                    <p style={{ textAlign:'justify', width:'810px', fontSize:'14px', marginLeft:"60px" }}>
-                        Are you ready to embark on a journey of technological discovery? Join us for TechXperience 2023, 
-                        a dynamic event that brings together the brightest minds and innovators in the world of technology.
-                        Whether you’re a tech enthusiast, a seasoned professional, or just curious about the latest tech trends,
-                        this event is designed to empower and inspire.
-                    </p>
-                </div>
-                <br/>
-                <br></br>
-                {/* ...Other content... */}
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
-                    <img src="img/OrganizerKat.png" alt="OrganizerKat" style={{ marginRight: '150px' }} />
-                    <ButtonM name="Contact us" style={{ marginRight: '100px' }} />
-                </div>
-                <br></br>
-                <br></br>     
-                {/* ...Other content... */}
-            </Container>
-            <Footer/>
-        </div>
+            <h2 style={{ fontFamily: 'DM Sans, sans-serif', width: '300px', textAlign: 'center', marginLeft: '200px' }}>
+                View Attendees
+            </h2>
+
+            
+            <AttendeeTable />
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            
+            
+            <br></br>
+            <Footer />
+        </>
     )
 }

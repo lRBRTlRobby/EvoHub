@@ -54,6 +54,9 @@ import { UserProvider } from './Components/UserProvider';
 import OrganizerEventDetails from './Organizer/OrganizerEventDetails';
 import MyEvents from './Organizer/OrganizerMyEvents';
 import { OrganizerProvider } from './Components/OrganizerProvider';
+import AdminEventReq from './Admin/AdminEventReq';
+import OrganizerViewAttendees from './Organizer/OrganizerViewAttendees';
+import AdminDashboard from './Admin/AdminDashboard';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -100,7 +103,9 @@ root.render(
       <Route path="/AttendeesRequirements" element={<Attendees />} />
       <Route path="/OrganizerEventDetails" element={<OrganizerEventDetails />} />
       <Route path="/MyEvents" element={<MyEvents />} />
-
+      <Route path="/AdminEventReq" element={<AdminEventReq />} />
+      <Route path="/OrganizerViewAttendees" element={<OrganizerViewAttendees />} />
+      <Route path="/AdminDashboard" element={<AdminDashboard />} />
 
 
 

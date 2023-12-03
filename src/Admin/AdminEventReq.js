@@ -35,7 +35,7 @@ export default function AdminEventReq() {
 
 
             <AdminHeader />
-            <img src="./img/admineventreq.jpg" alt="logo" className="banner" />
+            <img src="./img/GLE-Building.png" alt="logo" className="banner" />
             <Container maxWidth="lg">
                 <h2 style={{ fontFamily: "'DM Sans', sans-serif", marginTop: "5rem" }}>Event Request</h2>
 
