@@ -4,15 +4,16 @@ import Footer from "../Components/footer";
 import EventRibbon_noBtn from "../Components/EventRibbon_noBtn";
 import Container from '@mui/material/Container';
 import ButtonM from "../Components/ButtonMaroon";
+import ResponsiveAppBarOrgan from '../Components/organHeader';
 
-export default function OrganizerEventDetails(){
+export default function DeleteEvent(){
 
     return (
         <div style={{ position: 'relative', zIndex: 0 }}>
             <div style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(15, 15, 15, 0.2)', zIndex: -1 }}></div>
 
             <div style={{ position: 'relative', zIndex: 1 }}>
-                <ResponsiveAppBar />
+                <ResponsiveAppBarOrgan />
                 
                 <img src="img/EventPageBanner.png" alt="logo" className="banner" />
                 <br></br>

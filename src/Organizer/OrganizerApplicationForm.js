@@ -3,7 +3,7 @@ import ResponsiveAppBar from "../Components/header";
 import Container from "@mui/material/Container";
 import axios from "axios";
 import "./OrganizerApplicationForm.css";
-import ButtonM from "../Components/ButtonMaroon";
+import Button from "../Components/ButtonMaroon";
 import Footer from "../Components/footer";
 
 const ApplicationForm = () => {
@@ -12,9 +12,9 @@ const ApplicationForm = () => {
     middleName: "",
     lastName: "",
     email: "",
-    role: "faculty",
-    department: "ccs",
-    organizer: "gdsc",
+    role: "",
+    department: "",
+    organizer: "",
   });
 
   const handleChange = (e) => {
@@ -22,34 +22,79 @@ const ApplicationForm = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  const validateForm = (formData) => {
+    // Check if required fields are filled
+    if (
+      formData.firstName &&
+      formData.lastName &&
+      formData.email &&
+      formData.department &&
+      formData.organizer
+    ) {
+      // Check email format using a simple regular expression
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(formData.email)) {
+        console.log("Email is not valid!");
+        return false;
+      }
+
+      // Additional validation logic for specific fields
+      // Check the length of the password (assuming it's a required field)
+      if (formData.password && formData.password.length < 8) {
+        console.log("Passowrd is too short!");
+        return false;
+      }
+
+      // Check the format of the phone number (assuming it's optional)
+      const phoneRegex = /^\d{10}$/; // Assumes a 10-digit phone number
+      if (formData.phoneNumber && !phoneRegex.test(formData.phoneNumber)) {
+        console.log("Phone number is not in the correct format!");
+        return false;
+      }
+
+      // If all checks pass, the form is valid
+      return true;
+    }
+
+    // If any required field is missing, the form is not valid
+    return false;
+  };
+
   const submitForm = async () => {
     try {
-      // Replace the following with actual user and organizer IDs
-      const userId = "";
-      const organizerId = "";
+      if (!validateForm(formData)) {
+        console.error("Please fill out all required fields.");
+        return;
+      }
 
-      // Make a POST request to the organizer request endpoint
+      // Replace the following with actual user and organizer IDs
+      const userId = ""; // Add logic to get the user ID
+      const organizerId = ""; // Add logic to get the organizer ID
+
+      // Make a POST request to the new endpoint
       const response = await axios.post(
-        "http://localhost:8080/ManageOrganizerRequest",
+        "http://localhost:8080/ApplicationForm/insertApplicationForm",
         {
           userId,
           organizerId,
-          status: "pending", // You can set the initial status here
-          schoolEmailAddress: formData.email,
-          role: formData.role,
+          fname: formData.firstName,
+          mname: formData.middleName,
+          lname: formData.lastName,
+          srole: formData.role,
+          semail: formData.email,
           department: formData.department,
-          organization: formData.organizer,
+          organizer: formData.organizer,
         }
       );
 
       // Log the server response (for demonstration purposes)
-      console.log("Successfully Submitted", response.data);
+      alert("Successfully Submitted", response.data);
 
       // You can perform additional actions based on the server response
       // For example, show a success message or redirect the user
     } catch (error) {
       // Handle errors
-      console.error("Error submitting form:", error);
+      alert("Error submitting form:", error);
       // You can also show an error message to the user
     }
   };
@@ -64,296 +109,243 @@ const ApplicationForm = () => {
     <>
       <ResponsiveAppBar />
       <img
-        src="img/EventJoinRequestHeroBanner.png"
+        src="img/organizerrequest.jpg"
         alt="logo"
         style={{ width: "100%" }}
       />
       <Container maxWidth="lg">
         <div className="centered-form">
-          <h2 style={{ fontFamily: "'DM Sans', sans-serif" }}>
+          <h1 style={{ fontFamily: "'DM Sans', sans-serif" }}>
             Application Form
-          </h2>
+          </h1>
           <div className="centered-form">
             <form onSubmit={handleSubmit}>
-              {/* First Name */}
               <div className="form-group">
-                <h5
-                  style={{
-                    fontFamily: "DM Sans, sans-serif",
-                    marginTop: "5rem",
-                    color: "#666666",
-                  }}
-                >
-                  First Name:
-                </h5>
+                <h5>First Name:</h5>
                 <input
                   type="text"
-                  id="firstName"
                   name="firstName"
                   value={formData.firstName}
                   onChange={handleChange}
                   placeholder="Enter First Name"
                   style={{
-                    fontFamily: "DM Sans, sans-serif",
-                    width: "100%",
-                    height: "50%",
                     borderRadius: "45px",
                     padding: "15px",
+                    width: "100%",
                   }}
                   required
                 />
               </div>
-
-              {/* Middle Name */}
               <div className="form-group">
-                <h5
-                  style={{
-                    fontFamily: "DM Sans, sans-serif",
-                    marginTop: "1rem",
-                    color: "#666666",
-                  }}
-                >
-                  Middle Name:
-                </h5>
+                <h5>Middle Name:</h5>
                 <input
                   type="text"
-                  id="middleName"
                   name="middleName"
                   value={formData.middleName}
                   placeholder="Enter Middle Name"
                   style={{
-                    fontFamily: "DM Sans, sans-serif",
-                    width: "100%",
-                    height: "50%",
                     borderRadius: "45px",
                     padding: "15px",
+                    width: "100%",
                   }}
                   onChange={handleChange}
                 />
               </div>
-
-              {/* Last Name */}
               <div className="form-group">
-                <h5
-                  style={{
-                    fontFamily: "DM Sans, sans-serif",
-                    marginTop: "1rem",
-                    color: "#666666",
-                  }}
-                >
-                  Last Name:
-                </h5>
+                <h5>Last Name:</h5>
                 <input
                   type="text"
-                  id="lastName"
                   name="lastName"
                   value={formData.lastName}
                   onChange={handleChange}
                   placeholder="Enter Last Name"
                   style={{
-                    fontFamily: "DM Sans, sans-serif",
-                    width: "100%",
-                    height: "50%",
                     borderRadius: "45px",
                     padding: "15px",
+                    width: "100%",
                   }}
                   required
                 />
               </div>
-
-              {/* School Email Address */}
-              <div className="form-group">
-                <h5
+              {/* <div className="form-group">
+                <h5>Event Name:</h5>
+                <input
+                  type="text"
+                  name="eventName"
+                  value={formData.eventName}
+                  onChange={handleChange}
+                  placeholder="Enter Event Name"
                   style={{
-                    fontFamily: "DM Sans, sans-serif",
-                    marginTop: "1rem",
-                    color: "#666666",
+                    borderRadius: "45px",
+                    padding: "15px",
+                    width: "100%",
                   }}
-                >
-                  School Email Address:
-                </h5>
+                  required
+                />
+              </div> */}
+              <div className="form-group">
+                <h5>School Email Address:</h5>
                 <input
                   type="email"
-                  id="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="Enter School Email Address"
                   style={{
-                    fontFamily: "DM Sans, sans-serif",
-                    width: "600px",
-                    height: "45px",
                     borderRadius: "45px",
-                    padding: "0 15px",
+                    padding: "15px",
+                    width: "100%",
+                    maxWidth: "600px",
                   }}
                   required
                 />
               </div>
-
-              {/* Role */}
               <div className="form-group">
-                <h5
-                  style={{
-                    fontFamily: "DM Sans, sans-serif",
-                    marginTop: "1rem",
-                    color: "#666666",
-                  }}
-                >
-                  Please Select Role:
-                </h5>
+                <h5>Please Select Role:</h5>
                 <div>
                   <input
                     type="radio"
-                    id="faculty"
                     name="role"
                     value="faculty"
                     checked={formData.role === "faculty"}
                     onChange={handleChange}
                     required
                   />
-                  <label
-                    htmlFor="faculty"
-                    style={{ fontFamily: "DM Sans, sans-serif" }}
-                  >
-                    Faculty
-                  </label>
+                  <label>Faculty</label>
                 </div>
 
                 <div>
                   <input
                     type="radio"
-                    id="student"
                     name="role"
                     value="student"
                     checked={formData.role === "student"}
                     onChange={handleChange}
                     required
                   />
-                  <label
-                    htmlFor="student"
-                    style={{ fontFamily: "DM Sans, sans-serif" }}
-                  >
-                    Student
-                  </label>
+                  <label>Student</label>
                 </div>
 
                 <div>
                   <input
                     type="radio"
-                    id="staff"
                     name="role"
                     value="staff"
                     checked={formData.role === "staff"}
                     onChange={handleChange}
                     required
                   />
-                  <label
-                    htmlFor="staff"
-                    style={{ fontFamily: "DM Sans, sans-serif" }}
-                  >
-                    Staff
-                  </label>
+                  <label>Staff</label>
                 </div>
               </div>
-
-              {/* Your Department */}
-              <div className="form-group" style={{ marginTop: "2rem" }}>
-                <label
-                  htmlFor="yourdepartment"
-                  style={{ width: "100%", fontFamily: "DM Sans, sans-serif" }}
-                >
-                  Your Department:
-                </label>
+              {/* <div className="form-group">
+                <h5>Year Level</h5>
                 <select
-                  id="yourdepartment"
                   name="department"
                   value={formData.department}
                   onChange={handleChange}
                   required
                   style={{
-                    fontFamily: "DM Sans, sans-serif",
-                    width: "100%",
-                    height: "50px",
                     borderRadius: "10px",
                     padding: "10px",
+                    width: "100%",
+                    height: "50px",
                   }}
                 >
-                  <option
-                    value="ccs"
-                    style={{ fontFamily: "DM Sans, sans-serif" }}
-                  >
-                    CCS
-                  </option>
-                  <option
-                    value="cea"
-                    style={{ fontFamily: "DM Sans, sans-serif" }}
-                  >
-                    CEA
-                  </option>
-                  <option
-                    value="other"
-                    style={{ fontFamily: "DM Sans, sans-serif" }}
-                  >
-                    Other
-                  </option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="None">None</option>
+                </select>
+              </div> */}
+              <div className="form-group">
+                <h5>Select Department</h5>
+                <select
+                  name="department"
+                  value={formData.department}
+                  onChange={handleChange}
+                  required
+                  style={{
+                    borderRadius: "10px",
+                    padding: "10px",
+                    width: "100%",
+                    height: "50px",
+                  }}
+                >
+                  <option value="CEA">CEA</option>
+                  <option value="CCS">CCS</option>
+                  <option value="CMBA">CMBA</option>
+                  <option value="CASE">CASE</option>
+                  <option value="CNAHS">CNAHS</option>
+                  <option value="CCJ">CCJ</option>
+                  <option value="None">None</option>
                 </select>
               </div>
-
-              {/* Organizer */}
-              <div className="form-group" style={{ marginTop: "2rem" }}>
-                <label
-                  htmlFor="organizer"
-                  style={{ width: "100%", fontFamily: "DM Sans, sans-serif" }}
-                >
-                  Organizer:
-                </label>
+              <div className="form-group">
+                <h5>Select Organizer</h5>
                 <select
-                  id="organizer"
                   name="organizer"
                   value={formData.organizer}
                   onChange={handleChange}
                   required
                   style={{
-                    fontFamily: "DM Sans, sans-serif",
-                    width: "100%",
-                    height: "50px",
                     borderRadius: "10px",
                     padding: "10px",
+                    width: "100%",
+                    height: "50px",
                   }}
                 >
-                  <option
-                    value="gdsc"
-                    style={{ fontFamily: "DM Sans, sans-serif" }}
-                  >
-                    GDSC
-                  </option>
-                  <option
-                    value="ccs"
-                    style={{ fontFamily: "DM Sans, sans-serif" }}
-                  >
-                    CCS
-                  </option>
-                  <option
-                    value="other"
-                    style={{ fontFamily: "DM Sans, sans-serif" }}
-                  >
-                    Other
-                  </option>
+                  <option value="GDSC">GDSC</option>
+                  <option value="CCS">CCS</option>
+                  <option value="CMBA">CMBA</option>
+                  <option value="CASE">CASE</option>
+                  <option value="CNAHS">CNAHS</option>
+                  <option value="CCJ">CCJ</option>
+                  <option value="None">None</option>
                 </select>
               </div>
 
-              {/* Submit Button */}
+              <div className="form-group">
+                <h5>Drag a Photo or Click to Upload:</h5>
+                <div
+                  className="drag-drop-area"
+                  onClick={() =>
+                    document.querySelector('input[name="photo"]').click()
+                  }
+                >
+                  <div className="drag-drop-box">
+                    {formData.photo ? (
+                      <img
+                        src={URL.createObjectURL(formData.photo)}
+                        alt="Uploaded"
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                          objectFit: "cover",
+                        }}
+                      />
+                    ) : (
+                      <p>Drag & Drop or Click to Upload</p>
+                    )}
+                  </div>
+                  <input
+                    type="file"
+                    name="photo"
+                    accept="image/*"
+                    onChange={(e) =>
+                      setFormData({ ...formData, photo: e.target.files[0] })
+                    }
+                    style={{ display: "none" }}
+                  />
+                </div>
+              </div>
               <div
                 className="form-group"
-                style={{
-                  marginTop: "2rem",
-                  textAlign: "center",
-                  marginLeft: "150px",
-                }}
+                style={{ textAlign: "center", padding: "100px" }}
               >
-                <ButtonM onClick={submitForm} name="Submit">
-                  Submit
-                </ButtonM>
+                <Button onClick={submitForm} />
               </div>
             </form>
           </div>
