@@ -157,7 +157,7 @@ export default function AdminEventReqDetails({ setShowDetails, setId }) {
                                 department: event.department || '',
                                 payment: event.payment || '',
                                 maxAttend: event.maxAttend || '',
-                                status: "Accepted" || '',
+                                status: 1 || '',
                                 image: event.image || '',
                                 orgid: event.orgid || '',
                               };
@@ -190,7 +190,7 @@ export default function AdminEventReqDetails({ setShowDetails, setId }) {
                                 department: event.department || '',
                                 payment: event.payment || '',
                                 maxAttend: event.maxAttend || '',
-                                status: "Declined" || '',
+                                status: 0 || '',
                                 image: event.image || '',
                                 orgid: event.orgid || '',
                               };

@@ -22,6 +22,10 @@ export default function UserHomePage() {
     const [event, setEvents] = useState([]);
     const currentDate = new Date();
 
+    const handlePrint = () => {
+        window.print();
+      };
+
     useEffect(() => {
         axios.get('http://localhost:8080/Event/getAllEvents')
           .then(response => {
@@ -60,6 +64,9 @@ export default function UserHomePage() {
         <div>
             <ResponsiveAppBar />
             <LandingPage />
+            <button onClick={handlePrint}>
+      Print (Ctrl+P)
+    </button>
             <Container maxWidth="lg" sx={{ marginBottom: "5rem" }}>
                 <div>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
