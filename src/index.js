@@ -60,8 +60,6 @@ import AdminDashboard from './Admin/AdminDashboard';
 import EventDetails from './Organizer/OrganizerEventDetails';
 import ManageRequests from './Components/manageMenu';
 import DeleteEvent from './Organizer/OrganizerDelete';
-import ViewAttendees from './Organizer/OrganizerViewAttendees';
-import AttendeeRequests from './Organizer/OrganizerManageRequest';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -109,9 +107,6 @@ root.render(
       <Route path="/OrganizerEventDetails" element={<OrganizerEventDetails />} />
       <Route path="/EventDetails/:eventId" element={<EventDetails />} />
       <Route path="/MyEvents" element={<MyEvents />} />
-      <Route path="/ViewAttendees/:eventId" element={<ViewAttendees />} />
-      <Route path="/AttendeeRequests/:eventId" element={<AttendeeRequests />} />
-
 
 
 

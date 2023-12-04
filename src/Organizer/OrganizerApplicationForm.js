@@ -3,19 +3,35 @@ import ResponsiveAppBar from "../Components/header";
 import Container from "@mui/material/Container";
 import axios from "axios";
 import "./OrganizerApplicationForm.css";
-import Button from "../Components/ButtonMaroon";
+// import Button from "../Components/ButtonMaroon";
 import Footer from "../Components/footer";
+import { Button, TextField } from "@mui/material";
+import { useUser } from '../Components/UserProvider';
 
 const ApplicationForm = () => {
+  const { user } = useUser();
   const [formData, setFormData] = useState({
-    firstName: "",
-    middleName: "",
-    lastName: "",
-    email: "",
+    // firstName: "",
+    // middleName: "",
+    // lastName: "",
+    // email: "",
+    // pass: "",
     role: "",
-    department: "",
-    organizer: "",
+    // department: "",
+    organization: "",
+    message: "",
   });
+
+  const [textFieldHeight, setTextFieldHeight] = useState('auto');
+
+  const handleInputChange = (event) => {
+      if (event && event.target) {
+          const inputLines = event.target.value.split('\n').length;
+          const fixedLineHeight = 1.5;
+          const newHeight = `${inputLines * fixedLineHeight}em`;
+          setTextFieldHeight(newHeight);
+      }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,32 +41,36 @@ const ApplicationForm = () => {
   const validateForm = (formData) => {
     // Check if required fields are filled
     if (
-      formData.firstName &&
-      formData.lastName &&
-      formData.email &&
-      formData.department &&
-      formData.organizer
+      // formData.firstName &&
+      // formData.middleName &&
+      // formData.lastName &&
+      // formData.email &&
+      // formData.pass &&
+      formData.role &&
+      // formData.department &&
+      formData.organization &&
+      formData.message
     ) {
-      // Check email format using a simple regular expression
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(formData.email)) {
-        console.log("Email is not valid!");
-        return false;
-      }
+      // // Check email format using a simple regular expression
+      // const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      // if (!emailRegex.test(formData.email)) {
+      //   console.log("Email is not valid!");
+      //   return false;
+      // }
 
-      // Additional validation logic for specific fields
-      // Check the length of the password (assuming it's a required field)
-      if (formData.password && formData.password.length < 8) {
-        console.log("Passowrd is too short!");
-        return false;
-      }
+      // // Additional validation logic for specific fields
+      // // Check the length of the password (assuming it's a required field)
+      // if (formData.password && formData.password.length < 8) {
+      //   console.log("Passowrd is too short!");
+      //   return false;
+      // }
 
-      // Check the format of the phone number (assuming it's optional)
-      const phoneRegex = /^\d{10}$/; // Assumes a 10-digit phone number
-      if (formData.phoneNumber && !phoneRegex.test(formData.phoneNumber)) {
-        console.log("Phone number is not in the correct format!");
-        return false;
-      }
+      // // Check the format of the phone number (assuming it's optional)
+      // const phoneRegex = /^\d{10}$/; // Assumes a 10-digit phone number
+      // if (formData.phoneNumber && !phoneRegex.test(formData.phoneNumber)) {
+      //   console.log("Phone number is not in the correct format!");
+      //   return false;
+      // }
 
       // If all checks pass, the form is valid
       return true;
@@ -61,6 +81,8 @@ const ApplicationForm = () => {
   };
 
   const submitForm = async () => {
+    console.log("Form Data:", formData);
+    console.log("Is Form Valid:", validateForm(formData));
     try {
       if (!validateForm(formData)) {
         console.error("Please fill out all required fields.");
@@ -73,29 +95,36 @@ const ApplicationForm = () => {
 
       // Make a POST request to the new endpoint
       const response = await axios.post(
-        "http://localhost:8080/ApplicationForm/insertApplicationForm",
+        "http://localhost:8080/manageOrganizerRequest/insertManageOrganizerRequest",
         {
-          userId,
-          organizerId,
-          fname: formData.firstName,
-          mname: formData.middleName,
-          lname: formData.lastName,
-          srole: formData.role,
-          semail: formData.email,
-          department: formData.department,
-          organizer: formData.organizer,
+          userId: user.userid,
+          fname: user.fname,
+          mname: user.mname,
+          lname: user.lname,
+          email: user.email,
+          pass: user.pass,
+          role: formData.role,
+          dept: user.dept,
+          organization: formData.organization,
+          message: formData.message,
+          status: "Pending",
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
         }
       );
-
+      console.log(response.data);
       // Log the server response (for demonstration purposes)
       alert("Successfully Submitted", response.data);
 
       // You can perform additional actions based on the server response
       // For example, show a success message or redirect the user
     } catch (error) {
-      // Handle errors
-      alert("Error submitting form:", error);
-      // You can also show an error message to the user
+      console.error("Error submitting form:", error);
+      console.error("Error details:", error.response.data); // Log response data
+      alert("Error submitting form. Please check the console for details.");
     }
   };
 
@@ -125,7 +154,8 @@ const ApplicationForm = () => {
                 <input
                   type="text"
                   name="firstName"
-                  value={formData.firstName}
+                  // value={formData.firstName}
+                  value={user.fname}
                   onChange={handleChange}
                   placeholder="Enter First Name"
                   style={{
@@ -133,7 +163,7 @@ const ApplicationForm = () => {
                     padding: "15px",
                     width: "100%",
                   }}
-                  required
+                  disabled
                 />
               </div>
               <div className="form-group">
@@ -141,7 +171,8 @@ const ApplicationForm = () => {
                 <input
                   type="text"
                   name="middleName"
-                  value={formData.middleName}
+                  // value={formData.middleName}
+                  value={user.mname}
                   placeholder="Enter Middle Name"
                   style={{
                     borderRadius: "45px",
@@ -149,6 +180,7 @@ const ApplicationForm = () => {
                     width: "100%",
                   }}
                   onChange={handleChange}
+                  disabled
                 />
               </div>
               <div className="form-group">
@@ -156,7 +188,8 @@ const ApplicationForm = () => {
                 <input
                   type="text"
                   name="lastName"
-                  value={formData.lastName}
+                  // value={formData.lastName}
+                  value={user.lname}
                   onChange={handleChange}
                   placeholder="Enter Last Name"
                   style={{
@@ -164,7 +197,7 @@ const ApplicationForm = () => {
                     padding: "15px",
                     width: "100%",
                   }}
-                  required
+                  disabled
                 />
               </div>
               {/* <div className="form-group">
@@ -188,7 +221,8 @@ const ApplicationForm = () => {
                 <input
                   type="email"
                   name="email"
-                  value={formData.email}
+                  // value={formData.email}
+                  value={user.email}
                   onChange={handleChange}
                   placeholder="Enter School Email Address"
                   style={{
@@ -197,7 +231,7 @@ const ApplicationForm = () => {
                     width: "100%",
                     maxWidth: "600px",
                   }}
-                  required
+                  disabled
                 />
               </div>
               <div className="form-group">
@@ -264,9 +298,10 @@ const ApplicationForm = () => {
                 <h5>Select Department</h5>
                 <select
                   name="department"
-                  value={formData.department}
+                  // value={formData.department}
+                  value={user.dept}
                   onChange={handleChange}
-                  required
+                  disabled
                   style={{
                     borderRadius: "10px",
                     padding: "10px",
@@ -284,10 +319,10 @@ const ApplicationForm = () => {
                 </select>
               </div>
               <div className="form-group">
-                <h5>Select Organizer</h5>
+                <h5>Select Organization</h5>
                 <select
-                  name="organizer"
-                  value={formData.organizer}
+                  name="organization"
+                  value={formData.organization}
                   onChange={handleChange}
                   required
                   style={{
@@ -307,7 +342,7 @@ const ApplicationForm = () => {
                 </select>
               </div>
 
-              <div className="form-group">
+              {/* <div className="form-group">
                 <h5>Drag a Photo or Click to Upload:</h5>
                 <div
                   className="drag-drop-area"
@@ -339,13 +374,38 @@ const ApplicationForm = () => {
                     }
                     style={{ display: "none" }}
                   />
+                  
                 </div>
-              </div>
+              </div> */}
+
+              <div style={{ marginBottom: "5rem" }}>
+              <h5>Message to the Admin for Request of Approval</h5>
+                    <TextField
+                      className='txt'
+                      id="fname"
+                      name="message"
+                      placeholder="Message"
+                      value={formData.message}
+                      onChange={(e) => { handleInputChange(e); handleChange(e); }}
+                      type="text"
+                      variant='outlined'
+                      multiline
+                      sx={{
+                        width: "100%", maxWidth: "100%", maxHeight: "auto", padding: '1rem', display: "flex", maxHeight: "auto",
+                        height: textFieldHeight, padding: 0, marginBottom: '1rem',
+                      }}
+                    />
+                  </div>
               <div
                 className="form-group"
                 style={{ textAlign: "center", padding: "100px" }}
               >
-                <Button onClick={submitForm} />
+                {/* <Button name="Submit" onClick={submitForm} /> */}
+                <Button sx={{
+                  backgroundColor: 'maroon', color: 'white', fontFamily: "'DM Sans', sans-serif", width: '19rem', height: '4rem', fontWeight: 'bold', fontFamily: "'DM Sans', sans-serif", fontSize: '1rem',
+                  display: "flex", justifyContent: "center", padding: 0, borderRadius: 50,
+
+                }} onClick={submitForm}>Submit</Button>
               </div>
             </form>
           </div>

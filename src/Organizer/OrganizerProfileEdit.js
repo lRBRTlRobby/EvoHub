@@ -6,11 +6,14 @@ import { Button, Grid, TextField } from '@mui/material';
 import Footer from '../Components/footer';
 import ButtonM from '../Components/ButtonMaroon';
 import { useUser } from '../Components/UserProvider';
+import { useOrganizer } from '../Components/OrganizerProvider';
 import axios from 'axios';
 
-export default function UserProfileEdit() {
-    const { user, login } = useUser();
-    const [selectedGender, setSelectedGender] = useState(user.gender || '');
+export default function OrganizerProfileEdit() {
+    // const { user, login } = useUser();
+    const { organizer, login } = useOrganizer();
+
+    const [selectedGender, setSelectedGender] = useState(organizer.gender || '');
 
     const [lastname, setLastname] = useState('');
 
@@ -20,18 +23,18 @@ export default function UserProfileEdit() {
     };
 
     const [formData, setFormData] = useState({
-        fname: user.fname || '',
-        mname: user.mname || '',
-        lname: user.lname || '',
-        dept: user.dept || '',
-        email: user.email || '',
-        pass: user.pass || '',
-        gender: user.gender || '',
-        dob: user.dob || '',
-        mobNum: user.mobNum || '',
-        city: user.city || '',
-        country: user.country || '',
-        bio: user.bio || '',
+        fname: organizer.fname || '',
+        mname: organizer.mname || '',
+        lname: organizer.lname || '',
+        dept: organizer.dept || '',
+        email: organizer.email || '',
+        pass: organizer.pass || '',
+        gender: organizer.gender || '',
+        dob: organizer.dob || '',
+        mobNum: organizer.mobNum || '',
+        city: organizer.city || '',
+        country: organizer.country || '',
+        bio: organizer.bio || '',
     });
     const handleTextChange = (field, value) => {
         if (field === 'dob') {
@@ -56,13 +59,13 @@ export default function UserProfileEdit() {
     const handleUpdateProfile = async () => {
         try {
 
-            const response = await axios.put(`http://localhost:8080/User/updateUser?userid=${user.userid}`, formData);
+            const response = await axios.put(`http://localhost:8080/organizer/updateOrganizer?oid=${organizer.oid}`, formData);
 
             login(response.data);
 
             alert('Profile updated successfully!');
         } catch (error) {
-            console.error('Error updating user profile:', error);
+            console.error('Error updating organizer profile:', error);
         }
     };
 
@@ -86,7 +89,7 @@ export default function UserProfileEdit() {
                 <img src="./img/userprofile.jpg" alt="logo" className="banner" style={{ position: "absolute", zIndex: -1 }} />
                 <div style={{ display: "flex", justifyContent: "center" }}>
                     <div style={{ marginTop: "8.6rem" }}>
-                        <Avatar alt={user.fname} src="/static/images/avatar/2.jpg" sx={{ width: 120, height: 120, fontSize: "3.5rem" }} />
+                        <Avatar alt={organizer.fname} src="/static/images/avatar/2.jpg" sx={{ width: 120, height: 120, fontSize: "3.5rem" }} />
                         <div>
 
                         </div>
@@ -99,7 +102,7 @@ export default function UserProfileEdit() {
             <Container maxWidth="lg" sx={{ marginBottom: "5rem" }}>
                 <div>
                     {/* <div style={{ marginTop: "3rem", display: "flex", justifyContent: "center" }}>
-                        <Avatar alt={user.fname} src="/static/images/avatar/2.jpg" sx={{ width: 120, height: 120, fontSize: "3.5rem" }} />
+                        <Avatar alt={organizer.fname} src="/static/images/avatar/2.jpg" sx={{ width: 120, height: 120, fontSize: "3.5rem" }} />
                     </div> */}
                     <Grid container spacing={2} style={{ margin: "0 auto", fontFamily: "'DM Sans', sans-serif" }}>
                         <Grid item xs={6} md={6}>
@@ -138,7 +141,7 @@ export default function UserProfileEdit() {
                             <div>
                                 <label>
                                     <p><b>Gender: </b>
-                                        <select value={selectedGender} onChange={handleGenderChange} disabled={user.gender != null}>
+                                        <select value={selectedGender} onChange={handleGenderChange} disabled={organizer.gender != null}>
                                             <option value="">Select</option>
                                             <option value="Male">Male</option>
                                             <option value="Female">Female</option>
@@ -192,7 +195,7 @@ export default function UserProfileEdit() {
                                 onChange={(e) => handleTextChange('dob', e.target.value)}
                                 type="text"
                                 variant='outlined'
-                                disabled={user.dob != null}
+                                disabled={organizer.dob != null}
                             /> */}
                             <div className="form-group" style={{ flex: 1 }}>
                                 <p><b>Date of Birth:</b></p>
@@ -203,7 +206,7 @@ export default function UserProfileEdit() {
                                     // value={formData.dob}
                                     onChange={(e) => handleTextChange('dob', e.target.value)}
                                     placeholder="Date"
-                                    disabled={user.dob != null}
+                                    disabled={organizer.dob != null}
                                     style={{
                                         width: "50%",
                                         height: "45px",
@@ -243,7 +246,7 @@ export default function UserProfileEdit() {
                         <TextField
                             className='txt'
                             id="fname"
-                            placeholder='User Bio'
+                            placeholder='organizer Bio'
                             value={formData.bio}
                             onChange={(e) => { handleTextChange('bio', e.target.value); handleInputChange(e); }}
                             type="text"
