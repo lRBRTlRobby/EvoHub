@@ -107,6 +107,7 @@ root.render(
       <Route path="/OrganizerEventDetails" element={<OrganizerEventDetails />} />
       <Route path="/EventDetails/:eventId" element={<EventDetails />} />
       <Route path="/MyEvents" element={<MyEvents />} />
+      <Route path="/AdminEventReq" element={<AdminEventReq />} />
 
 
 

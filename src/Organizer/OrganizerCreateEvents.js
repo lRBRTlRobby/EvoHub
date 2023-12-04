@@ -27,12 +27,12 @@ export default function CreateEventForm() {
     time: "",
     duration: "",
     location: "",
-    organizer:"",
+    // organizer:"",
     year: "",
     department: "",
     payment: "",
     max: "",
-
+    status: "pending",
     // role:[],
     // sponsors:[]
   });
@@ -125,13 +125,14 @@ export default function CreateEventForm() {
           time: formData.time,
           duration: formData.duration,
           location: formData.location,
-          organizer: formData.organizer,
+          organizer: organizer.fname + " " + organizer.lname,
           yearlevel: formData.year,
           department: formData.department,
           payment: formData.payment,
           maxAttend: formData.max,
           image: imageUrl,
-          orgid: organizer.oid
+          orgid: organizer.oid,
+          organEmail: organizer.email
 
         },
         {
@@ -354,7 +355,8 @@ console.log(formData)
                       type="text"
                       id="organizer"
                       name="organizer"
-                      value={formData.organizer}
+                      // value={formData.organizer}
+                      value={organizer.fname + " " + organizer.lname}
                       placeholder="Organizer name"
                       onChange={handleChange}
                       style={{
@@ -364,7 +366,7 @@ console.log(formData)
                         padding: "0 15px",
                         marginRight: "10px",
                       }}
-                      required
+                      disabled
                     />  
                 </div>
                 

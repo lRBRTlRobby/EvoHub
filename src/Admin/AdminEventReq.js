@@ -5,13 +5,53 @@ import TableBody from '@mui/material/TableBody';
 import Footer from '../Components/footer';
 import AdminEventReqDetails from './AdminEventReqDetails';
 import Avatar from '@mui/material/Avatar';
+import axios from 'axios';
 
 export default function AdminEventReq() {
     const [showDetails, setShowDetails] = useState(false);
     const [selectedTableId, setSelectedTableId] = useState(null);
+    const [event, setEvents] = useState([]);
+    const [currentId, setCurrentId] = useState(null);
 
-    
+    useEffect(() => {
+        axios.get('http://localhost:8080/Event/getAllEvents')
+          .then(response => {
+            setEvents(response.data);
+          })
+          .catch(error => {
+            console.error('Error fetching events:', error);
+          });
+      }, []);
+    console.log("event: ",event);
+    //   const [formData, setFormData] = useState({
+    //     title: event.title || '',
+    //     description: event.description || '',
+    //     date: event.date || '',
+    //     time: event.time || '',
+    //     duration: event.duration || '',
+    //     location: event.location || '',
+    //     organizer: event.organizer || '',
+    //     organEmail: event.organEmail || '',
+    //     yearlevel: event.yearlevel || '',
+    //     department: event.department || '',
+    //     payment: event.payment || '',
+    //     maxAttend: event.maxAttend || '',
+    //     status: event.status || '',
+    //     image: event.image || '',
+    //     orgid: event.orgid || '',
+    // });
+    // console.log("formData: ",formData);
 
+    // const handleUpdateProfile = async (eveId) => {
+    //     try {
+
+    //         const response = await axios.put(`http://localhost:8080/Event/updateEvent?eventid=${eveId}`, formData);
+
+    //         alert('Profile updated successfully!');
+    //     } catch (error) {
+    //         console.error('Error updating user profile:', error);
+    //     }
+    // };
 
     function createData(id, name, email, calories, fat, carbs, protein) {
         return { id, name, email, calories, fat, carbs, protein };
@@ -27,8 +67,7 @@ export default function AdminEventReq() {
     ];
 
     const [filterValue, setFilterValue] = useState(''); // State for the selected filter value
-    const filteredRows = rows.filter((row) => !filterValue || row.carbs === filterValue);
-
+    const filteredRows = event.filter((events) => !filterValue || events.department === filterValue);
     return (
         <div>
             <AdminHeader />
@@ -49,9 +88,9 @@ export default function AdminEventReq() {
                                 All
                             </MenuItem>
                             {/* Add unique carb values from your rows */}
-                            {[...new Set(rows.map((row) => row.carbs))].map((carbs) => (
-                                <MenuItem key={carbs} value={carbs}>
-                                    {carbs}
+                            {[...new Set(event.map((events) => events.department))].map((department) => (
+                                <MenuItem key={department} value={department}>
+                                    {department}
                                 </MenuItem>
                             ))}
                         </Select>
@@ -85,17 +124,18 @@ export default function AdminEventReq() {
                             {showDetails === true ? (
                                 <>
                                     {filteredRows
-                                        .filter(row => row.id === selectedTableId)
-                                        .map((row) => (
+                                        .filter(events => events.id === selectedTableId)
+                                        .map((events) => (
                                             <TableRow
-                                                key={row.id}
+                                                key={events.id}
                                                 sx={{ '&:last-child td, &:last-child th': { border: 0 }, cursor: 'pointer' }}
                                                 onClick={(e) => {
                                                     if (!e.target.closest('button')) {
                                                         // Only trigger the alert if the clicked element is not a button
                                                         // alert('You clicked on ' + row.id);
                                                         setShowDetails(!showDetails);
-                                                        setSelectedTableId(row.id);
+                                                        setSelectedTableId(event.id);
+                                                        setCurrentId(null);
 
                                                     }
                                                 }}
@@ -103,18 +143,18 @@ export default function AdminEventReq() {
                                             >
                                                 <TableCell component="th" scope="row" align='center'>
                                                 <div style={{display:'flex', alignItems:'center'}}>
-                                                <Avatar  alt={row.name} src="/static/images/avatar/2.jpg"  sx={{marginRight:'1rem'}} />
+                                                <Avatar  alt={events.organizer} src="/static/images/avatar/2.jpg"  sx={{marginRight:'1rem'}} />
                                                     <div>
-                                                       {row.name}
-                                                    <p>{row.email}</p> 
+                                                       {events.organizer}
+                                                    <p>{events.organEmail}</p> 
                                                     </div>
                                                     </div>
                                                     
                                                 </TableCell>
-                                                <TableCell align="center">{row.calories}</TableCell>
-                                                <TableCell align="center">{row.fat}</TableCell>
-                                                <TableCell align="center">{row.carbs}</TableCell>
-                                                <TableCell align="center">{row.protein}</TableCell>
+                                                <TableCell align="center">{events.title}</TableCell>
+                                                <TableCell align="center">{events.location}</TableCell>
+                                                <TableCell align="center">{events.department}</TableCell>
+                                                <TableCell align="center">{events.date}</TableCell>
                                             </TableRow>
                                         ))}
                                 </>
@@ -123,17 +163,18 @@ export default function AdminEventReq() {
                                     {
 
 
-                                        filteredRows.map((row) => (
+                                        filteredRows.map((event) => (
                                             <TableRow
-                                                key={row.id}
+                                                key={event.eventid}
                                                 sx={{ '&:last-child td, &:last-child th': { border: 0 }, cursor: 'pointer' }}
                                                 onClick={(e) => {
                                                     if (!e.target.closest('button')) {
                                                         // Only trigger the alert if the clicked element is not a button
                                                         // alert('You clicked on ' + row.id);
                                                         setShowDetails(!showDetails);
-                                                        setSelectedTableId(row.id);
-
+                                                        setSelectedTableId(event.id);
+                                                        setCurrentId(event.eventid);
+                                                        console.log("Current ID:", event.eventid);
                                                     }
                                                 }}
 
@@ -141,18 +182,45 @@ export default function AdminEventReq() {
 
                                                 <TableCell component="th" scope="row" align='center'>
                                                     <div style={{display:'flex', alignItems:'center'}}>
-                                                <Avatar  alt={row.name} src="/static/images/avatar/2.jpg"  sx={{marginRight:'1rem' }} />
+                                                <Avatar  alt={event.organizer} src="/static/images/avatar/2.jpg"  sx={{marginRight:'1rem' }} />
                                                     <div>
-                                                       {row.name}
-                                                    <p>{row.email}</p> 
+                                                       {event.organizer}
+                                                    <p>{event.organEmail}</p> 
                                                     </div>
                                                     </div>
                                                 </TableCell>
-                                                <TableCell align="center">{row.calories}</TableCell>
-                                                <TableCell align="center">{row.fat}</TableCell>
-                                                <TableCell align="center">{row.carbs}</TableCell>
-                                                <TableCell align="center">{row.protein}</TableCell>
-                                                <TableCell align="center" sx={{ zIndex: 1 }}><Button ><img src="./img/Edit.png" alt="Edit" /></Button></TableCell>
+                                                <TableCell align="center">{event.title}</TableCell>
+                                                <TableCell align="center">{event.location}</TableCell>
+                                                <TableCell align="center">{event.department}</TableCell>
+                                                <TableCell align="center">{event.date}</TableCell>
+                                                <TableCell align="center" sx={{ zIndex: 1 }}><Button onClick={async() => { 
+                                                    // formData.status = "Accepted"; handleUpdateProfile(event.eventid); 
+                                                    const [formData, setFormData] = useState({
+                                                        title: event.title || '',
+                                                        description: event.description || '',
+                                                        date: event.date || '',
+                                                        time: event.time || '',
+                                                        duration: event.duration || '',
+                                                        location: event.location || '',
+                                                        organizer: event.organizer || '',
+                                                        organEmail: event.organEmail || '',
+                                                        yearlevel: event.yearlevel || '',
+                                                        department: event.department || '',
+                                                        payment: event.payment || '',
+                                                        maxAttend: event.maxAttend || '',
+                                                        status: "Accepted",
+                                                        image: event.image || '',
+                                                        orgid: event.orgid || '',
+                                                    });
+                                                    try {
+
+                                                        const response = await axios.put(`http://localhost:8080/Event/updateEvent?eventid=${event.eventid}`, formData);
+                                            
+                                                        alert('Profile updated successfully!');
+                                                    } catch (error) {
+                                                        console.error('Error updating user profile:', error);
+                                                    }
+                                                    }}><img src="./img/Edit.png" alt="Edit" /></Button></TableCell>
                                                 <TableCell align="center"><Button><img src="./img/Delete.png" alt="Edit" /></Button></TableCell>
                                             </TableRow>
                                         ))}
@@ -163,7 +231,7 @@ export default function AdminEventReq() {
                     </Table>
                 </TableContainer>
                 {showDetails && (
-                    <AdminEventReqDetails setShowDetails={setShowDetails} />
+                    <AdminEventReqDetails setShowDetails={setShowDetails} setId = {currentId} />
                 )}
             </Container>
             <Footer />
