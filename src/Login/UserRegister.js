@@ -85,7 +85,7 @@ export default function EventRegister() {
                 });
                 console.log('Registration successful:', response.data);
                 // Redirect or show a success message as needed
-
+                alert('Registration successful');
             } catch (error) {
                 console.error('Error during registration:', error);
                 // Handle registration failure, show error message, etc.
