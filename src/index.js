@@ -60,8 +60,8 @@ import AdminDashboard from './Admin/AdminDashboard';
 import EventDetails from './Organizer/OrganizerEventDetails';
 import ManageRequests from './Components/manageMenu';
 import DeleteEvent from './Organizer/OrganizerDelete';
-import OrganizerProfile from './Organizer/OrganizerProfile';
-import OrganizerProfileEdit from './Organizer/OrganizerProfileEdit';
+import ViewAttendees from './Organizer/OrganizerViewAttendees';
+import AttendeeRequests from './Organizer/OrganizerManageRequest';
 import AdminOrganReq from './Admin/AdminOrganReq';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -107,11 +107,11 @@ root.render(
       <Route path="/OrganizerUpcomingEvents" element={<OrganizerUpcomingEvents />} />
       <Route path="/OrganizerCreateEvents" element={<CreateEventForm />} />
       <Route path="/AttendeesRequirements" element={<Attendees />} />
-      <Route path="/OrganizerEventDetails" element={<OrganizerEventDetails />} />
+      <Route path="/ViewAttendees/:eventId" element={<ViewAttendees />} />
+      <Route path="/AttendeeRequests/:eventId" element={<AttendeeRequests />} />
       <Route path="/EventDetails/:eventId" element={<EventDetails />} />
       <Route path="/MyEvents" element={<MyEvents />} />
       <Route path="/AdminEventReq" element={<AdminEventReq />} />
-      <Route path="/AdminOrganReq" element={<AdminOrganReq />} />
       <Route path="/OrganizerProfile" element={<OrganizerProfile />} />
       <Route path="/OrganizerProfileEdit" element={<OrganizerProfileEdit />} />
 
