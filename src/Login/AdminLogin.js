@@ -20,19 +20,19 @@ export default function EventAdmin() {
                             <h1 style={{ fontFamily: "'DM Sans', sans-serif" }}>Log In as Admin</h1>
                             <div>
                             <TextField
-                                className='txt'
-                                id="outlined-password-input"
-                                label="Email Address"
-                                type="username"
-                                variant='outlined'
-                            /><br />
-                            <TextField
-                                className='txt'
-                                id="outlined-password-input"
-                                label="Password"
-                                type="password"
-                                variant='outlined'
-                            />
+                                        className='txt'
+                                        id="email"
+                                        label="Email Address"
+                                        type="email"
+                                        variant='outlined'
+                                    /><br />
+                                    <TextField
+                                        className='txt'
+                                        id="pass"
+                                        label="Password"
+                                        type="password"
+                                        variant='outlined'
+                                    />
                             </div>
                             <div style={{ display: "flex", padding: 0, margin: "0 auto", justifyContent: "center" }}>
 
@@ -40,7 +40,7 @@ export default function EventAdmin() {
                             <p className='terms' style={{ fontFamily: "'DM Sans', sans-serif" }}><input type="checkbox" />By signing in, I agree with <u>Terms and conditions.</u></p>
 
                             </div>
-                            <Link to="/EventUserHome"><Button sx={{ backgroundColor: "#800000", ":hover": { backgroundColor: "#800000" } }} variant="contained">Sign In</Button></Link>
+                            <Link to="/Dashboard"><Button sx={{ backgroundColor: "#800000", ":hover": { backgroundColor: "#800000" } }} variant="contained">Sign In</Button></Link>
                         </div>
                     </Grid>
                 </Grid>

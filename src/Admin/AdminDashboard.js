@@ -4,7 +4,7 @@ import { Button, Container } from '@mui/material';
 import Footer from '../Components/footer';
 import AdminEventReqDetails from './AdminEventReqDetails';
 
-export default function AdminEventReq() {
+export default function Dashboard() {
   const [showDetails, setShowDetails] = useState(false);
   const [selectedTableId, setSelectedTableId] = useState(null);
 

@@ -56,7 +56,10 @@ import MyEvents from './Organizer/OrganizerMyEvents';
 import { OrganizerProvider } from './Components/OrganizerProvider';
 import AdminEventReq from './Admin/AdminEventReq';
 import OrganizerViewAttendees from './Organizer/OrganizerViewAttendees';
-import AdminDashboard from './Admin/AdminDashboard';
+import Dashboard from './Admin/AdminDashboard';
+import OrganizerManageRequest from './Organizer/OrganizerManageRequest';
+import AdminProfile from './Admin/adminProfile';
+import AdminProfileEdit from './Admin/adminProfileEdit';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -105,7 +108,10 @@ root.render(
       <Route path="/MyEvents" element={<MyEvents />} />
       <Route path="/AdminEventReq" element={<AdminEventReq />} />
       <Route path="/OrganizerViewAttendees" element={<OrganizerViewAttendees />} />
-      <Route path="/AdminDashboard" element={<AdminDashboard />} />
+      <Route path="/Dashboard" element={<Dashboard />} />
+      <Route path="/OrganizerManageRequest" element={<OrganizerManageRequest />} />
+      <Route path="/AdminProfile" element={<AdminProfile />} />
+      <Route path="/AdminProfileEdit" element={<AdminProfileEdit />} />
 
 
 

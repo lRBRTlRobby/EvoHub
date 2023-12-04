@@ -63,6 +63,9 @@ const AttendeeTable = () => {
                                 <TableCell align="center" sx={{ color: 'white' }}>Event Name</TableCell>
                                 <TableCell align="center" sx={{ color: 'white' }}>Department</TableCell>
                                 <TableCell align="center" sx={{ color: 'white' }}>Year Level</TableCell>
+                                <TableCell align="center" sx={{ color: 'white' }}>Proof</TableCell>
+                                <TableCell align="center" sx={{ color: 'white' }}></TableCell>
+                                <TableCell align="center" sx={{ color: 'white' }}></TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
@@ -84,6 +87,10 @@ const AttendeeTable = () => {
                                     <TableCell align="center">{row.eventName}</TableCell>
                                     <TableCell align="center">{row.department}</TableCell>
                                     <TableCell align="center">{row.yearLevel}</TableCell>
+                                    <TableCell align="center" sx={{ zIndex: 1 }}><Button><img src="./img/Receipt.png" alt="Edit" /></Button></TableCell>
+                                    <TableCell align="center"><Button style={{marginLeft:'-20px'}}><img src="./img/Ok.png" alt="Edit" /></Button></TableCell>
+                                    <TableCell align="center"><Button style={{marginLeft:'-80px'}}><img src="./img/Cancel.png" alt="Edit" /></Button></TableCell>
+
                                 </TableRow>
                             ))}
                         </TableBody>

@@ -1,16 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
 import Container from "@mui/material/Container";
-import ResponsiveAppBar from "../Components/header";
 import Avatar from "@mui/material/Avatar";
 import { Grid } from "@mui/material";
 import Footer from "../Components/footer";
-import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
+import AdminHeader from "../Components/adminHeader";
 
 export default function AdminProfile() {
+  const [adminData, setAdminData] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://localhost:8080/admins/getAdmin/1');
+        setAdminData(response.data);
+      } catch (error) {
+        console.error('Error fetching admin data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div>
-      <ResponsiveAppBar />
+      <AdminHeader />
       <div>
         <img
           src="./img/userprofile.jpg"
@@ -21,8 +36,8 @@ export default function AdminProfile() {
         <div style={{ display: "flex", justifyContent: "center" }}>
           <div style={{ marginTop: "8.6rem" }}>
             <Avatar
-              alt="Kyle"
-              src="/static/images/avatar/2.jpg"
+              alt={adminData ? adminData.firstName : "Admin"}
+              src={adminData ? adminData.avatarSrc : "/static/images/avatar/default.jpg"}
               sx={{ width: 120, height: 120 }}
             />
             <div></div>
@@ -36,30 +51,14 @@ export default function AdminProfile() {
             fontFamily: "'DM Sans', sans-serif",
           }}
         >
-          <h2 style={{ fontSize: "2.8rem" }}>Kyle Weig</h2>
-          <p style={{ fontSize: "1.2rem", marginTop: "-1.8rem" }}>PE FACULTY</p>
+          {adminData && (
+            <>
+              <h2 style={{ fontSize: "2.8rem" }}>{adminData.firstName} {adminData.lastName}</h2>
+              <p style={{ fontSize: "1.2rem", marginTop: "-1.8rem" }}>{adminData.title}</p>
+            </>
+          )}
         </div>
-        <div
-          style={{
-            marginTop: "1rem",
-            textAlign: "right",
-            marginTop: "7.4rem",
-            marginRight: "9.5rem",
-            fontFamily: "'DM Sans', sans-serif",
-          }}
-        >
-          {/* <Link to="/UserProfileEdit">
-            {" "}
-            <Button sx={{ color: "black", padding: 0, margin: 0 }}>
-              <p style={{ fontSize: ".9rem" }}>
-                <u>Edit Profile</u>
-              </p>
-            </Button>
-          </Link> */}
-        </div>
-      </div>
-      <Container maxWidth="lg" sx={{ marginBottom: "5rem" }}>
-        <div>
+        <Container maxWidth="lg" sx={{ marginBottom: "5rem" }}>
           <Grid
             container
             spacing={2}
@@ -71,46 +70,26 @@ export default function AdminProfile() {
             }}
           >
             <Grid item xs={12} md={6}>
-              <div>
-                <p>
-                  <b>First Name:</b> Kyle
-                </p>
-                <p>
-                  <b>Middle Name:</b> M.
-                </p>
-                <p>
-                  <b>Last Name:</b> Weig
-                </p>
-                <p>
-                  <b>Gender:</b> Male
-                </p>
-                <p>
-                  <b>Department:</b> Physical Education
-                </p>
-              </div>
+              {adminData && (
+                <div>
+                  <p><b>First Name:</b> {adminData.firstName}</p>
+                  <p><b>Middle Name:</b> {adminData.middleName}</p>
+                  <p><b>Last Name:</b> {adminData.lastName}</p>
+                  <p><b>Gender:</b> {adminData.gender}</p>
+                  <p><b>Department:</b> {adminData.department}</p>
+                </div>
+              )}
             </Grid>
             <Grid item xs={12} md={6}>
-              <div>
-                <p>
-                  <b>Email Address:</b> kyle.weig@cit.edu
-                </p>
-                <p>
-                  <b>Phone:</b> +63 912 345 6789
-                </p>
-                <p>
-                  <b>Date of Birth:</b> July 5, 2001
-                </p>
-                <p>
-                  <b>Country:</b> Philippines
-                </p>
-                <p>
-                  <b>Link To Teams:</b> http://link_to_teams
-                </p>
-              </div>
-            </Grid>
-
-            <Grid item xs={12}>
-              {/* Add any additional content for the third grid item */}
+              {adminData && (
+                <div>
+                  <p><b>Email Address:</b> {adminData.email}</p>
+                  <p><b>Phone:</b> {adminData.phone}</p>
+                  <p><b>Date of Birth:</b> {adminData.birthdate}</p>
+                  <p><b>Country:</b> {adminData.country}</p>
+                  <p><b>Link To Teams:</b> {adminData.teamsLink}</p>
+                </div>
+              )}
             </Grid>
           </Grid>
           <p>
@@ -125,15 +104,16 @@ export default function AdminProfile() {
               borderRadius: "20px",
               margin: "2rem auto",
               padding: "1rem",
-              resize: "none", // Prevent textarea resizing
-              fontFamily: "'DM Sans', sans-serif", // Apply the desired font
-              fontSize: "1rem", // Set the desired font size
+              resize: "none",
+              fontFamily: "'DM Sans', sans-serif",
+              fontSize: "1rem",
             }}
-            defaultValue="I like cats"
+            value={adminData ? adminData.bio : ""}
+            readOnly
           />
-        </div>
-      </Container>
-      <Footer />
+        </Container>
+        <Footer />
+      </div>
     </div>
   );
 }
