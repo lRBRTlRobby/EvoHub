@@ -21,11 +21,11 @@ const settings = ['Profile','Logout'];
 function getPagePath(page) {
   switch (page) {
     case 'Dashboard':
-      return '/EventUserHome';
+      return '/Dashboard';
     case 'Organizer Requests':
-      return '/UserEventCategory';
+      return '/AdminOrganReq';
     case 'Event Requests':
-        return '/UserUpcomingEvents';
+        return '/AdminEventReq';
     // Add more cases for additional pages
     default:
       return `/${page.replace(/\s+/g, '-')}`;
@@ -35,7 +35,7 @@ function getPagePath(page) {
 function getSettingPath(settings) {
   switch (settings) {
     case 'Profile':
-      return '/UserProfile';
+      return '/AdminProfile';
     case 'Logout':
       return '/';
     // Add more cases for additional pages
