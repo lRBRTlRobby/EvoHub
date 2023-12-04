@@ -1,83 +1,159 @@
-import React, { useEffect, useState } from 'react'
-import AdminHeader from '../Components/adminHeader'
-import { Button, Container, MenuItem, Paper, Select, Table, TableCell, TableContainer, TableHead, TableRow, TextField } from '@mui/material'
-import TableBody from '@mui/material/TableBody';
+import React, { useState } from 'react';
+import AdminHeader from '../Components/adminHeader';
+import { Button, Container } from '@mui/material';
 import Footer from '../Components/footer';
 import AdminEventReqDetails from './AdminEventReqDetails';
-import Avatar from '@mui/material/Avatar';
 
 export default function AdminEventReq() {
-    const [showDetails, setShowDetails] = useState(false);
-    const [selectedTableId, setSelectedTableId] = useState(null);
+  const [showDetails, setShowDetails] = useState(false);
+  const [selectedTableId, setSelectedTableId] = useState(null);
 
-    
+  const textColor = '#8A92A6'; // Define the text color
+  const buttonFontSize = '16px'; // Define the button font size
+  const buttonWidth = '300px'; // Increase the button width
+  const buttonHeight = '100px'; // Adjusted button height for rectangular shape
+  const buttonBorderWidth = '0.5px'; // Define the button border width
 
-
-    function createData(id, name, email, calories, fat, carbs, protein) {
-        return { id, name, email, calories, fat, carbs, protein };
-    }
-    const rows = [
-        createData(1, 'Jane Doe', 'jane.doe@gmail.com', 'Innovation Expo', 'GYM', 'CCS', '12-05-23'),
-        createData(2, 'Clark Doe', 'jane.doe@gmail.com', 'Innovation Expo', 'GYM', 'CCS', '12-05-23'),
-        createData(3, 'Jonas Doe', 'jane.doe@gmail.com', 'Innovation Expo', 'GYM', 'CCS', '12-05-23'),
-        createData(4, 'Shem Doe', 'jane.doe@gmail.com', 'Innovation Expo', 'GYM', 'CCS', '12-05-23'),
-        createData(5, 'Von Doe', 'jane.doe@gmail.com', 'Innovation Expo', 'GYM', 'CCS', '12-05-23'),
-        createData(6, 'Ludi Doe', 'jane.doe@gmail.com', 'Innovation Expo', 'GYM', 'CCS', '12-05-23'),
-        createData(7, 'John Doe', 'jane.doe@gmail.com', 'Innovation Expo', 'GYM', 'BSIT', '12-05-23'),
-    ];
-
-    const [filterValue, setFilterValue] = useState(''); // State for the selected filter value
-    const filteredRows = rows.filter((row) => !filterValue || row.carbs === filterValue);
-
-    return (
-        <div>
-
-
-
-            <AdminHeader />
-            <img src="./img/GLE-Building.png" alt="logo" className="banner" />
-            <Container maxWidth="lg">
-                <h2 style={{ fontFamily: "'DM Sans', sans-serif", marginTop: "5rem" }}>Event Request</h2>
-
-                <div style={{ display: "flex", justifyContent: "space-between" }}>
-                    <div>
-                        {/* Dropdown/Select for filtering */}
-                        <Select
-                            value={filterValue}
-                            onChange={(e) => { setFilterValue(e.target.value); setShowDetails(false); }}
-                            displayEmpty
-                            inputProps={{ 'aria-label': 'Without label' }}
-
-                        >
-                            <MenuItem value="" >
-                                All
-                            </MenuItem>
-                            {/* Add unique carb values from your rows */}
-                            {[...new Set(rows.map((row) => row.carbs))].map((carbs) => (
-                                <MenuItem key={carbs} value={carbs}>
-                                    {carbs}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </div>
-                    <div>
-                        <TextField
-                            className='txt'
-                            id="fname"
-                            label="Search"
-                            type="text"
-                            variant='outlined'
-                        />
-                    </div>
-                </div>
-
-                <br /><br />
-                
-                {showDetails && (
-                    <AdminEventReqDetails setShowDetails={setShowDetails} />
-                )}
-            </Container>
-            <Footer />
+  return (
+    <div>
+      <AdminHeader />
+      <img src="./img/GLE-Building.png" alt="logo" className="banner" />
+      <Container maxWidth="lg">
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+          <Button
+            variant="contained"
+            color="primary"
+            style={{
+              marginRight: '10px',
+              color: textColor,
+              backgroundColor: 'white',
+              fontSize: buttonFontSize,
+              width: buttonWidth,
+              height: buttonHeight,
+              border: `${buttonBorderWidth} solid black`,
+            }}
+            onClick={() => setShowDetails(false)}
+          >
+            4
+            <br />
+            Total Events
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            style={{
+              marginRight: '10px',
+              color: textColor,
+              backgroundColor: 'white',
+              fontSize: buttonFontSize,
+              width: buttonWidth,
+              height: buttonHeight,
+              border: `${buttonBorderWidth} solid black`,
+            }}
+            onClick={() => setShowDetails(false)}
+          >
+            4
+            <br />
+            Upcoming Events
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            style={{
+              color: textColor,
+              backgroundColor: 'white',
+              fontSize: buttonFontSize,
+              width: buttonWidth,
+              height: buttonHeight,
+              border: `${buttonBorderWidth} solid black`,
+            }}
+          >
+            4
+            <br />
+            Past Events
+          </Button>
         </div>
-    )
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+          <Button
+            variant="contained"
+            color="primary"
+            style={{
+              marginRight: '10px',
+              color: textColor,
+              backgroundColor: 'white',
+              fontSize: buttonFontSize,
+              width: buttonWidth,
+              height: buttonHeight,
+              border: `${buttonBorderWidth} solid black`,
+            }}
+            onClick={() => setShowDetails(false)}
+          >
+            4
+            <br />
+            Event Requests
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            style={{
+              marginRight: '10px',
+              color: textColor,
+              backgroundColor: 'white',
+              fontSize: buttonFontSize,
+              width: buttonWidth,
+              height: buttonHeight,
+              border: `${buttonBorderWidth} solid black`,
+            }}
+            onClick={() => setShowDetails(false)}
+          >
+            4
+            <br />
+            Total Users
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            style={{
+              marginRight: '10px',
+              color: textColor,
+              backgroundColor: 'white',
+              fontSize: buttonFontSize,
+              width: buttonWidth,
+              height: buttonHeight,
+              border: `${buttonBorderWidth} solid black`,
+            }}
+            onClick={() => setShowDetails(false)}
+          >
+            4
+            <br />
+            Total Organizers
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            style={{
+              color: textColor,
+              backgroundColor: 'white',
+              fontSize: buttonFontSize,
+              width: buttonWidth,
+              height: buttonHeight,
+              border: `${buttonBorderWidth} solid black`,
+            }}
+          >
+            4
+            <br />
+            Organizer Requests
+          </Button>
+        </div>
+        <br /><br />
+        {showDetails && (
+          <AdminEventReqDetails
+            setShowDetails={setShowDetails}
+            selectedTableId={selectedTableId}
+          />
+        )}
+      </Container>
+      <Footer />
+    </div>
+  );
 }
