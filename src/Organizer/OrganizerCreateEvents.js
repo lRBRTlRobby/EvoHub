@@ -144,7 +144,7 @@ export default function CreateEventForm() {
   
       // Log the response from the server
       console.log(response.data);
-      alert("Success");
+      alert('Event Successfully Requested to admin');
     } catch (error) {
       // Handle errors
       console.error("Error submitting form:", error);

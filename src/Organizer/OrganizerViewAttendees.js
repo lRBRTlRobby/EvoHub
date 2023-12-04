@@ -14,7 +14,7 @@ export default function ViewAttendees(){
     const [event, setEvents] = useState({});
     const { eventId } = useParams();
     const [participants, setParticipants] = useState([]);
-
+   
     useEffect(() => {
       window.scroll(0, 0);
       axios.get(`http://localhost:8080/Event/getEvent/${eventId}`)
@@ -32,10 +32,16 @@ export default function ViewAttendees(){
         axios.get(`http://localhost:8080/participantrequest/getAllParRequests`)
             .then(response => {
                 console.log(response.data);
-                setParticipants(response.data);
+                // Filter participants based on the condition that status is 'Accepted'
+                const filteredParticipants = response.data.filter(participant => participant.status === 'Accepted');
+                console.log(filteredParticipants)
+                // Set the filtered participants
+                setParticipants(filteredParticipants);
+                // Set the events if needed
+                // setEvents(filteredParticipants);
             })
             .catch(error => {
-                console.error('Error fetching events:', error);
+                alert('Error fetching events:', error);
             });
     }, [eventId]);
 
@@ -56,9 +62,11 @@ export default function ViewAttendees(){
         )
     );
 
-    const filteredRows = rows.filter((row) => (!filterValue || row.carbs === filterValue) && row.status === 'Accepted');
+    const filteredRows = rows.filter((row) => (!filterValue || row.carbs === filterValue));
 
-
+    console.log('rows:', participants);
+    
+    
     return (
         <>
             <ResponsiveAppBarOrgan />

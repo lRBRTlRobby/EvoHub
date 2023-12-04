@@ -12,13 +12,27 @@ export default function AttendeeRequests() {
     const { eventId } = useParams();
     const [participants, setParticipants] = useState([]);
 
+     useEffect(() => {
+      window.scroll(0, 0);
+      axios.get(`http://localhost:8080/Event/getEvent/${eventId}`)
+        .then(response => {
+          console.log(response.data);
+          setEvents(response.data);
+        })
+        .catch(error => {
+          console.error('Error fetching events:', error);
+        });
+    }, [eventId]);
     useEffect(() => {
         window.scroll(0, 0);
         axios.get(`http://localhost:8080/participantrequest/getAllParRequests`)
             .then(response => {
                 console.log(response.data);
-                setParticipants(response.data);
-                setEvents(response.data);
+                const filteredParticipants = response.data.filter(participant => participant.status === null);
+                // Set the filtered participants
+                setParticipants(filteredParticipants);
+                // Set the events
+
             })
             .catch(error => {
                 console.error('Error fetching events:', error);
@@ -42,7 +56,7 @@ export default function AttendeeRequests() {
         )
     );
 
-    const filteredRows = rows.filter((row) => (!filterValue || row.carbs === filterValue));
+    const filteredRows = participants.filter((events) => !filterValue || participants.department === filterValue);
 
 
 
@@ -90,8 +104,10 @@ export default function AttendeeRequests() {
 
     console.log(event)
     return (
+        <>
+        <ResponsiveAppBarOrgan />
         <Container>
-             <ResponsiveAppBarOrgan />
+             
             {/* Buttons for View Attendees and ManageReq */}
             {/* Add your button code here */}
            
@@ -218,5 +234,6 @@ export default function AttendeeRequests() {
             </div>
             </div>
         </Container>
+        </>
     );
 }
