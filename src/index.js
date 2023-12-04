@@ -63,6 +63,8 @@ import DeleteEvent from './Organizer/OrganizerDelete';
 import ViewAttendees from './Organizer/OrganizerViewAttendees';
 import AttendeeRequests from './Organizer/OrganizerManageRequest';
 import AdminOrganReq from './Admin/AdminOrganReq';
+import OrganizerProfile from './Organizer/OrganizerProfile';
+import OrganizerProfileEdit from './Organizer/OrganizerProfileEdit';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
