@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import Container from '@mui/material/Container';
 import PersonPics from "../Components/People"
-import { Button } from '@mui/base';
+// import { Button } from '@mui/base';
 import { style } from '@mui/system';
 import ButtonM from '../Components/ButtonMaroon';
 import ButtonY from '../Components/ButtonYellow';
 import axios from 'axios';
-import { Avatar } from '@mui/material';
+import { Avatar, Button } from '@mui/material';
 
 
 export default function AdminEventReqDetails({ setShowDetails, setId }) {
@@ -39,43 +39,44 @@ export default function AdminEventReqDetails({ setShowDetails, setId }) {
     ]
 
     const [event, setEvents] = useState([]);
-    console.log("setId: ",setId);
+    console.log("setId: ", setId);
     useEffect(() => {
         axios.get('http://localhost:8080/Event/getAllEvents')
-          .then(response => {
-            const tmpEvent = response.data;
-            const origEv = tmpEvent.find(tmpEv => tmpEv.eventid === setId);
-            setEvents(origEv);
+            .then(response => {
+                const tmpEvent = response.data;
+                const origEv = tmpEvent.find(tmpEv => tmpEv.eventid === setId);
+                setEvents(origEv);
 
-            const [fname, lname] = origEv.organizer.split(' ');
-        setFirstN(fname);
-        setLastN(lname);
+                const [fname, lname] = origEv.organizer.split(' ');
+                setFirstN(fname);
+                setLastN(lname);
 
-          })
-          .catch(error => {
-            console.error('Error fetching events:', error);
-          });
-      }, []);
+            })
+            .catch(error => {
+                console.error('Error fetching events:', error);
+            });
+    }, []);
 
     return (
         <div style={{ border: "1px solid black", marginTop: "1rem", boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)", }}>
             {/* <Container maxWidth="lg"> */}
-            <div style={{ backgroundColor: '#C02147', paddingTop: "1rem", paddingBottom: "1rem", display: "flex", alignItems: "center", justifyContent: "space-between", height: "2rem" }}>
+            <div style={{ backgroundColor: '#C02147', paddingTop: "1rem", paddingBottom: "1rem", display: "flex", alignItems: "center", height: "2rem", justifyContent: "space-between" }}>
                 <div>
-                    <img className='back' src="/img/back.png" style={{ cursor: "pointer", marginLeft: "1rem" }} onClick={() => setShowDetails(false)} />
+                    <img className='back' src="/img/back.png" style={{ cursor: "pointer", marginLeft: "1rem", alignContent: "left" }} onClick={() => setShowDetails(false)} />
                 </div>
 
                 <div style={{ display: "flex", textAlign: "center", justifyContent: "center" }}>
-                    <h3 style={{ fontFamily: "'DM Sans', sans-serif", margin: "0 auto", padding: "0rem", color: "white", textAlign: "center" }}>Event Details</h3>
+                    <h3 style={{ fontFamily: "'DM Sans', sans-serif", margin: "0 auto", padding: "0rem", color: "white", }}>Event Details</h3>
                 </div>
+                <div></div>
 
-                <div style={{ display: "flex", textAlign: "center", marginRight: "1rem" }}>
+                {/* <div style={{ display: "flex", textAlign: "center", marginRight: "1rem" }}>
                     <img src="./img/Edit.png" alt="Edit" style={{ cursor: "pointer", marginRight: "1rem" }} onClick={() => alert("Accept")} />
                     <img src="./img/Delete.png" alt="Edit" style={{ cursor: "pointer" }} onClick={() => alert("Decline")} />
-                </div>
+                </div> */}
 
             </div>
-<br/>
+            <br />
             <img src={"/uploads/" + event.image} alt="logo" className="banner" style={{ width: "80%", height: "auto", display: "flex", margin: "0 auto", borderRadius: 50 }} />
 
             <div style={{ padding: "2rem" }}>
@@ -98,7 +99,7 @@ export default function AdminEventReqDetails({ setShowDetails, setId }) {
                     ))} */}
                     <div style={{ textAlign: "center", margin: "10px" }}>
                         {/* <img src="/img/Profile-2.png" alt="logo" style={{ width: "100px" }} /> */}
-                        <Avatar  alt={event.organizer} src="/static/images/avatar/2.jpg"  sx={{  width: "100px", height: "100px" }} />
+                        <Avatar alt={event.organizer} src="/static/images/avatar/2.jpg" sx={{ width: "100px", height: "100px" }} />
                         <h3>{event.organizer}</h3>
                         <p>Event Coordinator</p>
                     </div>
@@ -136,9 +137,72 @@ export default function AdminEventReqDetails({ setShowDetails, setId }) {
                     <p style={{ fontWeight: 'bold' }}>Organization: GDSC</p> */}
                 </div>
                 <div style={{ display: "flex", justifyContent: "center", marginTop: "3rem" }}>
-                    <ButtonM name="Accept" />
+                    {/* <ButtonM name="Accept" /> */}
+                    <Button sx={{
+                        backgroundColor: 'maroon', color: 'white', fontFamily: "'DM Sans', sans-serif", width: '19rem', height: '4rem', fontWeight: 'bold', fontFamily: "'DM Sans', sans-serif", fontSize: '1rem',
+                        display: "flex", justifyContent: "center", padding: 0, borderRadius: 50
+
+                    }}  onClick={async() => { 
+                        try {
+                            const updatedFormData = {
+                                title: event.title,
+                                description: event.description || '',
+                                date: event.date || '',
+                                time: event.time || '',
+                                duration: event.duration || '',
+                                location: event.location || '',
+                                organizer: event.organizer || '',
+                                organEmail: event.organEmail || '',
+                                yearlevel: event.yearlevel || '',
+                                department: event.department || '',
+                                payment: event.payment || '',
+                                maxAttend: event.maxAttend || '',
+                                status: "Accepted" || '',
+                                image: event.image || '',
+                                orgid: event.orgid || '',
+                              };
+                            console.log("updated: ",updatedFormData);
+                            const response = await axios.put(`http://localhost:8080/Event/updateEvent?eventid=${event.eventid}`, updatedFormData);
+                            console.log("API Response:", response.data);
+                            alert('Event Request Successfully Accepted!');
+                            window.location.reload();
+                        } catch (error) {
+                            console.error('Error accepting event request:', error);
+                        }
+                        }}>Accept</Button>
                     <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
-                    <ButtonY name="Decline" />
+                    {/* <ButtonY name="Decline" /> */}
+                    <Button sx={{
+                        backgroundColor: '#EAA021', color: 'white', fontFamily: "'DM Sans', sans-serif", width: '19rem', height: '4rem', fontWeight: 'bold', fontFamily: "'DM Sans', sans-serif", fontSize: '1rem',
+                        display: "flex", justifyContent: "center", padding: 0, borderRadius: 50
+                    }}  onClick={async() => { 
+                        try {
+                            const updatedFormData = {
+                                title: event.title,
+                                description: event.description || '',
+                                date: event.date || '',
+                                time: event.time || '',
+                                duration: event.duration || '',
+                                location: event.location || '',
+                                organizer: event.organizer || '',
+                                organEmail: event.organEmail || '',
+                                yearlevel: event.yearlevel || '',
+                                department: event.department || '',
+                                payment: event.payment || '',
+                                maxAttend: event.maxAttend || '',
+                                status: "Declined" || '',
+                                image: event.image || '',
+                                orgid: event.orgid || '',
+                              };
+                            console.log("updated: ",updatedFormData);
+                            const response = await axios.put(`http://localhost:8080/Event/updateEvent?eventid=${event.eventid}`, updatedFormData);
+                            console.log("API Response:", response.data);
+                            alert('Event Request Successfully Declined!');
+                            window.location.reload();
+                        } catch (error) {
+                            console.error('Error accepting event request:', error);
+                        }
+                        }}>Decline</Button>
                 </div>
             </div>
             {/* </Container> */}

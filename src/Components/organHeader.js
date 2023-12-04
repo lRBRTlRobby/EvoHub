@@ -42,7 +42,7 @@ function getPagePath(page) {
 function getSettingPath(settings) {
   switch (settings) {
     case 'Profile':
-      return '/EventUserHome';
+      return '/OrganizerProfile';
     case 'Logout':
       return '/';
     // Add more cases for additional pages

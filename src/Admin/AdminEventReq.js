@@ -16,7 +16,12 @@ export default function AdminEventReq() {
     useEffect(() => {
         axios.get('http://localhost:8080/Event/getAllEvents')
           .then(response => {
-            setEvents(response.data);
+            // setEvents(response.data);
+            const tmpEvent = response.data;
+            const origEv = tmpEvent.filter(tmpEv => tmpEv.status === null);
+            console.log("origEv: ",origEv);
+            setEvents(origEv);
+            
           })
           .catch(error => {
             console.error('Error fetching events:', error);
@@ -40,18 +45,51 @@ export default function AdminEventReq() {
     //     image: event.image || '',
     //     orgid: event.orgid || '',
     // });
-    // console.log("formData: ",formData);
+    const [formData, setFormData] = useState({
+        title: '',
+        description: '',
+        date: '',
+        time: '',
+        duration: '',
+        location: '',
+        organizer: '',
+        organEmail: '',
+        yearlevel: '',
+        department: '',
+        payment: '',
+        maxAttend: '',
+        status: '',
+        image: '',
+        orgid: '',
+      });
 
-    // const handleUpdateProfile = async (eveId) => {
-    //     try {
+    const handleUpdateProfile = async (events) => {
+        try {
+            const updatedFormData = {
+                title: events.title || '',
+                description: events.description || '',
+                date: events.date || '',
+                time: events.time || '',
+                duration: events.duration || '',
+                location: events.location || '',
+                organizer: events.organizer || '',
+                organEmail: events.organEmail || '',
+                yearlevel: events.yearlevel || '',
+                department: events.department || '',
+                payment: events.payment || '',
+                maxAttend: events.maxAttend || '',
+                status: 'Accepted',
+                image: events.image || '',
+                orgid: events.orgid || '',
+              };
 
-    //         const response = await axios.put(`http://localhost:8080/Event/updateEvent?eventid=${eveId}`, formData);
+            const response = await axios.put(`http://localhost:8080/Event/updateEvent?eventid=${events.eventid}`, updatedFormData);
 
-    //         alert('Profile updated successfully!');
-    //     } catch (error) {
-    //         console.error('Error updating user profile:', error);
-    //     }
-    // };
+            alert('Profile updated successfully!');
+        } catch (error) {
+            console.error('Error updating user profile:', error);
+        }
+    };
 
     function createData(id, name, email, calories, fat, carbs, protein) {
         return { id, name, email, calories, fat, carbs, protein };
@@ -124,17 +162,17 @@ export default function AdminEventReq() {
                             {showDetails === true ? (
                                 <>
                                     {filteredRows
-                                        .filter(events => events.id === selectedTableId)
+                                        .filter(events => events.eventid === selectedTableId)
                                         .map((events) => (
                                             <TableRow
-                                                key={events.id}
+                                                key={events.eventid}
                                                 sx={{ '&:last-child td, &:last-child th': { border: 0 }, cursor: 'pointer' }}
                                                 onClick={(e) => {
                                                     if (!e.target.closest('button')) {
                                                         // Only trigger the alert if the clicked element is not a button
                                                         // alert('You clicked on ' + row.id);
                                                         setShowDetails(!showDetails);
-                                                        setSelectedTableId(event.id);
+                                                        setSelectedTableId(events.eventid);
                                                         setCurrentId(null);
 
                                                     }
@@ -155,6 +193,66 @@ export default function AdminEventReq() {
                                                 <TableCell align="center">{events.location}</TableCell>
                                                 <TableCell align="center">{events.department}</TableCell>
                                                 <TableCell align="center">{events.date}</TableCell>
+                                                <TableCell align="center" sx={{ zIndex: 1 }}><Button onClick={async() => { 
+                                                    try {
+                                                        const updatedFormData = {
+                                                            title: event.title,
+                                                            description: event.description || '',
+                                                            date: event.date || '',
+                                                            time: event.time || '',
+                                                            duration: event.duration || '',
+                                                            location: event.location || '',
+                                                            organizer: event.organizer || '',
+                                                            organEmail: event.organEmail || '',
+                                                            yearlevel: event.yearlevel || '',
+                                                            department: event.department || '',
+                                                            payment: event.payment || '',
+                                                            maxAttend: event.maxAttend || '',
+                                                            status: "Accepted" || '',
+                                                            image: event.image || '',
+                                                            orgid: event.orgid || '',
+                                                          };
+                                                        console.log("updated: ",updatedFormData);
+                                                        const response = await axios.put(`http://localhost:8080/Event/updateEvent?eventid=${event.eventid}`, updatedFormData);
+                                                        console.log("API Response:", response.data);
+                                                        alert('Event Request Successfully Accepted!');
+                                                        window.location.reload();
+                                                    } catch (error) {
+                                                        console.error('Error accepting event request:', error);
+                                                    }
+                                                    }}><img src="./img/Edit.png" alt="Edit" style={{
+                                                        filter: 'sepia(60%) saturate(20000%) hue-rotate(31deg)',
+                                                      }}/></Button></TableCell>
+                                                <TableCell align="center"><Button onClick={async() => { 
+                                                    try {
+                                                        const updatedFormData = {
+                                                            title: event.title,
+                                                            description: event.description || '',
+                                                            date: event.date || '',
+                                                            time: event.time || '',
+                                                            duration: event.duration || '',
+                                                            location: event.location || '',
+                                                            organizer: event.organizer || '',
+                                                            organEmail: event.organEmail || '',
+                                                            yearlevel: event.yearlevel || '',
+                                                            department: event.department || '',
+                                                            payment: event.payment || '',
+                                                            maxAttend: event.maxAttend || '',
+                                                            status: "Declined" || '',
+                                                            image: event.image || '',
+                                                            orgid: event.orgid || '',
+                                                          };
+                                                        console.log("updated: ",updatedFormData);
+                                                        const response = await axios.put(`http://localhost:8080/Event/updateEvent?eventid=${event.eventid}`, updatedFormData);
+                                                        console.log("API Response:", response.data);
+                                                        alert('Event Request Successfully Declined!');
+                                                        window.location.reload();
+                                                    } catch (error) {
+                                                        console.error('Error accepting event request:', error);
+                                                    }
+                                                    }}><img src="./img/Delete.png" alt="Edit" style={{
+                                                        filter: 'sepia(80%) saturate(1000%) hue-rotate(330deg)',
+                                                      }}/></Button></TableCell>
                                             </TableRow>
                                         ))}
                                 </>
@@ -172,7 +270,7 @@ export default function AdminEventReq() {
                                                         // Only trigger the alert if the clicked element is not a button
                                                         // alert('You clicked on ' + row.id);
                                                         setShowDetails(!showDetails);
-                                                        setSelectedTableId(event.id);
+                                                        setSelectedTableId(event.eventid);
                                                         setCurrentId(event.eventid);
                                                         console.log("Current ID:", event.eventid);
                                                     }
@@ -194,34 +292,65 @@ export default function AdminEventReq() {
                                                 <TableCell align="center">{event.department}</TableCell>
                                                 <TableCell align="center">{event.date}</TableCell>
                                                 <TableCell align="center" sx={{ zIndex: 1 }}><Button onClick={async() => { 
-                                                    // formData.status = "Accepted"; handleUpdateProfile(event.eventid); 
-                                                    const [formData, setFormData] = useState({
-                                                        title: event.title || '',
-                                                        description: event.description || '',
-                                                        date: event.date || '',
-                                                        time: event.time || '',
-                                                        duration: event.duration || '',
-                                                        location: event.location || '',
-                                                        organizer: event.organizer || '',
-                                                        organEmail: event.organEmail || '',
-                                                        yearlevel: event.yearlevel || '',
-                                                        department: event.department || '',
-                                                        payment: event.payment || '',
-                                                        maxAttend: event.maxAttend || '',
-                                                        status: "Accepted",
-                                                        image: event.image || '',
-                                                        orgid: event.orgid || '',
-                                                    });
                                                     try {
-
-                                                        const response = await axios.put(`http://localhost:8080/Event/updateEvent?eventid=${event.eventid}`, formData);
-                                            
-                                                        alert('Profile updated successfully!');
+                                                        const updatedFormData = {
+                                                            title: event.title,
+                                                            description: event.description || '',
+                                                            date: event.date || '',
+                                                            time: event.time || '',
+                                                            duration: event.duration || '',
+                                                            location: event.location || '',
+                                                            organizer: event.organizer || '',
+                                                            organEmail: event.organEmail || '',
+                                                            yearlevel: event.yearlevel || '',
+                                                            department: event.department || '',
+                                                            payment: event.payment || '',
+                                                            maxAttend: event.maxAttend || '',
+                                                            status: "Accepted" || '',
+                                                            image: event.image || '',
+                                                            orgid: event.orgid || '',
+                                                          };
+                                                        console.log("updated: ",updatedFormData);
+                                                        const response = await axios.put(`http://localhost:8080/Event/updateEvent?eventid=${event.eventid}`, updatedFormData);
+                                                        console.log("API Response:", response.data);
+                                                        alert('Event Request Successfully Accepted!');
+                                                        window.location.reload();
                                                     } catch (error) {
-                                                        console.error('Error updating user profile:', error);
+                                                        console.error('Error accepting event request:', error);
                                                     }
-                                                    }}><img src="./img/Edit.png" alt="Edit" /></Button></TableCell>
-                                                <TableCell align="center"><Button><img src="./img/Delete.png" alt="Edit" /></Button></TableCell>
+                                                    }}><img src="./img/Edit.png" alt="Edit" style={{
+                                                        filter: 'sepia(60%) saturate(20000%) hue-rotate(31deg)',
+                                                      }}/></Button></TableCell>
+                                                <TableCell align="center"><Button onClick={async() => { 
+                                                    try {
+                                                        const updatedFormData = {
+                                                            title: event.title,
+                                                            description: event.description || '',
+                                                            date: event.date || '',
+                                                            time: event.time || '',
+                                                            duration: event.duration || '',
+                                                            location: event.location || '',
+                                                            organizer: event.organizer || '',
+                                                            organEmail: event.organEmail || '',
+                                                            yearlevel: event.yearlevel || '',
+                                                            department: event.department || '',
+                                                            payment: event.payment || '',
+                                                            maxAttend: event.maxAttend || '',
+                                                            status: "Declined" || '',
+                                                            image: event.image || '',
+                                                            orgid: event.orgid || '',
+                                                          };
+                                                        console.log("updated: ",updatedFormData);
+                                                        const response = await axios.put(`http://localhost:8080/Event/updateEvent?eventid=${event.eventid}`, updatedFormData);
+                                                        console.log("API Response:", response.data);
+                                                        alert('Event Request Successfully Declined!');
+                                                        window.location.reload();
+                                                    } catch (error) {
+                                                        console.error('Error accepting event request:', error);
+                                                    }
+                                                    }}><img src="./img/Delete.png" alt="Edit" style={{
+                                                        filter: 'sepia(80%) saturate(1000%) hue-rotate(330deg)',
+                                                      }}/></Button></TableCell>
                                             </TableRow>
                                         ))}
                                 </>
