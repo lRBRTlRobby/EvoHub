@@ -1,17 +1,18 @@
 import { Avatar, Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Select, MenuItem, Container } from '@mui/material';
 import React, { useState } from 'react';
 
-const AttendeeTable = () => {
+const AttendeeTable = ({data}) => {
     const [showDetails, setShowDetails] = useState(false);
     const [selectedTableId, setSelectedTableId] = useState(null);
     const [filterValue, setFilterValue] = useState('');
+
+    
 
     function createData(id, name, email, eventName, department, yearLevel) {
         return { id, name, email, eventName, department, yearLevel };
     }
 
-    const rows = [
-        createData(1, 'Jane Doe', 'jane.doe@gmail.com', 'TechXperience', 'CCS', '4'),
+    const rows = [ 
         createData(2, 'John Doe', 'john.doe@gmail.com', 'TechXperience', 'CCS', '4'),
         createData(3, 'John Doe', 'john.doe@gmail.com', 'TechXperience', 'CCS', '4'),
         createData(4, 'John Doe', 'john.doe@gmail.com', 'TechXperience', 'CCS', '4'),
