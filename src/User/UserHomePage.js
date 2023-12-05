@@ -22,9 +22,6 @@ export default function UserHomePage() {
     const [event, setEvents] = useState([]);
     const currentDate = new Date();
 
-    const handlePrint = () => {
-        window.print();
-      };
 
     useEffect(() => {
         axios.get('http://localhost:8080/Event/getAllEvents')
@@ -63,15 +60,12 @@ export default function UserHomePage() {
             containerRef1.current.scrollLeft += 300;
         }
     };
-
+console.log("events: ",event)
   
     return (
         <div>
             <ResponsiveAppBar />
             <LandingPage />
-            <button onClick={handlePrint}>
-      Print (Ctrl+P)
-    </button>
             <Container maxWidth="lg" sx={{ marginBottom: "5rem" }}>
                 <div>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
@@ -128,6 +122,7 @@ export default function UserHomePage() {
                                     )}
                                 </div>
                                 ))}
+                                
                         </div>
                         <div style={{ display: "flex", justifyContent: "center" }}>
                             <Button onClick={scrollLeft1}><img src="/img/leftbtn.png" alt="left" /></Button>
