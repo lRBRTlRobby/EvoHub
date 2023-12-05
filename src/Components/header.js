@@ -39,13 +39,27 @@ function getSettingPath(settings) {
   switch (settings) {
     case 'Profile':
       return '/UserProfile';
-    case 'Logout':
-      return '/';
+    // case 'Logout':
+
+      
     // Add more cases for additional pages
-    default:
-      return `/${settings.replace(/\s+/g, '-')}`;
+    // default:
+    //   return `/${settings.replace(/\s+/g, '-')}`;
   }
 }
+const handleLogout = () => {
+  const confirmLogout = window.confirm("Are you sure you want to log out?");
+  if (confirmLogout) {
+    // Perform the logout action and navigate to "/"
+    // For example, you might have a logout function in your UserProvider
+    // that you can call here
+    // user.logout(); 
+
+    // Redirect to "/"
+    window.location.href = '/';
+  }
+};
+
 
 
 function ResponsiveAppBar() {
@@ -174,7 +188,7 @@ function ResponsiveAppBar() {
                 <Link 
                 to={getSettingPath(setting)}
                 >
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                <MenuItem key={setting} onClick={setting === 'Logout' ? handleLogout : handleCloseUserMenu}>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
                 </Link>

@@ -1,29 +1,61 @@
 import React, { useState } from "react";
 import Container from "@mui/material/Container";
-import ResponsiveAppBar from "../Components/header";
 import Avatar from "@mui/material/Avatar";
 import { Button, Grid, TextField } from "@mui/material";
 import Footer from "../Components/footer";
 import ButtonM from "../Components/ButtonMaroon";
+import AdminHeader from "../Components/adminHeader";
+import axios from 'axios'; // Import Axios
 
 export default function AdminProfileEdit() {
   const [selectedGender, setSelectedGender] = useState("");
+  const [textFieldHeight, setTextFieldHeight] = useState("auto");
+  const [formData, setFormData] = useState({
+    adminName: '',
+    email: '',
+    pass: '',
+    firstName: '',
+    middleName: '',
+    lastName: '',
+    gender: '',
+    department: '',
+    title: '',
+    bio: '',
+    country: '',
+    city: '',
+    birthdate: '',
+    phone: ''
+  });
 
   const handleGenderChange = (event) => {
     setSelectedGender(event.target.value);
   };
 
-  const [textFieldHeight, setTextFieldHeight] = useState("auto");
-
   const handleInputChange = (event) => {
-    const inputLines = event.target.value.split("\n").length;
+    const { id, value } = event.target;
+    setFormData({ ...formData, [id]: value });
+    const inputLines = value.split("\n").length;
     const fixedLineHeight = 1.5;
     const newHeight = `${inputLines * fixedLineHeight}em`;
     setTextFieldHeight(newHeight);
   };
+
+  const handleProfileUpdate = async () => {
+    try {
+      const data = { ...formData, gender: selectedGender };
+
+      await axios.post('http://localhost:8080/admins/updateAdmin/1', data);
+      alert('Profile Updated')
+      // Handle success or navigate to another page upon successful update
+    } catch (error) {
+      alert('Error updating profile:', error);
+      // Handle error state or display an error message to the user
+    }
+  };
+
   return (
     <div>
-      <ResponsiveAppBar />
+      <AdminHeader />
       <div>
         <img
           src="./img/userprofile.jpg"
@@ -57,30 +89,33 @@ export default function AdminProfileEdit() {
               </p>
               <TextField
                 className="txt"
-                id="fname"
+                id="firstName"
                 placeholder="Kyle"
                 type="text"
                 variant="outlined"
+                onChange={handleInputChange}
               />
               <p>
                 <b>Middle Name:</b>
               </p>
               <TextField
                 className="txt"
-                id="fname"
+                id="middleName"
                 placeholder="Kyle"
                 type="text"
                 variant="outlined"
+                onChange={handleInputChange}
               />
               <p>
                 <b>Last Name:</b>
               </p>
               <TextField
                 className="txt"
-                id="fname"
+                id="lastName"
                 placeholder="Weig"
                 type="text"
                 variant="outlined"
+                onChange={handleInputChange}
               />
               <div>
                 <label>
@@ -88,7 +123,8 @@ export default function AdminProfileEdit() {
                     <b>Gender: </b>
                     <select
                       value={selectedGender}
-                      onChange={handleGenderChange}
+                      onChange={handleInputChange}
+                      id="gender"
                       style={{ width: "20%", fontSize: ".9rem" }}
                     >
                       <option value="">Select</option>
@@ -104,20 +140,22 @@ export default function AdminProfileEdit() {
               </p>
               <TextField
                 className="txt"
-                id="fname"
+                id="department"
                 placeholder="CCS"
                 type="text"
                 variant="outlined"
+                onChange={handleInputChange}
               />
               <p>
                 <b>Title:</b>
               </p>
               <TextField
                 className="txt"
-                id="fname"
+                id="title"
                 placeholder="Physical Education"
                 type="text"
                 variant="outlined"
+                onChange={handleInputChange}
               />
             </Grid>
             <Grid item xs={6} md={6}>
@@ -126,50 +164,55 @@ export default function AdminProfileEdit() {
               </p>
               <TextField
                 className="txt"
-                id="fname"
+                id="email"
                 placeholder="kyle.weig@cit.edu"
                 type="text"
                 variant="outlined"
+                onChange={handleInputChange}
               />
               <p>
                 <b>Phone:</b>
               </p>
               <TextField
                 className="txt"
-                id="fname"
+                id="phone"
                 placeholder="+63 912 345 6789"
                 type="text"
                 variant="outlined"
+                onChange={handleInputChange}
               />
               <p>
                 <b>Date of Birth:</b>
               </p>
               <TextField
                 className="txt"
-                id="fname"
+                id="birthdate"
                 placeholder="July 5, 2001"
                 type="text"
                 variant="outlined"
+                onChange={handleInputChange}
               />
               <p>
                 <b>City:</b>
               </p>
               <TextField
                 className="txt"
-                id="fname"
+                id="city"
                 label="City"
                 type="text"
                 variant="outlined"
+                onChange={handleInputChange}
               />
               <p>
                 <b>Country:</b>
               </p>
               <TextField
                 className="txt"
-                id="fname"
+                id="country"
                 label="Country"
                 type="text"
                 variant="outlined"
+                onChange={handleInputChange}
               />
             </Grid>
             <Grid item xs={12} md={6}></Grid>
@@ -179,7 +222,7 @@ export default function AdminProfileEdit() {
             <p>Bio</p>
             <TextField
               className="txt"
-              id="fname"
+              id="bio"
               label="I like cats"
               type="text"
               variant="outlined"
@@ -201,7 +244,7 @@ export default function AdminProfileEdit() {
         </div>
 
         <div style={{ display: "flex", justifyContent: "center" }}>
-          <ButtonM name="update Profile" />
+          <ButtonM name="Update Profile" onClick={handleProfileUpdate} />
         </div>
       </Container>
       <Footer />

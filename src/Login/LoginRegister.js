@@ -5,8 +5,9 @@ import { Link } from 'react-router-dom';
 import Container from '@mui/material/Container';
 
 export default function Event() {
-
-
+  const handlePrint = () => {
+    window.print();
+  };
   return (
     <>
       
@@ -36,9 +37,11 @@ export default function Event() {
             <div>
             
             </div>
+           
           </Grid>
         </Grid>
         </Container>
+        
       </div>
       
     </>

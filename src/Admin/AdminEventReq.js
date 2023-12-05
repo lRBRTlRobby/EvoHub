@@ -18,7 +18,7 @@ export default function AdminEventReq() {
           .then(response => {
             // setEvents(response.data);
             const tmpEvent = response.data;
-            const origEv = tmpEvent.filter(tmpEv => tmpEv.status === null);
+            const origEv = tmpEvent.filter(tmpEv => tmpEv.status === 0);
             console.log("origEv: ",origEv);
             setEvents(origEv);
             
@@ -208,7 +208,7 @@ export default function AdminEventReq() {
                                                             department: event.department || '',
                                                             payment: event.payment || '',
                                                             maxAttend: event.maxAttend || '',
-                                                            status: "Accepted" || '',
+                                                            status: 1 || '',
                                                             image: event.image || '',
                                                             orgid: event.orgid || '',
                                                           };
@@ -238,7 +238,7 @@ export default function AdminEventReq() {
                                                             department: event.department || '',
                                                             payment: event.payment || '',
                                                             maxAttend: event.maxAttend || '',
-                                                            status: "Declined" || '',
+                                                            status: 0 || '',
                                                             image: event.image || '',
                                                             orgid: event.orgid || '',
                                                           };
@@ -306,7 +306,7 @@ export default function AdminEventReq() {
                                                             department: event.department || '',
                                                             payment: event.payment || '',
                                                             maxAttend: event.maxAttend || '',
-                                                            status: "Accepted" || '',
+                                                            status: 1 || '',
                                                             image: event.image || '',
                                                             orgid: event.orgid || '',
                                                           };
@@ -336,7 +336,7 @@ export default function AdminEventReq() {
                                                             department: event.department || '',
                                                             payment: event.payment || '',
                                                             maxAttend: event.maxAttend || '',
-                                                            status: "Declined" || '',
+                                                            status: 0 || '',
                                                             image: event.image || '',
                                                             orgid: event.orgid || '',
                                                           };

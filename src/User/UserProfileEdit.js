@@ -7,11 +7,13 @@ import Footer from '../Components/footer';
 import ButtonM from '../Components/ButtonMaroon';
 import { useUser } from '../Components/UserProvider';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function UserProfileEdit() {
     const { user, login } = useUser();
     const [selectedGender, setSelectedGender] = useState(user.gender || '');
-
+    const [regis, setRegis] = useState(false);
+    const navigate = useNavigate();
     const [lastname, setLastname] = useState('');
 
     const handleGenderChange = (event) => {
@@ -59,12 +61,20 @@ export default function UserProfileEdit() {
             const response = await axios.put(`http://localhost:8080/User/updateUser?userid=${user.userid}`, formData);
 
             login(response.data);
-
+            setRegis(true);
             alert('Profile updated successfully!');
         } catch (error) {
             console.error('Error updating user profile:', error);
         }
     };
+
+    useEffect(() => {
+        // Check if registration is successful
+        if (regis) {
+            // Redirect or show a success message as needed
+            navigate('/UserProfile');
+        }
+    }, [regis]);
 
     const [textFieldHeight, setTextFieldHeight] = useState('auto');
 

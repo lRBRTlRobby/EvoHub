@@ -7,8 +7,10 @@ import "./OrganizerApplicationForm.css";
 import Footer from "../Components/footer";
 import { Button, TextField } from "@mui/material";
 import { useUser } from '../Components/UserProvider';
+import { useNavigate } from "react-router-dom";
 
 const ApplicationForm = () => {
+  const navigate = useNavigate();
   const { user } = useUser();
   const [formData, setFormData] = useState({
     // firstName: "",
@@ -118,7 +120,7 @@ const ApplicationForm = () => {
       console.log(response.data);
       // Log the server response (for demonstration purposes)
       alert("Successfully Submitted", response.data);
-
+      navigate("/EventUserHome");
       // You can perform additional actions based on the server response
       // For example, show a success message or redirect the user
     } catch (error) {

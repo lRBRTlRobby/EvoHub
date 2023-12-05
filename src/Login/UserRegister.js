@@ -58,9 +58,18 @@ export default function EventRegister() {
     };
 
     const handleSignUp = async () => {
+        const emailInput = document.getElementById("email").value;
+
+        // Email validation regex
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
         if (document.getElementById("fname").value != '' && document.getElementById("mname").value != '' && document.getElementById("lname").value != '' && document.getElementById("dept").value != '' && document.getElementById("email").value != '' && document.getElementById("pass").value != '') {
             if (document.getElementById("pass").value.length < 8) {
                 alert('Password must be at least 8 characters.');
+                return;
+            }
+            if (!emailRegex.test(emailInput)) {
+                alert("Please enter a valid email address.");
                 return;
             }
             if (document.getElementById("pass").value.length >= 8) {
@@ -85,7 +94,7 @@ export default function EventRegister() {
                 });
                 console.log('Registration successful:', response.data);
                 // Redirect or show a success message as needed
-
+                alert('Registration successful');
             } catch (error) {
                 console.error('Error during registration:', error);
                 // Handle registration failure, show error message, etc.
@@ -151,33 +160,33 @@ export default function EventRegister() {
                                         variant='outlined'
                                         onChange={handleChange}
                                     /><br /> */}
-                                        <FormControl fullWidth sx={{ textAlign: "center", width: "20rem", }}>
-                                            <InputLabel id="demo-simple-select-label" sx={{ padding: 0, margin: "0 auto", }}>Department</InputLabel>
+                                    <FormControl fullWidth sx={{ textAlign: "center", width: "20rem", }}>
+                                        <InputLabel id="demo-simple-select-label" sx={{ padding: 0, margin: "0 auto", }}>Department</InputLabel>
 
-                                            <Select
-                                                id="dept"
-                                                name="department"
-                                                labelId="demo-simple-select-label"
-                                                label="Department"
-                                                value={userData.dept}
-                                                onChange={handleChangeDept}
-                                                sx={{ width: '20rem',  padding: 0, margin: "0 auto", borderRadius: 50, }}
-                                            >
-                                                <MenuItem value="CCS">College of Computer Science</MenuItem>
-                                                <MenuItem value="CEA">College of Civil Engineering</MenuItem>
-                                                <MenuItem value="CCJ">College of Criminal Justice</MenuItem>
-                                                <MenuItem value="CASE">College of Arts, Sciences and Education</MenuItem>
-                                                <MenuItem value="CEA">College of Nursing and Allied Health</MenuItem>
-                                            </Select>
-                                        </FormControl>
+                                        <Select
+                                            id="dept"
+                                            name="department"
+                                            labelId="demo-simple-select-label"
+                                            label="Department"
+                                            value={userData.dept}
+                                            onChange={handleChangeDept}
+                                            sx={{ width: '20rem', padding: 0, margin: "0 auto", borderRadius: 50, }}
+                                        >
+                                            <MenuItem value="CCS">College of Computer Science</MenuItem>
+                                            <MenuItem value="CEA">College of Civil Engineering</MenuItem>
+                                            <MenuItem value="CCJ">College of Criminal Justice</MenuItem>
+                                            <MenuItem value="CASE">College of Arts, Sciences and Education</MenuItem>
+                                            <MenuItem value="CEA">College of Nursing and Allied Health</MenuItem>
+                                        </Select>
+                                    </FormControl>
 
                                     <br />
- 
+
                                     <TextField
                                         className='txt'
                                         id="email"
                                         label="Email"
-                                        type="text"
+                                        type="email"
                                         variant='outlined'
                                         onChange={handleChange}
                                         sx={{ mt: 1 }}
