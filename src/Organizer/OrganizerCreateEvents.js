@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Container from "@mui/material/Container";
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -12,7 +12,14 @@ import { useOrganizer } from '../Components/OrganizerProvider';
 
 export default function CreateEventForm() {
   const { organizer } = useOrganizer();
-  
+  const [formSubmitted, setFormSubmitted] = useState(false); 
+  const [file, setFile] = useState(null);
+  const [imageUrl, setImageUrl] = useState(null);
+ 
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, [formSubmitted]);
+ 
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -37,27 +44,26 @@ export default function CreateEventForm() {
     // sponsors:[]
   });
 
-  const resetForm = () => {
-    setFormData({
-      eventTitle: "",
-      description: "",
-      date: "",
-      time: "",
-      duration: "",
-      location: "",
-      organizer: "",
-      year: "",
-      department: "",
-      payment: "",
-      max: "",
+  // const resetForm = () => {
+  //   setFormData({
+  //     eventTitle: "",
+  //     description: "",
+  //     date: "",
+  //     time: "",
+  //     duration: "",
+  //     location: "",
+  //     organizer: "",
+  //     year: "",
+  //     department: "",
+  //     payment: "",
+  //     max: "",
       
 
-    });
-  };
+  //   });
+  // };
 
 
-  const [file, setFile] = useState(null);
-  const [imageUrl, setImageUrl] = useState(null);
+
 
 
   const handleFileChange = (e) => {
@@ -74,7 +80,7 @@ export default function CreateEventForm() {
 
       // Assuming the response contains the image URL
       await setImageUrl(response.data);
-      console.log('Image uploaded successfully:', response.data);
+     console.log('Image uploaded successfully')
       // Clear the file input
       setFile(null);
     } catch (error) {
@@ -99,6 +105,7 @@ export default function CreateEventForm() {
   
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
     for (const key in formData) {
       console.log(`Checking ${key}: ${formData[key]}`);
       if (!formData[key]) {
@@ -106,7 +113,6 @@ export default function CreateEventForm() {
         return;
       }
     }
-    
   
     try {
       // Convert date format to string
@@ -132,8 +138,7 @@ export default function CreateEventForm() {
           maxAttend: formData.max,
           image: imageUrl,
           orgid: organizer.oid,
-          organEmail: organizer.email
-
+          organEmail: organizer.email,
         },
         {
           headers: {
@@ -141,15 +146,16 @@ export default function CreateEventForm() {
           },
         }
       );
+      setFormSubmitted(true)
+      // Alert after successful request
+      window.alert('Request Successfully Requested to the Admin');
   
-      // Log the response from the server
-      console.log(response.data);
-      alert('Event Successfully Requested to admin');
+      // Reload the page
     } catch (error) {
-      // Handle errors
-      console.error("Error submitting form:", error);
+      console.error('Error submitting form:', error);
     }
   };
+  
 console.log(organizer.oid)
 console.log(formData)
   return (
@@ -349,14 +355,41 @@ console.log(formData)
                     color: "#666666",
                   }}
                 >
-                  Head Organizer
+                  Head Organizer<br/> 
+                  Firstname
                 </h5>
                     <input
                       type="text"
                       id="organizer"
                       name="organizer"
                       // value={formData.organizer}
-                      value={organizer.fname + " " + organizer.lname}
+                      value={organizer.fname}
+                      placeholder="Organizer name"
+                      onChange={handleChange}
+                      style={{
+                        width: "30%",
+                        height: "45px",
+                        borderRadius: "45px",
+                        padding: "0 15px",
+                        marginRight: "10px",
+                      }}
+                      disabled
+                    />  
+                <h5
+                  style={{
+                    fontFamily: "DM Sans",
+                    marginTop: "1rem",
+                    color: "#666666",
+                  }}
+                >
+                  Last Name
+                </h5>
+                    <input
+                      type="text"
+                      id="organizer"
+                      name="organizer"
+                      // value={formData.organizer}
+                      value={organizer.lname}
                       placeholder="Organizer name"
                       onChange={handleChange}
                       style={{

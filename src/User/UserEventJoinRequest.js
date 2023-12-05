@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams  } from 'react-router-dom';
 import axios from 'axios';
 import { 
   Box, 
@@ -52,7 +52,12 @@ export default function UserEventJoinRequest() {
         userId: user.userid,
       });
 
-      console.log('Form submitted successfully:', response.data);
+      window.alert('Request Successfully Requested to the organizer');
+
+      // Reload the page
+      window.location.reload();
+      
+
     } catch (error) {
       console.error('Error submitting form:', error);
     }
@@ -61,6 +66,8 @@ console.log("USER ID",user.userid);
   return (
     <>
       <ResponsiveAppBar />
+       {/* Menu For Participants Here */}
+      
       <img src="/img/EventJoinRequestHeroBanner.png" alt="logo" className="banner" />
       <img src="/img/TechXperience.png" alt="logo" style={{ marginTop: '50px', marginLeft: '300px', marginRight: '50px', width: '600px', height: '150px' }} />
       <Container maxWidth="sm">

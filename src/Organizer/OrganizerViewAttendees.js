@@ -7,6 +7,7 @@ import "../Components/EventCatBtn.css";
 import React, { useState, useEffect } from 'react';
 import ResponsiveAppBarOrgan from "../Components/organHeader";
 import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 export default function ViewAttendees(){
@@ -70,8 +71,13 @@ export default function ViewAttendees(){
     return (
         <>
             <ResponsiveAppBarOrgan />
-            {/* Buttons for View Attendees and ManageReq */}
-            {/* Add your button code here */}
+            {/* MENU FOR REQUESTS HERE */}
+            <div style={{ background: '#C02147', height: '85px', display: 'flex', justifyContent: 'flex-end' }}>
+                <Link to={`/ViewAttendees/${event.eventid}`}><button>View Attendees</button></Link>
+                <Link to={`/AttendeeRequests/${event.eventid}`}><button>Manage Requests</button></Link>
+                <button style={{ backgroundColor: 'red', color: 'white', marginRight: '8px' }}>Delete</button>
+                <button style={{ backgroundColor: 'blue', color: 'white' }}>Edit</button>
+            </div>
            
             <Container maxWidth="lg">
             <img
