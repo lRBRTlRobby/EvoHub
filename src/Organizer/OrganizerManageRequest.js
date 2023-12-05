@@ -102,9 +102,7 @@ export default function AttendeeRequests() {
         .catch(error => {
             console.error('Error updating participant status:', error);
         });
-    };
-    
-
+    }
 
     console.log(event)
     return (
