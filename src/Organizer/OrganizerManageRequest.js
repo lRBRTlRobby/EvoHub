@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import ResponsiveAppBarOrgan from '../Components/organHeader';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 export default function AttendeeRequests() {
     const [showDetails, setShowDetails] = useState(false);
@@ -65,52 +66,62 @@ export default function AttendeeRequests() {
     };
 
     const handleAcceptButtonClick = (row) => {
-    const prid = row.prid;
-
-    if (prid === undefined) {
-        alert("Participant ID is undefined.");
-        return;
-    }
-
-    const participant = participants.find(p => p.prid === prid);
-
-    if (!participant) {
-        alert(`Participant with ID ${prid} not found.`);
-        return;
-    }
-
-    // Make an API call to update the status when the "Accept" button is clicked
-    axios.put(`http://localhost:8080/participantrequest/updateParRequest?prid=${prid}`, {
-        prid: prid,
-        firstname: row.firstname,
-        lastname: row.lastname,
-        email: row.email,
-        department: row.department,
-        yearlevel: row.yearlevel,
-        eventId: row.eventId,
-        userId: row.userId,
-        status: 'Accepted'
-        
-    })
-    .then(() => {
-        // After the API call is successful, update the stated
-        alert("Participant is successfully accepted.")
-    })
-    .catch(error => {
-        console.error('Error updating participant status:', error);
-    });
-};
+        const prid = row.prid;
+    
+        if (prid === undefined) {
+            alert("Participant ID is undefined.");
+            return;
+        }
+    
+        const participant = participants.find(p => p.prid === prid);
+    
+        if (!participant) {
+            alert(`Participant with ID ${prid} not found.`);
+            return;
+        }
+    
+        // Make an API call to update the status when the "Accept" button is clicked
+        axios.put(`http://localhost:8080/participantrequest/updateParRequest?prid=${prid}`, {
+            prid: prid,
+            firstname: row.firstname,
+            lastname: row.lastname,
+            email: row.email,
+            department: row.department,
+            yearlevel: row.yearlevel,
+            eventId: row.eventId,
+            userId: row.userId,
+            status: 'Accepted'
+            
+        })
+        .then(() => {
+            // After the API call is successful, update the stated
+            alert("Participant is successfully accepted.");
+            // Reload the page
+            window.location.reload();
+        })
+        .catch(error => {
+            console.error('Error updating participant status:', error);
+        });
+    };
+    
 
 
     console.log(event)
     return (
         <>
         <ResponsiveAppBarOrgan />
+        {/* MENU FOR REQUESTS HERE */}
+        <div style={{ background: '#C02147', height: '85px', display: 'flex', justifyContent: 'flex-end' }}>
+                <Link to={`/ViewAttendees/${event.eventid}`}><button>View Attendees</button></Link>
+                <Link to={`/AttendeeRequests/${event.eventid}`}><button>Manage Requests</button></Link>
+                <button style={{ backgroundColor: 'red', color: 'white', marginRight: '8px' }}>Delete</button>
+                <button style={{ backgroundColor: 'blue', color: 'white' }}>Edit</button>
+            </div>
         <Container>
              
             {/* Buttons for View Attendees and ManageReq */}
             {/* Add your button code here */}
-           
+            
             <Container maxWidth="lg">
             <img
                 src={`/uploads/${event.image}`}
