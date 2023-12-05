@@ -5,7 +5,7 @@ import { Button, Grid, TextField } from "@mui/material";
 import Footer from "../Components/footer";
 import ButtonM from "../Components/ButtonMaroon";
 import AdminHeader from "../Components/adminHeader";
-import axios from 'axios'; // Import Axios
+import axios from 'axios';
 
 export default function AdminProfileEdit() {
   const [selectedGender, setSelectedGender] = useState("");
@@ -29,6 +29,7 @@ export default function AdminProfileEdit() {
 
   const handleGenderChange = (event) => {
     setSelectedGender(event.target.value);
+    setFormData({ ...formData, gender: event.target.value });
   };
 
   const handleInputChange = (event) => {
@@ -42,10 +43,8 @@ export default function AdminProfileEdit() {
 
   const handleProfileUpdate = async () => {
     try {
-      const data = { ...formData, gender: selectedGender };
-
-      await axios.post('http://localhost:8080/admins/updateAdmin/1', data);
-      alert('Profile Updated')
+      await axios.post('http://localhost:8080/admins/updateAdmin/1', formData);
+      alert('Profile Updated');
       // Handle success or navigate to another page upon successful update
     } catch (error) {
       alert('Error updating profile:', error);
@@ -122,11 +121,10 @@ export default function AdminProfileEdit() {
                   <p>
                     <b>Gender: </b>
                     <select
-                      value={selectedGender}
-                      onChange={handleInputChange}
-                      id="gender"
-                      style={{ width: "20%", fontSize: ".9rem" }}
-                    >
+                    value={selectedGender}
+                    onChange={handleGenderChange}
+                    style={{ width: "20%", fontSize: ".9rem" }}
+                  >
                       <option value="">Select</option>
                       <option value="male">Male</option>
                       <option value="female">Female</option>
@@ -245,6 +243,10 @@ export default function AdminProfileEdit() {
 
         <div style={{ display: "flex", justifyContent: "center" }}>
           <ButtonM name="Update Profile" onClick={handleProfileUpdate} />
+          
+        </div>
+        <div style={{  width:'800px',height:'50px',display: "flex", justifyContent: "center"  }}>
+          <button onClick={handleProfileUpdate}>Update Profile</button>
         </div>
       </Container>
       <Footer />
