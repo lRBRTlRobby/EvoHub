@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Grid, TextField, FormControl, FormLabel, Select, InputLabel, } from "@mui/material";
+import { Button, Grid, TextField, FormControl, FormLabel, Select, InputLabel, InputAdornment, IconButton, } from "@mui/material";
 import './UserRegister.css'
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import MenuItem from '@mui/material/MenuItem';
 import axios from 'axios';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 export default function EventRegister() {
     const [dept, setDept] = useState('Department');
@@ -19,6 +20,12 @@ export default function EventRegister() {
         email: '',
         pass: '',
     });
+
+    const [showPassword, setShowPassword] = useState(false);
+
+    const handleTogglePasswordVisibility = () => {
+        setShowPassword((prevShowPassword) => !prevShowPassword);
+    };
 
     const handleChangeDept = (e) => {
         const { value } = e.target;
@@ -191,13 +198,34 @@ export default function EventRegister() {
                                         onChange={handleChange}
                                         sx={{ mt: 1 }}
                                     /><br />
-                                    <TextField
+                                    {/* <TextField
                                         className='txt'
                                         id="pass"
                                         label="Password"
                                         type="password"
                                         variant='outlined'
                                         onChange={handleChange}
+                                    /> */}
+                                    <TextField
+                                        className='txt'
+                                        id="pass"
+                                        label="Password"
+                                        type={showPassword ? 'text' : 'password'}
+                                        variant='outlined'
+                                        onChange={handleChange}
+                                        InputProps={{
+                                            endAdornment: (
+                                                <InputAdornment position="end">
+                                                    <IconButton
+                                                        aria-label="toggle password visibility"
+                                                        onClick={handleTogglePasswordVisibility}
+                                                        edge="end"
+                                                    >
+                                                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            ),
+                                        }}
                                     />
                                 </div>
                                 <div style={{ display: "flex", padding: 0, margin: "0 auto", justifyContent: "center" }}>
