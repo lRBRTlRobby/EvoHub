@@ -35,11 +35,12 @@ export default function EventDetails() {
   return (
     <div>
       <ResponsiveAppBarOrgan />
+      {/* Menu For Participants Here */}
       <div style={{ background: '#C02147', height: '85px', display: 'flex', justifyContent: 'flex-end' }}>
-      <Link to={`/ViewAttendees/${event.eventid}`}><button>View Attendees</button></Link>
-      <Link to={`/AttendeeRequests/${event.eventid}`}><button>Manage Requests</button></Link>
-        <button>delete</button>
-        <button>edit</button>
+        <Link to={`/ViewAttendees/${event.eventid}`}><button>View Attendees</button></Link>
+        <Link to={`/AttendeeRequests/${event.eventid}`}><button>Manage Requests</button></Link>
+        <button style={{ backgroundColor: 'red', color: 'white', marginRight: '8px' }}>Delete</button>
+        <button style={{ backgroundColor: 'blue', color: 'white' }}>Edit</button>
       </div>
 
       <Container maxWidth="lg">

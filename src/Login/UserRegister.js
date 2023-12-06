@@ -89,7 +89,7 @@ export default function EventRegister() {
                 alert('Please agree to the Terms and Conditions.');
                 return;
             }
-            setRegis(true);
+            
             try {
                 const response = await axios.post('http://localhost:8080/User/insertUser', {
                     fname: document.getElementById("fname").value,
@@ -102,6 +102,7 @@ export default function EventRegister() {
                 console.log('Registration successful:', response.data);
                 // Redirect or show a success message as needed
                 alert('Registration successful');
+                setRegis(true);
             } catch (error) {
                 console.error('Error during registration:', error);
                 // Handle registration failure, show error message, etc.

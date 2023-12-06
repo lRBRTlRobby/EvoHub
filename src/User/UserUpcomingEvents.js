@@ -37,7 +37,12 @@ export default function UserUpcomingEvents() {
   useEffect(() => {
     axios.get('http://localhost:8080/Event/getAllEvents')
       .then(response => {
-        setEvents(response.data);
+        const filteredEvents= response.data.filter(participant => participant.status === 1);
+        console.log(filteredEvents)
+            // Set the filtered participants
+            setEvents(filteredEvents);
+            // Set the events if needed
+            // setEvents(filteredParticipants);
       })
       .catch(error => {
         console.error('Error fetching events:', error);
