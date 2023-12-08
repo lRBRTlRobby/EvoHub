@@ -68,6 +68,8 @@ import OrganizerProfileEdit from './Organizer/OrganizerProfileEdit';
 import AdminProfile from './Admin/adminProfile';
 import AdminProfileEdit from './Admin/adminProfileEdit';
 import Dashboard from './Admin/AdminDashboard';
+import UpdateEventForm from './Organizer/OrganizerUpdateEvent';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -123,6 +125,7 @@ root.render(
       <Route path="/Dashboard" element={<Dashboard />} />
       <Route path="/AdminProfile" element={<AdminProfile />} />
       <Route path="/AdminProfileEdit" element={<AdminProfileEdit />} />
+      <Route path="/UpdateEvents" element={<UpdateEventForm />}/>
 
 
 

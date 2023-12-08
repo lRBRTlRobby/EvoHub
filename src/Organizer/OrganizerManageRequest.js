@@ -109,11 +109,27 @@ export default function AttendeeRequests() {
         <>
         <ResponsiveAppBarOrgan />
         {/* MENU FOR REQUESTS HERE */}
-        <div style={{ background: '#C02147', height: '85px', display: 'flex', justifyContent: 'flex-end' }}>
-                <Link to={`/ViewAttendees/${event.eventid}`}><button>View Attendees</button></Link>
-                <Link to={`/AttendeeRequests/${event.eventid}`}><button>Manage Requests</button></Link>
-                <button style={{ backgroundColor: 'red', color: 'white', marginRight: '8px' }}>Delete</button>
-                <button style={{ backgroundColor: 'blue', color: 'white' }}>Edit</button>
+        <div style={{ background: '#C02147', height: '85px', display: 'flex', justifyContent: 'flex-end' , alignItems:"center"}}>
+                <Link to={`/ViewAttendees/${event.eventid}`} style={{ textDecoration: 'none' }}>
+                <Button sx={{
+                    backgroundColor: 'white', color: 'maroon', fontFamily: "'DM Sans', sans-serif", width: '11rem', height: '3rem', fontWeight: 'bold',
+                    display: "flex", justifyContent: "center", padding: 0, borderRadius: 50,marginRight: '10px'
+                }}>
+                    View Attendees
+                </Button>
+                </Link>
+                <Link to={`/AttendeeRequests/${event.eventid}`} style={{ textDecoration: 'none' }}>
+                <Button sx={{
+                    backgroundColor: 'white', color: 'grey', fontFamily: "'DM Sans', sans-serif", width: '11rem', height: '3rem', fontWeight: 'bold',
+                    display: "flex", justifyContent: "center", padding: 0, borderRadius: 50
+                }}>Manage Requests
+                </Button>
+                </Link>
+                <Button >
+                    <img src="/img/EditWhite.png" alt="Edit" />
+                </Button>
+                <Button> <img src="/img/DeleteWhite.png" alt="Edit" /></Button>
+                
             </div>
         <Container>
              
