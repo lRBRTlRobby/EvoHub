@@ -1,16 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Container from "@mui/material/Container";
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import ResponsiveAppBarOrgan from "../Components/organHeader";
-import ButtonM from "../Components/ButtonMaroon";
+// import ButtonM from "../Components/ButtonMaroon";
 import axios from 'axios';
 import { Button } from '@mui/material'
+import { useParams } from 'react-router-dom';
 
 export default function UpdateEventForm() {
-  
+  const { eventId } = useParams();
+  const [event, setEvents] = useState({});
+
+
+  useEffect(() => {
+    window.scroll(0, 0);
+    axios.get(`http://localhost:8080/Event/getEvent/${eventId}`)
+      .then(response => {
+        console.log(response.data);
+        setEvents(response.data);
+        
+      })
+      .catch(error => {
+        console.error('Error fetching events:', error);
+      });
+  }, [eventId]);
+
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -53,7 +70,7 @@ export default function UpdateEventForm() {
   
     try {
       const response = await axios.post(
-        "http://localhost:8080/Event/insertEvent",
+        `http://localhost:8080/Event/updateEvent?eventid=${eventId}`,
         {
           title: formData.eventTitle,
           description: formData.description,

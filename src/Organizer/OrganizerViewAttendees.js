@@ -8,13 +8,14 @@ import React, { useState, useEffect } from 'react';
 import ResponsiveAppBarOrgan from "../Components/organHeader";
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
 
 export default function ViewAttendees(){
     const [filterValue, setFilterValue] = useState('');
     const [event, setEvents] = useState({});
     const { eventId } = useParams();
     const [participants, setParticipants] = useState([]);
+    const navigate = useNavigate();
    
     useEffect(() => {
       window.scroll(0, 0);
@@ -64,7 +65,28 @@ export default function ViewAttendees(){
     );
 
     const filteredRows = rows.filter((row) => (!filterValue || row.carbs === filterValue));
+    
+    const handleUpdateAlert = () => {
+        // When clicked
+        const confirmEdit = window.confirm('Are you sure you want to edit the event?');
 
+        if (confirmEdit) {
+            // Check if event.id is available
+            if (event.id) {
+                // If yes, navigate to the "UpdateEvents" page
+                navigate(`/UpdateEvents/${eventId}`);
+            } else {
+                // If event.id is not available, you may want to handle this case accordingly
+                console.error('Event ID is not available');
+            }
+        } else {
+                // Reload the window
+                window.location.reload();
+
+        }
+    }
+
+    
     console.log('rows:', participants);
     
     
@@ -88,8 +110,8 @@ export default function ViewAttendees(){
                 }}>Manage Requests
                 </Button>
                 </Link>
-                <Link to="/UpdateEvents">
-                    <Button >
+                <Link to={`/UpdateEvents/${event.eventid}`}>
+                    <Button onClick = {handleUpdateAlert}>
                         <img src="/img/EditWhite.png" alt="Edit" />
                     </Button>
                 </Link>

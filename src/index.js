@@ -125,7 +125,7 @@ root.render(
       <Route path="/Dashboard" element={<Dashboard />} />
       <Route path="/AdminProfile" element={<AdminProfile />} />
       <Route path="/AdminProfileEdit" element={<AdminProfileEdit />} />
-      <Route path="/UpdateEvents" element={<UpdateEventForm />}/>
+      <Route path="/UpdateEvents/:eventId" element={<UpdateEventForm />}/>
 
 
 
