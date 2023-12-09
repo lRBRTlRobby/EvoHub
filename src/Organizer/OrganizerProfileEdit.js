@@ -26,14 +26,12 @@ export default function OrganizerProfileEdit() {
         fname: organizer.fname || '',
         mname: organizer.mname || '',
         lname: organizer.lname || '',
-        dept: organizer.dept || '',
-        email: organizer.email || '',
+        department: organizer.department || '',
         pass: organizer.pass || '',
-        gender: organizer.gender || '',
-        dob: organizer.dob || '',
+        email: organizer.email || '',
+        role: organizer.role || '',
+        organization: organizer.organization || '',
         mobNum: organizer.mobNum || '',
-        city: organizer.city || '',
-        country: organizer.country || '',
         bio: organizer.bio || '',
     });
     const handleTextChange = (field, value) => {
@@ -138,31 +136,33 @@ export default function OrganizerProfileEdit() {
                                 variant='outlined'
                                 disabled
                             />
-                            <div>
-                                <label>
-                                    <p><b>Gender: </b>
-                                        <select value={selectedGender} onChange={handleGenderChange} disabled={organizer.gender != null}>
-                                            <option value="">Select</option>
-                                            <option value="Male">Male</option>
-                                            <option value="Female">Female</option>
-                                        </select>
-                                    </p>
-                                </label>
-                            </div>
 
-                            <p><b>Department:</b></p>
+<p><b>Role:</b></p>
                             <TextField
                                 className='txt'
                                 id="dept"
-                                placeholder='Department'
-                                value={formData.dept}
+                                // placeholder='Role'
+                                value={formData.role}
                                 onChange={(e) => handleTextChange('dept', e.target.value)}
                                 type="text"
                                 variant='outlined'
                                 disabled
                             />
+
+                           
                         </Grid>
                         <Grid item xs={6} md={6}>
+                        <p><b>Department:</b></p>
+                            <TextField
+                                className='txt'
+                                id="dept"
+                                placeholder='Department'
+                                value={formData.department}
+                                onChange={(e) => handleTextChange('dept', e.target.value)}
+                                type="text"
+                                variant='outlined'
+                                disabled
+                            />
 
                             <p><b>Email Address:</b></p>
                             <TextField
@@ -197,46 +197,6 @@ export default function OrganizerProfileEdit() {
                                 variant='outlined'
                                 disabled={organizer.dob != null}
                             /> */}
-                            <div className="form-group" style={{ flex: 1 }}>
-                                <p><b>Date of Birth:</b></p>
-                                <input
-                                    type="date"
-                                    id="date"
-                                    name="date"
-                                    // value={formData.dob}
-                                    onChange={(e) => handleTextChange('dob', e.target.value)}
-                                    placeholder="Date"
-                                    disabled={organizer.dob != null}
-                                    style={{
-                                        width: "50%",
-                                        height: "45px",
-                                        borderRadius: "45px",
-                                        padding: "0 15px",
-                                        borderColor: "#e5e5e5",
-                                    }}
-                                    required
-                                />
-                            </div>
-                            <p><b>City:</b></p>
-                            <TextField
-                                className='txt'
-                                id="fname"
-                                // placeholder= 'City'
-                                value={formData.city}
-                                onChange={(e) => handleTextChange('city', e.target.value)}
-                                type="text"
-                                variant='outlined'
-                            />
-                            <p><b>Country:</b></p>
-                            <TextField
-                                className='txt'
-                                id="fname"
-                                // placeholder= 'Country'
-                                value={formData.country}
-                                onChange={(e) => handleTextChange('country', e.target.value)}
-                                type="text"
-                                variant='outlined'
-                            />
                         </Grid>
                         <Grid item xs={12} md={6}>
                         </Grid>

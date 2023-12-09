@@ -18,7 +18,7 @@ export default function AdminEventReq() {
           .then(response => {
             // setEvents(response.data);
             const tmpEvent = response.data;
-            const origEv = tmpEvent.filter(tmpEv => tmpEv.status === 0);
+            const origEv = tmpEvent.filter(tmpEv => tmpEv.status === 2);
             console.log("origEv: ",origEv);
             setEvents(origEv);
             

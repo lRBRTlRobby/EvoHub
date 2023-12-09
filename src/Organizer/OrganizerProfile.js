@@ -43,15 +43,13 @@ export default function OrganizerProfile() {
                             <p><b>First Name:</b> {organizer.fname}</p>
                             <p><b>Middle Name:</b> {organizer.mname}</p>
                             <p><b>Last Name:</b> {organizer.lname}</p>
-                            <p><b>Gender:</b> {organizer.gender}</p>
+                            <p><b>Role:</b> {organizer.role}</p>
                             <p><b>Department:</b> {organizer.department}</p>
                         </Grid>
                         <Grid item xs={6} md={6}>
                             
                             <p><b>Email Address:</b> {organizer.email}</p>
                             <p><b>Phone:</b> {organizer.mobNum}</p>
-                            <p><b>Date of Birth:</b> {organizer.dob}</p>
-                            <p><b>Country:</b> {organizer.country}</p>
                         </Grid>
                         <Grid item xs={12} md={6}>
 

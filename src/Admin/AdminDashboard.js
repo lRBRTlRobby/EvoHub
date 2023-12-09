@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import AdminHeader from '../Components/adminHeader';
-import { Button, Container } from '@mui/material';
+import { Button, Container, IconButton, InputAdornment } from '@mui/material';
 import Footer from '../Components/footer';
 import AdminEventReqDetails from './AdminEventReqDetails';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 export default function Dashboard() {
   const [showDetails, setShowDetails] = useState(false);
@@ -14,11 +17,42 @@ export default function Dashboard() {
   const buttonHeight = '100px'; // Adjusted button height for rectangular shape
   const buttonBorderWidth = '0.5px'; // Define the button border width
 
+  const [isVisible, setIsVisible] = useState(true);
+
+  const handleButtonClick = () => {
+    setIsVisible(false);
+  };
+
+  const handlePrint = () => {
+    setIsVisible(false);
+    
+    setTimeout(() => {
+      window.print();
+    }, 100);
+    setTimeout(() => {
+      setIsVisible(true);
+    
+    }, 100);
+  };
+
   return (
     <div>
       <AdminHeader />
       <img src="./img/GLE-Building.png" alt="logo" className="banner" />
       <Container maxWidth="lg">
+        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+        {isVisible && (
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handlePrint}
+          style={{ width: '10rem' }}
+        >
+          Export
+        </Button>
+      )}
+        </div>
+
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
           <Button
             variant="contained"

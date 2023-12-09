@@ -8,9 +8,15 @@ import ButtonM from "../Components/ButtonMaroon";
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { styled } from '@mui/system';
+import { useUser } from '../Components/UserProvider';
+import ParticipantApprove from "../Components/AFeedback";
+import ParticipantDecline from "../Components/DFeeback";
+
 export default function UserEventPage() {
+  const { user } = useUser();
   const [event, setEvents] = useState({});
   const { eventId } = useParams();
+  const [participants, setParticipants] = useState([]);
 
   useEffect(() => {
     window.scroll(0, 0);
@@ -26,6 +32,19 @@ export default function UserEventPage() {
       });
   }, [eventId]);
 
+  useEffect(() => {
+    axios.get('http://localhost:8080/participantrequest/getAllParRequests')
+      .then(response => {
+        // setEvents(response.data);
+        const tmpPart = response.data;
+        const origPart = tmpPart.find(tmpPar => tmpPar.eventId === eventId || tmpPar.userId === user.userid);
+        setParticipants(origPart);
+        
+      })
+      .catch(error => {
+        console.error('Error fetching participants:', error);
+      });
+  }, []);
 
   return (
     <>
@@ -69,6 +88,8 @@ export default function UserEventPage() {
             <p style={{ textAlign: 'left', fontSize: '14px' }}>
               {event.description }
             </p>
+
+            {participants.status === "Accepted"? <><ParticipantApprove /></>: <><ParticipantApprove feedback = "Sorry, your request was not approved."/></>}
 
             <br />
             <br />
