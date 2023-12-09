@@ -1,6 +1,6 @@
-import { Box, Button, Paper, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import './EventRibbon.css';
-import { Link } from 'react-router-dom';
+
 
 
 export default function EventRibbon_noBtn  ({ title, date,time, venue, joined,request, rsvpLink ,path})  {

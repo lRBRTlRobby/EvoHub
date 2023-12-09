@@ -41,18 +41,18 @@ export default function AdminOrganReq() {
       });
   }, []);
 
-  function createData(id, name, email, role, department, organization) {
-    return { id, name, email, role, department, organization };
-  }
-  const rows = [
-    createData(1, "Jane Doe", "jane.doe@gmail.com", "Faculty", "CCS", "GDSC"),
-    createData(2, "Clark Doe", "jane.doe@gmail.com", "Student", "CCS", "GDSC"),
-    createData(3, "Jonas Doe", "jane.doe@gmail.com", "Student", "CCS", "GDSC"),
-    createData(4, "Shem Doe", "jane.doe@gmail.com", "Faculty", "CCS", "GDSC"),
-    createData(5, "Von Doe", "jane.doe@gmail.com", "Staff", "CCS", "GDSC"),
-    createData(6, "Ludi Doe", "jane.doe@gmail.com", "Student", "CCS", "GDSC"),
-    createData(7, "John Doe", "jane.doe@gmail.com", "Staff", "BSIT", "GDSC"),
-  ];
+  // function createData(id, name, email, role, department, organization) {
+  //   return { id, name, email, role, department, organization };
+  // }
+  // const rows = [
+  //   createData(1, "Jane Doe", "jane.doe@gmail.com", "Faculty", "CCS", "GDSC"),
+  //   createData(2, "Clark Doe", "jane.doe@gmail.com", "Student", "CCS", "GDSC"),
+  //   createData(3, "Jonas Doe", "jane.doe@gmail.com", "Student", "CCS", "GDSC"),
+  //   createData(4, "Shem Doe", "jane.doe@gmail.com", "Faculty", "CCS", "GDSC"),
+  //   createData(5, "Von Doe", "jane.doe@gmail.com", "Staff", "CCS", "GDSC"),
+  //   createData(6, "Ludi Doe", "jane.doe@gmail.com", "Student", "CCS", "GDSC"),
+  //   createData(7, "John Doe", "jane.doe@gmail.com", "Staff", "BSIT", "GDSC"),
+  // ];
 
   const [filterValue, setFilterValue] = useState(""); // State for the selected filter value
   const filteredRows = manageOrganizerRequest.filter(

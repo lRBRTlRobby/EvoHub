@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 import AdminHeader from '../Components/adminHeader';
-import { Button, Container, IconButton, InputAdornment } from '@mui/material';
+import { Button, Container } from '@mui/material';
 import Footer from '../Components/footer';
 import AdminEventReqDetails from './AdminEventReqDetails';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 export default function Dashboard() {
   const [showDetails, setShowDetails] = useState(false);

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import AdminHeader from '../Components/adminHeader'
-import { Button, Container, MenuItem, Paper, Popover, Select, Table, TableCell, TableContainer, TableHead, TableRow, TextField } from '@mui/material'
+import { Button, Container, MenuItem, Paper, Select, Table, TableCell, TableContainer, TableHead, TableRow, TextField } from '@mui/material'
 import TableBody from '@mui/material/TableBody';
 import Footer from '../Components/footer';
 import AdminEventReqDetails from './AdminEventReqDetails';
@@ -45,64 +45,64 @@ export default function AdminEventReq() {
     //     image: event.image || '',
     //     orgid: event.orgid || '',
     // });
-    const [formData, setFormData] = useState({
-        title: '',
-        description: '',
-        date: '',
-        time: '',
-        duration: '',
-        location: '',
-        organizer: '',
-        organEmail: '',
-        yearlevel: '',
-        department: '',
-        payment: '',
-        maxAttend: '',
-        status: '',
-        image: '',
-        orgid: '',
-      });
+    // const [formData, setFormData] = useState({
+    //     title: '',
+    //     description: '',
+    //     date: '',
+    //     time: '',
+    //     duration: '',
+    //     location: '',
+    //     organizer: '',
+    //     organEmail: '',
+    //     yearlevel: '',
+    //     department: '',
+    //     payment: '',
+    //     maxAttend: '',
+    //     status: '',
+    //     image: '',
+    //     orgid: '',
+    //   });
 
-    const handleUpdateProfile = async (events) => {
-        try {
-            const updatedFormData = {
-                title: events.title || '',
-                description: events.description || '',
-                date: events.date || '',
-                time: events.time || '',
-                duration: events.duration || '',
-                location: events.location || '',
-                organizer: events.organizer || '',
-                organEmail: events.organEmail || '',
-                yearlevel: events.yearlevel || '',
-                department: events.department || '',
-                payment: events.payment || '',
-                maxAttend: events.maxAttend || '',
-                status: 'Accepted',
-                image: events.image || '',
-                orgid: events.orgid || '',
-              };
+    // const handleUpdateProfile = async (events) => {
+    //     try {
+    //         const updatedFormData = {
+    //             title: events.title || '',
+    //             description: events.description || '',
+    //             date: events.date || '',
+    //             time: events.time || '',
+    //             duration: events.duration || '',
+    //             location: events.location || '',
+    //             organizer: events.organizer || '',
+    //             organEmail: events.organEmail || '',
+    //             yearlevel: events.yearlevel || '',
+    //             department: events.department || '',
+    //             payment: events.payment || '',
+    //             maxAttend: events.maxAttend || '',
+    //             status: 'Accepted',
+    //             image: events.image || '',
+    //             orgid: events.orgid || '',
+    //           };
 
-            const response = await axios.put(`http://localhost:8080/Event/updateEvent?eventid=${events.eventid}`, updatedFormData);
+    //         const response = await axios.put(`http://localhost:8080/Event/updateEvent?eventid=${events.eventid}`, updatedFormData);
 
-            alert('Profile updated successfully!');
-        } catch (error) {
-            console.error('Error updating user profile:', error);
-        }
-    };
+    //         alert('Profile updated successfully!');
+    //     } catch (error) {
+    //         console.error('Error updating user profile:', error);
+    //     }
+    // };
 
-    function createData(id, name, email, calories, fat, carbs, protein) {
-        return { id, name, email, calories, fat, carbs, protein };
-    }
-    const rows = [
-        createData(1, 'Jane Doe', 'jane.doe@gmail.com', 'Innovation Expo', 'GYM', 'CCS', '12-05-23'),
-        createData(2, 'Clark Doe', 'jane.doe@gmail.com', 'Innovation Expo', 'GYM', 'CCS', '12-05-23'),
-        createData(3, 'Jonas Doe', 'jane.doe@gmail.com', 'Innovation Expo', 'GYM', 'CCS', '12-05-23'),
-        createData(4, 'Shem Doe', 'jane.doe@gmail.com', 'Innovation Expo', 'GYM', 'CCS', '12-05-23'),
-        createData(5, 'Von Doe', 'jane.doe@gmail.com', 'Innovation Expo', 'GYM', 'CCS', '12-05-23'),
-        createData(6, 'Ludi Doe', 'jane.doe@gmail.com', 'Innovation Expo', 'GYM', 'CCS', '12-05-23'),
-        createData(7, 'John Doe', 'jane.doe@gmail.com', 'Innovation Expo', 'GYM', 'BSIT', '12-05-23'),
-    ];
+    // function createData(id, name, email, calories, fat, carbs, protein) {
+    //     return { id, name, email, calories, fat, carbs, protein };
+    // }
+    // const rows = [
+    //     createData(1, 'Jane Doe', 'jane.doe@gmail.com', 'Innovation Expo', 'GYM', 'CCS', '12-05-23'),
+    //     createData(2, 'Clark Doe', 'jane.doe@gmail.com', 'Innovation Expo', 'GYM', 'CCS', '12-05-23'),
+    //     createData(3, 'Jonas Doe', 'jane.doe@gmail.com', 'Innovation Expo', 'GYM', 'CCS', '12-05-23'),
+    //     createData(4, 'Shem Doe', 'jane.doe@gmail.com', 'Innovation Expo', 'GYM', 'CCS', '12-05-23'),
+    //     createData(5, 'Von Doe', 'jane.doe@gmail.com', 'Innovation Expo', 'GYM', 'CCS', '12-05-23'),
+    //     createData(6, 'Ludi Doe', 'jane.doe@gmail.com', 'Innovation Expo', 'GYM', 'CCS', '12-05-23'),
+    //     createData(7, 'John Doe', 'jane.doe@gmail.com', 'Innovation Expo', 'GYM', 'BSIT', '12-05-23'),
+    // ];
 
     const [filterValue, setFilterValue] = useState(''); // State for the selected filter value
     const filteredRows = event.filter((events) => !filterValue || events.department === filterValue);
