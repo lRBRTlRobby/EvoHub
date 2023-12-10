@@ -131,13 +131,13 @@ export default function ViewAttendees(){
                 margin: 'auto',
             }}
             />
-                <h3 style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '32px', marginRight: '600px', marginLeft: '150px' }}>2023 - Explore, Learn, Innovate!</h3>
+                <h3 style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '32px', marginRight: '600px', marginLeft: '150px' }}>{event.title}</h3>
 
                 <p style={{ textAlign: 'justify', width: '810px', marginRight: '350px', marginLeft: '150px', fontSize: '20px', textDecoration: 'underline' }}>Cebu Institute of Technology</p>
 
                 {/* New text added below Cebu Institute Technology */}
                 <p style={{ textAlign: 'justify', width: '810px', marginRight: '350px', marginLeft: '150px', fontSize: '20px' }}>
-                    TechXperience 2023 aims to inspire, educate, and connect tech enthusiasts by providing access to cutting-edge talks, hands-on workshops, and networking opportunities, both in-person and online. Explore, learn, and innovate with us!
+                    {event.description}
                 </p>
             </Container>
             <br></br>

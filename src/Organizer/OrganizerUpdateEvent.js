@@ -5,36 +5,20 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import ResponsiveAppBarOrgan from "../Components/organHeader";
-// import ButtonM from "../Components/ButtonMaroon";
+import ButtonM from "../Components/ButtonMaroon";
 import axios from 'axios';
 import { Button } from '@mui/material'
-import { useParams } from 'react-router-dom';
+import { useOrganizer } from '../Components/OrganizerProvider';
+import { useParams } from "react-router-dom";
 
 export default function UpdateEventForm() {
+  const { organizer } = useOrganizer();
+  const [formSubmitted, setFormSubmitted] = useState(false); 
+  const [file, setFile] = useState(null);
+  const [imageUrl, setImageUrl] = useState(null);
   const { eventId } = useParams();
   const [event, setEvents] = useState({});
-
-
-  useEffect(() => {
-    window.scroll(0, 0);
-    axios.get(`http://localhost:8080/Event/getEvent/${eventId}`)
-      .then(response => {
-        console.log(response.data);
-        setEvents(response.data);
-        
-      })
-      .catch(error => {
-        console.error('Error fetching events:', error);
-      });
-  }, [eventId]);
-
-  const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  }));
+  const [allEvents, setAllEvents] = useState({});
   const [formData, setFormData] = useState({
     eventTitle: "",
     description: "",
@@ -42,48 +26,182 @@ export default function UpdateEventForm() {
     time: "",
     duration: "",
     location: "",
-     organizer:"",
-     year: "",
+    organizer: "",
+    year: "",
     department: "",
     payment: "",
     max: ""
-    // role:[],
-    // sponsors:[]
   });
+  useEffect(() => {
+    window.scroll(0, 0);
+    axios.get(`http://localhost:8080/Event/getAllEvents`)
+      .then(response => {
+        console.log(response.data);
+        setAllEvents(response.data);
 
+        // Set the initial form data based on the fetched event
+        setFormData({
+          eventTitle: response.data.title,
+          description: response.data.description,
+          date: formatDateForInput(response.data.date),
+          time: response.data.time,
+          duration: response.data.duration,
+          location: response.data.location,
+          organizer: response.data.organizer,
+          year: response.data.yearlevel,
+          department: response.data.department,
+          payment: response.data.payment,
+          max: response.data.maxAttend
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching events:', error);
+      });
+  }, []);
+  useEffect(() => {
+    window.scroll(0, 0);
+    axios.get(`http://localhost:8080/Event/getEvent/${eventId}`)
+      .then(response => {
+        console.log(response.data);
+        setEvents(response.data);
+
+        // Set the initial form data based on the fetched event
+        setFormData({
+          eventTitle: response.data.title,
+          description: response.data.description,
+          date: formatDateForInput(response.data.date),
+          time: response.data.time,
+          duration: response.data.duration,
+          location: response.data.location,
+          organizer: response.data.organizer,
+          year: response.data.yearlevel,
+          department: response.data.department,
+          payment: response.data.payment,
+          max: response.data.maxAttend
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching events:', error);
+      });
+  }, [eventId]);
+
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, [formSubmitted]);
+ 
+  const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  }));
+  // const resetForm = () => {
+  //   setFormData({
+  //     eventTitle: "",
+  //     description: "",
+  //     date: "",
+  //     time: "",
+  //     duration: "",
+  //     location: "",
+  //     organizer: "",
+  //     year: "",
+  //     department: "",
+  //     payment: "",
+  //     max: "",
+      
+
+  //   });
+  // };
+
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
+  const handleUpload = async () => {
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      // Replace 'http://localhost:8080' with the actual base URL of your API
+      const response = await axios.post('http://localhost:8080/Image/upload', formData);
+
+      // Assuming the response contains the image URL
+      await setImageUrl(response.data);
+     console.log('Image uploaded successfully')
+      // Clear the file input
+      setFile(null);
+    } catch (error) {
+      alert("Uploaded Image Filename is already Taken");
+      console.error('Error uploading image:', error.message);
+    }
+  };
   const date = () => {
-
 
   }
   const handleChange = (e) => {
     const { name, value } = e.target;
-    const formattedDate = name === "date" ? formatDate(value) : value;
-    
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: formattedDate,
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
     }));
   };
   
   const handleSubmit = async (e) => {
     e.preventDefault();
   
+    // Validate location, time, and date
+    const isLocationTaken = allEvents.some(
+      (existingEvent) =>
+        existingEvent.location === formData.location &&
+        existingEvent.date === formatDateForComparison(formData.date) &&
+        existingEvent.time + existingEvent.duration <= formData.time + formData.duration
+    );
+    
+  
+    if (isLocationTaken) {
+      alert('Warning: Another event already exists at the same location, date, and time.');
+      return;
+      console.log('Existing Event:', allEvents.find((existingEvent) => existingEvent.time === formData.time));
+      console.log('Form Data:', formData);
+      // You can choose to display the warning in the UI or take further actions
+
+    }
+  
     try {
-      const response = await axios.post(
+      // Convert date format to string
+      const formattedDate = formatDateForComparison(new Date(formData.date));
+  
+      // Prepare the request body
+      const requestBody = {
+        title: formData.eventTitle,
+        description: formData.description,
+        date: formattedDate,
+        time: formData.time,
+        duration: formData.duration,
+        location: formData.location,
+        organizer: organizer.fname + " " + organizer.lname,
+        yearlevel: formData.year,
+        department: formData.department,
+        payment: formData.payment,
+        maxAttend: formData.max,
+        orgid: organizer.oid,
+        organEmail: organizer.email,
+        status: 2,
+      };
+  
+      // Include the image property only if a new image has been uploaded
+      if (imageUrl) {
+        requestBody.image = imageUrl;
+      } else {
+        // If no new image uploaded, retain the current event image
+        requestBody.image = event.image;
+      }
+  
+      // Make the POST request
+      const response = await axios.put(
         `http://localhost:8080/Event/updateEvent?eventid=${eventId}`,
-        {
-          title: formData.eventTitle,
-          description: formData.description,
-          date: formData.date,
-          time: formData.time,
-          duration: formData.duration,
-          location: formData.location,
-          organizer: formData.organizer,
-          yearlevel: formData.year,
-          department: formData.department,
-          payment: formData.payment,
-          maxAttend: formData.max,
-        },
+        requestBody,
         {
           headers: {
             'Content-Type': 'application/json',
@@ -91,31 +209,40 @@ export default function UpdateEventForm() {
         }
       );
   
-      // Log the response from the server
-      console.log(response.data);
-      alert("Success");
+      setFormSubmitted(true);
+  
+      // Alert after successful request
+      window.alert('Update Request Successfully Requested to the Admin');
+  
+      // Reload the page
     } catch (error) {
-      // Handle errors
-      console.error("Error submitting form:", error);
+      console.error('Error submitting form:', error);
     }
   };
-
-  const formatDate = (dateString) => {
-    const options = { year: "numeric", month: "short", day: "numeric" };
-    const formattedDate = new Date(dateString).toLocaleDateString(
-      "en-US",
-      options
-    );
-    return formattedDate;
+  
+  const formatDateForComparison = (dateString) => {
+    const dateObject = new Date(dateString);
+    const month = dateObject.toLocaleDateString('en-US', { month: 'short' });
+    const day = dateObject.getDate();
+    const year = dateObject.getFullYear();
+  
+    return `${month} ${day}, ${year}`;
   };
-
-
+  
+  
+  const formatDateForInput = (dateString) => {
+    const dateObject = new Date(dateString);
+    const year = dateObject.getFullYear();
+    const month = String(dateObject.getMonth() + 1).padStart(2, '0');
+    const day = String(dateObject.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+console.log(event)
 console.log(formData)
   return (
     <>
       <></>    
       <ResponsiveAppBarOrgan/>
-      <img src="img/createEventBanner.png" alt="logo"  style={{width:"100%"}} />
       <Container maxWidth="lg">
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
@@ -205,18 +332,6 @@ console.log(formData)
                     }}
                     required
                   />
-                  {formData.date && (
-                    <p
-                      id="fdate"
-                      style={{
-                        marginTop: "0.5rem",
-                        color: "#666666",
-                        fontFamily: "DM Sans",
-                      }}
-                    >
-                      Selected Date: {formatDate(formData.date)}
-                    </p>
-                  )}
                 </div>
 
                 {/* Time 1 */}
@@ -302,6 +417,7 @@ console.log(formData)
                       padding: "10px",
                     }}
                   >
+                    <option value="" disabled>Select location</option>
                     <option value="Gymnasium">Gymnasium</option>
                     <option value="Learning Center">Learning Center</option>
                     <option value="Auditorium">Auditorium</option>
@@ -319,13 +435,15 @@ console.log(formData)
                     color: "#666666",
                   }}
                 >
-                  Head Organizer
+                  Head Organizer<br/> 
+                  Firstname
                 </h5>
                     <input
                       type="text"
                       id="organizer"
                       name="organizer"
-                      value={formData.organizer}
+                      // value={formData.organizer}
+                      value={organizer.fname}
                       placeholder="Organizer name"
                       onChange={handleChange}
                       style={{
@@ -335,10 +453,36 @@ console.log(formData)
                         padding: "0 15px",
                         marginRight: "10px",
                       }}
-                      required
+                      disabled
+                    />  
+                <h5
+                  style={{
+                    fontFamily: "DM Sans",
+                    marginTop: "1rem",
+                    color: "#666666",
+                  }}
+                >
+                  Last Name
+                </h5>
+                    <input
+                      type="text"
+                      id="organizer"
+                      name="organizer"
+                      // value={formData.organizer}
+                      value={organizer.lname}
+                      placeholder="Organizer name"
+                      onChange={handleChange}
+                      style={{
+                        width: "30%",
+                        height: "45px",
+                        borderRadius: "45px",
+                        padding: "0 15px",
+                        marginRight: "10px",
+                      }}
+                      disabled
                     />  
                 </div>
-                
+              
             {/* Specify year Level*/}
             <div className="form-group" style={{ marginTop: "2rem" }}>
               <h5
@@ -363,12 +507,13 @@ console.log(formData)
                       padding: "10px",
                     }}
                   >
+                    <option value="" disabled>Select Year Level</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
-                    <option value="4<">4</option>
+                    <option value="4">4</option>
                     <option value="5">5</option>
-                    <option value="None">None</option>  {/* Corrected the spelling here */}
+                    <option value="0">None</option>  {/* Corrected the spelling here */}
                   </select>
                 </div>
 
@@ -396,13 +541,14 @@ console.log(formData)
                       padding: "10px",
                     }}
                   >
-                    <option value="CEA">CEA</option>
-                    <option value="CCS">CCS</option>
-                    <option value="CMBA">CMBA</option>
-                    <option value="CASE<">CASE</option>
-                    <option value="CNAHS">CNAHS</option>
-                    <option value="CCJ">CCJ</option>  {/* Corrected the spelling here */}
-                    <option value="None">None</option>  {/* Corrected the spelling here */}
+                  <option value="" disabled>Select department</option>
+                  <option value="College of Engineering and Architecture">CEA</option>
+                  <option value="College of Computer Studies">CCS</option>
+                  <option value="College of Mngnt, Bussiness and Administration">CMBA</option>
+                  <option value="College of Nursing and Allied Health Sciences">CASE</option>
+                  <option value="College of Natural Arts of Health Sciences">CNAHS</option>
+                  <option value="College of Criminal Justice">CCJ</option>
+                  <option value="None">None</option>
                   </select>
                 </div>
 
@@ -430,6 +576,7 @@ console.log(formData)
                       padding: "10px",
                     }}
                   >
+                    <option value="" disabled>Required</option>
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
                   </select>
@@ -460,9 +607,14 @@ console.log(formData)
                     }}
                     required
                   />
+                  
                 </div>
-
-
+                <p>*You,re current file is {event.image}.Please select another image if you want change.</p>
+                <input type="file" onChange={handleFileChange} />
+                <Button onClick={async (e) => { e.preventDefault(); await handleUpload(); }} disabled={!file}>
+                
+                  Upload Image
+                </Button>
               {/* Submit  Button */}
               <div
                 className="form-group"
@@ -473,7 +625,7 @@ console.log(formData)
                   sx={{
                   backgroundColor: 'maroon', color: 'white', fontFamily: "'DM Sans', sans-serif", width: '19rem', height: '4rem', fontWeight: 'bold', fontFamily: "'DM Sans', sans-serif", fontSize: '1rem',
                   display: "flex", justifyContent: "center", padding: 0, borderRadius: 50 }}>
-                    Submit
+                    UPDATE
                 </Button>
               </div>
             </form>
