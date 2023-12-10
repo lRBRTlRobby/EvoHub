@@ -39,7 +39,7 @@ export default function CreateEventForm() {
     department: "",
     payment: "",
     max: "",
-    status: "pending",
+    // status: "",
     // role:[],
     // sponsors:[]
   });
@@ -139,6 +139,7 @@ export default function CreateEventForm() {
           image: imageUrl,
           orgid: organizer.oid,
           organEmail: organizer.email,
+          status: 2
         },
         {
           headers: {

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Grid, TextField } from "@mui/material";
+import { Button, Grid, IconButton, InputAdornment, TextField } from "@mui/material";
 import './OrganizerLogin.css'
 import { Link, useNavigate } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import axios from 'axios';
 import { useOrganizer } from '../Components/OrganizerProvider';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 export default function EventOrganizer() {
     const { login } = useOrganizer();
@@ -12,6 +13,12 @@ export default function EventOrganizer() {
     const navigate = useNavigate();
     const [isChecked, setIsChecked] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    const [showPassword, setShowPassword] = useState(false);
+
+    const handleTogglePasswordVisibility = () => {
+        setShowPassword((prevShowPassword) => !prevShowPassword);
+    };
 
     const handleCheckboxChange = (e) => {
         setIsChecked(e.target.checked);
@@ -87,12 +94,32 @@ export default function EventOrganizer() {
                                         type="email"
                                         variant='outlined'
                                     /><br />
-                                    <TextField
+                                    {/* <TextField
                                         className='txt'
                                         id="pass"
                                         label="Password"
                                         type="password"
                                         variant='outlined'
+                                    /> */}
+                                    <TextField
+                                        className='txt'
+                                        id="pass"
+                                        label="Password"
+                                        type={showPassword ? 'text' : 'password'}
+                                        variant='outlined'
+                                        InputProps={{
+                                            endAdornment: (
+                                                <InputAdornment position="end">
+                                                    <IconButton
+                                                        aria-label="toggle password visibility"
+                                                        onClick={handleTogglePasswordVisibility}
+                                                        edge="end"
+                                                    >
+                                                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            ),
+                                        }}
                                     />
                                 </div>
                                 <div style={{ display: "flex", padding: 0, margin: "0 auto", justifyContent: "center" }}>

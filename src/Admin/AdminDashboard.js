@@ -14,11 +14,42 @@ export default function Dashboard() {
   const buttonHeight = '100px'; // Adjusted button height for rectangular shape
   const buttonBorderWidth = '0.5px'; // Define the button border width
 
+  const [isVisible, setIsVisible] = useState(true);
+
+  const handleButtonClick = () => {
+    setIsVisible(false);
+  };
+
+  const handlePrint = () => {
+    setIsVisible(false);
+    
+    setTimeout(() => {
+      window.print();
+    }, 100);
+    setTimeout(() => {
+      setIsVisible(true);
+    
+    }, 100);
+  };
+
   return (
     <div>
       <AdminHeader />
       <img src="./img/GLE-Building.png" alt="logo" className="banner" />
       <Container maxWidth="lg">
+        <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+        {isVisible && (
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handlePrint}
+          style={{ width: '10rem' }}
+        >
+          Export
+        </Button>
+      )}
+        </div>
+
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
           <Button
             variant="contained"
