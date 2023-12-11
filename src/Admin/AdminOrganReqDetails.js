@@ -1,8 +1,8 @@
 // import React from "react";
-import Container from "@mui/material/Container";
-import PersonPics from "../Components/People";
-import { Button } from "@mui/base";
-import { style } from "@mui/system";
+// import Container from "@mui/material/Container";
+// import PersonPics from "../Components/People";
+// import { Button } from "@mui/base";
+// import { style } from "@mui/system";
 import ButtonM from "../Components/ButtonMaroon";
 import ButtonY from "../Components/ButtonYellow";
 import axios from "axios";
@@ -14,7 +14,7 @@ export default function AdminOrganReqDetails({
   setShowDetails,
   selectedTableId,
 }) {
-  const [userData, setUserData] = useState(null);
+  // const [userData, setUserData] = useState(null);
   const [manageOrganizerRequest, setManageOrganizerRequest] = useState([]);
 
   useEffect(() => {
@@ -37,28 +37,7 @@ export default function AdminOrganReqDetails({
         });
     }
   }, [selectedTableId]);
-  // const Developers = [
-  //   {
-  //     image: "./img/Profile-3.png",
-  //     name: "Robert Amaba",
-  //     role: "Finance Manager",
-  //   },
-  //   {
-  //     image: "/img/Profile-1.png",
-  //     name: "Irish Leigh San Juan",
-  //     role: "Public Relations Officier",
-  //   },
-  //   {
-  //     image: "/img/Profile-2.png",
-  //     name: " Katrina Dela Pena",
-  //     role: "Event Coordinator",
-  //   },
-  //   {
-  //     image: "/img/Profile.png",
-  //     name: "Kyle Weig",
-  //     role: "Logistics Coordinator",
-  //   },
-  // ];
+
   return (
     <div>
       {/* <img
