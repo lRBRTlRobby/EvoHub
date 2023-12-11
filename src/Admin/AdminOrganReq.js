@@ -41,18 +41,18 @@ export default function AdminOrganReq() {
       });
   }, []);
 
-  // function createData(id, name, email, role, department, organization) {
-  //   return { id, name, email, role, department, organization };
-  // }
-  // const rows = [
-  //   createData(1, "Jane Doe", "jane.doe@gmail.com", "Faculty", "CCS", "GDSC"),
-  //   createData(2, "Clark Doe", "jane.doe@gmail.com", "Student", "CCS", "GDSC"),
-  //   createData(3, "Jonas Doe", "jane.doe@gmail.com", "Student", "CCS", "GDSC"),
-  //   createData(4, "Shem Doe", "jane.doe@gmail.com", "Faculty", "CCS", "GDSC"),
-  //   createData(5, "Von Doe", "jane.doe@gmail.com", "Staff", "CCS", "GDSC"),
-  //   createData(6, "Ludi Doe", "jane.doe@gmail.com", "Student", "CCS", "GDSC"),
-  //   createData(7, "John Doe", "jane.doe@gmail.com", "Staff", "BSIT", "GDSC"),
-  // ];
+  function createData(id, name, email, role, department, organization) {
+    return { id, name, email, role, department, organization };
+  }
+  const rows = [
+    createData(1, "Jane Doe", "jane.doe@gmail.com", "Faculty", "CCS", "GDSC"),
+    createData(2, "Clark Doe", "jane.doe@gmail.com", "Student", "CCS", "GDSC"),
+    createData(3, "Jonas Doe", "jane.doe@gmail.com", "Student", "CCS", "GDSC"),
+    createData(4, "Shem Doe", "jane.doe@gmail.com", "Faculty", "CCS", "GDSC"),
+    createData(5, "Von Doe", "jane.doe@gmail.com", "Staff", "CCS", "GDSC"),
+    createData(6, "Ludi Doe", "jane.doe@gmail.com", "Student", "CCS", "GDSC"),
+    createData(7, "John Doe", "jane.doe@gmail.com", "Staff", "BSIT", "GDSC"),
+  ];
 
   const [filterValue, setFilterValue] = useState(""); // State for the selected filter value
   const filteredRows = manageOrganizerRequest.filter(
@@ -61,6 +61,48 @@ export default function AdminOrganReq() {
   );
 
   console.log(manageOrganizerRequest);
+
+  // const handleDeleteUser = (organReqId) => {
+  //   if (organReqId) {
+  //     axios
+  //       .delete(
+  //         `http://localhost:8080/manageOrganizerRequest/updateManageOrganizerRequest/${organReqId}`
+  //       )
+  //       .then(() => {
+  //         alert("User deleted successfully");
+  //         setShowDetails(false);
+  //       })
+  //       .catch((error) => {
+  //         console.error("Error deleting user:", error);
+  //       });
+  //   }
+  // };
+  const handleDeleteUser = async (organReqId) => {
+    try {
+      const updatedFormData = {
+        fname: manageOrganizerRequest.fname || "",
+        mname: manageOrganizerRequest.mname || "",
+        lname: manageOrganizerRequest.lname || "",
+        email: manageOrganizerRequest.email || "",
+        pass: manageOrganizerRequest.pass || "",
+        role: manageOrganizerRequest.role || "",
+        dept: manageOrganizerRequest.dept || "",
+        organization: manageOrganizerRequest.organization || "",
+        message: manageOrganizerRequest.message || "",
+        status: "Decline" || "",
+      };
+      console.log("updated: ", updatedFormData);
+      const response = await axios.put(
+        `http://localhost:8080/manageOrganizerRequest/updateManageOrganizerRequest?organReqId=${organReqId}`,
+        updatedFormData
+      );
+      console.log("API Response:", response.data);
+      alert("Event Request Successfully Declined!");
+      window.location.reload();
+    } catch (error) {
+      console.error("Error accepting event request:", error);
+    }
+  };
   return (
     <div>
       <AdminHeader />
@@ -132,6 +174,8 @@ export default function AdminOrganReq() {
             </TableHead>
             <TableBody>
               {showDetails === true ? (
+                // <AdminOrganReqDetails setShowDetails={setShowDetails} />
+                // ) : (
                 <>
                   {filteredRows
                     .filter(
@@ -229,12 +273,84 @@ export default function AdminOrganReq() {
                         {manageOrganizerRequest.organization}
                       </TableCell>
                       <TableCell align="center" sx={{ zIndex: 1 }}>
-                        <Button>
-                          <img src="./img/Edit.png" alt="Edit" />
+                        <Button
+                          // style={{
+                          //   filter:
+                          //     "sepia(60%) saturate(20000%) hue-rotate(31deg)",
+                          // }}
+                          onClick={async () => {
+                            // handleDeleteUser(manageOrganizerRequest.organReqId)
+                            try {
+                              const updatedFormData = {
+                                fname: manageOrganizerRequest.fname || "",
+                                mname: manageOrganizerRequest.mname || "",
+                                lname: manageOrganizerRequest.lname || "",
+                                email: manageOrganizerRequest.email || "",
+                                pass: manageOrganizerRequest.pass || "",
+                                role: manageOrganizerRequest.role || "",
+                                dept: manageOrganizerRequest.dept || "",
+                                organization:
+                                  manageOrganizerRequest.organization || "",
+                                message: manageOrganizerRequest.message || "",
+                                status: "Accepted" || "",
+                              };
+                              console.log("updated: ", updatedFormData);
+                              const response = await axios.put(
+                                `http://localhost:8080/manageOrganizerRequest/updateManageOrganizerRequest?organReqId=${manageOrganizerRequest.organReqId}`,
+                                updatedFormData
+                              );
+                              console.log("API Response:", response.data);
+                              alert("User Successfully Accepted!");
+                              window.location.reload();
+                            } catch (error) {
+                              console.error(
+                                "Error accepting event request:",
+                                error
+                              );
+                            }
+                          }}
+                        >
+                          <img src="./img/Donecheck.png" alt="Edit" />
                         </Button>
                       </TableCell>
                       <TableCell align="center">
-                        <Button>
+                        <Button
+                          // style={{
+                          //   filter:
+                          //     "sepia(80%) saturate(1000%) hue-rotate(330deg)",
+                          // }}
+                          onClick={async () => {
+                            // handleDeleteUser(manageOrganizerRequest.organReqId)
+                            try {
+                              const updatedFormData = {
+                                fname: manageOrganizerRequest.fname || "",
+                                mname: manageOrganizerRequest.mname || "",
+                                lname: manageOrganizerRequest.lname || "",
+                                email: manageOrganizerRequest.email || "",
+                                pass: manageOrganizerRequest.pass || "",
+                                role: manageOrganizerRequest.role || "",
+                                dept: manageOrganizerRequest.dept || "",
+                                organization:
+                                  manageOrganizerRequest.organization || "",
+                                message: manageOrganizerRequest.message || "",
+                                status: "Decline" || "",
+                              };
+                              console.log("updated: ", updatedFormData);
+                              const response = await axios.put(
+                                `http://localhost:8080/manageOrganizerRequest/updateManageOrganizerRequest?organReqId=${manageOrganizerRequest.organReqId}`,
+                                updatedFormData
+                              );
+                              console.log("API Response:", response.data);
+                              alert("User Successfully Declined!");
+                              window.location.reload();
+                            } catch (error) {
+                              console.error(
+                                "Error accepting event request:",
+                                error
+                              );
+                            }
+                          }}
+                        >
                           <img src="./img/Delete.png" alt="Edit" />
                         </Button>
                       </TableCell>
@@ -246,7 +362,10 @@ export default function AdminOrganReq() {
           </Table>
         </TableContainer>
         {showDetails && (
-          <AdminOrganReqDetails setShowDetails={setShowDetails} />
+          <AdminOrganReqDetails
+            setShowDetails={setShowDetails}
+            selectedTableId={selectedTableId}
+          />
         )}
       </Container>
       <Footer />
