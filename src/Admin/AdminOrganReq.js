@@ -41,6 +41,24 @@ export default function AdminOrganReq() {
       });
   }, []);
 
+  // useEffect(() => {
+  //   axios
+  //     .get(
+  //       "http://localhost:8080/participantrequest/getAllParRequests"
+  //     )
+  //     .then((response) => {
+  //       // setEvents(response.data);
+  //       const tmpEvent = response.data;
+  //       console.log("tmpEvent: ", tmpEvent);
+  //       const origEv = tmpEvent.filter((tmpEv) => tmpEv.status === "Accepted");
+  //       console.log("origEv: ", origEv);
+  //       // setManageOrganizerRequest(origEv);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching events:", error);
+  //     });
+  // }, []);
+
   function createData(id, name, email, role, department, organization) {
     return { id, name, email, role, department, organization };
   }
@@ -289,8 +307,7 @@ export default function AdminOrganReq() {
                                 pass: manageOrganizerRequest.pass || "",
                                 role: manageOrganizerRequest.role || "",
                                 dept: manageOrganizerRequest.dept || "",
-                                organization:
-                                  manageOrganizerRequest.organization || "",
+                                organization: manageOrganizerRequest.organization || "",
                                 message: manageOrganizerRequest.message || "",
                                 status: "Accepted" || "",
                               };
@@ -300,6 +317,20 @@ export default function AdminOrganReq() {
                                 updatedFormData
                               );
                               console.log("API Response:", response.data);
+
+                              const insertResponse = await axios.post(
+                                'http://localhost:8080/organizer/insertOrganizer',{
+                                // updatedFormData,
+                                fname: manageOrganizerRequest.fname,
+                                mname: manageOrganizerRequest.mname,
+                                lname: manageOrganizerRequest.lname,
+                                email: manageOrganizerRequest.email,
+                                pass: manageOrganizerRequest.pass,
+                                role: manageOrganizerRequest.role,
+                                organization: manageOrganizerRequest.organization,
+                                department: manageOrganizerRequest.dept,
+                              });
+
                               alert("User Successfully Accepted!");
                               window.location.reload();
                             } catch (error) {
@@ -333,7 +364,7 @@ export default function AdminOrganReq() {
                                 organization:
                                   manageOrganizerRequest.organization || "",
                                 message: manageOrganizerRequest.message || "",
-                                status: "Decline" || "",
+                                status: "Declined" || "",
                               };
                               console.log("updated: ", updatedFormData);
                               const response = await axios.put(
