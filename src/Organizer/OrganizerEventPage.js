@@ -10,9 +10,10 @@ import { useParams } from 'react-router-dom';
 import { styled } from '@mui/system';
 import { useUser } from '../Components/UserProvider';
 import ParticipantApprove from "../Components/AFeedback";
+import ResponsiveAppBarOrgan from "../Components/organHeader";
 import ParticipantDecline from "../Components/DFeeback";
 
-export default function UserEventPage() {
+export default function OrganEventPage() {
   const { user } = useUser();
   const [event, setEvents] = useState({});
   const { eventId } = useParams();
@@ -37,22 +38,19 @@ export default function UserEventPage() {
       .then(response => {
         // setEvents(response.data);
         const tmpPart = response.data;
-        console.log("tmpPart: ",tmpPart);
-        console.log("TMPeventId: ",tmpPart.eventId);
-        const origPart = tmpPart.find(tmpPar => tmpPar.eventId == eventId && tmpPar.userId === user.userid);
-        console.log("EventId: ",eventId);
+        const origPart = tmpPart.find(tmpPar => tmpPar.eventId === eventId || tmpPar.userId === user.userid);
         setParticipants(origPart);
-        console.log("origPart: ",origPart);
         
       })
       .catch(error => {
         console.error('Error fetching participants:', error);
       });
   }, []);
+  // const disableButton = (participant => participant.status === 1);
 
   return (
     <>
-      <ResponsiveAppBar />
+      <ResponsiveAppBarOrgan />
     
       <div style={{ backgroundImage: `url('/img/sheer.png')`, backgroundSize: 'cover', minHeight: '10vh' }}>
         <Container maxWidth="lg">
@@ -77,14 +75,24 @@ export default function UserEventPage() {
           </p>
 
           <p style={{ textAlign: 'justify', width: '810px', marginRight: '350px', marginLeft: '150px', fontSize: '18px' }}>
-            {event.description}
+            {event.yearlevel === 0 ? 'Open to everyone! Join us for a fantastic time!' : `This event is exclusively for ${event.yearlevel}th year  college students.`}
+            <br/>
+            {event.payment === 'No' ? "Complimentary attendance—no payment required." : "Please note that payment is required for participation."}
+
+            
           </p>
           <br></br>
           <br></br>
           <br></br>
         </Container>
       </div>
-      <EventRibbon path={`/UserEventJoinRequest/${eventId}`} />
+      
+      <EventRibbon
+        location={event.location}
+        time={event.time}
+        date={event.date}
+        // disabled={disableButton}
+        path={`/OrganizerEventJoinRequest/${eventId}`} />
         <Container maxWidth="lg">
           <br />
           <div style={{ textAlign: "center" }}>
@@ -93,8 +101,7 @@ export default function UserEventPage() {
               {event.description }
             </p>
 
-          {participants ? <>{participants.status === "Accepted"? <><ParticipantApprove /></>: <><ParticipantApprove feedback = "Sorry, your request was not approved."/></>}</>:<></>}
-            {/* {participants.status === "Accepted"? <><ParticipantApprove /></>: <><ParticipantApprove feedback = "Sorry, your request was not approved."/></>} */}
+            {participants.status === "Accepted"? <><ParticipantApprove /></>: <><ParticipantApprove feedback = "Sorry, your request was not approved."/></>}
 
             <br />
             <br />
