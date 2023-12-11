@@ -196,24 +196,24 @@ export default function AdminEventReq() {
                                                 <TableCell align="center" sx={{ zIndex: 1 }}><Button onClick={async() => { 
                                                     try {
                                                         const updatedFormData = {
-                                                            title: event.title,
-                                                            description: event.description || '',
-                                                            date: event.date || '',
-                                                            time: event.time || '',
-                                                            duration: event.duration || '',
-                                                            location: event.location || '',
-                                                            organizer: event.organizer || '',
-                                                            organEmail: event.organEmail || '',
-                                                            yearlevel: event.yearlevel || '',
-                                                            department: event.department || '',
-                                                            payment: event.payment || '',
-                                                            maxAttend: event.maxAttend || '',
+                                                            title: events.title,
+                                                            description: events.description || '',
+                                                            date: events.date || '',
+                                                            time: events.time || '',
+                                                            duration: events.duration || '',
+                                                            location: events.location || '',
+                                                            organizer: events.organizer || '',
+                                                            organEmail: events.organEmail || '',
+                                                            yearlevel: events.yearlevel || '',
+                                                            department: events.department || '',
+                                                            payment: events.payment || '',
+                                                            maxAttend: events.maxAttend || '',
                                                             status: 1 || '',
-                                                            image: event.image || '',
-                                                            orgid: event.orgid || '',
+                                                            image: events.image || '',
+                                                            orgid: events.orgid || '',
                                                           };
                                                         console.log("updated: ",updatedFormData);
-                                                        const response = await axios.put(`http://localhost:8080/Event/updateEvent?eventid=${event.eventid}`, updatedFormData);
+                                                        const response = await axios.put(`http://localhost:8080/Event/updateEvent?eventid=${events.eventid}`, updatedFormData);
                                                         console.log("API Response:", response.data);
                                                         alert('Event Request Successfully Accepted!');
                                                         window.location.reload();
@@ -226,24 +226,24 @@ export default function AdminEventReq() {
                                                 <TableCell align="center"><Button onClick={async() => { 
                                                     try {
                                                         const updatedFormData = {
-                                                            title: event.title,
-                                                            description: event.description || '',
-                                                            date: event.date || '',
-                                                            time: event.time || '',
-                                                            duration: event.duration || '',
-                                                            location: event.location || '',
-                                                            organizer: event.organizer || '',
-                                                            organEmail: event.organEmail || '',
-                                                            yearlevel: event.yearlevel || '',
-                                                            department: event.department || '',
-                                                            payment: event.payment || '',
-                                                            maxAttend: event.maxAttend || '',
+                                                            title: events.title,
+                                                            description: events.description || '',
+                                                            date: events.date || '',
+                                                            time: events.time || '',
+                                                            duration: events.duration || '',
+                                                            location: events.location || '',
+                                                            organizer: events.organizer || '',
+                                                            organEmail: events.organEmail || '',
+                                                            yearlevel: events.yearlevel || '',
+                                                            department: events.department || '',
+                                                            payment: events.payment || '',
+                                                            maxAttend: events.maxAttend || '',
                                                             status: 0 || '',
-                                                            image: event.image || '',
-                                                            orgid: event.orgid || '',
+                                                            image: events.image || '',
+                                                            orgid: events.orgid || '',
                                                           };
                                                         console.log("updated: ",updatedFormData);
-                                                        const response = await axios.put(`http://localhost:8080/Event/updateEvent?eventid=${event.eventid}`, updatedFormData);
+                                                        const response = await axios.put(`http://localhost:8080/Event/updateEvent?eventid=${events.eventid}`, updatedFormData);
                                                         console.log("API Response:", response.data);
                                                         alert('Event Request Successfully Declined!');
                                                         window.location.reload();
