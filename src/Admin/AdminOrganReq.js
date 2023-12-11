@@ -292,10 +292,6 @@ export default function AdminOrganReq() {
                       </TableCell>
                       <TableCell align="center" sx={{ zIndex: 1 }}>
                         <Button
-                          // style={{
-                          //   filter:
-                          //     "sepia(60%) saturate(20000%) hue-rotate(31deg)",
-                          // }}
                           onClick={async () => {
                             // handleDeleteUser(manageOrganizerRequest.organReqId)
                             try {
@@ -346,10 +342,6 @@ export default function AdminOrganReq() {
                       </TableCell>
                       <TableCell align="center">
                         <Button
-                          // style={{
-                          //   filter:
-                          //     "sepia(80%) saturate(1000%) hue-rotate(330deg)",
-                          // }}
                           onClick={async () => {
                             // handleDeleteUser(manageOrganizerRequest.organReqId)
                             try {
