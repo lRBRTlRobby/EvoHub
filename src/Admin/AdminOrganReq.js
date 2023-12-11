@@ -32,7 +32,7 @@ export default function AdminOrganReq() {
       .then((response) => {
         // setEvents(response.data);
         const tmpEvent = response.data;
-        const origEv = tmpEvent.filter((tmpEv) => tmpEv.status === null);
+        const origEv = tmpEvent.filter((tmpEv) => tmpEv.status === "Pending");
         console.log("origEv: ", origEv);
         setManageOrganizerRequest(origEv);
       })
