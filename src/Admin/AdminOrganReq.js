@@ -351,7 +351,7 @@ export default function AdminOrganReq() {
                             }
                           }}
                         >
-                          <img src="./img/Delete.png" alt="Edit" />
+                          <img src="./img/RedDeleteBtn.png" alt="Edit" />
                         </Button>
                       </TableCell>
                     </TableRow>
