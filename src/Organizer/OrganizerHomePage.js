@@ -105,7 +105,7 @@ export default function OrganizerHomePage() {
                                 >
                                     {/* Conditional rendering based on event date */}
                                     {new Date(event.date) > currentDate && (
-                                    <Link to={`/UserEventPage/${event.eventid}`}>
+                                    <Link to={`/OrganizerEventPage/${event.eventid}`}>
                                         <ActionAreaCard
                                         key={index}
                                         date={event.date}

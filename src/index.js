@@ -69,6 +69,8 @@ import AdminProfile from './Admin/adminProfile';
 import AdminProfileEdit from './Admin/adminProfileEdit';
 import Dashboard from './Admin/AdminDashboard';
 import UpdateEventForm from './Organizer/OrganizerUpdateEvent';
+import OrganEventPage from './Organizer/OrganizerEventPage';
+import OrganEventJoinRequest from './Organizer/OrganizerEventJoint';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -126,6 +128,8 @@ root.render(
       <Route path="/AdminProfile" element={<AdminProfile />} />
       <Route path="/AdminProfileEdit" element={<AdminProfileEdit />} />
       <Route path="/UpdateEvents/:eventId" element={<UpdateEventForm />}/>
+      <Route path="/OrganizerEventPage/:eventId" element={<OrganEventPage />}/>
+      <Route path="/OrganizerEventJoinRequest/:eventId" element={<OrganEventJoinRequest />}/>
 
 
 

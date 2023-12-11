@@ -9,16 +9,6 @@ const Footer = () => {
   return (
     <>
     <img src="img/footer.png" alt="logo" style={{width:'100%'}}/>
-    
-    
-    
-    
-    
-    
-    
-    
-
-
 
     </>
   )

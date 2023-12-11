@@ -1,13 +1,17 @@
-import React, { useRef } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import ResponsiveAppBar from '../Components/header'
 import Container from '@mui/material/Container';
 import { Button, TextField } from '@mui/material';
 import ActionAreaCard from '../Components/eventCard';
 import Footer from '../Components/footer';
 import ResponsiveAppBarOrgan from '../Components/organHeader';
+import axios from 'axios'
+import { Link } from 'react-router-dom';
+
 export default function OrganizerJoinedEvents() {
     const containerRef = useRef(null);
     const containerRef1 = useRef(null);
+    const [event, setEvents] = useState([]);
 
     const scrollLeft = () => {
         if (containerRef.current) {
@@ -32,21 +36,23 @@ export default function OrganizerJoinedEvents() {
         }
     };
 
-    const events = [
-        { date: "Sep 04", title: "CIT-U Info Session 2022", image: "/img/doggo.jpg", description: "Doggo and puppy" },
-        { date: "Sep 04", title: "TechXperience 2023", image: "/img/account.png", description: "Doggo and puppy" },
-        { date: "Sep 04", title: "Summer Camp", image: "/img/organreq.jpg", description: "Doggo and puppy" },
-        { date: "Sep 04", title: "School Night", image: "/img/engineering.png", description: "Doggo and puppy" },
-        { date: "Sep 04", title: "Hello World", image: "/img/Joined.jpg", description: "Doggo and puppy" },
-        { date: "Sep 04", title: "Goodbye World", image: "/img/ccs.png", description: "Doggo and puppy" },
-        { date: "Sep 04", title: "CIT-U Info Session 2022", image: "/img/doggo.jpg", description: "Doggo and puppy" },
-        { date: "Sep 04", title: "TechXperience 2023", image: "/img/account.png", description: "Doggo and puppy" },
-        { date: "Sep 04", title: "Summer Camp", image: "/img/organreq.jpg", description: "Doggo and puppy" },
-        { date: "Sep 04", title: "School Night", image: "/img/engineering.png", description: "Doggo and puppy" },
-        { date: "Sep 04", title: "Hello World", image: "/img/Joined.jpg", description: "Doggo and puppy" },
-        { date: "Sep 04", title: "Goodbye World", image: "/img/ccs.png", description: "Doggo and puppy" }
-
-    ];
+    useEffect(() => {
+        window.scroll(0, 0);
+        axios.get('http://localhost:8080/participantrequest/getAllParRequests')
+          .then(response => {
+            const filteredEvents= response.data.filter(participant => participant.status === "Accepted") ;
+            
+            console.log(filteredEvents)
+            // Set the filtered participants
+            setEvents(filteredEvents);
+          
+            // Set the events if needed
+            // setEvents(filteredParticipants);
+          })
+          .catch(error => {
+            console.error('Error fetching events:', error);
+          });
+      }, []);
 
     return (
         <div>
@@ -75,7 +81,7 @@ export default function OrganizerJoinedEvents() {
                     <h2 style={{ fontFamily: "'DM Sans', sans-serif" }}>Upcoming Events</h2>
 
                     <div style={{ display: "flex", overflowX: "hidden", maxWidth: "100%" }} ref={containerRef}>
-                        {events.map((event, index) => (
+                        {event.map((event, index) => (
                             <ActionAreaCard
                                 key={index}
                                 date={event.date}
@@ -96,7 +102,7 @@ export default function OrganizerJoinedEvents() {
 
                     <div style={{ marginBottom: "5rem" }}>
                         <div style={{ display: "flex", overflowX: "hidden", maxWidth: "100%" }} ref={containerRef1}>
-                            {events.map((event, index) => (
+                            {event.map((event, index) => (
                                 <ActionAreaCard
                                     key={index}
                                     date={event.date}
