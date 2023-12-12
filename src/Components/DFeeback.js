@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Grid } from "@mui/material";
 import Container from '@mui/material/Container';
 
-export default function ParticipantDecline(feedback) {
+export default function ParticipantDecline({feedback}) {
   // Define the border style
   const borderStyle = {
     border: '1px solid #000', // You can customize the border color and style
