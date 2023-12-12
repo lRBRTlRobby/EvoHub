@@ -62,6 +62,7 @@ import AdminProfile from './Admin/adminProfile';
 import AdminProfileEdit from './Admin/adminProfileEdit';
 
 
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 <React.StrictMode>
@@ -113,6 +114,7 @@ root.render(
       <Route path="/OrganizerManageRequest" element={<OrganizerManageRequest />} />
       <Route path="/AdminProfile" element={<AdminProfile />} />
       <Route path="/AdminProfileEdit" element={<AdminProfileEdit />} />
+    
 
 
 
