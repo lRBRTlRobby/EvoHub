@@ -37,8 +37,12 @@ export default function UserEventPage() {
       .then(response => {
         // setEvents(response.data);
         const tmpPart = response.data;
-        const origPart = tmpPart.find(tmpPar => tmpPar.eventId === eventId || tmpPar.userId === user.userid);
+        console.log("tmpPart: ",tmpPart);
+        console.log("TMPeventId: ",tmpPart.eventId);
+        const origPart = tmpPart.find(tmpPar => tmpPar.eventId == eventId && tmpPar.userId === user.userid && tmpPar.status !== null );
+        console.log("EventId: ",eventId);
         setParticipants(origPart);
+        console.log("origPart: ",origPart);
         
       })
       .catch(error => {
@@ -89,7 +93,8 @@ export default function UserEventPage() {
               {event.description }
             </p>
 
-            {participants.status === "Accepted"? <><ParticipantApprove /></>: <><ParticipantApprove feedback = "Sorry, your request was not approved."/></>}
+          {participants ? <>{participants.status === "Accepted"? <><ParticipantApprove /></>: <><ParticipantDecline feedback = "Sorry, your request was not approved." /></>}</>:<></>}
+            {/* {participants.status === "Accepted"? <><ParticipantApprove /></>: <><ParticipantApprove feedback = "Sorry, your request was not approved."/></>} */}
 
             <br />
             <br />

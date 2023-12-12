@@ -71,92 +71,95 @@ import Dashboard from './Admin/AdminDashboard';
 import UpdateEventForm from './Organizer/OrganizerUpdateEvent';
 import OrganEventPage from './Organizer/OrganizerEventPage';
 import OrganEventJoinRequest from './Organizer/OrganizerEventJoint';
+import { AdminProvider } from './Components/AdminProvider';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-<React.StrictMode>
-      <BrowserRouter>
-      <OrganizerProvider>
-<UserProvider>
-      <Routes>
-      <Route path="/" element={<Event />} />
-      <Route path="/EventRegister" element={<EventRegister />} />
-      <Route path="/EventUser" element={<EventUser />} />
-      <Route path="/EventOrganizer" element={<EventOrganizer />} />
-      <Route path="/EventAdmin" element={<EventAdmin />} />
-      <Route path="/EventUserHome" element={<UserHomePage/>} />
-      <Route path="/UserJoinedEvents" element={<JoinedEvents />} />
-      <Route path="/UserAboutUs" element={<PersonProfile/>} />
-      <Route path="/UserUpcomingEvents" element={<UserUpcomingEvents />} />
-      <Route path="/UserPopularEvents" element={<UserPopularEvents />} />
-      <Route path="/UserEventCategory" element={<EventCategory/>} />
-      <Route path="/UserEventJoinRequest" element={<UserEventJoinRequest />} />
-      <Route path="/OrganizerHomePage" element={<OrganizerHomePage />} />
-      <Route path="/OrganizerJoinedEvents" element={<OrganizerJoinedEvents />} />
-      <Route path="/OrganizerAppllicationForm" element={<ApplicationForm />} />
-      <Route path="/UserProfile" element={<UserProfile />} />
-      <Route path="/UserProfileEdit" element={<UserProfileEdit />} />
-      <Route path="/UserEventPage/:eventId" element={<UserEventPage />} />
-      <Route path="/ActionAreaCard" element={<ActionAreaCard />} />
-      <Route path="/UserEventJoinRequest/:eventId" element={<UserEventJoinRequest />} />
-      <Route path="/EventCategoryCCS" element={<EventCategoryCCS />} />
-      <Route path="/EventCategoryCEA" element={<EventCategoryCEA />} />
-      <Route path="/EventCategoryCASE" element={<EventCategoryCASE />} />
-      <Route path="/EventCategoryCMBA" element={<EventCategoryCMBA />} />
-      <Route path="/EventCategoryCNAHS" element={<EventCategoryCNAHS />} />
-      <Route path="/EventCategoryCCJ" element={<EventCategoryCCJ />} />
-      <Route path="/OrganizerEventCategory" element={<OrganizerEventCategory />} />
-      <Route path="/OrganizerEventCategoryCASE" element={<OrganEventCategoryCASE />} />
-      <Route path="/OrganizerEventCategoryCMBA" element={<OrganEventCategoryCMBA />} />
-      <Route path="/OrganizerEventCategoryCNAHS" element={<OrganEventCategoryCNAHS />} />
-      <Route path="/OrganizerEventCategoryCCS" element={<OrganEventCategoryCCS />} />
-      <Route path="/OrganizerEventCategoryCEA" element={<OrganEventCategoryCEA />} />
-      <Route path="/OrganizerEventCategoryCCJ" element={<OrganEventCategoryCCJ />} />
-      <Route path="/OrganizerUpcomingEvents" element={<OrganizerUpcomingEvents />} />
-      <Route path="/OrganizerCreateEvents" element={<CreateEventForm />} />
-      <Route path="/AttendeesRequirements" element={<Attendees />} />
-      <Route path="/ViewAttendees/:eventId" element={<ViewAttendees />} />
-      <Route path="/AttendeeRequests/:eventId" element={<AttendeeRequests />} />
-      <Route path="/EventDetails/:eventId" element={<EventDetails />} />
-      <Route path="/MyEvents" element={<MyEvents />} />
-      <Route path="/AdminEventReq" element={<AdminEventReq />} />
-      <Route path="/AdminOrganReq" element={<AdminOrganReq />} />
-      <Route path="/OrganizerProfile" element={<OrganizerProfile />} />
-      <Route path="/OrganizerProfileEdit" element={<OrganizerProfileEdit />} />
-      <Route path="/Dashboard" element={<Dashboard />} />
-      <Route path="/AdminProfile" element={<AdminProfile />} />
-      <Route path="/AdminProfileEdit" element={<AdminProfileEdit />} />
-      <Route path="/UpdateEvents/:eventId" element={<UpdateEventForm />}/>
-      <Route path="/OrganizerEventPage/:eventId" element={<OrganEventPage />}/>
-      <Route path="/OrganizerEventJoinRequest/:eventId" element={<OrganEventJoinRequest />}/>
+      <React.StrictMode>
+            <BrowserRouter>
+                  <AdminProvider>
+                        <OrganizerProvider>
+                              <UserProvider>
+                                    <Routes>
+                                          <Route path="/" element={<Event />} />
+                                          <Route path="/EventRegister" element={<EventRegister />} />
+                                          <Route path="/EventUser" element={<EventUser />} />
+                                          <Route path="/EventOrganizer" element={<EventOrganizer />} />
+                                          <Route path="/EventAdmin" element={<EventAdmin />} />
+                                          <Route path="/EventUserHome" element={<UserHomePage />} />
+                                          <Route path="/UserJoinedEvents" element={<JoinedEvents />} />
+                                          <Route path="/UserAboutUs" element={<PersonProfile />} />
+                                          <Route path="/UserUpcomingEvents" element={<UserUpcomingEvents />} />
+                                          <Route path="/UserPopularEvents" element={<UserPopularEvents />} />
+                                          <Route path="/UserEventCategory" element={<EventCategory />} />
+                                          <Route path="/UserEventJoinRequest" element={<UserEventJoinRequest />} />
+                                          <Route path="/OrganizerHomePage" element={<OrganizerHomePage />} />
+                                          <Route path="/OrganizerJoinedEvents" element={<OrganizerJoinedEvents />} />
+                                          <Route path="/OrganizerAppllicationForm" element={<ApplicationForm />} />
+                                          <Route path="/UserProfile" element={<UserProfile />} />
+                                          <Route path="/UserProfileEdit" element={<UserProfileEdit />} />
+                                          <Route path="/UserEventPage/:eventId" element={<UserEventPage />} />
+                                          <Route path="/ActionAreaCard" element={<ActionAreaCard />} />
+                                          <Route path="/UserEventJoinRequest/:eventId" element={<UserEventJoinRequest />} />
+                                          <Route path="/EventCategoryCCS" element={<EventCategoryCCS />} />
+                                          <Route path="/EventCategoryCEA" element={<EventCategoryCEA />} />
+                                          <Route path="/EventCategoryCASE" element={<EventCategoryCASE />} />
+                                          <Route path="/EventCategoryCMBA" element={<EventCategoryCMBA />} />
+                                          <Route path="/EventCategoryCNAHS" element={<EventCategoryCNAHS />} />
+                                          <Route path="/EventCategoryCCJ" element={<EventCategoryCCJ />} />
+                                          <Route path="/OrganizerEventCategory" element={<OrganizerEventCategory />} />
+                                          <Route path="/OrganizerEventCategoryCASE" element={<OrganEventCategoryCASE />} />
+                                          <Route path="/OrganizerEventCategoryCMBA" element={<OrganEventCategoryCMBA />} />
+                                          <Route path="/OrganizerEventCategoryCNAHS" element={<OrganEventCategoryCNAHS />} />
+                                          <Route path="/OrganizerEventCategoryCCS" element={<OrganEventCategoryCCS />} />
+                                          <Route path="/OrganizerEventCategoryCEA" element={<OrganEventCategoryCEA />} />
+                                          <Route path="/OrganizerEventCategoryCCJ" element={<OrganEventCategoryCCJ />} />
+                                          <Route path="/OrganizerUpcomingEvents" element={<OrganizerUpcomingEvents />} />
+                                          <Route path="/OrganizerCreateEvents" element={<CreateEventForm />} />
+                                          <Route path="/AttendeesRequirements" element={<Attendees />} />
+                                          <Route path="/ViewAttendees/:eventId" element={<ViewAttendees />} />
+                                          <Route path="/AttendeeRequests/:eventId" element={<AttendeeRequests />} />
+                                          <Route path="/EventDetails/:eventId" element={<EventDetails />} />
+                                          <Route path="/MyEvents" element={<MyEvents />} />
+                                          <Route path="/AdminEventReq" element={<AdminEventReq />} />
+                                          <Route path="/AdminOrganReq" element={<AdminOrganReq />} />
+                                          <Route path="/OrganizerProfile" element={<OrganizerProfile />} />
+                                          <Route path="/OrganizerProfileEdit" element={<OrganizerProfileEdit />} />
+                                          <Route path="/Dashboard" element={<Dashboard />} />
+                                          <Route path="/AdminProfile" element={<AdminProfile />} />
+                                          <Route path="/AdminProfileEdit" element={<AdminProfileEdit />} />
+                                          <Route path="/UpdateEvents/:eventId" element={<UpdateEventForm />} />
+                                          <Route path="/OrganizerEventPage/:eventId" element={<OrganEventPage />} />
+                                          <Route path="/OrganizerEventJoinRequest/:eventId" element={<OrganEventJoinRequest />} />
 
 
 
 
-      </Routes>
-      </UserProvider>
-      </OrganizerProvider>
-{/* <Footer /> */}
-{/* <JoinedEvents /> */}
-{/* <ResponsiveAppBar /> */}
-{/* <ResponsiveAppBar /> */}
-{/* <EventCategory /> */}
-{/* <EventCatBtn /> */}
-{/* <ActionAreaCard /> */}
-{/* <Upcoming /> */}
-{/* <Popular /> */}
-{/* <BackButton /> */}
-{/* <OrganizerReq /> */}
-{/* <LandingPage /> */}
+                                    </Routes>
+                              </UserProvider>
+                        </OrganizerProvider>
+                  </AdminProvider>
+                  {/* <Footer /> */}
+                  {/* <JoinedEvents /> */}
+                  {/* <ResponsiveAppBar /> */}
+                  {/* <ResponsiveAppBar /> */}
+                  {/* <EventCategory /> */}
+                  {/* <EventCatBtn /> */}
+                  {/* <ActionAreaCard /> */}
+                  {/* <Upcoming /> */}
+                  {/* <Popular /> */}
+                  {/* <BackButton /> */}
+                  {/* <OrganizerReq /> */}
+                  {/* <LandingPage /> */}
 
 
-{/* <UserHomePage /> */}
-{/* <JoinedEvents /> */}
+                  {/* <UserHomePage /> */}
+                  {/* <JoinedEvents /> */}
 
-  
-  </BrowserRouter>
-  </React.StrictMode>
+
+            </BrowserRouter>
+      </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

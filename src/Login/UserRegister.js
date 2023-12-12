@@ -180,11 +180,13 @@ export default function EventRegister() {
                                             onChange={handleChangeDept}
                                             sx={{ width: '20rem', padding: 0, margin: "0 auto", borderRadius: 50, }}
                                         >
-                                            <MenuItem value="CCS">College of Computer Science</MenuItem>
-                                            <MenuItem value="CEA">College of Civil Engineering</MenuItem>
+                                            <MenuItem value="CEA">College of Engineering and Architecture</MenuItem>
+                                            <MenuItem value="CCS">College of Computer Studies</MenuItem>
+                                            <MenuItem value="CCE">College of Civil Engineering</MenuItem>
                                             <MenuItem value="CCJ">College of Criminal Justice</MenuItem>
+                                            <MenuItem value="CMBA">College of Management, Business and Accountancy</MenuItem>
                                             <MenuItem value="CASE">College of Arts, Sciences and Education</MenuItem>
-                                            <MenuItem value="CEA">College of Nursing and Allied Health</MenuItem>
+                                            <MenuItem value="CNAHS">College of Nursing and Allied Health Sciences</MenuItem>
                                         </Select>
                                     </FormControl>
 
