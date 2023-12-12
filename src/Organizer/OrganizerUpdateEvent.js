@@ -155,15 +155,16 @@ export default function UpdateEventForm() {
       (existingEvent) =>
         existingEvent.location === formData.location &&
         existingEvent.date === formatDateForComparison(formData.date) &&
-        existingEvent.time + existingEvent.duration <= formData.time + formData.duration
+        existingEvent.time + existingEvent.duration <= formData.time + formData.duration &&
+        existingEvent.orgid !== organizer.oid
     );
     
   
     if (isLocationTaken) {
       alert('Warning: Another event already exists at the same location, date, and time.');
       return;
-      console.log('Existing Event:', allEvents.find((existingEvent) => existingEvent.time === formData.time));
-      console.log('Form Data:', formData);
+      // console.log('Existing Event:', allEvents.find((existingEvent) => existingEvent.time === formData.time));
+      // console.log('Form Data:', formData);
       // You can choose to display the warning in the UI or take further actions
 
     }

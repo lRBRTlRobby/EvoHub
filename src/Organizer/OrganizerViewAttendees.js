@@ -94,7 +94,7 @@ export default function ViewAttendees(){
         <>
             <ResponsiveAppBarOrgan />
             {/* MENU FOR REQUESTS HERE */}
-            <div style={{ background: '#C02147', height: '85px', display: 'flex', justifyContent: 'flex-end' , alignItems:"center"}}>
+            <div style={{ background: '#C02147', height: '85px', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', position: 'fixed', top: '89px', width: '100%', zIndex: 1000 }}>
                 <Link to={`/ViewAttendees/${event.eventid}`} style={{ textDecoration: 'none' }}>
                 <Button sx={{
                     backgroundColor: 'white', color: 'grey', fontFamily: "'DM Sans', sans-serif", width: '11rem', height: '3rem', fontWeight: 'bold',
@@ -120,6 +120,9 @@ export default function ViewAttendees(){
             </div>
            
             <Container maxWidth="lg">
+            <br />
+            <br />
+            <br />
             <img
                 src={`/uploads/${event.image}`}
                 alt="here"
@@ -129,6 +132,7 @@ export default function ViewAttendees(){
                 borderRadius: '45px', // Adjust the radius as needed
                 display: 'block',
                 margin: 'auto',
+                marginTop: '150px'
             }}
             />
                 <h3 style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '32px', marginRight: '600px', marginLeft: '150px' }}>{event.title}</h3>

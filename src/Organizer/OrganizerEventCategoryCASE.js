@@ -74,17 +74,18 @@ export default function OrganEventCategoryCASE() {
                             }}
                         >
                             {/* Conditional rendering based on event date and department */}
-                            {new Date(event.date) >= currentDate && (event.department === "CASE" || event.department === "None") && (
-                            <Link to={`/UserEventPage/${event.eventid}`}>
-                                <ActionAreaCard
-                                key={index}
-                                date={event.date}
-                                title={event.title}
-                                image={"/uploads/" + event.image}
-                                description={event.description}
-                                />
-                            </Link>
+                            {new Date(event.date) >= currentDate && (event.department === "CASE" || event.department === "None") && event.status === 1 && (
+                                <Link to={`/OrganizerEventPage/${event.eventid}`}>
+                                    <ActionAreaCard
+                                        key={index}
+                                        date={event.date}
+                                        title={event.title}
+                                        image={"/uploads/" + event.image}
+                                        description={event.description}
+                                    />
+                                </Link>
                             )}
+
                         </div>
                         ))}
                     </div>
@@ -108,8 +109,8 @@ export default function OrganEventCategoryCASE() {
                             }}
                         >
                             {/* Conditional rendering based on event date */}
-                            {new Date(event.date) <= currentDate && event.department === "CEA" && (
-                            <Link to={`/UserEventPage/${event.eventid}`}>
+                            {new Date(event.date) <= currentDate && event.department === "CEA" &&  event.status === 1 (
+                            <Link to={`/OrganizerEventPage/${event.eventid}`}>
                                 <ActionAreaCard
                                 key={index}
                                 date={event.date}

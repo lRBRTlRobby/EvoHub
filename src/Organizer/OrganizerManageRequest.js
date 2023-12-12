@@ -4,6 +4,7 @@ import ResponsiveAppBarOrgan from '../Components/organHeader';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export default function AttendeeRequests() {
     const [showDetails, setShowDetails] = useState(false);
@@ -12,6 +13,7 @@ export default function AttendeeRequests() {
     const [event, setEvents] = useState({});
     const { eventId } = useParams();
     const [participants, setParticipants] = useState([]);
+    const navigate = useNavigate();
 
      useEffect(() => {
       window.scroll(0, 0);
@@ -59,8 +61,6 @@ export default function AttendeeRequests() {
 
     const filteredRows = participants.filter((events) => !filterValue || participants.department === filterValue);
 
-
-
     const handleDeclinekButtonClick = (prid) => {
         console.log(`Check button clicked for row with id ${prid}`);
     };
@@ -103,13 +103,31 @@ export default function AttendeeRequests() {
             console.error('Error updating participant status:', error);
         });
     }
-
+    const handleUpdateAlert = () => {
+        // When clicked
+        const confirmEdit = window.confirm('Are you sure you want to edit the event?');
+    
+        if (confirmEdit) {
+            // Check if event.id is available
+            if (event.id) {
+                // If yes, navigate to the "UpdateEvents" page
+                navigate(`/UpdateEvents/${eventId}`);
+            } else {
+                // If event.id is not available, you may want to handle this case accordingly
+                console.error('Event ID is not available');
+            }
+        } else {
+                // Reload the window
+                window.location.reload();
+    
+        }
+      }
     console.log(event)
     return (
         <>
         <ResponsiveAppBarOrgan />
         {/* MENU FOR REQUESTS HERE */}
-        <div style={{ background: '#C02147', height: '85px', display: 'flex', justifyContent: 'flex-end' , alignItems:"center"}}>
+        <div style={{ background: '#C02147', height: '85px', display: 'flex', justifyContent: 'flex-end', alignItems: 'center', position: 'fixed', top: '89px', width: '100%', zIndex: 1000 }}>
                 <Link to={`/ViewAttendees/${event.eventid}`} style={{ textDecoration: 'none' }}>
                 <Button sx={{
                     backgroundColor: 'white', color: 'maroon', fontFamily: "'DM Sans', sans-serif", width: '11rem', height: '3rem', fontWeight: 'bold',
@@ -125,18 +143,20 @@ export default function AttendeeRequests() {
                 }}>Manage Requests
                 </Button>
                 </Link>
-                <Button >
-                    <img src="/img/EditWhite.png" alt="Edit" />
-                </Button>
+                <Link to={`/UpdateEvents/${eventId}`}>
+                    <Button onClick = {handleUpdateAlert}>
+                        <img src="/img/EditWhite.png" alt="Edit" />
+                    </Button>
+                </Link>
                 <Button> <img src="/img/DeleteWhite.png" alt="Edit" /></Button>
                 
             </div>
         <Container>
-             
-            {/* Buttons for View Attendees and ManageReq */}
-            {/* Add your button code here */}
             
             <Container maxWidth="lg">
+            <br />
+            <br />
+            <br />
             <img
                 src={`/uploads/${event.image}`}
                 alt="here"
@@ -146,6 +166,7 @@ export default function AttendeeRequests() {
                 borderRadius: '45px', // Adjust the radius as needed
                 display: 'block',
                 margin: 'auto',
+                marginTop : '150px'
             }}
             />
                 <h3 style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '32px', marginRight: '600px', marginLeft: '150px' }}>2023 - Explore, Learn, Innovate!</h3>
