@@ -193,7 +193,7 @@ export default function AdminEventReq() {
                                                 <TableCell align="center">{events.location}</TableCell>
                                                 <TableCell align="center">{events.department}</TableCell>
                                                 <TableCell align="center">{events.date}</TableCell>
-                                                <TableCell align="center" sx={{ zIndex: 1 }}><Button onClick={async() => { 
+                                                {/* <TableCell align="center" sx={{ zIndex: 1 }}><Button onClick={async() => { 
                                                     try {
                                                         const updatedFormData = {
                                                             title: events.title,
@@ -252,7 +252,7 @@ export default function AdminEventReq() {
                                                     }
                                                     }}><img src="./img/Delete.png" alt="Edit" style={{
                                                         filter: 'sepia(80%) saturate(1000%) hue-rotate(330deg)',
-                                                      }}/></Button></TableCell>
+                                                      }}/></Button></TableCell> */}
                                             </TableRow>
                                         ))}
                                 </>
@@ -318,9 +318,7 @@ export default function AdminEventReq() {
                                                     } catch (error) {
                                                         console.error('Error accepting event request:', error);
                                                     }
-                                                    }}><img src="./img/Edit.png" alt="Edit" style={{
-                                                        filter: 'sepia(60%) saturate(20000%) hue-rotate(31deg)',
-                                                      }}/></Button></TableCell>
+                                                    }}><img src="./img/Donecheck.png" alt="Edit" /></Button></TableCell>
                                                 <TableCell align="center"><Button onClick={async() => { 
                                                     try {
                                                         const updatedFormData = {
@@ -348,9 +346,7 @@ export default function AdminEventReq() {
                                                     } catch (error) {
                                                         console.error('Error accepting event request:', error);
                                                     }
-                                                    }}><img src="./img/Delete.png" alt="Edit" style={{
-                                                        filter: 'sepia(80%) saturate(1000%) hue-rotate(330deg)',
-                                                      }}/></Button></TableCell>
+                                                    }}><img src="./img/RedDeleteBtn.png" alt="Edit" /></Button></TableCell>
                                             </TableRow>
                                         ))}
                                 </>
