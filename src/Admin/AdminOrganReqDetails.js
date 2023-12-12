@@ -167,9 +167,9 @@ export default function AdminOrganReqDetails({
             {manageOrganizerRequest.organization}
           </p>
 
-          <p style={{ textDecoration: "underline", fontWeight: "bold" }}>
+          {/* <p style={{ textDecoration: "underline", fontWeight: "bold" }}>
             Proof of Approval From SAO or Department
-          </p>
+          </p> */}
 
           <p style={{ textDecoration: "underline", fontWeight: "bold" }}>
             Message to the Admin for Request of Approval
