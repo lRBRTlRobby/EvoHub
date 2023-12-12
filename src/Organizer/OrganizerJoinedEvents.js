@@ -7,11 +7,14 @@ import Footer from '../Components/footer';
 import ResponsiveAppBarOrgan from '../Components/organHeader';
 import axios from 'axios'
 import { Link } from 'react-router-dom';
+import { useOrganizer } from '../Components/OrganizerProvider';
 
 export default function OrganizerJoinedEvents() {
     const containerRef = useRef(null);
     const containerRef1 = useRef(null);
     const [event, setEvents] = useState([]);
+    const [participant, setParticipants] = useState([]);
+    const {organizer} = useOrganizer();
 
     const scrollLeft = () => {
         if (containerRef.current) {
@@ -39,21 +42,44 @@ export default function OrganizerJoinedEvents() {
     useEffect(() => {
         window.scroll(0, 0);
         axios.get('http://localhost:8080/participantrequest/getAllParRequests')
-          .then(response => {
-            const filteredEvents= response.data.filter(participant => participant.status === "Accepted") ;
-            
-            console.log(filteredEvents)
-            // Set the filtered participants
-            setEvents(filteredEvents);
-          
-            // Set the events if needed
-            // setEvents(filteredParticipants);
-          })
-          .catch(error => {
-            console.error('Error fetching events:', error);
-          });
-      }, []);
-
+            .then(response => {
+                const filteredEvents = response.data.filter(participant => participant.status === "Accepted" && participant.organizerId === organizer.oid);
+                console.log("Filtered Events:", filteredEvents);
+                setParticipants(filteredEvents);
+            })
+            .catch(error => {
+                console.error('Error fetching events:', error);
+            });
+    }, []);
+    
+    useEffect(() => {
+        if (participant.length > 0) {
+            // Extract eventIds from participants
+            const eventIds = participant.map(participant => participant.eventId);
+    
+            // Fetch all events
+            axios.get('http://localhost:8080/Event/getAllEvents')
+                .then(response => {
+                    // Filter events based on eventIds
+                    const filtered = response.data.filter(event => eventIds.includes(event.eventId));
+                    
+                    // Set the filtered events
+                    console.log("EventIds:", eventIds);
+                    console.log("Filtered Events:", filtered);
+                    setEvents(filtered);
+                })
+                .catch(error => {
+                    console.error('Error fetching events:', error);
+                });
+        }
+    }, [participant]);
+    
+    
+    
+    
+      console.log("Organizer", organizer.oid)
+      console.log("Participants ", participant)
+      console.log("Event id from particiapnt ", event)
     return (
         <div>
             <ResponsiveAppBarOrgan />

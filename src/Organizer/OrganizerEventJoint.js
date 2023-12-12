@@ -21,12 +21,14 @@ import "../Components/EventCatBtn.css";
 import Container from '@mui/material/Container';
 import { useUser } from '../Components/UserProvider';
 import ResponsiveAppBarOrgan from '../Components/organHeader';
+import { useOrganizer } from '../Components/OrganizerProvider';
 
 
 export default function OrganEventJoinRequest() {
   const { user } = useUser();
   const [event, setEvents] = useState({});
   const { eventId } = useParams();
+  const {organizer} = useOrganizer();
   const [formData, setFormData] = useState({
     fname: "",
     lname: "",
@@ -66,7 +68,7 @@ export default function OrganEventJoinRequest() {
     if (
       // (event.yearlevel === 0 || event.yearlevel === formData.yearlevel) 
       // &&
-      (event.department === formData.department)
+      (event.department === 'None' || event.department === formData.department)
     ) {
       const response = await axios.post('http://localhost:8080/participantrequest/insertParRequest', {
         firstname: user.fname,
@@ -75,7 +77,8 @@ export default function OrganEventJoinRequest() {
         yearlevel: formData.yearlevel,
         department: formData.department,
         eventId: eventId,
-        userId: user.userid,
+        userId: 0,
+        organizerId: organizer.oid,
       });
 
       window.alert('Request Successfully Requested to the organizer');
@@ -167,11 +170,11 @@ console.log("USER ID",user.userid);
                 value={formData.department}
                 onChange={handleChange}
               >
-                <MenuItem value="CCS">College of Computer Science</MenuItem>
-                <MenuItem value="CEA">College of Civil Engineering</MenuItem>
-                <MenuItem value="CCJ">College of Criminal Justice</MenuItem>
-                <MenuItem value="CASE">College of Arts, Sciences and Education</MenuItem>
-                <MenuItem value="CNAHS">College of Nursing and Allied Health Sciences</MenuItem>
+                <MenuItem value="CCS">CCS</MenuItem>
+                <MenuItem value="CEA">CEA</MenuItem>
+                <MenuItem value="CCJ">CCJ</MenuItem>
+                <MenuItem value="CASE">CASE</MenuItem>
+                <MenuItem value="CNAHS">CNAHS</MenuItem>
               </Select>
             </FormControl>
 
