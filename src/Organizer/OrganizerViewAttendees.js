@@ -72,7 +72,7 @@ export default function ViewAttendees(){
 
         if (confirmEdit) {
             // Check if event.id is available
-            if (event.id) {
+            if (event.eventid) {
                 // If yes, navigate to the "UpdateEvents" page
                 navigate(`/UpdateEvents/${eventId}`);
             } else {
@@ -214,10 +214,10 @@ export default function ViewAttendees(){
             <Container maxWidth="lg">
             <br />
             <div style={{ textAlign: "center" }}>
-                <h2 style={{ fontFamily: 'DM Sans, sans-serif', textAlign: 'left' }}>About this event</h2>
-                <p style={{ textAlign: 'left'}}>
-                {event.description }
-                </p>
+            <h2 style={{ fontFamily: 'DM Sans, sans-serif', textAlign: 'left' }}>About this event</h2>
+            <p style={{ textAlign: 'left'}}>
+              {event.description }
+            </p>
             </div>
             <br></br>
             <br></br>

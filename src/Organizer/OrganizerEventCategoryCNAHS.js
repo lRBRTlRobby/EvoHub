@@ -72,8 +72,8 @@ export default function EventCategoryCNAHS() {
                             }}
                         >
                             {/* Conditional rendering based on event date and department */}
-                            {new Date(event.date) >= currentDate && (event.department === "CNAHS" || event.department === "None") && event.status === 1 && event.isDeleted === 0 (
-                                <Link to={`/OrganizerEventPage/${event.eventid}`}>
+                            {new Date(event.date) >= currentDate && (event.department === "CNAHS" || event.department === "None") && event.status === 1 && event.isDeleted === 0 ? (
+                                <Link to={`/OrganizerEventPage/${event.eventid}`} style={{textDecoration:'none'}}>
                                     <ActionAreaCard
                                         key={index}
                                         date={event.date}
@@ -82,7 +82,7 @@ export default function EventCategoryCNAHS() {
                                         description={event.description}
                                     />
                                 </Link>
-                            )}
+                            ):null}
                         </div>
                         ))}
                     </div>
@@ -106,8 +106,8 @@ export default function EventCategoryCNAHS() {
                             }}
                         >
                             {/* Conditional rendering based on event date and department */}
-                            {new Date(event.date) <= currentDate && (event.department === "CNAHS" || event.department === "None") && event.status === 1 && event.isDeleted === 0 (
-                            <Link to={`/OrganizerEventPage/${event.eventid}`}>
+                            {new Date(event.date) <= currentDate && (event.department === "CNAHS" || event.department === "None") && event.status === 1 && event.isDeleted === 0 ? (
+                            <Link to={`/OrganizerEventPage/${event.eventid}`} style={{textDecoration:'none'}}>
                                 <ActionAreaCard
                                 key={index}
                                 date={event.date}
@@ -116,7 +116,7 @@ export default function EventCategoryCNAHS() {
                                 description={event.description}
                                 />
                             </Link>
-                            )}
+                            ): null}
                         </div>
                         ))}
                         </div>

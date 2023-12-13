@@ -61,29 +61,16 @@ export default function OrganEventJoinRequest() {
   const handleSubmit = async (e) => {
   e.preventDefault();
 
-  const departmentAcronyms = {
-    'CEA': 'College of Engineering and Architecture',
-    'CCS': 'College of Computer Studies',
-    'CCE': 'College of Civil Engineering',
-    'CCJ': 'College of Criminal Justice',
-    'CMBA': 'College of Management, Business and Accountancy',
-    'CASE': 'College of Arts, Sciences and Education',
-    'CNAHS': 'College of Nursing and Allied Health Sciences',
-};
-
-const organizerAcronym = organizer?.department?.toUpperCase() || '';
-
   try {
     // Fetch event details to check year level and department conditions
     const eventResponse = await axios.get(`http://localhost:8080/Event/getEvent/${eventId}`);
     const event = eventResponse.data;
-    
-
+  
     // Check if both year level and department are allowed
     if (
       // (event.yearlevel === 0 || event.yearlevel === formData.yearlevel) 
       // &&
-      (event.department === 'None' || event.department.toUpperCase().includes(departmentAcronyms[organizerAcronym].toUpperCase()))
+      (event.department === 'None' || event.department.toUpperCase() === organizer.department.toUpperCase())
     ) {
       const response = await axios.post('http://localhost:8080/participantrequest/insertParRequest', {
         fname: organizer.fname,
@@ -192,6 +179,7 @@ console.log("USER ID",user.userid);
                 <MenuItem value="CCJ">CCJ</MenuItem>
                 <MenuItem value="CASE">CASE</MenuItem>
                 <MenuItem value="CNAHS">CNAHS</MenuItem>
+                <MenuItem value="IT">IT</MenuItem>
               </Select>
             </FormControl>
 

@@ -62,12 +62,13 @@ export default function EventDetails() {
 
     if (confirmEdit) {
         // Check if event.id is available
-        if (event.id) {
+        if (event.eventid) {
             // If yes, navigate to the "UpdateEvents" page
             navigate(`/UpdateEvents/${eventId}`);
         } else {
             // If event.id is not available, you may want to handle this case accordingly
             console.error('Event ID is not available');
+            console.log(event.eventid)
         }
     } else {
             // Reload the window
@@ -194,8 +195,11 @@ export default function EventDetails() {
       <Container maxWidth="lg">
         <br />
         <div style={{ textAlign: 'center' }}>
+          
           <h2 style={{ fontFamily: 'DM Sans, sans-serif', textAlign: 'left' }}>About this event</h2>
-          <p style={{ textAlign: 'left', fontSize: '14px' }}>{event.description}</p>
+            <p style={{ textAlign: 'left'}}>
+              {event.description }
+            </p>
 
           <br />
           <br />
@@ -208,10 +212,6 @@ export default function EventDetails() {
           <br />
           <br />
         </div>
-        <div style={{ marginLeft: '450px' }}>
-          <ButtonM name="Contact us" />
-        </div>
-
         <br />
         <br />
         <br />

@@ -123,22 +123,6 @@ export default function OrganizerJoinedEvents() {
                 <img style={{ minWidth: '100%', minHeight: '35vw', objectFit: 'cover', marginTop: 0 }} src="/img/Joined.jpg" alt="logo" className='logo' />
             </div>
             <Container maxWidth="lg">
-                <div style={{ backgroundColor: '#C02147', display: "flex", justifyContent: "center", alignItems: "center", height: '8rem', width: '90%', margin: "2rem auto", padding: 0, borderRadius: 50 }}>
-                    <TextField
-                        className='txt'
-                        id="outlined-password-input"
-                        label="Search event here..."
-                        type="text"
-                        variant='outlined'
-                        InputProps={{ sx: { backgroundColor: 'white', height: "5rem" } }}
-                        InputLabelProps={{ sx: { position: 'absolute', top: '.2rem' } }}
-                        sx={{ margin: "0", padding: 0, width: "38rem", right: "1.5rem" }}
-                    /><Button sx={{
-                        backgroundColor: '#EAA021', color: 'white', fontFamily: "'DM Sans', sans-serif", width: '18rem', height: '4rem',
-                        display: "flex", justifyContent: "center", left: "1.5rem", padding: 0, borderRadius: 50
-                    }}>Search Event</Button>
-                </div>
-                
                 <div>
                     <h2 style={{ fontFamily: "'DM Sans', sans-serif" }}>Upcoming Events</h2>
 
@@ -153,7 +137,7 @@ export default function OrganizerJoinedEvents() {
                                 >
                                     {/* Conditional rendering based on event date */}
                                     {new Date(event.date) > currentDate && (
-                                    <Link to={`/OrganizerEventPage/${event.eventid}`}>
+                                    <Link to={`/OrganizerEventPage/${event.eventid}`} style={{textDecoration:'none'}}>
                                         <ActionAreaCard
                                         key={index}
                                         date={event.date}
@@ -187,7 +171,7 @@ export default function OrganizerJoinedEvents() {
                                 >
                                     {/* Conditional rendering based on event date */}
                                     {new Date(event.date) < currentDate && (
-                                    <Link to={`/OrganizerEventPage/${event.eventid}`}>
+                                    <Link to={`/OrganizerEventPage/${event.eventid}`} style={{textDecoration:'none'}}>
                                         <ActionAreaCard
                                         key={index}
                                         date={event.date}
