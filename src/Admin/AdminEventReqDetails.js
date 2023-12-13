@@ -82,7 +82,7 @@ export default function AdminEventReqDetails({ setShowDetails, setId }) {
             <div style={{ padding: "2rem" }}>
                 <h2 style={{ fontFamily: "'DM Sans', sans-serif", marginTop: "5rem" }}>{event.title}</h2>
                 <p style={{ textDecoration: 'underline', fontWeight: 'bold' }}>Event Details</p>
-                <p style={{ textAlign: 'justify' }}>{event.description}</p>
+                <p style={{ textAlign: 'justify', overflowWrap: 'break-word' }}>{event.description}</p>
                 <p style={{ textDecoration: 'underline', fontWeight: 'bold' }}>Date & Time</p>
                 <p style={{ textAlign: 'justify' }}>{event.date}&nbsp;&nbsp;&nbsp;{event.time}</p>
                 <p style={{ textDecoration: 'underline', fontWeight: 'bold' }}>Location</p>
