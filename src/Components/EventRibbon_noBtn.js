@@ -18,7 +18,7 @@ const convertToAmPm = (militaryTime) => {
   return `${formattedHours}:${minutes} ${period}`;
 };
 
-export default function EventRibbon_noBtn  ({ title, date, time, venue, joined, request, rsvpLink, path })  {
+export default function EventRibbon_noBtn  ({  date, time, venue, joined, request })  {
   // Convert military time to AM/PM format
   const formattedTime = convertToAmPm(time);
   const { eventId } = useParams();

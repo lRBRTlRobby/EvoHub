@@ -27,7 +27,7 @@ const Developers = [
   },{
     image : "/img/Profile.png",
     name : "Kyle Weig",
-    motto : "Go with the flow"
+    motto : "Embrace to journey"
 
   }
   

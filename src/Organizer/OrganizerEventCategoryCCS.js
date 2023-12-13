@@ -71,7 +71,7 @@ export default function EventCategoryCCS() {
                             }}
                         >
                             {/* Conditional rendering based on event date and department */}
-                            {new Date(event.date) >= currentDate && (event.department === "CCS" || event.department === "None") && event.status === 1 && (
+                            {new Date(event.date) >= currentDate && (event.department === "CCS" || event.department === "None") && event.status === 1 &&  event.isDeleted === 0 ?(
                                 <Link to={`/OrganizerEventPage/${event.eventid}`}>
                                     <ActionAreaCard
                                         key={index}
@@ -81,7 +81,7 @@ export default function EventCategoryCCS() {
                                         description={event.description}
                                     />
                                 </Link>
-                            )}
+                            ): null }
                         </div>
                         ))}
                     </div>

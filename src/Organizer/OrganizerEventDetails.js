@@ -12,14 +12,18 @@ import ResponsiveAppBarOrgan from '../Components/organHeader';
 import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import Modal from '../Components/PopUp';
+
 
 export default function EventDetails() {
   const [event, setEvents] = useState({});
   const [showDeletePopup, setShowDeletePopup] = useState(false);
   const { eventId } = useParams();
   const [requestCount, setRequestCount] = useState(0);
-const [joinedCount, setJoinedCount] = useState(0);
+  const [joinedCount, setJoinedCount] = useState(0);
   const navigate = useNavigate();
+  const [isModalOpen, setModalOpen] = useState(false);
+  
 
 
   useEffect(() => {
@@ -52,10 +56,6 @@ const [joinedCount, setJoinedCount] = useState(0);
       });
   }, [eventId]);
 
-  const handleDeleteClick = () => {
-    setShowDeletePopup(true);
-  };
-
   const handleUpdateAlert = () => {
     // When clicked
     const confirmEdit = window.confirm('Are you sure you want to edit the event?');
@@ -75,6 +75,43 @@ const [joinedCount, setJoinedCount] = useState(0);
 
     }
   }
+  const handleDelete = async () => {
+    try {
+      await axios.put(`http://localhost:8080/Event/updateEvent?eventid=${eventId}`,
+      
+      {
+        "eventid": event.eventId,
+        "title": event.title,
+        "description": event.description,
+        "date": event.date,
+        "time": event.time,
+        "duration": event.duration,
+        "location": event.location,
+        "organizer": event.organizer,
+        "yearlevel": event.yearlevel,
+        "department": event.department,
+        "payment": event.payment,
+        "maxAttend": event.maxAttend,
+        "image": event.image,
+        "orgid": event.orgid,
+        "status": event.status,
+        "isDeleted": 1
+
+    });
+  
+      navigate('/MyEvents');
+    } catch (error) {
+      // Handle errors, e.g., show an error message
+      alert('Error deleting event:', error);
+    }
+  };
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
   return (
     <div>
       <ResponsiveAppBarOrgan />
@@ -95,12 +132,32 @@ const [joinedCount, setJoinedCount] = useState(0);
           }}>Manage Requests
           </Button>
         </Link>
-        <Link to={`/UpdateEvents/${eventId}`}>
+        
             <Button onClick = {handleUpdateAlert}>
                 <img src="/img/EditWhite.png" alt="Edit" />
             </Button>
-        </Link>
-        <Button> <img src="/img/DeleteWhite.png" alt="Edit" /></Button>
+        
+        <Button onClick={openModal}>
+          <img src="/img/DeleteWhite.png" alt="Edit" />
+        </Button>
+
+        {/* Render the Modal component */}
+        <Modal isOpen={isModalOpen} onClose={closeModal} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+          <p style={{ textAlign: 'center' }}>Are you certain you wish to delete the event?</p>
+          <p style={{ color: 'grey', fontSize: '14px', fontStyle: 'italic', textAlign: 'center' }}>
+            This action will promptly eliminate the event from the administrator's records.
+          </p>
+          <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', marginTop: '16px' }}>
+            <Button style={{ backgroundColor: '#aaa', color: '#fff' }} onClick={closeModal}>
+              Close
+            </Button>
+            <Button style={{ backgroundColor: '#ff5050', color: '#fff' }} onClick={handleDelete}>
+              Delete
+            </Button>
+          </div>
+        </Modal>
+
+
         
       </div>
 
