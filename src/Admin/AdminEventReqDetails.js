@@ -130,9 +130,9 @@ export default function AdminEventReqDetails({ setShowDetails, setId }) {
                 <br />
                 <div style={{ backgroundColor: '#f5f5f5', borderRadius: '20px', marginBottom: '1rem', width: '30%', padding: '1rem' }}>
                     <p style={{ textDecoration: 'underline', fontWeight: 'bold' }}>Requestor Information:</p>
-                    <p style={{ fontWeight: 'bold' }}>First Name: {firstN}</p>
-                    <p style={{ fontWeight: 'bold' }}>Last Name: {lastN}</p>
-                    <p style={{ fontWeight: 'bold' }}>School Email: {event.organEmail}</p>
+                    <p><b>First Name:</b> {firstN}</p>
+                    <p><b>Last Name:</b> {lastN}</p>
+                    <p><b>School Email:</b> {event.organEmail}</p>
                     {/* <p style={{ fontWeight: 'bold' }}>Department: CCS</p>
                     <p style={{ fontWeight: 'bold' }}>Organization: GDSC</p> */}
                 </div>

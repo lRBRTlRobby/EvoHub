@@ -82,7 +82,7 @@ export default function OrganizerUpcomingEvents() {
                   >
                     {/* Conditional rendering based on event date */}
                     {new Date(event.date) >= currentDate && (
-                      <Link to={`/UserEventPage/${event.eventid}`}>
+                      <Link to={`/UserEventPage/${event.eventid}`} style={{textDecoration:'none'}}>
                         <ActionAreaCard
                           key={index}
                           date={event.date}

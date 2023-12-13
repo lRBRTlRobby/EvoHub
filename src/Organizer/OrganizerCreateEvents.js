@@ -15,10 +15,21 @@ export default function CreateEventForm() {
   const [formSubmitted, setFormSubmitted] = useState(false); 
   const [file, setFile] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
+  const [allEvents, setAllEvents] = useState({});
  
   useEffect(() => {
     window.scroll(0, 0);
-  }, [formSubmitted]);
+    
+    axios.get(`http://localhost:8080/Event/getAllEvents`)
+      .then(response => {
+        console.log(response.data);
+        setAllEvents(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching events:', error);
+      });
+  }, []);
+  
  
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -63,9 +74,6 @@ export default function CreateEventForm() {
   // };
 
 
-
-
-
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
@@ -102,7 +110,14 @@ export default function CreateEventForm() {
     });
   };
   
+  const formatDateForComparison = (dateString) => {
+    const dateObject = new Date(dateString);
+    const month = dateObject.toLocaleDateString('en-US', { month: 'short' });
+    const day = dateObject.getDate();
+    const year = dateObject.getFullYear();
   
+    return `${month} ${day}, ${year}`;
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
   
@@ -112,6 +127,23 @@ export default function CreateEventForm() {
         alert(`Please fill in the ${key.replace(/([A-Z])/g, ' $1').toLowerCase()}`);
         return;
       }
+    }
+
+    const isLocationTaken = allEvents.some(
+      (existingEvent) =>
+        existingEvent.location === formData.location &&
+        existingEvent.date === formatDateForComparison(formData.date) &&
+        existingEvent.time + existingEvent.duration <= formData.time + formData.duration
+    );
+    
+  
+    if (isLocationTaken) {
+      alert('Warning: Another event already exists at the same location, date, and time.');
+      return;
+      // console.log('Existing Event:', allEvents.find((existingEvent) => existingEvent.time === formData.time));
+      // console.log('Form Data:', formData);
+      // You can choose to display the warning in the UI or take further actions
+
     }
   
     try {
@@ -403,90 +435,6 @@ console.log(formData)
                       disabled
                     />  
                 </div>
-                
-              {/* 
-
-            <div>
-              <button
-                type="button"
-                onClick={handleAddOrganizer}
-                style={{
-                  backgroundColor: "#008000",
-                  color: "white",
-                  borderRadius: "10px",
-                  padding: "10px",
-                  cursor: "pointer",
-                }}
-              >
-                Add More Organizer
-              </button>
-            </div>
-            </div>
-
-            Add Sponsors
-            <div className="form-group" style={{ marginTop: "2rem" }}>
-                <h5
-                  style={{
-                    fontFamily: "DM Sans",
-                    marginTop: "1rem",
-                    color: "#666666",
-                  }}
-                >
-                  Add Sponsors
-                </h5>
-
-                {formData.sponsors.map((sponsor, index) => (
-                  <div key={index} style={{ marginBottom: "1rem" }}>
-                    <div style={{ display: "flex" }}>
-                      <input
-                        type="text"
-                        id={`sponsor-${index}`}
-                        name="name" // Changed to "name" to match the property in formData.sponsors
-                        value={sponsor.name}
-                        placeholder={`Sponsor ${index + 1} Name`}
-                        onChange={(e) => handleSponsorChange(e, index)}
-                        style={{
-                          width: "30%",
-                          height: "45px",
-                          borderRadius: "45px",
-                          padding: "0 15px",
-                          marginRight: "10px",
-                        }}
-                        required
-                      />
-
-                      <button
-                        type="button"
-                        onClick={() => handleRemoveSponsor(index)}
-                        style={{
-                          backgroundColor: "#FF0000",
-                          color: "white",
-                          borderRadius: "10px",
-                          padding: "10px",
-                          cursor: "pointer",
-                        }}
-                      >
-                        Remove
-                      </button>
-                    </div>
-                  </div>
-                ))}
-                <div>
-                  <button
-                    type="button"
-                    onClick={handleAddSponsor}
-                    style={{
-                      backgroundColor: "#008000",
-                      color: "white",
-                      borderRadius: "10px",
-                      padding: "10px",
-                      cursor: "pointer",
-                    }}
-                  >
-                    Add More Sponsor
-                  </button>
-            </div>
-            </div> */}
             {/* Specify year Level*/}
             <div className="form-group" style={{ marginTop: "2rem" }}>
               <h5
@@ -546,12 +494,12 @@ console.log(formData)
                     }}
                   >
                   <option value="" disabled>Select department</option>
-                  <option value="College of Engineering and Architecture">CEA</option>
-                  <option value="College of Computer Studies">CCS</option>
-                  <option value="College of Mngnt, Bussiness and Administration">CMBA</option>
-                  <option value="College of Nursing and Allied Health Sciences">CASE</option>
-                  <option value="College of Natural Arts of Health Sciences">CNAHS</option>
-                  <option value="College of Criminal Justice">CCJ</option>
+                  <option value="CEA">CEA</option>
+                  <option value="CCS">CCS</option>
+                  <option value="CMBA">CMBA</option>
+                  <option value="CASE">CASE</option>
+                  <option value="CNAHS">CNAHS</option>
+                  <option value="CCJ">CCJ</option>
                   <option value="None">None</option>
                   </select>
                 </div>

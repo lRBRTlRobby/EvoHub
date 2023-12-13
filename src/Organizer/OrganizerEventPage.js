@@ -64,6 +64,7 @@ export default function OrganEventPage() {
           borderRadius: '45px', // Adjust the radius as needed
           display: 'block',
           margin: 'auto',
+          marginTop: '85px'
          }} 
         />
           <h2 style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '32px', marginRight: '600px', marginLeft: '150px' }}>
@@ -75,7 +76,9 @@ export default function OrganEventPage() {
           </p>
 
           <p style={{ textAlign: 'justify', width: '810px', marginRight: '350px', marginLeft: '150px', fontSize: '18px' }}>
-            {event.yearlevel === 0 ? 'Open to everyone! Join us for a fantastic time!' : `This event is exclusively for ${event.yearlevel}th year  college students.`}
+          {event.department === 'None' ? 'Open to every department' : `This event is exclusively for ${event.department} college students.`}
+
+            {event.yearlevel === 0 ? 'Open to all levels! Join us for a fantastic time!' : `This event is exclusively for ${event.yearlevel}th year  college students.`}
             <br/>
             {event.payment === 'No' ? "Complimentary attendance—no payment required." : "Please note that payment is required for participation."}
 
@@ -101,7 +104,7 @@ export default function OrganEventPage() {
               {event.description }
             </p>
 
-            {participants.status === "Accepted"? <><ParticipantApprove /></>: <><ParticipantApprove feedback = "Sorry, your request was not approved."/></>}
+            {/* {participants.status === "Accepted"? <><ParticipantApprove /></>: <><ParticipantApprove feedback = "Sorry, your request was not approved."/></>} */}
 
             <br />
             <br />
@@ -119,17 +122,12 @@ export default function OrganEventPage() {
             <br></br>
             <br></br>
           </div>
-          <div style={{ marginLeft: '450px' }}>
+          {/* <div style={{ marginLeft: '450px' }}>
             <ButtonM name="Contact us" />
-          </div>
-
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
+          </div> */}
+         
         </Container>
-      <Footer />
+        <Footer/>
     </>
   );
 }

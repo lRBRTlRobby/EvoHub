@@ -87,7 +87,7 @@ function ResponsiveAppBarOrgan() {
 
   return (
     
-    <AppBar position="static" sx={{background:"white"}}>
+    <AppBar position="fixed" sx={{background:"white"}}>
       <Container maxWidth="lg">
         <Toolbar >
           <Typography
@@ -149,7 +149,7 @@ function ResponsiveAppBarOrgan() {
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex'}}}>
             {pages.map((page) => (
               <Link
-              sx={{ textDecoration: 'none' }}
+              style={{ textDecoration: 'none' }}
               to={getPagePath(page)}
               >
               <Button
@@ -190,6 +190,7 @@ function ResponsiveAppBarOrgan() {
               {settings.map((setting) => (
                 <Link 
                 to={getSettingPath(setting)}
+                style={{ textDecoration: 'none' }}
                 >
                 <MenuItem key={setting} onClick={setting === 'Logout' ? handleLogout : handleCloseUserMenu}>
                   <Typography textAlign="center">{setting}</Typography>

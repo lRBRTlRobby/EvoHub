@@ -10,6 +10,7 @@ import axios from 'axios';
 import { Button } from '@mui/material'
 import { useOrganizer } from '../Components/OrganizerProvider';
 import { useParams } from "react-router-dom";
+import Footer from "../Components/footer";
 
 export default function UpdateEventForm() {
   const { organizer } = useOrganizer();
@@ -155,15 +156,16 @@ export default function UpdateEventForm() {
       (existingEvent) =>
         existingEvent.location === formData.location &&
         existingEvent.date === formatDateForComparison(formData.date) &&
-        existingEvent.time + existingEvent.duration <= formData.time + formData.duration
+        existingEvent.time + existingEvent.duration <= formData.time + formData.duration &&
+        existingEvent.orgid !== organizer.oid
     );
     
   
     if (isLocationTaken) {
       alert('Warning: Another event already exists at the same location, date, and time.');
       return;
-      console.log('Existing Event:', allEvents.find((existingEvent) => existingEvent.time === formData.time));
-      console.log('Form Data:', formData);
+      // console.log('Existing Event:', allEvents.find((existingEvent) => existingEvent.time === formData.time));
+      // console.log('Form Data:', formData);
       // You can choose to display the warning in the UI or take further actions
 
     }
@@ -247,7 +249,7 @@ console.log(formData)
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
           <Grid  xs={8}>
-            <h2 style={{ fontFamily: "'DM Sans', sans-serif" ,textAlign:"left"}}>Update Event Form</h2>
+            <h2 style={{ fontFamily: "'DM Sans', sans-serif" ,textAlign:"left",marginTop: '150px'}}>Update Event Form</h2>
 
             <form onSubmit={handleSubmit}>
               {/* Event Title */}
@@ -632,12 +634,13 @@ console.log(formData)
 
           </Grid>
           <Grid  xs={4}>
-            <img src="img/tips.png" alt="logo"  style={{width:"100%"}} />
+            <img src="/img/tips.png" alt="logo"  style={{width:"100%", marginTop: '150px'}} />
           </Grid>
           
         </Grid>
       </Box>
       </Container>
+      <Footer/>
     </>
     
   );

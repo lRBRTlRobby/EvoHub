@@ -8,7 +8,7 @@ import Container from '@mui/material/Container';
 const Footer = () => {
   return (
     <>
-    <img src="img/footer.png" alt="logo" style={{width:'100%'}}/>
+    <img src="/img/footer.png" alt="logo" style={{width:'100%'}}/>
 
     </>
   )
