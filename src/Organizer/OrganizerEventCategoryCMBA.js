@@ -71,7 +71,7 @@ export default function EventCategoryCMBA() {
                             }}
                         >
                             {/* Conditional rendering based on event date and department */}
-                            {new Date(event.date) >= currentDate && (event.department === "CMBA" || event.department === "None") && event.status === 1 && (
+                            {new Date(event.date) >= currentDate && (event.department === "CMBA" || event.department === "None") && event.status === 1 && event.isDeleted === 0(
                                 <Link to={`/OrganizerEventPage/${event.eventid}`}>
                                     <ActionAreaCard
                                         key={index}
@@ -105,7 +105,7 @@ export default function EventCategoryCMBA() {
                             }}
                         >
                             {/* Conditional rendering based on event date */}
-                            {new Date(event.date) <= currentDate && event.department === "CMBA" &&  event.status === 1 (
+                            {new Date(event.date) <= currentDate && event.department === "CMBA" &&  event.status === 1 && event.isDeleted === 0 (
                             <Link to={`/OrganizerEventPage/${event.eventid}`}>
                                 <ActionAreaCard
                                 key={index}

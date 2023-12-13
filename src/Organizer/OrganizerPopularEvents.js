@@ -6,11 +6,13 @@ import { useState, useEffect } from "react";
 import ResponsiveAppBarOrgan from "../Components/organHeader";
 import Footer from "../Components/footer";
 import axios from "axios";
+import { Link } from 'react-router-dom';
 
-export default function UserPopularEvents() {
+export default function OrganPopularEvents() {
   const containerRef = useRef(null);
   const containerRef1 = useRef(null);
   const [event, setEvents] = useState([]);
+  const currentDate = new Date();
 
   useEffect(() => {
     axios
@@ -77,12 +79,18 @@ export default function UserPopularEvents() {
                     padding: ".5rem",
                   }}
                 >
-                  <ActionAreaCard
-                    date={event.date}
-                    title={event.title}
-                    image={"/uploads/" + event.image}
-                    description={event.description}
-                  />
+                  {/* Conditional rendering based on event date */}
+                  {new Date(event.date) > currentDate && event.status === 1 && event.isDeleted === 0 ? (
+                    <Link to={`/OrganizerEventPage/${event.eventid}`} style={{ textDecoration: "none" }}>
+                        <ActionAreaCard
+                        key={index}
+                        date={event.date}
+                        title={event.title}
+                        image={`/uploads/${event.image}`}
+                        description={event.description}
+                        />
+                    </Link>
+                    ) : null}
                 </div>
               ))}
             </div>

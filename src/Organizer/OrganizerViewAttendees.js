@@ -9,6 +9,7 @@ import ResponsiveAppBarOrgan from "../Components/organHeader";
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import Modal from '../Components/PopUp';
 
 export default function ViewAttendees(){
     const [filterValue, setFilterValue] = useState('');
@@ -16,6 +17,7 @@ export default function ViewAttendees(){
     const { eventId } = useParams();
     const [participants, setParticipants] = useState([]);
     const navigate = useNavigate();
+    const [isModalOpen, setModalOpen] = useState(false);
    
     useEffect(() => {
       window.scroll(0, 0);
@@ -50,7 +52,6 @@ export default function ViewAttendees(){
     function createData(prid, firstname, lastname, email, department, yearlevel, eventId, userId) {
         return { prid, firstname, lastname, email, department, yearlevel, eventId, userId };
     }
-
     const rows = participants.map(participant =>
         createData(
             participant.prid,
@@ -63,9 +64,8 @@ export default function ViewAttendees(){
             participant.userId
         )
     );
-
     const filteredRows = rows.filter((row) => (!filterValue || row.carbs === filterValue));
-    
+
     const handleUpdateAlert = () => {
         // When clicked
         const confirmEdit = window.confirm('Are you sure you want to edit the event?');
@@ -85,11 +85,44 @@ export default function ViewAttendees(){
 
         }
     }
-
+    const openModal = () => {
+        setModalOpen(true);
+      };
     
+    const closeModal = () => {
+    setModalOpen(false);
+    };
+    const handleDelete = async () => {
+        try {
+          await axios.put(`http://localhost:8080/Event/updateEvent?eventid=${eventId}`,
+          
+          {
+            "eventid": event.eventId,
+            "title": event.title,
+            "description": event.description,
+            "date": event.date,
+            "time": event.time,
+            "duration": event.duration,
+            "location": event.location,
+            "organizer": event.organizer,
+            "yearlevel": event.yearlevel,
+            "department": event.department,
+            "payment": event.payment,
+            "maxAttend": event.maxAttend,
+            "image": event.image,
+            "orgid": event.orgid,
+            "status": event.status,
+            "isDeleted": 1
+    
+        });
+      
+          navigate('/MyEvents');
+        } catch (error) {
+          // Handle errors, e.g., show an error message
+          alert('Error deleting event:', error);
+        }
+      };
     console.log('rows:', participants);
-    
-    
     return (
         <>
             <ResponsiveAppBarOrgan />
@@ -110,15 +143,32 @@ export default function ViewAttendees(){
                 }}>Manage Requests
                 </Button>
                 </Link>
-                <Link to={`/UpdateEvents/${event.eventid}`}>
+                
                     <Button onClick = {handleUpdateAlert}>
                         <img src="/img/EditWhite.png" alt="Edit" />
                     </Button>
-                </Link>
-                <Button> <img src="/img/DeleteWhite.png" alt="Edit" /></Button>
                 
-            </div>
-           
+                    <Button onClick={openModal}>
+                        <img src="/img/DeleteWhite.png" alt="Edit" />
+                    </Button>
+
+                    {/* Render the Modal component */}
+                    <Modal isOpen={isModalOpen} onClose={closeModal} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                    <p style={{ textAlign: 'center' }}>Are you certain you wish to delete the event?</p>
+                    <p style={{ color: 'grey', fontSize: '14px', fontStyle: 'italic', textAlign: 'center' }}>
+                        This action will promptly eliminate the event from the administrator's records.
+                    </p>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', marginTop: '16px' }}>
+                        <Button style={{ backgroundColor: '#aaa', color: '#fff' }} onClick={closeModal}>
+                        Close
+                        </Button>
+                        <Button style={{ backgroundColor: '#ff5050', color: '#fff' }} onClick={handleDelete}>
+                        Delete
+                        </Button>
+                    </div>
+                    </Modal>
+                
+            </div>   
             <Container maxWidth="lg">
             <br />
             <br />
@@ -135,19 +185,31 @@ export default function ViewAttendees(){
                 marginTop: '150px'
             }}
             />
-                <h3 style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '32px', marginRight: '600px', marginLeft: '150px' }}>{event.title}</h3>
+                   <h3 style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '32px', marginRight: '600px', marginLeft: '150px' }}>{event.title}</h3>
 
-                <p style={{ textAlign: 'justify', width: '810px', marginRight: '350px', marginLeft: '150px', fontSize: '20px', textDecoration: 'underline' }}>Cebu Institute of Technology</p>
+                    <p style={{ textAlign: 'justify', width: '810px', marginRight: '350px', marginLeft: '150px', fontSize: '20px', textDecoration: 'underline' }}>Cebu Institute Technology</p>
 
-                {/* New text added below Cebu Institute Technology */}
-                <p style={{ textAlign: 'justify', width: '810px', marginRight: '350px', marginLeft: '150px', fontSize: '20px' }}>
-                    {event.description}
-                </p>
+                    {/* New text added below Cebu Institute Technology */}
+                    <p style={{ textAlign: 'justify', width: '810px', marginRight: '350px', marginLeft: '150px', fontSize: '18px' }}>
+                    {event.department === 'None' ? 'Open to every department' : `This event is exclusively for ${event.department} college students.`}
+                    <br/>
+                    {event.yearlevel === 0 ? 'Open to all levels! Join us for a fantastic time!' : `This event is exclusively for ${event.yearlevel}th year  college students.`}
+                    <br/>
+                    {event.payment === 'No' ? "Complimentary attendance—no payment required." : "Please note that payment is required for participation."}
+                    </p>
             </Container>
             <br></br>
             <br></br>
             <div>
                 {/* RIBBON HERE */}
+                <EventRibbon_noBtn
+                venue={event.location}
+                time={event.time}
+                date={event.date}
+                // joined={}
+                // request={}
+
+                 />
             </div>
             <Container maxWidth="lg">
             <br></br>
@@ -157,10 +219,10 @@ export default function ViewAttendees(){
             </h2>
             {/* table */}
             <div className="attendee-table">
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-                    <div>
+                {/* <div style={{ display: "flex", justifyContent: "space-between" }}> */}
+                    {/* <div> */}
                         {/* Dropdown/Select for filtering */}
-                        <Select
+                        {/* <Select
                             value={filterValue}
                             onChange={(e) => { setFilterValue(e.target.value) }}
                             displayEmpty
@@ -171,7 +233,7 @@ export default function ViewAttendees(){
                                 All
                             </MenuItem>
                             {/* Add unique carb values from your rows */}
-                            {[...new Set(rows.map((row) => row.carbs))].map((carbs) => (
+                            {/* {[...new Set(rows.map((row) => row.carbs))].map((carbs) => (
                                 <MenuItem key={carbs} value={carbs}>
                                     {carbs}
                                 </MenuItem>
@@ -186,9 +248,9 @@ export default function ViewAttendees(){
                             type="text"
                             variant='outlined'
                         />
-                    </div>
-                </div>
-                <br/>
+                    </div> */}
+                {/* </div> */}
+                {/* <br/> */} 
                 {/* TABLE */}
                 <TableContainer component={Paper}>
                     <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -225,14 +287,15 @@ export default function ViewAttendees(){
                     </Table>
                 </TableContainer>
                 <div style={{ border: '2px', borderColor: 'black', marginTop: '20px' }}>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                    <Button>Previous</Button>
-                    <p style={{ marginLeft: 'auto', marginRight: 'auto' }}>Page 1 of 1</p>
-                    <Button>Next</Button>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <Button>Previous</Button>
+                        <p style={{ marginLeft: 'auto', marginRight: 'auto' }}>Page 1 of 1</p>
+                        <Button>Next</Button>
+                    </div>
                 </div>
             </div>
-            </div>
         </Container>
+        <Footer/>
         </>
     )
 }

@@ -25,8 +25,6 @@ export default function OrganEventPage() {
       .then(response => {
         console.log(response.data)
         setEvents(response.data);
-
-       
       })
       .catch(error => {
         console.error('Error fetching events:', error);
@@ -81,8 +79,6 @@ export default function OrganEventPage() {
             {event.yearlevel === 0 ? 'Open to all levels! Join us for a fantastic time!' : `This event is exclusively for ${event.yearlevel}th year  college students.`}
             <br/>
             {event.payment === 'No' ? "Complimentary attendance—no payment required." : "Please note that payment is required for participation."}
-
-            
           </p>
           <br></br>
           <br></br>
