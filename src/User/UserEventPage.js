@@ -84,7 +84,11 @@ export default function UserEventPage() {
           <br></br>
         </Container>
       </div>
-      <EventRibbon path={`/UserEventJoinRequest/${eventId}`} />
+      <EventRibbon 
+              location={event.location}
+              time={event.time}
+              date={event.date}
+      path={`/UserEventJoinRequest/${eventId}`} />
         <Container maxWidth="lg">
           <br />
           <div style={{ textAlign: "center" }}>

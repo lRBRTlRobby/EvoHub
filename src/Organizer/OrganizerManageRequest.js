@@ -9,6 +9,7 @@ import Footer from '../Components/footer';
 import EventRibbon_noBtn from '../Components/EventRibbon_noBtn';
 import Modal from '../Components/PopUp';
 
+import { useOrganizer } from '../Components/OrganizerProvider';
 
 export default function AttendeeRequests() {
     const [showDetails, setShowDetails] = useState(false);
@@ -19,6 +20,7 @@ export default function AttendeeRequests() {
     const [participants, setParticipants] = useState([]);
     const navigate = useNavigate();
     const [isModalOpen, setModalOpen] = useState(false);
+    const {organizer} = useOrganizer();
 
      useEffect(() => {
       window.scroll(0, 0);
@@ -153,6 +155,7 @@ export default function AttendeeRequests() {
             yearlevel: row.yearlevel,
             eventId: row.eventId,
             userId: row.userId,
+            organizerId: organizer.oid,
             status: 'Accepted'
             
         })
