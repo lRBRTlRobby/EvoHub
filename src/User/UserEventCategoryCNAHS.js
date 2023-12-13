@@ -77,15 +77,15 @@ export default function EventCategoryCNAHS() {
                             }}
                         >
                             {/* Conditional rendering based on event date and department */}
-                            {new Date(event.date) >= currentDate && (event.department === "CNAHS" || event.department === "None") && (
-                            <Link to={`/UserEventPage/${event.eventid}`}>
-                                <ActionAreaCard
-                                key={index}
-                                date={event.date}
-                                title={event.title}
-                                image={"/uploads/" + event.image}
-                                description={event.description}
-                                />
+                            {new Date(event.date) >= currentDate && (event.department === "CNAHS" || event.department === "None") && event.status === 1 && event.isDeleted === 0 &&(
+                                <Link to={`/UserEventPage/${event.eventid}`} style={{textDecoration:'none'}}>
+                                    <ActionAreaCard
+                                        key={index}
+                                        date={event.date}
+                                        title={event.title}
+                                        image={"/uploads/" + event.image}
+                                        description={event.description}
+                                    />
                             </Link>
                             )}
                         </div>
@@ -111,15 +111,15 @@ export default function EventCategoryCNAHS() {
                             }}
                         >
                             {/* Conditional rendering based on event date and department */}
-                            {new Date(event.date) <= currentDate && event.department === "CNAHS" && (
-                            <Link to={`/UserEventPage/${event.eventid}`}>
-                                <ActionAreaCard
-                                key={index}
-                                date={event.date}
-                                title={event.title}
-                                image={"/uploads/" + event.image}
-                                description={event.description}
-                                />
+                            {new Date(event.date) <= currentDate && (event.department === "CNAHS" || event.department === "None") && event.status === 1 && event.isDeleted === 0 &&(
+                                <Link to={`/UserEventPage/${event.eventid}`} style={{textDecoration:'none'}}>
+                                    <ActionAreaCard
+                                        key={index}
+                                        date={event.date}
+                                        title={event.title}
+                                        image={"/uploads/" + event.image}
+                                        description={event.description}
+                                    />
                             </Link>
                             )}
                         </div>
