@@ -70,7 +70,7 @@ export default function UserEventJoinRequest() {
     if (
       // (event.yearlevel === 0 || event.yearlevel === formData.yearlevel) 
       // &&
-      (event.department === 'None' || event.department.toUpperCase() === user.department.toUpperCase())
+      (event.department === 'None' || event.department === user.dept)
     ) {
       const response = await axios.post('http://localhost:8080/participantrequest/insertParRequest', {
         fname: user.fname,
@@ -80,8 +80,8 @@ export default function UserEventJoinRequest() {
         department: user.dept,
         yearlevel: formData.yearlevel,
         eventId: eventId,
-        userId: 0,
-        organizerId: user.oid,
+        userId: user.userid,
+        organizerId: 0,
       });
 
       window.alert('Request Successfully Requested to the organizer');
