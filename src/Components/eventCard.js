@@ -66,7 +66,17 @@ export default function ActionAreaCard({ date, title, image, description }) {
             </div>
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            <h4>{title}</h4>
+            <h4
+              style={{
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+                maxWidth: "250px",
+                marginRight: "10px",
+              }}
+            >
+              {title}
+            </h4>
             <div
               style={{
                 overflow: "ellipsis",
