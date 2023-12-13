@@ -64,6 +64,7 @@ export default function OrganEventPage() {
           borderRadius: '45px', // Adjust the radius as needed
           display: 'block',
           margin: 'auto',
+          marginTop: '85px'
          }} 
         />
           <h2 style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '32px', marginRight: '600px', marginLeft: '150px' }}>

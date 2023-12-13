@@ -10,6 +10,7 @@ import axios from 'axios';
 import { Button } from '@mui/material'
 import { useOrganizer } from '../Components/OrganizerProvider';
 import { useParams } from "react-router-dom";
+import Footer from "../Components/footer";
 
 export default function UpdateEventForm() {
   const { organizer } = useOrganizer();
@@ -248,7 +249,7 @@ console.log(formData)
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
           <Grid  xs={8}>
-            <h2 style={{ fontFamily: "'DM Sans', sans-serif" ,textAlign:"left"}}>Update Event Form</h2>
+            <h2 style={{ fontFamily: "'DM Sans', sans-serif" ,textAlign:"left",marginTop: '150px'}}>Update Event Form</h2>
 
             <form onSubmit={handleSubmit}>
               {/* Event Title */}
@@ -633,12 +634,13 @@ console.log(formData)
 
           </Grid>
           <Grid  xs={4}>
-            <img src="img/tips.png" alt="logo"  style={{width:"100%"}} />
+            <img src="/img/tips.png" alt="logo"  style={{width:"100%", marginTop: '150px'}} />
           </Grid>
           
         </Grid>
       </Box>
       </Container>
+      <Footer/>
     </>
     
   );
