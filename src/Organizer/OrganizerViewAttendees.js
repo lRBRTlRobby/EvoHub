@@ -212,6 +212,13 @@ export default function ViewAttendees(){
                  />
             </div>
             <Container maxWidth="lg">
+            <br />
+            <div style={{ textAlign: "center" }}>
+                <h2 style={{ fontFamily: 'DM Sans, sans-serif', textAlign: 'left' }}>About this event</h2>
+                <p style={{ textAlign: 'left'}}>
+                {event.description }
+                </p>
+            </div>
             <br></br>
             <br></br>
             <h2 style={{ fontFamily: 'DM Sans, sans-serif', width: '300px', textAlign: 'center', marginLeft: '200px' }}>

@@ -70,12 +70,12 @@ export default function OrganEventPage() {
           </h2>
 
           <p style={{ textAlign: 'justify', width: '810px', marginRight: '350px', marginLeft: '150px', fontSize: '20px', textDecoration: 'underline' }}>
-            {event.department}
+            Cebu Institute of Technology - University
           </p>
 
           <p style={{ textAlign: 'justify', width: '810px', marginRight: '350px', marginLeft: '150px', fontSize: '18px' }}>
           {event.department === 'None' ? 'Open to every department' : `This event is exclusively for ${event.department} college students.`}
-
+            <br/>
             {event.yearlevel === 0 ? 'Open to all levels! Join us for a fantastic time!' : `This event is exclusively for ${event.yearlevel}th year  college students.`}
             <br/>
             {event.payment === 'No' ? "Complimentary attendance—no payment required." : "Please note that payment is required for participation."}
@@ -96,7 +96,7 @@ export default function OrganEventPage() {
           <br />
           <div style={{ textAlign: "center" }}>
             <h2 style={{ fontFamily: 'DM Sans, sans-serif', textAlign: 'left' }}>About this event</h2>
-            <p style={{ textAlign: 'left', fontSize: '14px' }}>
+            <p style={{ textAlign: 'left'}}>
               {event.description }
             </p>
 
