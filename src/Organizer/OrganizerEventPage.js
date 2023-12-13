@@ -12,12 +12,14 @@ import { useUser } from '../Components/UserProvider';
 import ParticipantApprove from "../Components/AFeedback";
 import ResponsiveAppBarOrgan from "../Components/organHeader";
 import ParticipantDecline from "../Components/DFeeback";
+import { useOrganizer } from '../Components/OrganizerProvider';
 
 export default function OrganEventPage() {
   const { user } = useUser();
   const [event, setEvents] = useState({});
   const { eventId } = useParams();
   const [participants, setParticipants] = useState([]);
+  const {organizer} = useOrganizer();
 
   useEffect(() => {
     window.scroll(0, 0);
@@ -38,8 +40,12 @@ export default function OrganEventPage() {
       .then(response => {
         // setEvents(response.data);
         const tmpPart = response.data;
-        const origPart = tmpPart.find(tmpPar => tmpPar.eventId === eventId || tmpPar.userId === user.userid);
+        console.log("tmpPart: ",tmpPart);
+        console.log("TMPeventId: ",tmpPart.eventId);
+        const origPart = tmpPart.find(tmpPar => tmpPar.eventId == eventId && tmpPar.organizerId === organizer.oid && tmpPar.status !== null );
+        console.log("EventId: ",eventId);
         setParticipants(origPart);
+        console.log("origPart: ",origPart);
         
       })
       .catch(error => {
@@ -51,9 +57,13 @@ export default function OrganEventPage() {
   return (
     <>
       <ResponsiveAppBarOrgan />
+      
     
       <div style={{ backgroundImage: `url('/img/sheer.png')`, backgroundSize: 'cover', minHeight: '10vh' }}>
         <Container maxWidth="lg">
+          <br/>
+          <br/>
+          <br/>
           <br/>
           <br/>
           <br/>
@@ -102,6 +112,8 @@ export default function OrganEventPage() {
             <p style={{ textAlign: 'left', fontSize: '14px' }}>
               {event.description }
             </p>
+
+            {participants ? <>{participants.status === "Accepted"? <><ParticipantApprove /></>: <><ParticipantDecline feedback = "Sorry, your request was not approved." /></>}</>:<></>}
 
             {/* {participants.status === "Accepted"? <><ParticipantApprove /></>: <><ParticipantApprove feedback = "Sorry, your request was not approved."/></>} */}
 

@@ -87,6 +87,10 @@ export default function UserProfileEdit() {
         }
     };
 
+    const maxDate = new Date();
+  maxDate.setFullYear(maxDate.getFullYear() - 15);
+  const maxDateString = maxDate.toISOString().split('T')[0];
+
 
 
     return (
@@ -222,6 +226,7 @@ export default function UserProfileEdit() {
                                         borderColor: "#e5e5e5",
                                     }}
                                     required
+                                    max={maxDateString}
                                 />
                             </div>
                             <p><b>City:</b></p>

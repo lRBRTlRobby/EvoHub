@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { useOrganizer } from '../Components/OrganizerProvider';
 
 export default function AttendeeRequests() {
     const [showDetails, setShowDetails] = useState(false);
@@ -14,6 +15,7 @@ export default function AttendeeRequests() {
     const { eventId } = useParams();
     const [participants, setParticipants] = useState([]);
     const navigate = useNavigate();
+    const {organizer} = useOrganizer();
 
      useEffect(() => {
       window.scroll(0, 0);
@@ -90,6 +92,7 @@ export default function AttendeeRequests() {
             yearlevel: row.yearlevel,
             eventId: row.eventId,
             userId: row.userId,
+            organizerId: organizer.oid,
             status: 'Accepted'
             
         })
