@@ -12,12 +12,13 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import  './header.css';
+import './header.css';
 import { Link } from 'react-router-dom';
 import { useOrganizer } from './OrganizerProvider';
+import LogoutConfirmationModal from './LogoutConfirmationModal';
 
-const pages = ['Home', 'Event Categories','Upcoming Events', 'Joined Events', 'MyEvents', 'Create Events'];
-const settings = ['Profile','Logout'];
+const pages = ['Home', 'Event Categories', 'Upcoming Events', 'Joined Events', 'MyEvents', 'Create Events'];
+const settings = ['Profile', 'Logout'];
 
 function getPagePath(page) {
   switch (page) {
@@ -26,10 +27,10 @@ function getPagePath(page) {
     case 'Event Categories':
       return '/OrganizerEventCategory';
     case 'Upcoming Events':
-        return '/OrganizerUpcomingEvents';
+      return '/OrganizerUpcomingEvents';
     case 'Joined Events':
       return '/OrganizerJoinedEvents';
-      case 'Create Events':
+    case 'Create Events':
       return '/OrganizerCreateEvents';
     // Add more cases for additional pages
     case 'MyEvents':
@@ -51,24 +52,25 @@ function getSettingPath(settings) {
   }
 }
 
-const handleLogout = () => {
-  const confirmLogout = window.confirm("Are you sure you want to log out?");
-  if (confirmLogout) {
-    // Perform the logout action and navigate to "/"
-    // For example, you might have a logout function in your UserProvider
-    // that you can call here
-    // user.logout(); 
+// const handleLogout = () => {
+//   const confirmLogout = window.confirm("Are you sure you want to log out?");
+//   if (confirmLogout) {
+//     // Perform the logout action and navigate to "/"
+//     // For example, you might have a logout function in your UserProvider
+//     // that you can call here
+//     // user.logout(); 
 
-    // Redirect to "/"
-    window.location.href = '/';
-  }
-};
+//     // Redirect to "/"
+//     window.location.href = '/';
+//   }
+// };
 
 
 function ResponsiveAppBarOrgan() {
   const { organizer } = useOrganizer();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [logoutModalOpen, setLogoutModalOpen] = React.useState(false);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -85,9 +87,19 @@ function ResponsiveAppBarOrgan() {
     setAnchorElUser(null);
   };
 
+  const handleLogout = () => {
+    // Open the logout confirmation modal
+    setLogoutModalOpen(true);
+  };
+
+  const handleCloseLogoutModal = () => {
+    // Close the logout confirmation modal
+    setLogoutModalOpen(false);
+  };
+
   return (
-    
-    <AppBar position="fixed" sx={{background:"white"}}>
+
+    <AppBar position="fixed" sx={{ background: "white" }}>
       <Container maxWidth="lg">
         <Toolbar >
           <Typography
@@ -105,7 +117,7 @@ function ResponsiveAppBarOrgan() {
               textDecoration: 'none',
             }}
           >
-            <img src="/img/citlogo.png" alt="logo" className='logo'  />
+            <img src="/img/citlogo.png" alt="logo" className='logo' />
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -134,7 +146,7 @@ function ResponsiveAppBarOrgan() {
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
               sx={{
-                display: { xs: 'block', md: 'none'},
+                display: { xs: 'block', md: 'none' },
               }}
             >
               {pages.map((page) => (
@@ -144,31 +156,31 @@ function ResponsiveAppBarOrgan() {
               ))}
             </Menu>
           </Box>
-          
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex'}}}>
+
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Link
-              style={{ textDecoration: 'none' }}
-              to={getPagePath(page)}
+                style={{ textDecoration: 'none' }}
+                to={getPagePath(page)}
               >
-              <Button
-              key={page}
-                onClick={handleCloseNavMenu}
-                // Adjust the 'left here'
-                sx={{ my: 2, color: 'black', display: 'flex', left: "0rem",fontSize:'0.72rem', flexDirection:'row-reverse' }}
-              >
-                {page}
-              </Button>
+                <Button
+                  key={page}
+                  onClick={handleCloseNavMenu}
+                  // Adjust the 'left here'
+                  sx={{ my: 2, color: 'black', display: 'flex', left: "0rem", fontSize: '0.72rem', flexDirection: 'row-reverse' }}
+                >
+                  {page}
+                </Button>
               </Link>
             ))}
           </Box>
 
 
-          <Box sx={{ flexGrow: 0,marginRight:'4em' }}>
+          <Box sx={{ flexGrow: 0, marginRight: '4em' }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar  alt={organizer.fname} src="/static/images/avatar/2.jpg"   />
+                <Avatar alt={organizer.fname} src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
             <Menu
@@ -188,17 +200,30 @@ function ResponsiveAppBarOrgan() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <Link 
-                to={getSettingPath(setting)}
-                style={{ textDecoration: 'none' }}
+                <Link
+                  to={getSettingPath(setting)}
+                  style={{ textDecoration: 'none' }}
                 >
-                <MenuItem key={setting} onClick={setting === 'Logout' ? handleLogout : handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
+                  <MenuItem key={setting} onClick={setting === 'Logout' ? handleLogout : handleCloseUserMenu}>
+                    <Typography textAlign="center">{setting}</Typography>
+                  </MenuItem>
                 </Link>
               ))}
             </Menu>
           </Box>
+          <LogoutConfirmationModal
+            open={logoutModalOpen}
+            handleClose={() => setLogoutModalOpen(false)}
+            handleLogout={() => {
+              // Perform the logout action and navigate to "/"
+              // For example, you might have a logout function in your UserProvider
+              // that you can call here
+              // user.logout();
+
+              // Redirect to "/"
+              window.location.href = '/';
+            }}
+          />
         </Toolbar>
       </Container>
     </AppBar>
