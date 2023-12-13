@@ -160,12 +160,14 @@ function ResponsiveAppBar() {
               <Link
                 sx={{ textDecoration: 'none' }}
                 to={getPagePath(page)}
+              style={{textDecoration:'none'}}
               >
                 <Button
                   key={page}
                   onClick={handleCloseNavMenu}
                   // Adjust the 'left here'
                   sx={{ my: 2, color: 'black', display: 'flex', left: "0rem", fontSize: 'small', flexDirection: 'row-reverse' }}
+                style={{textDecoration:'none'}}
                 >
                   {page}
                 </Button>
@@ -199,6 +201,7 @@ function ResponsiveAppBar() {
               {settings.map((setting) => (
                 <Link
                   to={getSettingPath(setting)}
+                style={{textDecoration:'none'}}
                 >
                   <MenuItem key={setting} onClick={setting === 'Logout' ? handleLogout : handleCloseUserMenu}>
                     <Typography textAlign="center">{setting}</Typography>

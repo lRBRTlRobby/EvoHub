@@ -10,6 +10,7 @@ import axios from 'axios';
 import { Button } from '@mui/material'
 import { useOrganizer } from '../Components/OrganizerProvider';
 import { useNavigate } from 'react-router-dom';
+import Footer from "../Components/footer";
 
 export default function CreateEventForm() {
   const { organizer } = useOrganizer();
@@ -577,6 +578,7 @@ console.log(formData)
         </Grid>
       </Box>
       </Container>
+      <Footer/>
     </>
     
   );

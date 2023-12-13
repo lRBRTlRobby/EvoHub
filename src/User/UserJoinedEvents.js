@@ -99,7 +99,7 @@ export default function JoinedEvents() {
                 <img style={{ minWidth: '100%', minHeight: '35vw', objectFit: 'cover', marginTop: 0 }} src="/img/Joined.jpg" alt="logo" className='logo' />
             </div>
             <Container maxWidth="lg">
-                <div style={{ backgroundColor: '#C02147', display: "flex", justifyContent: "center", alignItems: "center", height: '8rem', width: '90%', margin: "2rem auto", padding: 0, borderRadius: 50 }}>
+                {/* <div style={{ backgroundColor: '#C02147', display: "flex", justifyContent: "center", alignItems: "center", height: '8rem', width: '90%', margin: "2rem auto", padding: 0, borderRadius: 50 }}>
                     <TextField
                         className='txt'
                         id="outlined-password-input"
@@ -113,7 +113,7 @@ export default function JoinedEvents() {
                         backgroundColor: '#EAA021', color: 'white', fontFamily: "'DM Sans', sans-serif", width: '18rem', height: '4rem',
                         display: "flex", justifyContent: "center", left: "1.5rem", padding: 0, borderRadius: 50
                     }}>Search Event</Button>
-                </div>
+                </div> */}
 
                 <div>
                     <h2 style={{ fontFamily: "'DM Sans', sans-serif" }}>Upcoming Events</h2>

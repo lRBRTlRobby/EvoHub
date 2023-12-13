@@ -4,11 +4,13 @@ import Container from "@mui/material/Container";
 import ActionAreaCard from '../Components/eventCard';
 import { useState, useEffect } from "react";
 import axios from 'axios'
+import { Link } from 'react-router-dom';
 
 export default function UserPopularEvents() {
   const containerRef = useRef(null);
   const containerRef1 = useRef(null);
   const [event, setEvents] = useState([]);
+  const currentDate = new Date();
 
   useEffect(() => {
     axios.get('http://localhost:8080/Event/getAllEvents')
@@ -79,12 +81,17 @@ export default function UserPopularEvents() {
                     padding: ".5rem",
                   }}
                 >
-                  <ActionAreaCard
-                    date={event.date}
-                    title={event.title}
-                    image={"/uploads/" + event.image}
-                    description={event.description}
-                  />
+                {new Date(event.date) > currentDate && event.status === 1 && event.isDeleted === 0 ? (
+                    <Link to={`/UserEventPage/${event.eventid}`} style={{ textDecoration: "none" }}>
+                        <ActionAreaCard
+                        key={index}
+                        date={event.date}
+                        title={event.title}
+                        image={`/uploads/${event.image}`}
+                        description={event.description}
+                        />
+                    </Link>
+                    ) : null}
                 </div>
               ))}
             </div>

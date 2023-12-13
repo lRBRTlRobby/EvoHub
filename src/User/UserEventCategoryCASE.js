@@ -1,12 +1,11 @@
 import React, { useRef, useEffect, useState } from 'react'
-import ResponsiveAppBar from "../Components/header"
 import Container from '@mui/material/Container';
-import "./UserEventCategory"
 import ActionAreaCard from '../Components/eventCard';
 import { Button } from '@mui/material';
 import Footer from '../Components/footer';
 import axios from 'axios'
 import { Link } from 'react-router-dom';
+import ResponsiveAppBar from '../Components/header';
 
 
 
@@ -21,12 +20,7 @@ export default function EventCategoryCASE() {
         window.scroll(0, 0);
         axios.get('http://localhost:8080/Event/getAllEvents')
           .then(response => {
-            const filteredEvents= response.data.filter(participant => participant.status === 1);
-            console.log(filteredEvents)
-            // Set the filtered participants
-            setEvents(filteredEvents);
-            // Set the events if needed
-            // setEvents(filteredParticipants);
+            setEvents(response.data);
           })
           .catch(error => {
             console.error('Error fetching events:', error);
@@ -58,7 +52,7 @@ export default function EventCategoryCASE() {
 
     return (
         <>
-            <ResponsiveAppBar />
+            <ResponsiveAppBar/>
             <img src="img/case_banner.png" alt="logo" className="banner" />
             <Container maxWidth="lg">
                 <div >
@@ -78,17 +72,18 @@ export default function EventCategoryCASE() {
                             }}
                         >
                             {/* Conditional rendering based on event date and department */}
-                            {new Date(event.date) >= currentDate && (event.department === "CASE" || event.department === "None") && (
-                            <Link to={`/UserEventPage/${event.eventid}`}>
-                                <ActionAreaCard
-                                key={index}
-                                date={event.date}
-                                title={event.title}
-                                image={"/uploads/" + event.image}
-                                description={event.description}
-                                />
-                            </Link>
+                            {new Date(event.date) >= currentDate && (event.department === "CASE" || event.department === "None") && event.status === 1 && event.isDeleted === 0 &&(
+                                <Link to={`/UserEventPage/${event.eventid}`} style={{textDecoration:'none'}}>
+                                    <ActionAreaCard
+                                        key={index}
+                                        date={event.date}
+                                        title={event.title}
+                                        image={"/uploads/" + event.image}
+                                        description={event.description}
+                                    />
+                                </Link>
                             )}
+
                         </div>
                         ))}
                     </div>
@@ -112,8 +107,8 @@ export default function EventCategoryCASE() {
                             }}
                         >
                             {/* Conditional rendering based on event date */}
-                            {new Date(event.date) <= currentDate && event.department === "CEA" && (
-                            <Link to={`/UserEventPage/${event.eventid}`}>
+                            {new Date(event.date) <= currentDate && event.department === "CEA" &&  event.status === 1 && event.isDeleted === 0 (
+                            <Link to={`/UserEventPage/${event.eventid}`} style={{textDecoration:'none'}}>
                                 <ActionAreaCard
                                 key={index}
                                 date={event.date}
