@@ -1,17 +1,15 @@
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams  } from 'react-router-dom';
 import axios from 'axios';
 import { 
   Box, 
   Button, 
   FormControl, 
-  FormControlLabel, 
   FormLabel, 
   Grid, 
   Input, 
   InputLabel, 
   Select, 
-  Typography 
 } from "@mui/material";
 import MenuItem from '@mui/material/MenuItem';
 
@@ -20,7 +18,6 @@ import Footer from "../Components/footer";
 import "../Components/EventCatBtn.css";
 import Container from '@mui/material/Container';
 import { useUser } from '../Components/UserProvider';
-import { useOrganizer } from '../Components/OrganizerProvider';
 
 
 
@@ -28,7 +25,6 @@ export default function UserEventJoinRequest() {
   const { user } = useUser();
   const [event, setEvents] = useState({});
   const { eventId } = useParams();
-  const {organizer} = useOrganizer();
   const [formData, setFormData] = useState({
     fname: "",
     lname: "",
@@ -72,7 +68,7 @@ export default function UserEventJoinRequest() {
       // &&
       (event.department === 'None' || event.department === user.dept)
     ) {
-      const response = await axios.post('http://localhost:8080/participantrequest/insertParRequest', {
+      await axios.post('http://localhost:8080/participantrequest/insertParRequest', {
         fname: user.fname,
         mname: user.mname,
         lname: user.lname,

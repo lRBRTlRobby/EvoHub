@@ -4,10 +4,8 @@ import EventRibbon from "../Components/EventRibbon";
 import "../Components/EventCatBtn.css";
 import Container from '@mui/material/Container';
 import React, { useState, useEffect } from 'react';
-import ButtonM from "../Components/ButtonMaroon";
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { styled } from '@mui/system';
 import { useUser } from '../Components/UserProvider';
 import ParticipantApprove from "../Components/AFeedback";
 import ParticipantDecline from "../Components/DFeeback";
@@ -49,7 +47,7 @@ export default function UserEventPage() {
       .catch(error => {
         console.error('Error fetching participants:', error);
       });
-  }, []);
+  }, [user.userid, eventId]);
 
 
   useEffect(() => {
@@ -70,7 +68,7 @@ export default function UserEventPage() {
       .catch(error => {
         console.error('Error fetching participants:', error);
       });
-  }, []);
+  }, [eventId]);
 
   return (
     <>
@@ -115,6 +113,7 @@ export default function UserEventPage() {
         location={event.location}
         time={event.time}
         date={event.date}
+        joined={participantCount.length}
         path={`/UserEventJoinRequest/${eventId}`} />
       <Container maxWidth="lg">
         <br />
