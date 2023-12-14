@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import axios from 'axios';
 import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
@@ -6,23 +6,29 @@ import { Grid } from "@mui/material";
 import Footer from "../Components/footer";
 import Button from "@mui/material/Button";
 import AdminHeader from "../Components/adminHeader";
+import { Link } from 'react-router-dom';
+import { useAdmin } from "../Components/AdminProvider";
 
 export default function AdminProfile() {
-  const [adminData, setAdminData] = useState(null);
+  // const [adminData, setAdminData] = useState([]);
+  // const [loading, setLoading] = useState(true);
+  const { admin } = useAdmin();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/admins/getAdmin/1');
-        setAdminData(response.data);
+        await axios.get('http://localhost:8080/admins/getAdmin/2');
+        // setAdminData(response.data);
+        // setLoading(false);
       } catch (error) {
         console.error('Error fetching admin data:', error);
+        // setLoading(false);
       }
     };
 
     fetchData();
   }, []);
-
+console.log("admin: ", admin)
   return (
     <div>
       <AdminHeader />
@@ -36,8 +42,8 @@ export default function AdminProfile() {
         <div style={{ display: "flex", justifyContent: "center" }}>
           <div style={{ marginTop: "8.6rem" }}>
             <Avatar
-              alt={adminData ? adminData.firstName : "Admin"}
-              src={adminData ? adminData.avatarSrc : "/static/images/avatar/default.jpg"}
+              alt={admin ? admin.firstName : "Admin"}
+              src={admin ? admin.avatarSrc : "/static/images/avatar/default.jpg"}
               sx={{ width: 120, height: 120 }}
             />
             <div></div>
@@ -47,14 +53,13 @@ export default function AdminProfile() {
           style={{
             marginTop: "1rem",
             textAlign: "center",
-            marginTop: "-1.5rem",
             fontFamily: "'DM Sans', sans-serif",
           }}
         >
-          {adminData && (
+          {admin && (
             <>
-              <h2 style={{ fontSize: "2.8rem" }}>{adminData.firstName} {adminData.lastName}</h2>
-              <p style={{ fontSize: "1.2rem", marginTop: "-1.8rem" }}>{adminData.title}</p>
+              <h2 style={{ fontSize: "2.8rem" }}>{admin.firstName || 'N/A'} {admin.lastName || 'N/A'}</h2>
+              <p style={{ fontSize: "1.2rem", marginTop: "-1.8rem" }}>{admin.title || 'N/A'}</p>
             </>
           )}
         </div>
@@ -65,29 +70,24 @@ export default function AdminProfile() {
             style={{
               margin: "0 auto",
               fontFamily: "'DM Sans', sans-serif",
-              marginTop: "2rem", // Added margin-top for spacing
+              marginTop: "5rem",
               padding: "5rem",
             }}
           >
-            <Grid item xs={12} md={6}>
-              {adminData && (
+            <Grid item xs={12} md={6} >
+              {admin && (
                 <div>
-                  <p><b>First Name:</b> {adminData.firstName}</p>
-                  <p><b>Middle Name:</b> {adminData.middleName}</p>
-                  <p><b>Last Name:</b> {adminData.lastName}</p>
-                  <p><b>Gender:</b> {adminData.gender}</p>
-                  <p><b>Department:</b> {adminData.department}</p>
+                  <p><b>First Name:</b> {admin.firstName || 'N/A'}</p>
+                  <p><b>Last Name:</b> {admin.lastName || 'N/A'}</p>
+                  <p><b>Department:</b> {admin.department || 'N/A'}</p>
                 </div>
               )}
             </Grid>
             <Grid item xs={12} md={6}>
-              {adminData && (
+              {admin && (
                 <div>
-                  <p><b>Email Address:</b> {adminData.email}</p>
-                  <p><b>Phone:</b> {adminData.phone}</p>
-                  <p><b>Date of Birth:</b> {adminData.birthdate}</p>
-                  <p><b>Country:</b> {adminData.country}</p>
-                  <p><b>Link To Teams:</b> {adminData.teamsLink}</p>
+                  <p><b>Email Address:</b> {admin.email || 'N/A'}</p>
+                  <p><b>Phone:</b> {admin.phone || 'N/A'}</p>
                 </div>
               )}
             </Grid>
@@ -102,15 +102,19 @@ export default function AdminProfile() {
               width: "100%",
               margin: "0 auto",
               borderRadius: "20px",
-              margin: "2rem auto",
               padding: "1rem",
               resize: "none",
               fontFamily: "'DM Sans', sans-serif",
               fontSize: "1rem",
             }}
-            value={adminData ? adminData.bio : ""}
+            value={admin ? admin.bio : ""}
             readOnly
           />
+           <Link to="/adminProfileEdit">
+           <Button variant="contained">
+              Edit
+            </Button>
+        </Link>
         </Container>
         <Footer />
       </div>
