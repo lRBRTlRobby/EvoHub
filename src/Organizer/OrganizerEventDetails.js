@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import ResponsiveAppBar from '../Components/header';
 import Footer from '../Components/footer';
-import EventRibbon from '../Components/EventRibbon';
 import Container from '@mui/material/Container';
-import ButtonM from '../Components/ButtonMaroon';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import EventRibbon_noBtn from '../Components/EventRibbon_noBtn';
-import GreySheer from '../Components/deletePopUp';
 import ResponsiveAppBarOrgan from '../Components/organHeader';
 import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
@@ -17,12 +13,12 @@ import Modal from '../Components/PopUp';
 
 export default function EventDetails() {
   const [event, setEvents] = useState({});
-  const [showDeletePopup, setShowDeletePopup] = useState(false);
   const { eventId } = useParams();
-  const [requestCount, setRequestCount] = useState(0);
-  const [joinedCount, setJoinedCount] = useState(0);
+  const [requestCount, setRequestCount] = useState();
+  const [joinedCount, setJoinedCount] = useState();
   const navigate = useNavigate();
   const [isModalOpen, setModalOpen] = useState(false);
+  const [participant,setParticipants] =useState([{}]);
   
 
 
@@ -38,23 +34,22 @@ export default function EventDetails() {
       });
   }, [eventId]);
   useEffect(() => {
-    window.scroll(0, 0);
-  
     axios.get('http://localhost:8080/participantrequest/getAllParRequests')
       .then(response => {
-        // Filter requests based on the eventId and status
-        const filteredRequests = response.data.filter(participant => participant.eventId === eventId);
-        
-        // Set the count of requests with status === 0
-        setRequestCount(filteredRequests.filter(participant => participant.status === null).length);
-  
-        // Set the count of joined participants with status === 1
-        setJoinedCount(filteredRequests.filter(participant => participant.status === "Accepted").length);
+        // setEvents(response.data);
+        const tmpPart = response.data;
+        const origPart = tmpPart.filter(tmpPar => tmpPar.eventId == eventId && tmpPar.status === 'Accepted' );
+
+        const reqPart = tmpPart.filter(tmpPar => tmpPar.eventId == eventId && tmpPar.status === null );
+
+        setJoinedCount(origPart.length);
+        setRequestCount(reqPart.length)
+
       })
       .catch(error => {
-        console.error('Error fetching requests:', error);
+        console.error('Error fetching participants:', error);
       });
-  }, [eventId]);
+  }, []);
 
   const handleUpdateAlert = () => {
     // When clicked
@@ -109,7 +104,6 @@ export default function EventDetails() {
   const openModal = () => {
     setModalOpen(true);
   };
-
   const closeModal = () => {
     setModalOpen(false);
   };
@@ -184,11 +178,9 @@ export default function EventDetails() {
       <br />
       <br />
       <div>
-        {showDeletePopup ? (
-          <GreySheer />
-        ) : (
+      
+ 
           <EventRibbon_noBtn date={event.date} time={event.time} venue={event.location} joined={joinedCount} request={requestCount} />
-        )}
       </div>
       <br />
       <br />
