@@ -45,7 +45,19 @@ export default function UserProfileEdit() {
                 ...prevData,
                 [field]: formattedDate || '',
             }));
-        } else {
+        }  else if (field === 'mobNum') {
+            // Allow only numbers and limit length to 11 digits
+            const sanitizedPhoneNumber = value.replace(/\D/g, '').slice(0, 11);
+            
+            // Format phone number as XXX-XXX-XXXX
+            const formattedPhoneNumber = sanitizedPhoneNumber.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
+            
+            setFormData((prevData) => ({
+                ...prevData,
+                [field]: formattedPhoneNumber,
+            }));
+        }
+            else {
             setFormData((prevData) => ({
                 ...prevData,
                 [field]: value,
