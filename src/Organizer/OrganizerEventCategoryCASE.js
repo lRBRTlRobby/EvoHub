@@ -9,8 +9,6 @@ import axios from 'axios'
 import { Link } from 'react-router-dom';
 import ResponsiveAppBarOrgan from '../Components/organHeader';
 
-
-
 export default function OrganEventCategoryCASE() {
 
     const containerRef = useRef(null);
@@ -55,7 +53,11 @@ export default function OrganEventCategoryCASE() {
     return (
         <>
             <ResponsiveAppBarOrgan />
-            <img src="img/case_banner.png" alt="logo" className="banner" />
+           <br/>
+           <br/>
+           <br/>
+           <br/>
+            <img src="img/case_banner.png" alt="logo" className="banner"/>
             <Container maxWidth="lg">
                 <div >
                     <h1 style={{ fontFamily: "'DM Sans', sans-serif" }}>College of Arts, Sciences and Education</h1>

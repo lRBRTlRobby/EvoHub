@@ -52,6 +52,10 @@ export default function EventCategoryCMBA() {
     return (
         <>
             <ResponsiveAppBarOrgan />
+            <br/>
+            <br/>
+            <br/>
+            <br/>
             <img src="img/cmba_banner.png" alt="logo" className="banner" />
             <Container maxWidth="lg">
                 <div >

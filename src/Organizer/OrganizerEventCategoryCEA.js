@@ -54,6 +54,10 @@ export default function EventCategoryCEA() {
     return (
         <>
             <ResponsiveAppBarOrgan />
+            <br/>
+            <br/>
+            <br/>
+            <br/>
             <img src="img/cea_banner.png" alt="logo" className="banner" />
             <Container maxWidth="lg">
                 <div >
