@@ -1,27 +1,23 @@
-import ResponsiveAppBar from "../Components/header";
+
 import Footer from "../Components/footer";
 import EventRibbon from "../Components/EventRibbon";
 import "../Components/EventCatBtn.css";
 import Container from '@mui/material/Container';
 import React, { useState, useEffect } from 'react';
-import ButtonM from "../Components/ButtonMaroon";
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { styled } from '@mui/system';
-import { useUser } from '../Components/UserProvider';
+// import { useUser } from '../Components/UserProvider';
 import ParticipantApprove from "../Components/AFeedback";
 import ResponsiveAppBarOrgan from "../Components/organHeader";
 import ParticipantDecline from "../Components/DFeeback";
-import { useOrganizer } from '../Components/OrganizerProvider';
+// import { useOrganizer } from '../Components/OrganizerProvider';
 
 export default function OrganEventPage() {
-  const { user } = useUser();
   const [event, setEvents] = useState({});
   const { eventId } = useParams();
   const [participants, setParticipants] = useState([]);
-  const {organizer} = useOrganizer();
-  const [requestCount, setRequestCount] = useState();
-    const [joinedCount, setJoinedCount] = useState();
+  // const [requestCount, setRequestCount] = useState();
+  const [joinedCount, setJoinedCount] = useState();
 
   // useEffect(() => {
   //   window.scroll(0, 0);
@@ -71,13 +67,13 @@ export default function OrganEventPage() {
         const tmpPart = response.data;
         // console.log("tmpPart: ",tmpPart);
         // console.log("TMPeventId: ",tmpPart.eventId);
-        const origPart = tmpPart.filter(tmpPar => tmpPar.eventId == eventId && tmpPar.status === 'Accepted' );
+        const origPart = tmpPart.filter(tmpPar => tmpPar.eventId === eventId && tmpPar.status === 'Accepted' );
 
-        const reqPart = tmpPart.filter(tmpPar => tmpPar.eventId == eventId && tmpPar.status === null );
+        // const reqPart = tmpPart.filter(tmpPar => tmpPar.eventId === eventId && tmpPar.status === null );
 
         console.log("EventId: ",eventId);
         setJoinedCount(origPart.length);
-        setRequestCount(reqPart.length)
+        // setRequestCount(reqPart.length)
         console.log("origPartCount1: ",origPart);
         console.log("origPartCount: ",origPart.length);
         
