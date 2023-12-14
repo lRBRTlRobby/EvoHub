@@ -1,57 +1,87 @@
-import ResponsiveAppBar from "../Components/header";
+
 import Footer from "../Components/footer";
 import EventRibbon from "../Components/EventRibbon";
 import "../Components/EventCatBtn.css";
 import Container from '@mui/material/Container';
 import React, { useState, useEffect } from 'react';
-import ButtonM from "../Components/ButtonMaroon";
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { styled } from '@mui/system';
-import { useUser } from '../Components/UserProvider';
+// import { useUser } from '../Components/UserProvider';
 import ParticipantApprove from "../Components/AFeedback";
 import ResponsiveAppBarOrgan from "../Components/organHeader";
 import ParticipantDecline from "../Components/DFeeback";
-import { useOrganizer } from '../Components/OrganizerProvider';
+// import { useOrganizer } from '../Components/OrganizerProvider';
 
 export default function OrganEventPage() {
-  const { user } = useUser();
   const [event, setEvents] = useState({});
   const { eventId } = useParams();
   const [participants, setParticipants] = useState([]);
-  const {organizer} = useOrganizer();
+  // const [requestCount, setRequestCount] = useState();
+  const [joinedCount, setJoinedCount] = useState();
 
+  // useEffect(() => {
+  //   window.scroll(0, 0);
+  //       axios.get(`http://localhost:8080/Event/getEvent/${eventId}`)
+  //     .then(response => {
+  //       console.log(response.data)
+  //       setEvents(response.data);
+  //     })
+  //     .catch(error => {
+  //       console.error('Error fetching events:', error);
+  //     });
+  // }, [eventId]);
+
+  // useEffect(() => {
+  //   axios.get('http://localhost:8080/participantrequest/getAllParRequests')
+  //     .then(response => {
+  //       // setEvents(response.data);
+  //       const tmpPart = response.data;
+  //       console.log("tmpPart: ",tmpPart);
+  //       console.log("TMPeventId: ",tmpPart.eventId);
+  //       const origPart = tmpPart.find(tmpPar => tmpPar.eventId == eventId && tmpPar.organizerId === organizer.oid && tmpPar.status !== null );
+  //       console.log("EventId: ",eventId);
+  //       setParticipants(origPart);
+  //       console.log("origPart: ",origPart);
+        
+  //     })
+  //     .catch(error => {
+  //       console.error('Error fetching participants:', error);
+  //     });
+  // }, []);
+  // // const disableButton = (participant => participant.status === 1);
   useEffect(() => {
     window.scroll(0, 0);
-        axios.get(`http://localhost:8080/Event/getEvent/${eventId}`)
+    axios.get(`http://localhost:8080/Event/getEvent/${eventId}`)
       .then(response => {
-        console.log(response.data)
+        console.log(response.data);
         setEvents(response.data);
       })
       .catch(error => {
         console.error('Error fetching events:', error);
       });
   }, [eventId]);
-
   useEffect(() => {
     axios.get('http://localhost:8080/participantrequest/getAllParRequests')
       .then(response => {
         // setEvents(response.data);
         const tmpPart = response.data;
-        console.log("tmpPart: ",tmpPart);
-        console.log("TMPeventId: ",tmpPart.eventId);
-        const origPart = tmpPart.find(tmpPar => tmpPar.eventId == eventId && tmpPar.organizerId === organizer.oid && tmpPar.status !== null );
+        // console.log("tmpPart: ",tmpPart);
+        // console.log("TMPeventId: ",tmpPart.eventId);
+        const origPart = tmpPart.filter(tmpPar => tmpPar.eventId === eventId && tmpPar.status === 'Accepted' );
+
+        // const reqPart = tmpPart.filter(tmpPar => tmpPar.eventId === eventId && tmpPar.status === null );
+
         console.log("EventId: ",eventId);
-        setParticipants(origPart);
-        console.log("origPart: ",origPart);
+        setJoinedCount(origPart.length);
+        // setRequestCount(reqPart.length)
+        console.log("origPartCount1: ",origPart);
+        console.log("origPartCount: ",origPart.length);
         
       })
       .catch(error => {
         console.error('Error fetching participants:', error);
       });
   }, []);
-  // const disableButton = (participant => participant.status === 1);
-
   return (
     <>
       <ResponsiveAppBarOrgan />
@@ -101,6 +131,7 @@ export default function OrganEventPage() {
         time={event.time}
         date={event.date}
         // disabled={disableButton}
+        joined={joinedCount}
         path={`/OrganizerEventJoinRequest/${eventId}`} />
         <Container maxWidth="lg">
           <br />

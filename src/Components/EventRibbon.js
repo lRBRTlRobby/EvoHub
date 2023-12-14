@@ -17,7 +17,7 @@ const convertToAmPm = (militaryTime) => {
     const formattedHours = hours % 12 === 0 ? 12 : hours % 12;
     return `${formattedHours}:${minutes} ${period}`;
   };
-export default function EventRibbon  ({ date, time,location ,path, disabled})  {
+export default function EventRibbon  ({ date, time,location ,path, disabled, joined})  {
 
      // Convert military time to AM/PM format
   const formattedTime = convertToAmPm(time);
@@ -63,7 +63,7 @@ useEffect(() => {
             <Typography variant="h6" style={{fontWeight:'bold',fontSize:'16px'}}>
                 Joined </Typography>
             <Typography variant="subtitle1" style={{fontSize:'14px'}}>
-            {joinedCount} Rsvp'd</Typography>
+            {joined} Rsvp'd</Typography>
     </div>
     <Link to={path}>
         <Button class="event-ribbon-rsvp-button" disabled={disabled}>RSVP Now</Button>
