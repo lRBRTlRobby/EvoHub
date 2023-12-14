@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Grid, TextField, FormControl, FormLabel, Select, InputLabel, InputAdornment, IconButton, } from "@mui/material";
+import { Button, Grid, TextField, FormControl, FormLabel, Select, InputLabel, InputAdornment, IconButton, Modal, Box, Typography, } from "@mui/material";
 import './UserRegister.css'
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import Container from '@mui/material/Container';
@@ -8,6 +8,10 @@ import axios from 'axios';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 export default function EventRegister() {
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
     const [dept, setDept] = useState('Department');
     const [regis, setRegis] = useState(false);
     const navigate = useNavigate();
@@ -101,8 +105,12 @@ export default function EventRegister() {
                 });
                 console.log('Registration successful:', response.data);
                 // Redirect or show a success message as needed
-                alert('Registration successful');
-                setRegis(true);
+                // alert('Registration successful');
+                handleOpen();
+                setTimeout(() => {
+                    // Proceed to setRegis(true) after the delay
+                    setRegis(true);
+                }, 2000);
             } catch (error) {
                 console.error('Error during registration:', error);
                 // Handle registration failure, show error message, etc.
@@ -124,6 +132,35 @@ export default function EventRegister() {
 
     return (
         <>
+        <div>
+        <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: 400,
+            bgcolor: "background.paper",
+            border: "2px solid #000",
+            boxShadow: 24,
+            p: 4
+          }}
+        >
+          <Typography id="modal-modal-title" variant="h6" component="h2" sx={{ textAlign: 'center' }}>
+          Registration successful!
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2, textAlign: 'center' }}>
+            You can now log in as a user!
+          </Typography>
+        </Box>
+      </Modal>
+        </div>
             <div className="reg-container">
                 <Container maxWidth="x1">
                     <Grid container spacing={2} style={{ margin: "0 auto" }}>

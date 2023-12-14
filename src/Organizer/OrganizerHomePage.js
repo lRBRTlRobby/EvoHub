@@ -67,7 +67,7 @@ export default function OrganizerHomePage() {
                 <div>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                         <h2 style={{ fontFamily: "'DM Sans', sans-serif" }}>Browse Event Categories</h2>
-                        <Link to = "/UserEventCategory" style={{textDecoration:'none'}}><Button sx={{ padding: "0" }}><h4>View All</h4></Button></Link>
+                        <Link to = "/OrganizerEventCategory" style={{textDecoration:'none'}}><Button sx={{ padding: "0" }}><h4>View All</h4></Button></Link>
                     </div>
                     <div style={{ display: "flex", overflowX: "hidden", maxWidth: "100%" }} ref={containerRef}>
                         <div style={{ display: "flex", justifyContent: "center" }}>
@@ -91,7 +91,7 @@ export default function OrganizerHomePage() {
                 <div>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                         <h2 style={{ fontFamily: "'DM Sans', sans-serif" }}>Popular Events</h2>
-                        <Link to = "/UserPopularEvents"  style={{textDecoration:'none'}}><Button sx={{ padding: "0" }}><h4>View All</h4></Button></Link>
+                        <Link to = "/OrganizerPopularEvents"  style={{textDecoration:'none'}}><Button sx={{ padding: "0" }}><h4>View All</h4></Button></Link>
                     </div>
                     <div style={{ marginBottom: "5rem" }}>
                         <div style={{ display: "flex", overflowX: "hidden", maxWidth: "100%" }} ref={containerRef1}>
@@ -104,17 +104,18 @@ export default function OrganizerHomePage() {
                                     }}
                                 >
                                     {/* Conditional rendering based on event date */}
-                                    {new Date(event.date) > currentDate && (
-                                    <Link to={`/OrganizerEventPage/${event.eventid}`} style={{textDecoration: "none"}} >
+                                    {new Date(event.date) > currentDate && event.status === 1 && event.isDeleted === 0 ? (
+                                    <Link to={`/OrganizerEventPage/${event.eventid}`} style={{ textDecoration: "none" }}>
                                         <ActionAreaCard
                                         key={index}
                                         date={event.date}
                                         title={event.title}
-                                        image={"/uploads/" + event.image}
+                                        image={`/uploads/${event.image}`}
                                         description={event.description}
                                         />
                                     </Link>
-                                    )}
+                                    ) : null}
+
                                 </div>
                                 ))}
 

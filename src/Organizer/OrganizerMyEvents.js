@@ -72,7 +72,8 @@ export default function MyEvents() {
                 </div>
                 <div>
 
-                    <div style={{ display: "flex", overflowX: "hidden", maxWidth: "100%" }} ref={containerRef}>
+                    <div style={{ display: "flex", overflowX: "hidden", maxWidth: "100%" }} 
+                    ref={containerRef}>
                     {event.map((event, index) => (
                         <div
                             key={index}
@@ -82,7 +83,7 @@ export default function MyEvents() {
                             }}
                         >
                             {/* Conditional rendering based on event date and department */}
-                            {new Date(event.date) >= currentDate && ( event.orgid === organizer.oid) && (
+                            {new Date(event.date) >= currentDate && ( event.orgid === organizer.oid) &&(event.isDeleted === 0) ?(
                             <Link to={`/EventDetails/${event.eventid}`} style={{textDecoration:'none'}}>
                                 <ActionAreaCard
                                 key={index}
@@ -92,7 +93,7 @@ export default function MyEvents() {
                                 description={event.description}
                                 />
                             </Link>
-                            )}
+                            ): null}
                         </div>
                         ))}
                     </div>
@@ -106,7 +107,7 @@ export default function MyEvents() {
                     <h2 style={{ fontFamily: "'DM Sans', sans-serif", marginTop: "5rem",fontSize:'30px' }}>Past Events</h2>
 
                     <div style={{ marginBottom: "5rem" }}>
-                        <div style={{ display: "flex", flexWrap: "wrap", overflowX: "auto" , alignItemsL:"center", justifyContent: "center"}}>
+                        <div style={{ display: "flex", flexWrap: "wrap", overflowX: "hidden" , alignItemsL:"center", justifyContent: "center"}}>
                         {event.map((event, index) => (
                         <div
                             key={index}
@@ -115,8 +116,7 @@ export default function MyEvents() {
                             padding: ".5rem",
                             }}
                         >
-                            {/* Conditional rendering based on event date */}
-                            {new Date(event.date) <= currentDate && ( event.orgid === organizer.oid) && (
+                            {new Date(event.date) <= currentDate && ( event.orgid === organizer.oid) &&(event.isDeleted === 0) ?(
                             <Link to={`/EventDetails/${event.eventid}`} style={{textDecoration:'none'}}>
                                 <ActionAreaCard
                                 key={index}
@@ -126,10 +126,14 @@ export default function MyEvents() {
                                 description={event.description}
                                 />
                             </Link>
-                            )}
+                            ): null}
                         </div>
                         ))}
                         </div>
+                        <div style={{ display: "flex", justifyContent: "center" }}>
+                        <Button onClick={scrollLeft}><img src="/img/leftbtn.png" alt="left" /></Button>
+                        <Button onClick={scrollRight}><img src="/img/rightbtn.png" alt="left" /></Button>
+                    </div>
                     </div>
                 </div>
             </Container>

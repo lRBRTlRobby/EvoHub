@@ -73,23 +73,31 @@ export default function UserEventPage() {
           </h2>
 
           <p style={{ textAlign: 'justify', width: '810px', marginRight: '350px', marginLeft: '150px', fontSize: '20px', textDecoration: 'underline' }}>
-            {event.department}
+            Cebu Institute of Technology - University
           </p>
 
           <p style={{ textAlign: 'justify', width: '810px', marginRight: '350px', marginLeft: '150px', fontSize: '18px' }}>
-            {event.description}
+          {event.department === 'None' ? 'Open to every department' : `This event is exclusively for ${event.department} college students.`}
+            <br/>
+            {event.yearlevel === 0 ? 'Open to all levels! Join us for a fantastic time!' : `This event is exclusively for ${event.yearlevel}th year  college students.`}
+            <br/>
+            {event.payment === 'No' ? "Complimentary attendance—no payment required." : "Please note that payment is required for participation."}
           </p>
           <br></br>
           <br></br>
           <br></br>
         </Container>
       </div>
-      <EventRibbon path={`/UserEventJoinRequest/${eventId}`} />
+      <EventRibbon 
+              location={event.location}
+              time={event.time}
+              date={event.date}
+      path={`/UserEventJoinRequest/${eventId}`} />
         <Container maxWidth="lg">
           <br />
           <div style={{ textAlign: "center" }}>
             <h2 style={{ fontFamily: 'DM Sans, sans-serif', textAlign: 'left' }}>About this event</h2>
-            <p style={{ textAlign: 'left', fontSize: '14px' }}>
+            <p style={{ textAlign: 'left'}}>
               {event.description }
             </p>
 
@@ -112,9 +120,9 @@ export default function UserEventPage() {
             <br></br>
             <br></br>
           </div>
-          <div style={{ marginLeft: '450px' }}>
+          {/* <div style={{ marginLeft: '450px' }}>
             <ButtonM name="Contact us" />
-          </div>
+          </div> */}
 
           <br></br>
           <br></br>

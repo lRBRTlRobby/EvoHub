@@ -9,6 +9,8 @@ import ButtonM from "../Components/ButtonMaroon";
 import axios from 'axios';
 import { Button } from '@mui/material'
 import { useOrganizer } from '../Components/OrganizerProvider';
+import { useNavigate } from 'react-router-dom';
+import Footer from "../Components/footer";
 
 export default function CreateEventForm() {
   const { organizer } = useOrganizer();
@@ -16,7 +18,7 @@ export default function CreateEventForm() {
   const [file, setFile] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
   const [allEvents, setAllEvents] = useState({});
- 
+  const navigate = useNavigate();
   useEffect(() => {
     window.scroll(0, 0);
     
@@ -30,14 +32,6 @@ export default function CreateEventForm() {
       });
   }, []);
   
- 
-  const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  }));
   const [formData, setFormData] = useState({
     eventTitle: "",
     description: "",
@@ -140,10 +134,6 @@ export default function CreateEventForm() {
     if (isLocationTaken) {
       alert('Warning: Another event already exists at the same location, date, and time.');
       return;
-      // console.log('Existing Event:', allEvents.find((existingEvent) => existingEvent.time === formData.time));
-      // console.log('Form Data:', formData);
-      // You can choose to display the warning in the UI or take further actions
-
     }
   
     try {
@@ -182,8 +172,8 @@ export default function CreateEventForm() {
       setFormSubmitted(true)
       // Alert after successful request
       window.alert('Request Successfully Requested to the Admin');
-  
-      // Reload the page
+      // add navigate then proceed to
+      navigate("/OrganizerHomePage");
     } catch (error) {
       console.error('Error submitting form:', error);
     }
@@ -260,33 +250,33 @@ console.log(formData)
               <div style={{ display: "flex" }}>
 
                 {/* Date */}
-                <div className="form-group" style={{ flex: 1 }}>
-                  <h5
-                    style={{
-                      fontFamily: "DM Sans",
-                      marginTop: "1rem",
-                      color: "#666666",
-                    }}
-                  >
-                    Date
-                  </h5>
-                  <input
-                    type="date"
-                    id="date"
-                    name="date"
-                    value={formData.date}
-                    onChange={handleChange}
-                    placeholder="Date"
-                    style={{
-                      width: "45%",
-                      height: "45px",
-                      borderRadius: "45px",
-                      padding: "0 15px",
-                    }}
-                    required
-                  />
-                </div>
-
+              <div className="form-group" style={{ flex: 1 }}>
+                <h5
+                  style={{
+                    fontFamily: "DM Sans",
+                    marginTop: "1rem",
+                    color: "#666666",
+                  }}
+                >
+                  Date
+                </h5>
+                <input
+                  type="date"
+                  id="date"
+                  name="date"
+                  value={formData.date}
+                  onChange={handleChange}
+                  placeholder="Date"
+                  style={{
+                    width: "45%",
+                    height: "45px",
+                    borderRadius: "45px",
+                    padding: "0 15px",
+                  }}
+                  min={new Date().toISOString().split('T')[0]}  
+                  required
+                />
+              </div>
                 {/* Time 1 */}
                 <div className="form-group" style={{ flex: 1 }}>
                   <h5
@@ -343,9 +333,6 @@ console.log(formData)
                   />
                 </div>
               </div>
-
-
-
               {/* Your Location */}
               <div className="form-group" style={{ marginTop: "2rem" }}>
               <h5
@@ -591,6 +578,7 @@ console.log(formData)
         </Grid>
       </Box>
       </Container>
+      <Footer/>
     </>
     
   );

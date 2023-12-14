@@ -56,6 +56,8 @@ export default function OrganEventJoinRequest() {
     setFormData({ ...formData, [name]: value });
   };
 
+
+
   const handleSubmit = async (e) => {
   e.preventDefault();
 
@@ -63,19 +65,20 @@ export default function OrganEventJoinRequest() {
     // Fetch event details to check year level and department conditions
     const eventResponse = await axios.get(`http://localhost:8080/Event/getEvent/${eventId}`);
     const event = eventResponse.data;
-
+  
     // Check if both year level and department are allowed
     if (
       // (event.yearlevel === 0 || event.yearlevel === formData.yearlevel) 
       // &&
-      (event.department === 'None' || event.department === formData.department)
+      (event.department === 'None' || event.department.toUpperCase() === organizer.department.toUpperCase())
     ) {
       const response = await axios.post('http://localhost:8080/participantrequest/insertParRequest', {
-        firstname: user.fname,
-        lastname: user.lname,
-        email: user.email,
+        fname: organizer.fname,
+        mname: organizer.mname,
+        lname: organizer.lname,
+        email: organizer.email,
+        department: organizer.department,
         yearlevel: formData.yearlevel,
-        department: formData.department,
         eventId: eventId,
         userId: 0,
         organizerId: organizer.oid,
@@ -94,7 +97,7 @@ export default function OrganEventJoinRequest() {
   }
 };
 
-console.log("Here PLEASE:", event.yearlevel,formData.yearlevel,event.department,formData.department)
+// console.log("Here PLEASE:", event.yearlevel,formData.yearlevel,event.department, event.department.toUpperCase().includes(departmentAcronyms[organizerAcronym].toUpperCase()))
 console.log("USER ID",user.userid);
   return (
     <>
@@ -116,7 +119,7 @@ console.log("USER ID",user.userid);
                 id="fname"
                 name="fname"
                 type="text"
-                value={user.fname}
+                value={organizer.fname}
                 onChange={handleChange}
                 disabled
               />
@@ -128,7 +131,7 @@ console.log("USER ID",user.userid);
                 id="lname"
                 name="lname"
                 type="text"
-                value={user.lname}
+                value={organizer.lname}
                 onChange={handleChange}
                 disabled
               />
@@ -140,7 +143,7 @@ console.log("USER ID",user.userid);
                 id="schoolEmailAddress"
                 name="schoolEmailAddress"
                 type="email"
-                value={user.email}
+                value={organizer.email}
                 onChange={handleChange}
                 disabled
               />
@@ -167,14 +170,16 @@ console.log("USER ID",user.userid);
               <Select
                 id="department"
                 name="department"
-                value={formData.department}
+                value={organizer.department}
                 onChange={handleChange}
+                disabled
               >
                 <MenuItem value="CCS">CCS</MenuItem>
                 <MenuItem value="CEA">CEA</MenuItem>
                 <MenuItem value="CCJ">CCJ</MenuItem>
                 <MenuItem value="CASE">CASE</MenuItem>
                 <MenuItem value="CNAHS">CNAHS</MenuItem>
+                <MenuItem value="IT">IT</MenuItem>
               </Select>
             </FormControl>
 

@@ -72,6 +72,7 @@ import UpdateEventForm from './Organizer/OrganizerUpdateEvent';
 import OrganEventPage from './Organizer/OrganizerEventPage';
 import OrganEventJoinRequest from './Organizer/OrganizerEventJoint';
 import { AdminProvider } from './Components/AdminProvider';
+import OrganPopularEvents from './Organizer/OrganizerPopularEvents';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -132,6 +133,7 @@ root.render(
                                           <Route path="/UpdateEvents/:eventId" element={<UpdateEventForm />} />
                                           <Route path="/OrganizerEventPage/:eventId" element={<OrganEventPage />} />
                                           <Route path="/OrganizerEventJoinRequest/:eventId" element={<OrganEventJoinRequest />} />
+                                          <Route path="/OrganizerPopularEvents" element={<OrganPopularEvents />} />
 
 
 

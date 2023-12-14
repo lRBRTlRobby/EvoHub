@@ -2,26 +2,21 @@ import React, { useRef } from 'react'
 import ResponsiveAppBar from '../Components/header'
 import LandingPage from '../Components/LandingPage'
 import Container from '@mui/material/Container';
-import EventCatBtn from '../Components/EventCatBtn';
 import { Button, Grid } from '@mui/material';
 import ActionAreaCard from '../Components/eventCard';
 import OrganizerReq from '../Components/OrganizerReq';
 import CampusVenues from '../Components/CampusVenues';
-import AboutUs from '../Components/AboutUs';
-import Upcoming from '../Upcoming';
 import { Link } from 'react-router-dom';
 import Footer from '../Components/footer';
 import PersonProfile from './UserAboutUs';
 import { useState, useEffect } from "react";
 import axios from 'axios'
-import EventCategoryCEA from './UserEventCategoryCEA';
 
 export default function UserHomePage() {
     const containerRef = useRef(null);
     const containerRef1 = useRef(null);
     const [event, setEvents] = useState([]);
     const currentDate = new Date();
-
 
     useEffect(() => {
         axios.get('http://localhost:8080/Event/getAllEvents')
@@ -80,20 +75,16 @@ console.log("events: ",event)
                         <Link to ="/EventCategoryCMBA"><Button><img className='catbtn' src="/img/account.png" /></Button></Link>
                         <Link to ="/EventCategoryCNAHS"><Button><img className='catbtn' src="/img/nursing.png" /></Button></Link>
                         <Link to ="/EventCategoryCCJ"><Button><img className='catbtn' src="/img/crim.png" /></Button></Link>
-
                         </div>
-
                     </div>
                     <div style={{ display: "flex", justifyContent: "center" }}>
                         <Button onClick={scrollLeft}><img src="/img/leftbtn.png" alt="left" /></Button>
                         <Button onClick={scrollRight}><img src="/img/rightbtn.png" alt="left" /></Button>
                     </div>
-
                 </div>
-
                 <div>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                        <h2 style={{ fontFamily: "'DM Sans', sans-serif" }}>Popular Events</h2>
+                        <h2 style={{ fontFamily: "'DM Sans', sans-serif" , textDecoration:'none'}}>Popular Events</h2>
                         <Link to = "/UserPopularEvents"><Button sx={{ padding: "0" }}><h4>View All</h4></Button></Link>
                     </div>
 
@@ -109,17 +100,17 @@ console.log("events: ",event)
                                     }}
                                 >
                                     {/* Conditional rendering based on event date */}
-                                    {new Date(event.date) > currentDate && (
-                                    <Link to={`/UserEventPage/${event.eventid}`}>
+                                    {new Date(event.date) > currentDate && event.status === 1 && event.isDeleted === 0 ? (
+                                    <Link to={`/UserEventPage/${event.eventid}`} style={{ textDecoration: "none" }}>
                                         <ActionAreaCard
                                         key={index}
                                         date={event.date}
                                         title={event.title}
-                                        image={"/uploads/" + event.image}
+                                        image={`/uploads/${event.image}`}
                                         description={event.description}
                                         />
                                     </Link>
-                                    )}
+                                    ) : null}
                                 </div>
                                 ))}
                                 

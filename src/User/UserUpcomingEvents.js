@@ -80,17 +80,17 @@ export default function UserUpcomingEvents() {
                     }}
                 >
                     {/* Conditional rendering based on event date */}
-                    {new Date(event.date) >= currentDate && (
-                    <Link to={`/UserEventPage/${event.eventid}`}>
+                    {new Date(event.date) > currentDate && event.status === 1 && event.isDeleted === 0 ? (
+                    <Link to={`/UserEventPage/${event.eventid}`} style={{ textDecoration: "none" }}>
                         <ActionAreaCard
                         key={index}
                         date={event.date}
                         title={event.title}
-                        image={"/uploads/" + event.image}
+                        image={`/uploads/${event.image}`}
                         description={event.description}
                         />
                     </Link>
-                    )}
+                    ) : null}
                 </div>
                 ))}
   </div>

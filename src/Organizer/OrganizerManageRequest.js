@@ -5,6 +5,11 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import Footer from '../Components/footer';
+import EventRibbon_noBtn from '../Components/EventRibbon_noBtn';
+import Modal from '../Components/PopUp';
+
+import { useOrganizer } from '../Components/OrganizerProvider';
 
 export default function AttendeeRequests() {
     const [showDetails, setShowDetails] = useState(false);
@@ -14,6 +19,8 @@ export default function AttendeeRequests() {
     const { eventId } = useParams();
     const [participants, setParticipants] = useState([]);
     const navigate = useNavigate();
+    const [isModalOpen, setModalOpen] = useState(false);
+    const {organizer} = useOrganizer();
 
      useEffect(() => {
       window.scroll(0, 0);
@@ -45,24 +52,82 @@ export default function AttendeeRequests() {
     function createData(prid, firstname, lastname, email, department, yearlevel, eventId, userId) {
         return { prid, firstname, lastname, email, department, yearlevel, eventId, userId };
     }
-
-    const rows = participants.map(participant =>
-        createData(
-            participant.prid,
-            participant.firstname,
-            participant.lastname,
-            participant.email,
-            participant.department,
-            participant.yearlevel,
-            participant.eventId,
-            participant.userId
-        )
-    );
-
+    const openModal = () => {
+        setModalOpen(true);
+      };
+    
+    const closeModal = () => {
+    setModalOpen(false);
+    };
+    const handleDelete = async () => {
+        try {
+          await axios.put(`http://localhost:8080/Event/updateEvent?eventid=${eventId}`,
+          
+          {
+            "eventid": event.eventId,
+            "title": event.title,
+            "description": event.description,
+            "date": event.date,
+            "time": event.time,
+            "duration": event.duration,
+            "location": event.location,
+            "organizer": event.organizer,
+            "yearlevel": event.yearlevel,
+            "department": event.department,
+            "payment": event.payment,
+            "maxAttend": event.maxAttend,
+            "image": event.image,
+            "orgid": event.orgid,
+            "status": event.status,
+            "isDeleted": 1
+    
+        });
+      
+          navigate('/MyEvents');
+        } catch (error) {
+          // Handle errors, e.g., show an error message
+          alert('Error deleting event:', error);
+        }
+      };
     const filteredRows = participants.filter((events) => !filterValue || participants.department === filterValue);
 
-    const handleDeclinekButtonClick = (prid) => {
-        console.log(`Check button clicked for row with id ${prid}`);
+    const handleDeclinekButtonClick = (row) => {
+        const prid = row.prid;
+    
+        if (prid === undefined) {
+            alert("Participant ID is undefined.");
+            return;
+        }
+    
+        const participant = participants.find(p => p.prid === prid);
+    
+        if (!participant) {
+            alert(`Participant with ID ${prid} not found.`);
+            return;
+        }
+    
+        // Make an API call to update the status when the "Accept" button is clicked
+        axios.put(`http://localhost:8080/participantrequest/updateParRequest?prid=${prid}`, {
+            prid: prid,
+            firstname: row.firstname,
+            lastname: row.lastname,
+            email: row.email,
+            department: row.department,
+            yearlevel: row.yearlevel,
+            eventId: row.eventId,
+            userId: row.userId,
+            status: 'Declined'
+            
+        })
+        .then(() => {
+            // After the API call is successful, update the stated
+            alert("Participant is declined to join the event.");
+            // Reload the page
+            window.location.reload();
+        })
+        .catch(error => {
+            console.error('Error updating participant status:', error);
+        });
     };
 
     const handleAcceptButtonClick = (row) => {
@@ -90,6 +155,7 @@ export default function AttendeeRequests() {
             yearlevel: row.yearlevel,
             eventId: row.eventId,
             userId: row.userId,
+            organizerId: organizer.oid,
             status: 'Accepted'
             
         })
@@ -109,7 +175,7 @@ export default function AttendeeRequests() {
     
         if (confirmEdit) {
             // Check if event.id is available
-            if (event.id) {
+            if (event.eventid) {
                 // If yes, navigate to the "UpdateEvents" page
                 navigate(`/UpdateEvents/${eventId}`);
             } else {
@@ -143,16 +209,32 @@ export default function AttendeeRequests() {
                 }}>Manage Requests
                 </Button>
                 </Link>
-                <Link to={`/UpdateEvents/${eventId}`}>
+               
                     <Button onClick = {handleUpdateAlert}>
                         <img src="/img/EditWhite.png" alt="Edit" />
                     </Button>
-                </Link>
-                <Button> <img src="/img/DeleteWhite.png" alt="Edit" /></Button>
+                
+                    <Button onClick={openModal}>
+                        <img src="/img/DeleteWhite.png" alt="Edit" />
+                    </Button>
+
+                    {/* Render the Modal component */}
+                    <Modal isOpen={isModalOpen} onClose={closeModal} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                    <p style={{ textAlign: 'center' }}>Are you certain you wish to delete the event?</p>
+                    <p style={{ color: 'grey', fontSize: '14px', fontStyle: 'italic', textAlign: 'center' }}>
+                        This action will promptly eliminate the event from the administrator's records.
+                    </p>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', marginTop: '16px' }}>
+                        <Button style={{ backgroundColor: '#aaa', color: '#fff' }} onClick={closeModal}>
+                        Close
+                        </Button>
+                        <Button style={{ backgroundColor: '#ff5050', color: '#fff' }} onClick={handleDelete}>
+                        Delete
+                        </Button>
+                    </div>
+                    </Modal>
                 
             </div>
-        <Container>
-            
             <Container maxWidth="lg">
             <br />
             <br />
@@ -169,19 +251,39 @@ export default function AttendeeRequests() {
                 marginTop : '150px'
             }}
             />
-                <h3 style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '32px', marginRight: '600px', marginLeft: '150px' }}>2023 - Explore, Learn, Innovate!</h3>
+                <h3 style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '32px', marginRight: '600px', marginLeft: '150px' }}>{event.title}</h3>
 
-                <p style={{ textAlign: 'justify', width: '810px', marginRight: '350px', marginLeft: '150px', fontSize: '20px', textDecoration: 'underline' }}>Cebu Institute of Technology</p>
+                <p style={{ textAlign: 'justify', width: '810px', marginRight: '350px', marginLeft: '150px', fontSize: '20px', textDecoration: 'underline' }}>Cebu Institute Technology</p>
 
                 {/* New text added below Cebu Institute Technology */}
-                <p style={{ textAlign: 'justify', width: '810px', marginRight: '350px', marginLeft: '150px', fontSize: '20px' }}>
-                    TechXperience 2023 aims to inspire, educate, and connect tech enthusiasts by providing access to cutting-edge talks, hands-on workshops, and networking opportunities, both in-person and online. Explore, learn, and innovate with us!
+                <p style={{ textAlign: 'justify', width: '810px', marginRight: '350px', marginLeft: '150px', fontSize: '18px' }}>
+            {event.department === 'None' ? 'Open to every department' : `This event is exclusively for ${event.department} college students.`}
+                <br/>
+                {event.yearlevel === 0 ? 'Open to all levels! Join us for a fantastic time!' : `This event is exclusively for ${event.yearlevel}th year  college students.`}
+                <br/>
+                {event.payment === 'No' ? "Complimentary attendance—no payment required." : "Please note that payment is required for participation."}
                 </p>
             </Container>
             <br></br>
             <br></br>
             <div>
-                {/* Your content */}
+            <EventRibbon_noBtn
+                venue={event.location}
+                time={event.time}
+                date={event.date}
+                // joined={}
+                // request={}
+
+                 />
+            </div>
+        <Container maxWidth="lg">
+        <br />
+            <div style={{ textAlign: "center" }}>
+                
+            <h2 style={{ fontFamily: 'DM Sans, sans-serif', textAlign: 'left' }}>About this event</h2>
+             <p style={{ textAlign: 'left'}}>
+              {event.description }
+            </p>
             </div>
             <br></br>
             <br></br>
@@ -189,9 +291,9 @@ export default function AttendeeRequests() {
             Manage Requests
             </h2>
             <div className="attendee-table">
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-                    <div>
-                        {/* Dropdown/Select for filtering */}
+            {/* <div style={{ display: "flex", justifyContent: "space-between" }}> */}
+                    {/* <div>
+                        Dropdown/Select for filtering
                         <Select
                             value={filterValue}
                             onChange={(e) => { setFilterValue(e.target.value); setShowDetails(false); }}
@@ -201,8 +303,8 @@ export default function AttendeeRequests() {
                         >
                             <MenuItem value="" >
                                 All
-                            </MenuItem>
-                            {/* Add unique carb values from your rows */}
+                            </MenuItem> */}
+                            {/* Add unique carb values from your rows
                             {[...new Set(rows.map((row) => row.carbs))].map((carbs) => (
                                 <MenuItem key={carbs} value={carbs}>
                                     {carbs}
@@ -219,7 +321,7 @@ export default function AttendeeRequests() {
                             variant='outlined'
                         />
                     </div>
-                </div>
+                </div> */}
                 <br/>
                 {/* TABLE */}
                 <TableContainer component={Paper}>
@@ -280,6 +382,8 @@ export default function AttendeeRequests() {
             </div>
             </div>
         </Container>
+        <br/>
+        <Footer/>
         </>
     );
 }

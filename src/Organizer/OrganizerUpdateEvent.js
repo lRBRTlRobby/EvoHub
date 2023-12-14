@@ -11,6 +11,7 @@ import { Button } from '@mui/material'
 import { useOrganizer } from '../Components/OrganizerProvider';
 import { useParams } from "react-router-dom";
 import Footer from "../Components/footer";
+import { useNavigate } from 'react-router-dom';
 
 export default function UpdateEventForm() {
   const { organizer } = useOrganizer();
@@ -20,6 +21,7 @@ export default function UpdateEventForm() {
   const { eventId } = useParams();
   const [event, setEvents] = useState({});
   const [allEvents, setAllEvents] = useState({});
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     eventTitle: "",
     description: "",
@@ -86,9 +88,7 @@ export default function UpdateEventForm() {
       });
   }, [eventId]);
 
-  useEffect(() => {
-    window.scroll(0, 0);
-  }, [formSubmitted]);
+
  
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -215,6 +215,8 @@ export default function UpdateEventForm() {
   
       // Alert after successful request
       window.alert('Update Request Successfully Requested to the Admin');
+      // add navigate then proceed to
+      navigate(`/EventDetails/${eventId}`);
   
       // Reload the page
     } catch (error) {
@@ -332,7 +334,8 @@ console.log(formData)
                       borderRadius: "45px",
                       padding: "0 15px",
                     }}
-                    required
+                    min={new Date().toISOString().split('T')[0]}  
+                  required
                   />
                 </div>
 
