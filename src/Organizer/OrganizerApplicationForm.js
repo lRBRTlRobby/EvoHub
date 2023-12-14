@@ -69,8 +69,8 @@ const ApplicationForm = () => {
       }
 
       // Replace the following with actual user and organizer IDs
-      // const userId = ""; // Add logic to get the user ID
-      // const organizerId = ""; // Add logic to get the organizer ID
+      const userId = ""; // Add logic to get the user ID
+      const organizerId = ""; // Add logic to get the organizer ID
 
       // Make a POST request to the new endpoint
       const response = await axios.post(
