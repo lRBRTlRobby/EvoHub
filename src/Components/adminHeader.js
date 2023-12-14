@@ -11,9 +11,9 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import  './header.css';
 import { Link } from 'react-router-dom';
+import { useAdmin } from '../Components/AdminProvider';
 
 const pages = ['Dashboard','Organizer Requests', 'Event Requests'];
 const settings = ['Profile','Logout'];
@@ -48,6 +48,7 @@ function getSettingPath(settings) {
 function AdminHeader() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const {admin} = useAdmin();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -147,7 +148,7 @@ function AdminHeader() {
           <Box sx={{ flexGrow: 0,marginRight:'4em' }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar  alt="Remy Sharp" src="/static/images/avatar/2.jpg"   />
+                <Avatar  alt={admin.firstName} src="/static/images/avatar/2.jpg"   />
               </IconButton>
             </Tooltip>
             <Menu

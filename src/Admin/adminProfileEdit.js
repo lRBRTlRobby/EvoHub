@@ -5,47 +5,59 @@ import { Button, Grid, TextField } from "@mui/material";
 import Footer from "../Components/footer";
 import ButtonM from "../Components/ButtonMaroon";
 import AdminHeader from "../Components/adminHeader";
-import axios from 'axios'; // Import Axios
+import axios from 'axios';
+import { useAdmin } from '../Components/AdminProvider';
 
 export default function AdminProfileEdit() {
+  const { admin, login } = useAdmin();
   const [selectedGender, setSelectedGender] = useState("");
-  const [textFieldHeight, setTextFieldHeight] = useState("auto");
+  const [ textFieldHeight ] = useState("auto");
   const [formData, setFormData] = useState({
-    adminName: '',
-    email: '',
-    pass: '',
-    firstName: '',
-    middleName: '',
-    lastName: '',
-    gender: '',
-    department: '',
-    title: '',
-    bio: '',
-    country: '',
-    city: '',
-    birthdate: '',
-    phone: ''
+    adminName: admin.adminName,
+    email: admin.email,
+    pass: admin.pass,
+    firstName: admin.firstName,
+    middleName: admin.middleName,
+    lastName: admin.lastName,
+    gender: admin.gender,
+    department: admin.department,
+    title: admin.title,
+    bio: admin.bio,
+    country: admin.country,
+    city: admin.city,
+    birthdate: admin.birthdate,
+    phone: admin.phone
   });
 
   const handleGenderChange = (event) => {
     setSelectedGender(event.target.value);
   };
 
-  const handleInputChange = (event) => {
-    const { id, value } = event.target;
-    setFormData({ ...formData, [id]: value });
-    const inputLines = value.split("\n").length;
-    const fixedLineHeight = 1.5;
-    const newHeight = `${inputLines * fixedLineHeight}em`;
-    setTextFieldHeight(newHeight);
-  };
+  // const handleInputChange = (event) => {
+  //   const { id, value } = event.target;
+  //   setFormData({ ...formData, [id]: value });
+  //   const inputLines = value.split("\n").length;
+  //   const fixedLineHeight = 1.5;
+  //   const newHeight = `${inputLines * fixedLineHeight}em`;
+  //   setTextFieldHeight(newHeight);
+  // };
 
   const handleProfileUpdate = async () => {
     try {
-      const data = { ...formData, gender: selectedGender };
+      // const data = { ...formData, gender: selectedGender };
+      const response = await axios.put(
+        `http://localhost:8080/admins/updateAdmin?adminid=${admin.adminId}`, // Ensure adminId is defined
+        formData,
 
-      await axios.post('http://localhost:8080/admins/updateAdmin/1', data);
-      alert('Profile Updated')
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      console.log("formData", formData);
+      login(response.data);
+      alert('Profile Updated');
       // Handle success or navigate to another page upon successful update
     } catch (error) {
       alert('Error updating profile:', error);
@@ -53,6 +65,7 @@ export default function AdminProfileEdit() {
     }
   };
 
+  console.log(admin)
   return (
     <div>
       <AdminHeader />
@@ -90,10 +103,10 @@ export default function AdminProfileEdit() {
               <TextField
                 className="txt"
                 id="firstName"
-                placeholder="Kyle"
                 type="text"
                 variant="outlined"
-                onChange={handleInputChange}
+                onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+                value={formData.firstName}
               />
               <p>
                 <b>Middle Name:</b>
@@ -101,21 +114,22 @@ export default function AdminProfileEdit() {
               <TextField
                 className="txt"
                 id="middleName"
-                placeholder="Kyle"
                 type="text"
                 variant="outlined"
-                onChange={handleInputChange}
+                onChange={(e) => setFormData({ ...formData, middleName: e.target.value })}
+                value={formData.middleName}
               />
+
               <p>
                 <b>Last Name:</b>
               </p>
               <TextField
                 className="txt"
                 id="lastName"
-                placeholder="Weig"
                 type="text"
                 variant="outlined"
-                onChange={handleInputChange}
+                onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+                value={formData.lastName}
               />
               <div>
                 <label>
@@ -123,7 +137,7 @@ export default function AdminProfileEdit() {
                     <b>Gender: </b>
                     <select
                       value={selectedGender}
-                      onChange={handleInputChange}
+                      onChange={handleGenderChange} // Use handleGenderChange here
                       id="gender"
                       style={{ width: "20%", fontSize: ".9rem" }}
                     >
@@ -141,10 +155,10 @@ export default function AdminProfileEdit() {
               <TextField
                 className="txt"
                 id="department"
-                placeholder="CCS"
                 type="text"
                 variant="outlined"
-                onChange={handleInputChange}
+                onChange={(e) => setFormData({ ...formData, department: e.target.value })}
+                value={formData.department}
               />
               <p>
                 <b>Title:</b>
@@ -152,10 +166,10 @@ export default function AdminProfileEdit() {
               <TextField
                 className="txt"
                 id="title"
-                placeholder="Physical Education"
                 type="text"
                 variant="outlined"
-                onChange={handleInputChange}
+                onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                value={formData.title}
               />
             </Grid>
             <Grid item xs={6} md={6}>
@@ -165,10 +179,10 @@ export default function AdminProfileEdit() {
               <TextField
                 className="txt"
                 id="email"
-                placeholder="kyle.weig@cit.edu"
                 type="text"
                 variant="outlined"
-                onChange={handleInputChange}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                value={formData.email}
               />
               <p>
                 <b>Phone:</b>
@@ -176,10 +190,10 @@ export default function AdminProfileEdit() {
               <TextField
                 className="txt"
                 id="phone"
-                placeholder="+63 912 345 6789"
                 type="text"
                 variant="outlined"
-                onChange={handleInputChange}
+                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                value={formData.phone}
               />
               <p>
                 <b>Date of Birth:</b>
@@ -187,10 +201,10 @@ export default function AdminProfileEdit() {
               <TextField
                 className="txt"
                 id="birthdate"
-                placeholder="July 5, 2001"
                 type="text"
                 variant="outlined"
-                onChange={handleInputChange}
+                onChange={(e) => setFormData({ ...formData, birthdate: e.target.value })}
+                value={formData.birthdate}
               />
               <p>
                 <b>City:</b>
@@ -198,10 +212,10 @@ export default function AdminProfileEdit() {
               <TextField
                 className="txt"
                 id="city"
-                label="City"
                 type="text"
                 variant="outlined"
-                onChange={handleInputChange}
+                onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                value={formData.city}
               />
               <p>
                 <b>Country:</b>
@@ -209,10 +223,10 @@ export default function AdminProfileEdit() {
               <TextField
                 className="txt"
                 id="country"
-                label="Country"
                 type="text"
                 variant="outlined"
-                onChange={handleInputChange}
+                onChange={(e) => setFormData({ ...formData, country: e.target.value })}
+                value={formData.country}
               />
             </Grid>
             <Grid item xs={12} md={6}></Grid>
@@ -227,16 +241,15 @@ export default function AdminProfileEdit() {
               type="text"
               variant="outlined"
               multiline
-              onChange={handleInputChange}
+              onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
+              value={formData.bio}
               sx={{
                 width: "100%",
                 maxWidth: "100%",
                 maxHeight: "auto",
                 padding: "1rem",
                 display: "flex",
-                maxHeight: "auto",
                 height: textFieldHeight,
-                padding: 0,
                 marginBottom: "1rem",
               }}
             />
@@ -244,8 +257,15 @@ export default function AdminProfileEdit() {
         </div>
 
         <div style={{ display: "flex", justifyContent: "center" }}>
-          <ButtonM name="Update Profile" onClick={handleProfileUpdate} />
+          <Button sx={{
+            backgroundColor: 'maroon', color: 'white', fontFamily: "'DM Sans', sans-serif", width: '19rem', height: '4rem', fontWeight: 'bold',  fontSize: '1rem',
+            display: "flex", justifyContent: "center", padding: 0, borderRadius: 50
+
+          }} onClick={handleProfileUpdate}>Update Profile</Button>
         </div>
+        {/* <button onClick={handleProfileUpdate}>
+          update
+        </button> */}
       </Container>
       <Footer />
     </div>
