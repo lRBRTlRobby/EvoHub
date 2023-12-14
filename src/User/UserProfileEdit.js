@@ -4,7 +4,6 @@ import ResponsiveAppBar from '../Components/header';
 import Avatar from '@mui/material/Avatar';
 import { Button, Grid, TextField } from '@mui/material';
 import Footer from '../Components/footer';
-import ButtonM from '../Components/ButtonMaroon';
 import { useUser } from '../Components/UserProvider';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -14,7 +13,6 @@ export default function UserProfileEdit() {
     const [selectedGender, setSelectedGender] = useState(user.gender || '');
     const [regis, setRegis] = useState(false);
     const navigate = useNavigate();
-    const [lastname, setLastname] = useState('');
 
     const handleGenderChange = (event) => {
         setSelectedGender(event.target.value);
@@ -74,7 +72,7 @@ export default function UserProfileEdit() {
             // Redirect or show a success message as needed
             navigate('/UserProfile');
         }
-    }, [regis]);
+    }, [regis, navigate]);
 
     const [textFieldHeight, setTextFieldHeight] = useState('auto');
 
@@ -265,8 +263,8 @@ export default function UserProfileEdit() {
                             variant='outlined'
                             multiline
                             sx={{
-                                width: "100%", maxWidth: "100%", maxHeight: "auto", padding: '1rem', display: "flex", maxHeight: "auto",
-                                height: textFieldHeight, padding: 0, marginBottom: '1rem',
+                                width: "100%", maxWidth: "100%", maxHeight: "auto", padding: '1rem', display: "flex", 
+                                height: textFieldHeight, marginBottom: '1rem',
                             }}
                         />
                     </div>
@@ -275,7 +273,7 @@ export default function UserProfileEdit() {
                 <div style={{ display: "flex", justifyContent: "center" }}>
 
                     <Button sx={{
-                        backgroundColor: 'maroon', color: 'white', fontFamily: "'DM Sans', sans-serif", width: '19rem', height: '4rem', fontWeight: 'bold', fontFamily: "'DM Sans', sans-serif", fontSize: '1rem',
+                        backgroundColor: 'maroon', color: 'white', fontFamily: "'DM Sans', sans-serif", width: '19rem', height: '4rem', fontWeight: 'bold', fontSize: '1rem',
                         display: "flex", justifyContent: "center", padding: 0, borderRadius: 50
                     }} onClick={handleUpdateProfile}>Update Profile</Button>
                 </div>

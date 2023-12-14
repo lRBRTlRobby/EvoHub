@@ -3,10 +3,9 @@ import ResponsiveAppBar from "../Components/header";
 import Container from "@mui/material/Container";
 import axios from "axios";
 import "./OrganizerApplicationForm.css";
-// import Button from "../Components/ButtonMaroon";
 import Footer from "../Components/footer";
 import { Button, TextField } from "@mui/material";
-import { useUser } from '../Components/UserProvider';
+import { useUser } from "../Components/UserProvider";
 import { useNavigate } from "react-router-dom";
 
 const ApplicationForm = () => {
@@ -24,15 +23,15 @@ const ApplicationForm = () => {
     message: "",
   });
 
-  const [textFieldHeight, setTextFieldHeight] = useState('auto');
+  const [textFieldHeight, setTextFieldHeight] = useState("auto");
 
   const handleInputChange = (event) => {
-      if (event && event.target) {
-          const inputLines = event.target.value.split('\n').length;
-          const fixedLineHeight = 1.5;
-          const newHeight = `${inputLines * fixedLineHeight}em`;
-          setTextFieldHeight(newHeight);
-      }
+    if (event && event.target) {
+      const inputLines = event.target.value.split("\n").length;
+      const fixedLineHeight = 1.5;
+      const newHeight = `${inputLines * fixedLineHeight}em`;
+      setTextFieldHeight(newHeight);
+    }
   };
 
   const handleChange = (e) => {
@@ -53,28 +52,6 @@ const ApplicationForm = () => {
       formData.organization &&
       formData.message
     ) {
-      // // Check email format using a simple regular expression
-      // const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      // if (!emailRegex.test(formData.email)) {
-      //   console.log("Email is not valid!");
-      //   return false;
-      // }
-
-      // // Additional validation logic for specific fields
-      // // Check the length of the password (assuming it's a required field)
-      // if (formData.password && formData.password.length < 8) {
-      //   console.log("Passowrd is too short!");
-      //   return false;
-      // }
-
-      // // Check the format of the phone number (assuming it's optional)
-      // const phoneRegex = /^\d{10}$/; // Assumes a 10-digit phone number
-      // if (formData.phoneNumber && !phoneRegex.test(formData.phoneNumber)) {
-      //   console.log("Phone number is not in the correct format!");
-      //   return false;
-      // }
-
-      // If all checks pass, the form is valid
       return true;
     }
 
@@ -113,7 +90,7 @@ const ApplicationForm = () => {
         },
         {
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
         }
       );
@@ -202,22 +179,7 @@ const ApplicationForm = () => {
                   disabled
                 />
               </div>
-              {/* <div className="form-group">
-                <h5>Event Name:</h5>
-                <input
-                  type="text"
-                  name="eventName"
-                  value={formData.eventName}
-                  onChange={handleChange}
-                  placeholder="Enter Event Name"
-                  style={{
-                    borderRadius: "45px",
-                    padding: "15px",
-                    width: "100%",
-                  }}
-                  required
-                />
-              </div> */}
+
               <div className="form-group">
                 <h5>School Email Address:</h5>
                 <input
@@ -274,28 +236,7 @@ const ApplicationForm = () => {
                   <label>Staff</label>
                 </div>
               </div>
-              {/* <div className="form-group">
-                <h5>Year Level</h5>
-                <select
-                  name="department"
-                  value={formData.department}
-                  onChange={handleChange}
-                  required
-                  style={{
-                    borderRadius: "10px",
-                    padding: "10px",
-                    width: "100%",
-                    height: "50px",
-                  }}
-                >
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="None">None</option>
-                </select>
-              </div> */}
+
               <div className="form-group">
                 <h5>Select Department</h5>
                 <select
@@ -381,33 +322,54 @@ const ApplicationForm = () => {
               </div> */}
 
               <div style={{ marginBottom: "5rem" }}>
-              <h5>Message to the Admin for Request of Approval</h5>
-                    <TextField
-                      className='txt'
-                      id="fname"
-                      name="message"
-                      placeholder="Message"
-                      value={formData.message}
-                      onChange={(e) => { handleInputChange(e); handleChange(e); }}
-                      type="text"
-                      variant='outlined'
-                      multiline
-                      sx={{
-                        width: "100%", maxWidth: "100%", maxHeight: "auto", padding: '1rem', display: "flex", maxHeight: "auto",
-                        height: textFieldHeight, padding: 0, marginBottom: '1rem',
-                      }}
-                    />
-                  </div>
+                <h5>Message to the Admin for Request of Approval</h5>
+                <TextField
+                  className="txt"
+                  id="fname"
+                  name="message"
+                  placeholder="Message"
+                  value={formData.message}
+                  onChange={(e) => {
+                    handleInputChange(e);
+                    handleChange(e);
+                  }}
+                  type="text"
+                  variant="outlined"
+                  multiline
+                  sx={{
+                    width: "100%",
+                    maxWidth: "100%",
+                    maxHeight: "auto",
+                    padding: "0",
+                    display: "flex",
+                    height: textFieldHeight,
+                    marginBottom: "1rem",
+                  }}
+                />
+              </div>
               <div
                 className="form-group"
                 style={{ textAlign: "center", padding: "100px" }}
               >
                 {/* <Button name="Submit" onClick={submitForm} /> */}
-                <Button sx={{
-                  backgroundColor: 'maroon', color: 'white', fontFamily: "'DM Sans', sans-serif", width: '19rem', height: '4rem', fontWeight: 'bold', fontFamily: "'DM Sans', sans-serif", fontSize: '1rem',
-                  display: "flex", justifyContent: "center", padding: 0, borderRadius: 50,
-
-                }} onClick={submitForm}>Submit</Button>
+                <Button
+                  sx={{
+                    backgroundColor: "maroon",
+                    color: "white",
+                    fontFamily: "'DM Sans', sans-serif",
+                    width: "19rem",
+                    height: "4rem",
+                    fontWeight: "bold",
+                    fontSize: "1rem",
+                    display: "flex",
+                    justifyContent: "center",
+                    padding: 0,
+                    borderRadius: 50,
+                  }}
+                  onClick={submitForm}
+                >
+                  Submit
+                </Button>
               </div>
             </form>
           </div>
