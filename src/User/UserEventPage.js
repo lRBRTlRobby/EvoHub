@@ -79,7 +79,10 @@ export default function UserEventPage() {
   return (
     <>
       <ResponsiveAppBar />
-
+      <br/>
+      <br/>
+      <br/>
+      <br/>
       <div
         style={{
           backgroundImage: `url('/img/sheer.png')`,

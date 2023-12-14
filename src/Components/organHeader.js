@@ -11,7 +11,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import './header.css';
 import { Link } from 'react-router-dom';
 import { useOrganizer } from './OrganizerProvider';
@@ -92,10 +91,10 @@ function ResponsiveAppBarOrgan() {
     setLogoutModalOpen(true);
   };
 
-  const handleCloseLogoutModal = () => {
-    // Close the logout confirmation modal
-    setLogoutModalOpen(false);
-  };
+  // const handleCloseLogoutModal = () => {
+  //   // Close the logout confirmation modal
+  //   setLogoutModalOpen(false);
+  // };
 
   return (
 
