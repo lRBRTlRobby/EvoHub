@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom';
 export default function EventCategoryCEA() {
 
     const containerRef = useRef(null);
-    const containerRef1 = useRef(null);
+    // const containerRef1 = useRef(null);
     const [event, setEvents] = useState([]);
     const currentDate = new Date();
 
@@ -34,22 +34,22 @@ export default function EventCategoryCEA() {
         }
     };
 
-    const scrollLeft1 = () => {
-        if (containerRef1.current) {
-            containerRef1.current.scrollLeft -= 300;
-        }
-    };
+    // const scrollLeft1 = () => {
+    //     if (containerRef1.current) {
+    //         containerRef1.current.scrollLeft -= 300;
+    //     }
+    // };
 
     const scrollRight = () => {
         if (containerRef.current) {
             containerRef.current.scrollLeft += 300;
         }
     };
-    const scrollRight1 = () => {
-        if (containerRef1.current) {
-            containerRef1.current.scrollLeft += 300;
-        }
-    };
+    // const scrollRight1 = () => {
+    //     if (containerRef1.current) {
+    //         containerRef1.current.scrollLeft += 300;
+    //     }
+    // };
 
     return (
         <>

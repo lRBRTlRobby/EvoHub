@@ -2,13 +2,9 @@ import React, { useRef, useEffect, useState } from 'react'
 import ResponsiveAppBarOrgan from '../Components/organHeader'
 import LandingPage from '../Components/LandingPage'
 import Container from '@mui/material/Container';
-import EventCatBtn from '../Components/EventCatBtn';
-import { Button, Grid } from '@mui/material';
+import { Button } from '@mui/material';
 import ActionAreaCard from '../Components/eventCard';
-import OrganizerReq from '../Components/OrganizerReq';
 import CampusVenues from '../Components/CampusVenues';
-import AboutUs from '../Components/AboutUs';
-import Upcoming from '../Upcoming';
 import { Link } from 'react-router-dom';
 import Footer from '../Components/footer';
 import PersonProfile from '../User/UserAboutUs';
@@ -71,12 +67,12 @@ export default function OrganizerHomePage() {
                     </div>
                     <div style={{ display: "flex", overflowX: "hidden", maxWidth: "100%" }} ref={containerRef}>
                         <div style={{ display: "flex", justifyContent: "center" }}>
-                            <Link to="/OrganizerEventCategoryCEA"><Button><img className='catbtn' src="/img/Engineering.png" /></Button></Link>
-                            <Link to="/OrganizerEventCategoryCCS"><Button><img className='catbtn' src="/img/ccs.png" /></Button></Link>
-                            <Link to="/OrganizerEventCategoryCASE"><Button><img className='catbtn' src="/img/arts.png" /></Button></Link>
-                            <Link to="/OrganizerEventCategoryCMBA"><Button><img className='catbtn' src="/img/account.png" /></Button></Link>
-                            <Link to="/OrganizerEventCategoryCNAHS"><Button><img className='catbtn' src="/img/nursing.png" /></Button></Link>
-                            <Link to="/OrganizerEventCategoryCCJ"><Button><img className='catbtn' src="/img/crim.png" /></Button></Link>
+                            <Link to="/OrganizerEventCategoryCEA"><Button><img className='catbtn' src="/img/Engineering.png" alt="CEA"/></Button></Link>
+                            <Link to="/OrganizerEventCategoryCCS"><Button><img className='catbtn' src="/img/ccs.png" alt="CCS"/></Button></Link>
+                            <Link to="/OrganizerEventCategoryCASE"><Button><img className='catbtn' src="/img/arts.png" alt="CASE"/></Button></Link>
+                            <Link to="/OrganizerEventCategoryCMBA"><Button><img className='catbtn' src="/img/account.png"alt="CMBA" /></Button></Link>
+                            <Link to="/OrganizerEventCategoryCNAHS"><Button><img className='catbtn' src="/img/nursing.png" alt="CNAHS"/></Button></Link>
+                            <Link to="/OrganizerEventCategoryCCJ"><Button><img className='catbtn' src="/img/crim.png" alt="CCJ"/></Button></Link>
 
                         </div>
 

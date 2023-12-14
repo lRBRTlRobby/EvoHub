@@ -11,7 +11,7 @@ import ResponsiveAppBarOrgan from '../Components/organHeader';
 
 export default function EventCategoryCCJ() {
     const containerRef = useRef(null);
-    const containerRef1 = useRef(null);
+    // const containerRef1 = useRef(null);
     const [event, setEvents] = useState([]);
     const currentDate = new Date();
 
@@ -31,22 +31,22 @@ export default function EventCategoryCCJ() {
         }
     };
 
-    const scrollLeft1 = () => {
-        if (containerRef1.current) {
-            containerRef1.current.scrollLeft -= 300;
-        }
-    };
+    // const scrollLeft1 = () => {
+    //     if (containerRef1.current) {
+    //         containerRef1.current.scrollLeft -= 300;
+    //     }
+    // };
 
     const scrollRight = () => {
         if (containerRef.current) {
             containerRef.current.scrollLeft += 300;
         }
     };
-    const scrollRight1 = () => {
-        if (containerRef1.current) {
-            containerRef1.current.scrollLeft += 300;
-        }
-    };
+    // const scrollRight1 = () => {
+    //     if (containerRef1.current) {
+    //         containerRef1.current.scrollLeft += 300;
+    //     }
+    // };
 
     return (
         <>

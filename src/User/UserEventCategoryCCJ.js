@@ -58,6 +58,10 @@ export default function EventCategoryCCJ() {
     return (
         <>
             <ResponsiveAppBar />
+            <br/>
+            <br/>
+            <br/>
+            <br/>
             <img src="img/ccj_banner.png" alt="logo" className="banner" />
             <Container maxWidth="lg">
                 <div >

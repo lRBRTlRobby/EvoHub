@@ -51,6 +51,10 @@ export default function EventCategoryCASE() {
     return (
         <>
             <ResponsiveAppBar/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
             <img src="img/case_banner.png" alt="logo" className="banner" />
             <Container maxWidth="lg">
                 <div >

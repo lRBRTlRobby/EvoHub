@@ -85,17 +85,12 @@ export default function OrganEventPage() {
   return (
     <>
       <ResponsiveAppBarOrgan />
-      
-    
       <div style={{ backgroundImage: `url('/img/sheer.png')`, backgroundSize: 'cover', minHeight: '10vh' }}>
         <Container maxWidth="lg">
           <br/>
           <br/>
           <br/>
           <br/>
-          <br/>
-          <br/>
-
         <img  src={"/uploads/" + event.image} alt="here" 
           style={{ width: '100%',
           height:"500px",
