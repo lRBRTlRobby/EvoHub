@@ -15,7 +15,7 @@ export default function UserEventPage() {
   const [event, setEvents] = useState({});
   const { eventId } = useParams();
   const [participants, setParticipants] = useState([]);
-  // const [participantCount, setParticipantCount] = useState([]);
+  const [participantCount, setParticipantCount] = useState([]);
 
   useEffect(() => {
     window.scroll(0, 0);
@@ -40,7 +40,7 @@ export default function UserEventPage() {
         console.log("TMPeventId: ", tmpPart.eventId);
         const origPart = tmpPart.find(
           (tmpPar) =>
-            tmpPar.eventId === eventId &&
+            tmpPar.eventId == eventId &&
             tmpPar.userId === user.userid &&
             tmpPar.status !== null
         );
@@ -63,11 +63,11 @@ export default function UserEventPage() {
         console.log("tmpPart: ", tmpPart);
         console.log("TMPeventId: ", tmpPart.eventId);
         const origPart = tmpPart.filter(
-          (tmpPar) => tmpPar.eventId === eventId && tmpPar.status === "Accepted"
+          (tmpPar) => tmpPar.eventId == eventId && tmpPar.status === "Accepted"
         );
         console.log("EventId: ", eventId);
         // Use this for the count, participantCount.length
-        // setParticipantCount(origPart);
+        setParticipantCount(origPart);
         console.log("origPartCount1: ", origPart);
         console.log("origPartCount: ", origPart.length);
       })
