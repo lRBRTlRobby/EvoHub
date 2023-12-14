@@ -1,7 +1,7 @@
 
 import Footer from "../Components/footer";
 import EventRibbon_noBtn from "../Components/EventRibbon_noBtn";
-import { Avatar, Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Select, MenuItem, Container } from '@mui/material';
+import { Avatar, Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow , Container} from '@mui/material';
 import axios from 'axios';
 import "../Components/EventCatBtn.css";
 import React, { useState, useEffect } from 'react';
@@ -16,38 +16,44 @@ export default function ViewAttendees(){
     const [event, setEvents] = useState({});
     const { eventId } = useParams();
     const [participants, setParticipants] = useState([]);
+    const [requestCount, setRequestCount] = useState();
+    const [joinedCount, setJoinedCount] = useState();
     const navigate = useNavigate();
     const [isModalOpen, setModalOpen] = useState(false);
    
     useEffect(() => {
-      window.scroll(0, 0);
-      axios.get(`http://localhost:8080/Event/getEvent/${eventId}`)
-        .then(response => {
-          console.log(response.data);
-          setEvents(response.data);
-        })
-        .catch(error => {
-          console.error('Error fetching events:', error);
-        });
-    }, [eventId]);
-
-    useEffect(() => {
         window.scroll(0, 0);
-        axios.get(`http://localhost:8080/participantrequest/getAllParRequests`)
-            .then(response => {
-                console.log(response.data);
-                // Filter participants based on the condition that status is 'Accepted'
-                const filteredParticipants = response.data.filter(participant => participant.status === 'Accepted');
-                console.log(filteredParticipants)
-                // Set the filtered participants
-                setParticipants(filteredParticipants);
-                // Set the events if needed
-                // setEvents(filteredParticipants);
-            })
-            .catch(error => {
-                alert('Error fetching events:', error);
-            });
-    }, [eventId]);
+        axios.get(`http://localhost:8080/Event/getEvent/${eventId}`)
+          .then(response => {
+            console.log(response.data);
+            setEvents(response.data);
+          })
+          .catch(error => {
+            console.error('Error fetching events:', error);
+          });
+      }, [eventId]);
+      useEffect(() => {
+        axios.get('http://localhost:8080/participantrequest/getAllParRequests')
+          .then(response => {
+            // setEvents(response.data);
+            const tmpPart = response.data;
+            // console.log("tmpPart: ",tmpPart);
+            // console.log("TMPeventId: ",tmpPart.eventId);
+            const origPart = tmpPart.filter(tmpPar => tmpPar.eventId === eventId && tmpPar.status === 'Accepted' );
+    
+            const reqPart = tmpPart.filter(tmpPar => tmpPar.eventId === eventId && tmpPar.status === null );
+    
+            console.log("EventId: ",eventId);
+            setJoinedCount(origPart.length);
+            setRequestCount(reqPart.length)
+            console.log("origPartCount1: ",origPart);
+            console.log("origPartCount: ",origPart.length);
+            
+          })
+          .catch(error => {
+            console.error('Error fetching participants:', error);
+          });
+      }, []);
 
     function createData(prid, firstname, lastname, email, department, yearlevel, eventId, userId) {
         return { prid, firstname, lastname, email, department, yearlevel, eventId, userId };
@@ -154,18 +160,19 @@ export default function ViewAttendees(){
 
                     {/* Render the Modal component */}
                     <Modal isOpen={isModalOpen} onClose={closeModal} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                    <p style={{ textAlign: 'center' }}>Are you certain you wish to delete the event?</p>
-                    <p style={{ color: 'grey', fontSize: '14px', fontStyle: 'italic', textAlign: 'center' }}>
-                        This action will promptly eliminate the event from the administrator's records.
-                    </p>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', marginTop: '16px' }}>
-                        <Button style={{ backgroundColor: '#aaa', color: '#fff' }} onClick={closeModal}>
-                        Close
-                        </Button>
-                        <Button style={{ backgroundColor: '#ff5050', color: '#fff' }} onClick={handleDelete}>
-                        Delete
-                        </Button>
-                    </div>
+                        <p style={{ textAlign: 'center' }}>Are you certain you wish to delete the event?</p>
+                        <p style={{ color: 'grey', fontSize: '14px', fontStyle: 'italic', textAlign: 'center' }}>
+                            This action will promptly eliminate the event from the administrator's records.
+                        </p>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', marginTop: '16px' }}>
+                            <Button style={{ backgroundColor: '#ff5050', color: '#fff' }} onClick={handleDelete}>
+                            Delete
+                            </Button>
+                            <Button style={{ backgroundColor: '#aaa', color: '#fff' }} onClick={closeModal}>
+                            Close
+                            </Button>
+                            
+                        </div>
                     </Modal>
                 
             </div>   
@@ -206,8 +213,8 @@ export default function ViewAttendees(){
                 venue={event.location}
                 time={event.time}
                 date={event.date}
-                // joined={}
-                // request={}
+                joined={joinedCount}
+                request={requestCount}
 
                  />
             </div>
