@@ -3,6 +3,7 @@ import Footer from "../Components/footer";
 import EventRibbon from "../Components/EventRibbon";
 import "../Components/EventCatBtn.css";
 import Container from '@mui/material/Container';
+import Avatar from '@mui/material/Avatar';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
@@ -10,6 +11,8 @@ import { useParams } from 'react-router-dom';
 import ParticipantApprove from "../Components/AFeedback";
 import ResponsiveAppBarOrgan from "../Components/organHeader";
 import ParticipantDecline from "../Components/DFeeback";
+
+
 // import { useOrganizer } from '../Components/OrganizerProvider';
 
 export default function OrganEventPage() {
@@ -18,6 +21,7 @@ export default function OrganEventPage() {
   const [participants, setParticipants] = useState([]);
   // const [requestCount, setRequestCount] = useState();
   const [joinedCount, setJoinedCount] = useState();
+  const [organizer, setOrganizer] = useState([]);
 
   // useEffect(() => {
   //   window.scroll(0, 0);
@@ -82,6 +86,21 @@ export default function OrganEventPage() {
         console.error('Error fetching participants:', error);
       });
   }, []);
+  useEffect(() => {
+    if (event.orgid) {
+      axios.get(`http://localhost:8080/organizer/getAllOrganizers`)
+        .then(response => {
+          const tmpPart = response.data;
+          const origPart = tmpPart.find(tmpPar => tmpPar.oid === event.orgid);
+          setOrganizer(origPart);
+        })
+        .catch(error => {
+          console.error('Error fetching organizer:', error);
+        });
+    }
+  }, [event.orgid]);
+  
+  console.log(organizer)
   return (
     <>
       <ResponsiveAppBarOrgan />
@@ -145,20 +164,35 @@ export default function OrganEventPage() {
             <h2 style={{ fontFamily: 'DM Sans, sans-serif', textAlign: 'left' }}>
               Head Organizer
             </h2>
-            
-          
-            <p style={{ textAlign: 'left', fontSize: '14px' }}>
-              {event.organizer}
-            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+              <Avatar alt="organizer" src="/static/images/avatar/2.jpg" sx={{ width: 80, height: 80, fontSize: "2.5rem", marginRight: '10px' }}>
+                {event.organizer ? event.organizer.charAt(0) : ''}
+              </Avatar>
+              <div>
+                <h3 style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '30px' }}>
+                  {event.organizer}
+                </h3>
+                <p style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '18px', color: 'grey' }}>
+                  {organizer.role}
+                </p>
+                <p style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '18px', color: 'grey' }}>
+                  {organizer.email}
+                </p>
+              </div>
+          </div>
 
+
+
+          
             <br></br>
             <br></br>
             <br></br>
-            <br></br>
+            <br></br>~
           </div>
           {/* <div style={{ marginLeft: '450px' }}>
             <ButtonM name="Contact us" />
           </div> */}
+          
          
         </Container>
         <Footer/>

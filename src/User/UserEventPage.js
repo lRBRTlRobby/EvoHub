@@ -9,6 +9,7 @@ import { useParams } from 'react-router-dom';
 import { useUser } from '../Components/UserProvider';
 import ParticipantApprove from "../Components/AFeedback";
 import ParticipantDecline from "../Components/DFeeback";
+import Avatar from '@mui/material/Avatar';
 
 export default function UserEventPage() {
   const { user } = useUser();
@@ -16,6 +17,7 @@ export default function UserEventPage() {
   const { eventId } = useParams();
   const [participants, setParticipants] = useState([]);
   const [participantCount, setParticipantCount] = useState([]);
+  const [organizer, setOrganizer] = useState([]);
 
   useEffect(() => {
     window.scroll(0, 0);
@@ -53,7 +55,6 @@ export default function UserEventPage() {
       });
   }, [user.userid, eventId]);
 
-
   useEffect(() => {
     axios
       .get("http://localhost:8080/participantrequest/getAllParRequests")
@@ -75,7 +76,19 @@ export default function UserEventPage() {
         console.error("Error fetching participants:", error);
       });
   }, [eventId]);
-
+  useEffect(() => {
+    if (event.orgid) {
+      axios.get(`http://localhost:8080/organizer/getAllOrganizers`)
+        .then(response => {
+          const tmpPart = response.data;
+          const origPart = tmpPart.find(tmpPar => tmpPar.oid === event.orgid);
+          setOrganizer(origPart);
+        })
+        .catch(error => {
+          console.error('Error fetching organizer:', error);
+        });
+    }
+  }, [event.orgid]);
   return (
     <>
       <ResponsiveAppBar />
@@ -190,13 +203,25 @@ export default function UserEventPage() {
 
           <br />
           <br />
-          <h2 style={{ fontFamily: "DM Sans, sans-serif", textAlign: "left" }}>
-            Head Organizer
-          </h2>
-
-          <p style={{ textAlign: "left", fontSize: "14px" }}>
-            {event.organizer}
-          </p>
+          <h2 style={{ fontFamily: 'DM Sans, sans-serif', textAlign: 'left' }}>
+              Head Organizer
+            </h2>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+              <Avatar alt="organizer" src="/static/images/avatar/2.jpg" sx={{ width: 80, height: 80, fontSize: "2.5rem", marginRight: '10px' }}>
+                {event.organizer ? event.organizer.charAt(0) : ''}
+              </Avatar>
+              <div>
+                <h3 style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '30px' }}>
+                  {event.organizer}
+                </h3>
+                <p style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '18px', color: 'grey' }}>
+                  {organizer.role}
+                </p>
+                <p style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '18px', color: 'grey' }}>
+                  {organizer.email}
+                </p>
+              </div>
+          </div>
 
           <br></br>
           <br></br>
@@ -206,12 +231,7 @@ export default function UserEventPage() {
         {/* <div style={{ marginLeft: '450px' }}>
             <ButtonM name="Contact us" />
           </div> */}
-
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
+        
       </Container>
       <Footer />
     </>
