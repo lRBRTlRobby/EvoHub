@@ -45,7 +45,8 @@ export default function AttendeeRequests() {
             const origPart = tmpPart.filter(tmpPar => tmpPar.eventId == eventId && tmpPar.status === 'Accepted' );
     
             const reqPart = tmpPart.filter(tmpPar => tmpPar.eventId == eventId && tmpPar.status === null );
-    
+            console.log("reqPart: ",reqPart);
+            setParticipants(reqPart);
             console.log("EventId: ",eventId);
             setJoinedCount(origPart.length);
             setRequestCount(reqPart.length)
@@ -125,6 +126,7 @@ export default function AttendeeRequests() {
             yearlevel: row.yearlevel,
             eventId: row.eventId,
             userId: row.userId,
+            organizerId: row.organizerId,
             status: 'Declined'
             
         })
@@ -164,7 +166,7 @@ export default function AttendeeRequests() {
             yearlevel: row.yearlevel,
             eventId: row.eventId,
             userId: row.userId,
-            organizerId: organizer.oid,
+            organizerId: row.organizerId,
             status: 'Accepted'
             
         })

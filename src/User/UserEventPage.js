@@ -16,8 +16,10 @@ export default function UserEventPage() {
   const [event, setEvents] = useState({});
   const { eventId } = useParams();
   const [participants, setParticipants] = useState([]);
+  const [participantsAccept, setParticipantsAccept] = useState([]);
   const [participantCount, setParticipantCount] = useState([]);
   const [organizer, setOrganizer] = useState([]);
+  const [isTrue, setIsTrue] = useState(false);
 
   useEffect(() => {
     window.scroll(0, 0);
@@ -40,15 +42,19 @@ export default function UserEventPage() {
         const tmpPart = response.data;
         console.log("tmpPart: ", tmpPart);
         console.log("TMPeventId: ", tmpPart.eventId);
-        const origPart = tmpPart.find(
-          (tmpPar) =>
-            tmpPar.eventId == eventId &&
-            tmpPar.userId === user.userid &&
-            tmpPar.status !== null
-        );
+        const origPart = tmpPart
+          .filter((tmpPar) => tmpPar.eventId == eventId && tmpPar.userId === user.userid && tmpPar.status !== null)
+          .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp)) // Assuming there is a timestamp property to determine the order
+
+        const latestStatus = origPart[(origPart.length - 1)];
+        if (latestStatus.status === "Accepted") {
+          setIsTrue(true);
+        }
+        setParticipantsAccept(latestStatus);
         console.log("EventId: ", eventId);
         setParticipants(origPart);
         console.log("origPart: ", origPart);
+        console.log("latestStatus: ", latestStatus);
       })
       .catch((error) => {
         console.error("Error fetching participants:", error);
@@ -89,13 +95,14 @@ export default function UserEventPage() {
         });
     }
   }, [event.orgid]);
+  console.log("istrue: ", isTrue);
   return (
     <>
       <ResponsiveAppBar />
-      <br/>
-      <br/>
-      <br/>
-      <br/>
+      <br />
+      <br />
+      <br />
+      <br />
       <div
         style={{
           backgroundImage: `url('/img/sheer.png')`,
@@ -175,6 +182,7 @@ export default function UserEventPage() {
         date={event.date}
         joined={participantCount.length}
         path={`/UserEventJoinRequest/${eventId}`}
+        disabled={isTrue}
       />
       <Container maxWidth="lg">
         <br />
@@ -184,9 +192,9 @@ export default function UserEventPage() {
           </h2>
           <p style={{ textAlign: "left" }}>{event.description}</p>
 
-          {participants ? (
+          {participantsAccept !== null && participantsAccept.length !== 0 ? (
             <>
-              {participants.status === "Accepted" ? (
+              {participantsAccept.status === "Accepted" ? (
                 <>
                   <ParticipantApprove />
                 </>
@@ -204,23 +212,23 @@ export default function UserEventPage() {
           <br />
           <br />
           <h2 style={{ fontFamily: 'DM Sans, sans-serif', textAlign: 'left' }}>
-              Head Organizer
-            </h2>
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
-              <Avatar alt="organizer" src="/static/images/avatar/2.jpg" sx={{ width: 80, height: 80, fontSize: "2.5rem", marginRight: '10px' }}>
-                {event.organizer ? event.organizer.charAt(0) : ''}
-              </Avatar>
-              <div>
-                <h3 style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '30px' }}>
-                  {event.organizer}
-                </h3>
-                <p style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '18px', color: 'grey' }}>
-                  {organizer.role}
-                </p>
-                <p style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '18px', color: 'grey' }}>
-                  {organizer.email}
-                </p>
-              </div>
+            Head Organizer
+          </h2>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+            <Avatar alt="organizer" src="/static/images/avatar/2.jpg" sx={{ width: 80, height: 80, fontSize: "2.5rem", marginRight: '10px' }}>
+              {event.organizer ? event.organizer.charAt(0) : ''}
+            </Avatar>
+            <div>
+              <h3 style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '30px' }}>
+                {event.organizer}
+              </h3>
+              <p style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '18px', color: 'grey' }}>
+                {organizer.role}
+              </p>
+              <p style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '18px', color: 'grey' }}>
+                {organizer.email}
+              </p>
+            </div>
           </div>
 
           <br></br>
@@ -231,7 +239,7 @@ export default function UserEventPage() {
         {/* <div style={{ marginLeft: '450px' }}>
             <ButtonM name="Contact us" />
           </div> */}
-        
+
       </Container>
       <Footer />
     </>
