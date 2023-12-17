@@ -12,6 +12,8 @@ export default function EventUser() {
     const navigate = useNavigate();
     const [isChecked, setIsChecked] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+   
+   
 
     const [showPassword, setShowPassword] = useState(false);
 
@@ -24,29 +26,37 @@ export default function EventUser() {
     };
 
     const handleLogIn = async () => {
-        if (document.getElementById("email").value != "" || document.getElementById("pass").value != "") {
+        if (document.getElementById("email").value !== "" || document.getElementById("pass").value !== "") {
             const email = document.getElementById("email").value;
             const pass = document.getElementById("pass").value;
-
+    
             try {
-                const response = await axios.get('http://localhost:8080/User/getAllUsers', {
-                    email: document.getElementById("email").value,
-                    pass: document.getElementById("pass").value,
-                });
-
-                const users = response.data;
-
+                const userResponse = await axios.get('http://localhost:8080/User/getAllUsers');
+                const organizerResponse = await axios.get('http://localhost:8080/organizer/getAllOrganizers');
+    
+                const users = userResponse.data;
+                const organizers = organizerResponse.data;
+    
+                // Check if the user's email exists in the list of organizers
+                const isOrganizer = organizers.some(org => org.email === email);
+                if (isOrganizer) {
+                    alert('Your email is associated with an organizer account. Please log in using the organizer login.');
+                    return;
+                }
+    
                 const user = users.find(user => user.email === email && user.pass === pass);
-
+    
                 if (user) {
                     // Login successful
                     if (!isChecked) {
                         alert('Please agree to the Terms and Conditions.');
                         return;
                     }
+    
                     login(user);
                     setIsLoggedIn(true);
                     console.log('User logged in:', user);
+    
                 } else {
                     alert('Invalid email or password');
                     // Handle invalid login (show error message, etc.)
@@ -59,11 +69,8 @@ export default function EventUser() {
             alert("Please enter email or password");
             return;
         }
-
     };
-
-
-
+    
     useEffect(() => {
         // Check if registration is successful
         if (isLoggedIn) {
@@ -71,6 +78,7 @@ export default function EventUser() {
             navigate('/EventUserHome');
         }
     }, [isLoggedIn]);
+
     return (
         <>
             <div className="user-container">

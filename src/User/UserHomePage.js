@@ -11,12 +11,14 @@ import Footer from '../Components/footer';
 import PersonProfile from './UserAboutUs';
 import { useState, useEffect } from "react";
 import axios from 'axios'
+import { useUser } from '../Components/UserProvider';
 
 export default function UserHomePage() {
     const containerRef = useRef(null);
     const containerRef1 = useRef(null);
     const [event, setEvents] = useState([]);
     const currentDate = new Date();
+    const { user } = useUser();
 
     useEffect(() => {
         axios.get('http://localhost:8080/Event/getAllEvents')
@@ -32,6 +34,33 @@ export default function UserHomePage() {
             console.error('Error fetching events:', error);
           });
       }, []);
+    useEffect(() => {
+    const hasShownLoginAlert = localStorage.getItem('loginAlertShown');
+
+    // If the alert hasn't been shown and there is a user
+    if (!hasShownLoginAlert && user) {
+        axios.get('http://localhost:8080/manageOrganizerRequest/getAllManageOrganizerRequests')
+        .then(response => {
+            const organizerRequestsData = response.data;
+            const userOrganizerRequest = organizerRequestsData.find(req => req.email === user.email);
+
+            if (userOrganizerRequest && userOrganizerRequest.status === 'Declined') {
+            alert('Your request to be an organizer has been declined! You can request again. This notification expires in 3 days.');
+
+            // Set a flag in localStorage to indicate that the alert has been shown
+            localStorage.setItem('loginAlertShown', 'true');
+
+            // Set a timer to expire the localStorage flag after 3 days
+            setTimeout(() => {
+                localStorage.removeItem('loginAlertShown');
+            }, 3 * 24 * 60 * 60 * 1000); // 3 days in milliseconds
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching organizer requests:', error);
+        });
+    }
+    }, [user]);
 
     const scrollLeft = () => {
         if (containerRef.current) {
