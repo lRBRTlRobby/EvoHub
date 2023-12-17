@@ -39,10 +39,11 @@ export default function ViewAttendees(){
             const tmpPart = response.data;
             // console.log("tmpPart: ",tmpPart);
             // console.log("TMPeventId: ",tmpPart.eventId);
-            const origPart = tmpPart.filter(tmpPar => tmpPar.eventId === eventId && tmpPar.status === 'Accepted' );
+            const origPart = tmpPart.filter(tmpPar => tmpPar.eventId == eventId && tmpPar.status === 'Accepted' );
     
             const reqPart = tmpPart.filter(tmpPar => tmpPar.eventId === eventId && tmpPar.status === null );
-    
+            setParticipants(origPart);
+            console.log("origPart: ",origPart);
             console.log("EventId: ",eventId);
             setJoinedCount(origPart.length);
             setRequestCount(reqPart.length)
@@ -274,7 +275,7 @@ export default function ViewAttendees(){
 
                                 <TableCell align="center" sx={{ color: 'white' }}>Department</TableCell>
                                 <TableCell align="center" sx={{ color: 'white' }}>Year Level</TableCell>
-                                <TableCell align="center" sx={{ color: 'white' }}></TableCell>
+                                {/* <TableCell align="center" sx={{ color: 'white' }}></TableCell> */}
                             </TableRow>
                         </TableHead>
                         <TableBody>
