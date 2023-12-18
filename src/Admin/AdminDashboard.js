@@ -59,6 +59,9 @@ export default function Dashboard() {
       setOrganizerRequest(data.filter(participant => participant.status === "Pending"));
     });
     fetchData('Event/getAllEvents', setTotalEvents);
+    fetchData('Event/getAllEvents', (data) => {
+      setTotalEvents(data.filter(participant => participant.isDeleted === 0));
+    });
     fetchData('User/getAllUsers', setTotalUsers);
     fetchData('organizer/getAllOrganizers', setTotalOrganizers);
     // Fetch other data as needed
