@@ -20,6 +20,7 @@ import LogoutConfirmationModal from './LogoutConfirmationModal';
 const pages = ['Home', 'Event Categories', 'Upcoming Events', 'Joined Events'];
 const settings = ['Profile', 'Logout'];
 
+
 function getPagePath(page) {
   switch (page) {
     case 'Home':
@@ -64,10 +65,10 @@ function getSettingPath(settings) {
 
 
 function ResponsiveAppBar() {
-  const { user } = useUser();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [logoutModalOpen, setLogoutModalOpen] = React.useState(false);
+  const { logout, user } = useUser();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -87,6 +88,8 @@ function ResponsiveAppBar() {
   const handleLogout = () => {
     // Open the logout confirmation modal
     setLogoutModalOpen(true);
+      localStorage.removeItem('loginAlertShown');
+
   };
 
   const handleCloseLogoutModal = () => {
