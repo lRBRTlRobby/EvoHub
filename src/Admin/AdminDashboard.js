@@ -1,19 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import AdminHeader from '../Components/adminHeader';
 import { Button, Container } from '@mui/material';
 import Footer from '../Components/footer';
 import AdminEventReqDetails from './AdminEventReqDetails';
+import axios from 'axios';
 
 export default function Dashboard() {
   const [showDetails, setShowDetails] = useState(false);
-  const [selectedTableId, setSelectedTableId] = useState(null);
+  const [totalEvents, setTotalEvents] = useState(null);
+  const [upcomingEvents, setUpcomingEvents] = useState(null);
+  const [pastEvents, setPastEvents] = useState(null);
+  const [organizerRequest, setOrganizerRequest] = useState(null);
+  const [totalUsers, setTotalUsers] = useState(null);
+  const [totalOrganizers, setTotalOrganizers] = useState(null);
+  const [organizerRequests, setOrganizerRequests] = useState(null);
+  const [eventAccepted, setEventsAccepted] = useState([]);
+  const [eventRequested, setEventsRequested] = useState([]);
+  const [eventDate, setEventsDate] = useState([]);
+  const currentDate = new Date();
+  const formattedCurrentDate = currentDate.toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  });
 
-  const textColor = '#8A92A6'; // Define the text color
-  const buttonFontSize = '16px'; // Define the button font size
-  const buttonWidth = '300px'; // Increase the button width
-  const buttonHeight = '100px'; // Adjusted button height for rectangular shape
-  const buttonBorderWidth = '0.5px'; // Define the button border width
-
+  const textColor = '#8A92A6';
+  const buttonFontSize = '16px';
+  const buttonWidth = '300px';
+  const buttonHeight = '100px';
+  const buttonBorderWidth = '0.5px';
   const [isVisible, setIsVisible] = useState(true);
 
   const handleButtonClick = () => {
@@ -22,15 +37,54 @@ export default function Dashboard() {
 
   const handlePrint = () => {
     setIsVisible(false);
-    
     setTimeout(() => {
       window.print();
     }, 100);
     setTimeout(() => {
       setIsVisible(true);
-    
     }, 100);
   };
+
+  const fetchData = async (url, setterFunction) => {
+    try {
+      const response = await axios.get(`http://localhost:8080/${url}`);
+      setterFunction(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData('manageOrganizerRequest/getAllManageOrganizerRequests', (data) => {
+      setOrganizerRequest(data.filter(participant => participant.status === "Pending"));
+    });
+    fetchData('Event/getAllEvents', setTotalEvents);
+    fetchData('User/getAllUsers', setTotalUsers);
+    fetchData('organizer/getAllOrganizers', setTotalOrganizers);
+    // Fetch other data as needed
+  }, []);
+
+  useEffect(() => {
+    axios.get('http://localhost:8080/Event/getAllEvents')
+      .then(response => {
+        const filteredAccepted= response.data.filter(participant => participant.status === 1);
+        const filteredRequested= response.data.filter(participant => participant.status === null);
+        const filteredDate= response.data.filter(participant => participant.date < formattedCurrentDate);
+            console.log("filteredDate",filteredDate)
+            // Set the filtered participants
+            console.log("filteredAccepted",filteredAccepted)
+            console.log("currentDate",currentDate)
+            setEventsAccepted(filteredAccepted);
+            setEventsRequested(filteredRequested);
+            setEventsDate(filteredDate);
+            // Set the events if needed
+            // setEvents(filteredParticipants);
+      })
+      .catch(error => {
+        console.error('Error fetching events:', error);
+      });
+  }, []);
+
 
   return (
     <div>
@@ -38,20 +92,20 @@ export default function Dashboard() {
       <img src="./img/GLE-Building.png" alt="logo" className="banner" />
       <Container maxWidth="lg">
         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        {isVisible && (
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handlePrint}
-          style={{ width: '10rem' }}
-        >
-          Export
-        </Button>
-      )}
+          {isVisible && (
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handlePrint}
+              style={{ width: '10rem' }}
+            >
+              Export
+            </Button>
+          )}
         </div>
 
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
-          <Button
+        <Button
             variant="contained"
             color="primary"
             style={{
@@ -61,14 +115,16 @@ export default function Dashboard() {
               fontSize: buttonFontSize,
               width: buttonWidth,
               height: buttonHeight,
-              border: `${buttonBorderWidth} solid black`,
+              border: `${buttonBorderWidth}px solid black`,
             }}
-            onClick={() => setShowDetails(false)}
+            disabled
           >
-            4
+            {totalEvents ? totalEvents.length : 0}
             <br />
-            Total Events
+            
+            Total Events: 
           </Button>
+          
           <Button
             variant="contained"
             color="primary"
@@ -79,11 +135,11 @@ export default function Dashboard() {
               fontSize: buttonFontSize,
               width: buttonWidth,
               height: buttonHeight,
-              border: `${buttonBorderWidth} solid black`,
+              border: `${buttonBorderWidth}px solid black`,
             }}
-            onClick={() => setShowDetails(false)}
+            disabled // Set disabled attribute to make the button not clickable
           >
-            4
+            {eventAccepted ? eventAccepted.length : 0}
             <br />
             Upcoming Events
           </Button>
@@ -96,10 +152,11 @@ export default function Dashboard() {
               fontSize: buttonFontSize,
               width: buttonWidth,
               height: buttonHeight,
-              border: `${buttonBorderWidth} solid black`,
+              border: `${buttonBorderWidth}px solid black`,
             }}
+            disabled // Set disabled attribute to make the button not clickable
           >
-            4
+            {eventDate ? eventDate.length : 0}
             <br />
             Past Events
           </Button>
@@ -115,14 +172,15 @@ export default function Dashboard() {
               fontSize: buttonFontSize,
               width: buttonWidth,
               height: buttonHeight,
-              border: `${buttonBorderWidth} solid black`,
+              border: `${buttonBorderWidth}px solid black`,
             }}
-            onClick={() => setShowDetails(false)}
+            disabled // Set disabled attribute to make the button not clickable
           >
-            4
+            {eventRequested ? eventRequested.length : 0}
             <br />
             Event Requests
           </Button>
+
           <Button
             variant="contained"
             color="primary"
@@ -133,14 +191,16 @@ export default function Dashboard() {
               fontSize: buttonFontSize,
               width: buttonWidth,
               height: buttonHeight,
-              border: `${buttonBorderWidth} solid black`,
+              border: `${buttonBorderWidth}px solid black`,
             }}
-            onClick={() => setShowDetails(false)}
+            disabled
           >
-            4
+            {totalUsers ? totalUsers.length : 0}
             <br />
-            Total Users
+           
+            Total Users: 
           </Button>
+
           <Button
             variant="contained"
             color="primary"
@@ -151,14 +211,16 @@ export default function Dashboard() {
               fontSize: buttonFontSize,
               width: buttonWidth,
               height: buttonHeight,
-              border: `${buttonBorderWidth} solid black`,
+              border: `${buttonBorderWidth}px solid black`,
             }}
-            onClick={() => setShowDetails(false)}
+            disabled
+            
           >
-            4
+            {totalOrganizers ? totalOrganizers.length : 0}
             <br />
             Total Organizers
           </Button>
+
           <Button
             variant="contained"
             color="primary"
@@ -168,10 +230,11 @@ export default function Dashboard() {
               fontSize: buttonFontSize,
               width: buttonWidth,
               height: buttonHeight,
-              border: `${buttonBorderWidth} solid black`,
+              border: `${buttonBorderWidth}px solid black`,
             }}
+            disabled
           >
-            4
+            {organizerRequest ? organizerRequest.length : 0}
             <br />
             Organizer Requests
           </Button>
@@ -180,7 +243,7 @@ export default function Dashboard() {
         {showDetails && (
           <AdminEventReqDetails
             setShowDetails={setShowDetails}
-            selectedTableId={selectedTableId}
+            
           />
         )}
       </Container>
