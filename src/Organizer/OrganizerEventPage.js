@@ -26,6 +26,30 @@ export default function OrganEventPage() {
   const [participantsAccept, setParticipantsAccept] = useState([]);
   const { organizer } = useOrganizer();
 
+  function getOrdinalSuffix(number) {
+    if (number === 0) {
+      return ''; // Open to all levels or non-specific case
+    }
+  
+    const lastDigit = number % 10;
+    const secondLastDigit = Math.floor((number % 100) / 10);
+  
+    if (secondLastDigit === 1) {
+      return 'th'; // Use 'th' for numbers ending in 11, 12, or 13
+    }
+  
+    switch (lastDigit) {
+      case 1:
+        return 'st';
+      case 2:
+        return 'nd';
+      case 3:
+        return 'rd';
+      default:
+        return 'th';
+    }
+  }
+
   // useEffect(() => {
   //   window.scroll(0, 0);
   //       axios.get(`http://localhost:8080/Event/getEvent/${eventId}`)
@@ -141,7 +165,7 @@ export default function OrganEventPage() {
           <p style={{ textAlign: 'justify', width: '810px', marginRight: '350px', marginLeft: '150px', fontSize: '18px' }}>
             {event.department === 'None' ? 'Open to every department' : `This event is exclusively for ${event.department} college students.`}
             <br />
-            {event.yearlevel === 0 ? 'Open to all levels! Join us for a fantastic time!' : `This event is exclusively for ${event.yearlevel}th year  college students.`}
+            {event.yearlevel === 0 ? 'Open to all levels! Join us for a fantastic time!' : `This event is exclusively for ${event.yearlevel}${getOrdinalSuffix(event.yearlevel)} year  college students.`}
             <br />
             {event.payment === 'No' ? "Complimentary attendance—no payment required." : "Please note that payment is required for participation."}
           </p>

@@ -329,7 +329,7 @@ export default function CreateEventForm() {
                         color: "#666666",
                       }}
                     >
-                      Duration (Minutes)
+                      Duration (Hours)
                     </h5>
                     <input
                       type="number"
