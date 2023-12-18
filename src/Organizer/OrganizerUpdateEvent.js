@@ -97,24 +97,6 @@ export default function UpdateEventForm() {
     textAlign: 'center',
     color: theme.palette.text.secondary,
   }));
-  // const resetForm = () => {
-  //   setFormData({
-  //     eventTitle: "",
-  //     description: "",
-  //     date: "",
-  //     time: "",
-  //     duration: "",
-  //     location: "",
-  //     organizer: "",
-  //     year: "",
-  //     department: "",
-  //     payment: "",
-  //     max: "",
-      
-
-  //   });
-  // };
-
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
@@ -152,24 +134,34 @@ export default function UpdateEventForm() {
     e.preventDefault();
   
     // Validate location, time, and date
-    const isLocationTaken = allEvents.some(
-      (existingEvent) =>
-        existingEvent.location === formData.location &&
-        existingEvent.date === formatDateForComparison(formData.date) &&
-        existingEvent.time + existingEvent.duration <= formData.time + formData.duration &&
-        existingEvent.orgid !== organizer.oid
-    );
+    const isLocationTaken = allEvents.some((existingEvent) => {
+      const existingStartTime = new Date(`${existingEvent.date} ${existingEvent.time}`);
+      const existingEndTime = new Date(existingStartTime.getTime() + existingEvent.duration * 60 * 60 * 1000); // convert duration to milliseconds
     
-  
+      const newStartTime = new Date(`${formData.date} ${formData.time}`);
+      const newEndTime = new Date(newStartTime.getTime() + formData.duration * 60 * 60 * 1000); // convert duration to milliseconds
+    
+      console.log("Existing Event - Start Time:", existingStartTime);
+      console.log("Existing Event - End Time:", existingEndTime);
+      console.log("New Event - Start Time:", newStartTime);
+      console.log("New Event - End Time:", newEndTime);
+    
+      return (
+        existingEvent.location === formData.location &&
+        existingEvent.date === formatDateForComparison(formData.date) && // Check if dates match
+        !(newEndTime <= existingStartTime || newStartTime >= existingEndTime) // Check for time overlap
+        && existingEvent.orgid !== organizer.oid
+      );
+    });
+    
+    
     if (isLocationTaken) {
-      alert('Warning: Another event already exists at the same location, date, and time.');
+      alert(
+        "Warning: Another event already exists at the same location, date, and time."
+      );
       return;
-      // console.log('Existing Event:', allEvents.find((existingEvent) => existingEvent.time === formData.time));
-      // console.log('Form Data:', formData);
-      // You can choose to display the warning in the UI or take further actions
-
     }
-  
+    
     try {
       // Convert date format to string
       const formattedDate = formatDateForComparison(new Date(formData.date));

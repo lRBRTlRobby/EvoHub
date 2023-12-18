@@ -86,8 +86,8 @@ export default function OrganizerHomePage() {
 
                 <div>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                        <h2 style={{ fontFamily: "'DM Sans', sans-serif" }}>Popular Events</h2>
-                        <Link to = "/OrganizerPopularEvents"  style={{textDecoration:'none'}}><Button sx={{ padding: "0" }}><h4>View All</h4></Button></Link>
+                        <h2 style={{ fontFamily: "'DM Sans', sans-serif" }}>Upcoming Events</h2>
+                        <Link to = "/OrganizerUpcomingEvents"  style={{textDecoration:'none'}}><Button sx={{ padding: "0" }}><h4>View All</h4></Button></Link>
                     </div>
                     <div style={{ marginBottom: "5rem" }}>
                         <div style={{ display: "flex", overflowX: "hidden", maxWidth: "100%" }} ref={containerRef1}>

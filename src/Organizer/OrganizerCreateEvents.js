@@ -112,7 +112,7 @@ export default function CreateEventForm() {
         return;
       }
     }
-      const isLocationTaken = allEvents.some((existingEvent) => {
+    const isLocationTaken = allEvents.some((existingEvent) => {
       const existingStartTime = new Date(`${existingEvent.date} ${existingEvent.time}`);
       const existingEndTime = new Date(existingStartTime.getTime() + existingEvent.duration * 60 * 60 * 1000); // convert duration to milliseconds
     
@@ -126,9 +126,11 @@ export default function CreateEventForm() {
     
       return (
         existingEvent.location === formData.location &&
-        existingEvent.date === formatDateForComparison(formData.date) &&
-        existingEvent.time + existingEvent.duration <= formData.time + formData.duration
-    )})
+        existingEvent.date === formatDateForComparison(formData.date) && // Check if dates match
+        !(newEndTime <= existingStartTime || newStartTime >= existingEndTime) // Check for time overlap
+      );
+    });
+    
     
     if (isLocationTaken) {
       alert(
