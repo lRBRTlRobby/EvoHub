@@ -45,27 +45,7 @@ export default function CreateEventForm() {
     department: "",
     payment: "",
     max: "",
-    // status: "",
-    // role:[],
-    // sponsors:[]
   });
-
-  // const resetForm = () => {
-  //   setFormData({
-  //     eventTitle: "",
-  //     description: "",
-  //     date: "",
-  //     time: "",
-  //     duration: "",
-  //     location: "",
-  //     organizer: "",
-  //     year: "",
-  //     department: "",
-  //     payment: "",
-  //     max: "",
-
-  //   });
-  // };
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
@@ -132,7 +112,7 @@ export default function CreateEventForm() {
         return;
       }
     }
-    const isLocationTaken = allEvents.some((existingEvent) => {
+      const isLocationTaken = allEvents.some((existingEvent) => {
       const existingStartTime = new Date(`${existingEvent.date} ${existingEvent.time}`);
       const existingEndTime = new Date(existingStartTime.getTime() + existingEvent.duration * 60 * 60 * 1000); // convert duration to milliseconds
     
@@ -148,16 +128,15 @@ export default function CreateEventForm() {
         existingEvent.location === formData.location &&
         existingEvent.date === formatDateForComparison(formData.date) &&
         existingEvent.time + existingEvent.duration <= formData.time + formData.duration
-    );
+    )})
     
-  
     if (isLocationTaken) {
       alert(
         "Warning: Another event already exists at the same location, date, and time."
       );
       return;
     }
-
+    
     try {
       // Convert date format to string
       const formattedDate = new Date(formData.date).toLocaleDateString('en-US', {
@@ -184,7 +163,6 @@ export default function CreateEventForm() {
           orgid: organizer.oid,
           organEmail: organizer.email,
           status: 2,
-          status: 2,
         },
         {
           headers: {
@@ -201,6 +179,8 @@ export default function CreateEventForm() {
       console.error("Error submitting form:", error);
     }
   };
+ 
+
 
   console.log(organizer.oid);
   console.log(formData);
