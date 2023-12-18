@@ -115,6 +115,7 @@ export default function CreateEventForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
   
+    // Check if any required form field is empty
     for (const key in formData) {
       console.log(`Checking ${key}: ${formData[key]}`);
       if (!formData[key]) {
@@ -122,13 +123,26 @@ export default function CreateEventForm() {
         return;
       }
     }
-
-    const isLocationTaken = allEvents.some(
-      (existingEvent) =>
+    const isLocationTaken = allEvents.some((existingEvent) => {
+      const existingStartTime = new Date(`${existingEvent.date} ${existingEvent.time}`);
+      const existingEndTime = new Date(existingStartTime.getTime() + existingEvent.duration * 60 * 60 * 1000); // convert duration to milliseconds
+    
+      const newStartTime = new Date(`${formData.date} ${formData.time}`);
+      const newEndTime = new Date(newStartTime.getTime() + formData.duration * 60 * 60 * 1000); // convert duration to milliseconds
+    
+      console.log("Existing Event - Start Time:", existingStartTime);
+      console.log("Existing Event - End Time:", existingEndTime);
+      console.log("New Event - Start Time:", newStartTime);
+      console.log("New Event - End Time:", newEndTime);
+    
+      return (
         existingEvent.location === formData.location &&
-        existingEvent.date === formatDateForComparison(formData.date) &&
-        existingEvent.time + existingEvent.duration <= formData.time + formData.duration
-    );
+        existingEvent.date === formatDateForComparison(formData.date) && // Check if dates match
+        !(newEndTime <= existingStartTime || newStartTime >= existingEndTime) // Check for time overlap
+      );
+    });
+    
+    
     
   
     if (isLocationTaken) {
@@ -144,6 +158,7 @@ export default function CreateEventForm() {
         year: 'numeric',
       });
   
+      // Submit the form data to the server
       const response = await axios.post(
         "http://localhost:8080/Event/insertEvent",
         {
@@ -161,7 +176,7 @@ export default function CreateEventForm() {
           image: imageUrl,
           orgid: organizer.oid,
           organEmail: organizer.email,
-          status: 2
+          status: 2,
         },
         {
           headers: {
@@ -169,10 +184,14 @@ export default function CreateEventForm() {
           },
         }
       );
-      setFormSubmitted(true)
-      // Alert after successful request
+  
+      // Set the form submitted state
+      setFormSubmitted(true);
+  
+      // Display success message
       window.alert('Request Successfully Requested to the Admin');
-      // add navigate then proceed to
+  
+      // Navigate to the OrganizerHomePage
       navigate("/OrganizerHomePage");
     } catch (error) {
       console.error('Error submitting form:', error);
