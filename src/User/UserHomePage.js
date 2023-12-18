@@ -113,8 +113,8 @@ console.log("events: ",event)
                 </div>
                 <div>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                        <h2 style={{ fontFamily: "'DM Sans', sans-serif" , textDecoration:'none'}}>Popular Events</h2>
-                        <Link to = "/UserPopularEvents"><Button sx={{ padding: "0" }}><h4>View All</h4></Button></Link>
+                        <h2 style={{ fontFamily: "'DM Sans', sans-serif" , textDecoration:'none'}}>Upcoming Events</h2>
+                        <Link to = "/UserUpcomingEvents"><Button sx={{ padding: "0" }}><h4>View All</h4></Button></Link>
                     </div>
 
                     {/* Popular Event Cards */}
