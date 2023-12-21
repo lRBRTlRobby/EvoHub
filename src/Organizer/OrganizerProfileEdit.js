@@ -137,7 +137,7 @@ export default function OrganizerProfileEdit() {
                                 disabled
                             />
 
-<p><b>Role:</b></p>
+                            <p><b>Role:</b></p>
                             <TextField
                                 className='txt'
                                 id="dept"
@@ -149,10 +149,10 @@ export default function OrganizerProfileEdit() {
                                 disabled
                             />
 
-                           
+
                         </Grid>
                         <Grid item xs={6} md={6}>
-                        <p><b>Department:</b></p>
+                            <p><b>Department:</b></p>
                             <TextField
                                 className='txt'
                                 id="dept"
